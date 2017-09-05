@@ -93,6 +93,9 @@ bool App1::render()
 	////// Render object (combination of mesh geometry and shader process
 	//colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 
+	renderer->setWireframeMode(true);
+
+
 	square->sendData(renderer->getDeviceContext());
 	colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
 
