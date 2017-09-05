@@ -23,8 +23,8 @@ void SquareMesh::initBuffers(ID3D11Device* device)
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 
-	vertexCount = 3;
-	indexCount = 3;
+	vertexCount = 4;
+	indexCount = 6;
 
 	vertices = new VertexType[vertexCount];
 	indices = new unsigned long[indexCount];
