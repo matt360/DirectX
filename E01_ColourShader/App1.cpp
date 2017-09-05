@@ -7,6 +7,8 @@ App1::App1()
 	//BaseApplication::BaseApplication();
 	mesh = nullptr;
 	colourShader = nullptr;
+
+	quad = nullptr;
 }
 
 void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -16,6 +18,8 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 
 	// Create Mesh object
 	mesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+
+	quad = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	colourShader = new ColourShader(renderer->getDevice(), hwnd);
 }
@@ -31,6 +35,12 @@ App1::~App1()
 	{
 		delete mesh;
 		mesh = 0;
+	}
+
+	if (quad)
+	{
+		delete quad;
+		quad = 0;
 	}
 
 	if (colourShader)
@@ -75,12 +85,17 @@ bool App1::render()
 	worldMatrix = renderer->getWorldMatrix();
 	viewMatrix = camera->getViewMatrix();
 	projectionMatrix = renderer->getProjectionMatrix();
+	
+	////// Send geometry data (from mesh)
+	//mesh->sendData(renderer->getDeviceContext());
+	////// Set shader parameters (matrices and texture)
+	//colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
+	////// Render object (combination of mesh geometry and shader process
+	//colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 
-	//// Send geometry data (from mesh)
-	mesh->sendData(renderer->getDeviceContext());
-	//// Set shader parameters (matrices and texture)
+	quad->sendData(renderer->getDeviceContext());
 	colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
-	//// Render object (combination of mesh geometry and shader process
+
 	colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 
 	// Render GUI

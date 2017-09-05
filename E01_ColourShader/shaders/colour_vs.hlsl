@@ -27,6 +27,8 @@ OutputType main(InputType input)
 {
 	OutputType output;
 	
+	input.position *= 5.0f;
+
 	// Change the position vector to be 4 units for proper matrix calculations.
 	input.position.w = 1.0f;
 
