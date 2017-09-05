@@ -18,7 +18,6 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	mesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	colourShader = new ColourShader(renderer->getDevice(), hwnd);
-
 }
 
 
