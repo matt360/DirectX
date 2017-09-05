@@ -5,7 +5,7 @@
 #ifndef _SQUARE_MESH_H
 #define _SQAURE_MESH_H
 
-#include "BaseMesh.h"
+#include "..\DXFramework\BaseMesh.h"
 
 using namespace DirectX;
 

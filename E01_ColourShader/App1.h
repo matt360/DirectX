@@ -5,6 +5,7 @@
 // Includes
 #include "../DXFramework/DXF.h"
 #include "ColourShader.h"
+#include "SquareMesh.h"
 
 class App1 : public BaseApplication
 {
@@ -24,6 +25,7 @@ private:
 	ColourShader* colourShader;
 	TriangleMesh* mesh;
 	QuadMesh* quad;
+	SquareMesh* square;
 };
 
 #endif

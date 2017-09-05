@@ -8,7 +8,7 @@ App1::App1()
 	mesh = nullptr;
 	colourShader = nullptr;
 
-	quad = nullptr;
+	square = nullptr;
 }
 
 void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -19,7 +19,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// Create Mesh object
 	mesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	quad = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
+	square = new SquareMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	colourShader = new ColourShader(renderer->getDevice(), hwnd);
 }
@@ -37,10 +37,10 @@ App1::~App1()
 		mesh = 0;
 	}
 
-	if (quad)
+	if (square)
 	{
-		delete quad;
-		quad = 0;
+		delete square;
+		square = 0;
 	}
 
 	if (colourShader)
@@ -93,10 +93,10 @@ bool App1::render()
 	////// Render object (combination of mesh geometry and shader process
 	//colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 
-	quad->sendData(renderer->getDeviceContext());
+	square->sendData(renderer->getDeviceContext());
 	colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
 
-	colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	colourShader->render(renderer->getDeviceContext(), square->getIndexCount());
 
 	// Render GUI
 	gui();

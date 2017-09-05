@@ -88,10 +88,12 @@
     <ClCompile Include="App1.cpp" />
     <ClCompile Include="ColourShader.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SquareMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App1.h" />
     <ClInclude Include="ColourShader.h" />
+    <ClInclude Include="SquareMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DXFramework\DXFramework.vcxproj">
