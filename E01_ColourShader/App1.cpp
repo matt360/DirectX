@@ -86,6 +86,9 @@ bool App1::render()
 	viewMatrix = camera->getViewMatrix();
 	projectionMatrix = renderer->getProjectionMatrix();
 	
+	// wireframe mode
+	renderer->setWireframeMode(true);
+
 	////// Send geometry data (from mesh)
 	//mesh->sendData(renderer->getDeviceContext());
 	////// Set shader parameters (matrices and texture)
@@ -93,12 +96,11 @@ bool App1::render()
 	////// Render object (combination of mesh geometry and shader process
 	//colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 
-	renderer->setWireframeMode(true);
-
-
+	// Send geometry data (from mesh)
 	square->sendData(renderer->getDeviceContext());
+	// Set shader parameters (matrices and texture)
 	colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
-
+	// Render object (combination of mesh geometry and shader process
 	colourShader->render(renderer->getDeviceContext(), square->getIndexCount());
 
 	// Render GUI
@@ -117,6 +119,17 @@ void App1::gui()
 
 	// Build UI
 	ImGui::Text("FPS: %.2f", timer->getFPS());
+
+	if (ImGui::Button("OK"))
+	{
+		// do stuff
+	}
+
+	ImGui::InputText("string", "bug", 256);
+
+	float f = 0.0f;
+
+	ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
 
 	// Render UI
 	ImGui::Render();
