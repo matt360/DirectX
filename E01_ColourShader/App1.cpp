@@ -87,8 +87,8 @@ bool App1::render()
 	projectionMatrix = renderer->getProjectionMatrix();
 	
 	// wireframe mode
-	renderer->setWireframeMode(true);
-
+	//renderer->setWireframeMode(true);
+	
 	////// Send geometry data (from mesh)
 	//mesh->sendData(renderer->getDeviceContext());
 	////// Set shader parameters (matrices and texture)
@@ -125,7 +125,7 @@ void App1::gui()
 		// do stuff
 	}
 
-	ImGui::InputText("string", "bug", 256);
+	ImGui::InputText("string", &bug, 256);
 
 	float f = 0.0f;
 

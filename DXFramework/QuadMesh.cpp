@@ -24,6 +24,7 @@ void QuadMesh::initBuffers(ID3D11Device* device)
 	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	
+
 	vertexCount = 4;
 	indexCount = 6;
 

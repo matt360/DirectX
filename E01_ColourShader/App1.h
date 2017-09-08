@@ -26,6 +26,8 @@ private:
 	TriangleMesh* mesh;
 	QuadMesh* quad;
 	SquareMesh* square;
+
+	char bug = '0';
 };
 
 #endif
