@@ -47,10 +47,11 @@ public:
 protected:
 	virtual void initShader(WCHAR*, WCHAR*) = 0;
 	void loadVertexShader(WCHAR* filename);
+	void loadPixelShader(WCHAR* filename);
 	void loadHullShader(WCHAR* filename);
 	void loadDomainShader(WCHAR* filename);
 	void loadGeometryShader(WCHAR* filename);
-	void loadPixelShader(WCHAR* filename);
+	void loadComputeShader(WCHAR* filename);
 
 protected:
 	ID3D11Device* renderer;
@@ -61,6 +62,7 @@ protected:
 	ID3D11HullShader* hullShader;
 	ID3D11DomainShader* domainShader;
 	ID3D11GeometryShader* geometryShader;
+	ID3D11ComputeShader* computeShader;
 	ID3D11InputLayout* layout;
 	ID3D11Buffer* matrixBuffer;
 	ID3D11SamplerState* sampleState;

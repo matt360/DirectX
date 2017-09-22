@@ -42,6 +42,12 @@ BaseShader::~BaseShader()
 		geometryShader->Release();
 		geometryShader = 0;
 	}
+
+	if (computeShader)
+	{
+		computeShader->Release();
+		computeShader = 0;
+	}
 }
 
 // Given pre-compiled file, load and create vertex shader.
@@ -302,17 +308,76 @@ void BaseShader::loadGeometryShader(WCHAR* filename)
 	geometryShaderBuffer = 0;
 }
 
+void BaseShader::loadComputeShader(WCHAR* filename)
+{
+	/// https://msdn.microsoft.com/en-us/library/windows/desktop/bb173507(v=vs.85).aspx
+	/// ID3D11Blob interface has these methods: 
+	/// - GetBufferPointer - Get a pointer to the data.
+	/// - GetBufferSize - Get the size.
+	/// An ID3D10Blob is obtained by calling D3D10CreateBlob.
+	/// ID3DBlob is version neutral and can be used in code for any Direct3D version.
+	/// Blobs can be used as a data buffer, storing vertex, adjacency, and material information
+	/// during mesh optimization and loading operations. Also, these objects are used to return
+	/// object code and error messages in APIs that compile vertex, geometry and pixel shaders.
+	ID3D10Blob* computeShaderBuffer;
+
+	// check file extension for correct loading function.
+	std::wstring fn(filename);
+	std::string::size_type idx;
+	std::wstring extension;
+
+	idx = fn.rfind('.');
+
+	if (idx != std::string::npos)
+	{
+		extension = fn.substr(idx + 1);
+	}
+	else
+	{
+		// No extension found
+		MessageBox(hwnd, L"Error finding compute shader file", L"ERROR", MB_OK); // TODO check if the message is correct
+		exit(0);
+	}
+
+	// Load the texture in.
+	if (extension != L"cso")
+	{
+		MessageBox(hwnd, L"Incorrect compute domain file type", L"ERROR", MB_OK); // TODO check if the message is correct
+		exit(0);
+	}
+
+	// Reads compiled shader into buffer (bytecode).
+	HRESULT result = D3DReadFileToBlob(filename, &computeShaderBuffer);
+	if (result != S_OK)
+	{
+		MessageBox(NULL, filename, L"File not found", MB_OK);
+		exit(0);
+	}
+
+	// Create the domain shader from the buffer.
+	renderer->CreateComputeShader(computeShaderBuffer->GetBufferPointer(), computeShaderBuffer->GetBufferSize(), NULL, &computeShader);
+
+	computeShaderBuffer->Release();
+	computeShaderBuffer = 0;
+}
+
 // De/Activate shader stages and send shaders to GPU.
 void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {
 	// Set the vertex input layout.
 	deviceContext->IASetInputLayout(layout);
 
+	// if vertex shader and pixel shader are not null the set VS and PS
+	/*vertexShader ? deviceContext->VSSetShader(vertexShader, NULL, 0) : deviceContext->VSSetShader(NULL, NULL, 0);*/
+	/*pixelShader ? deviceContext->PSSetShader(pixelShader, NULL, 0) : deviceContext->VSSetShader(NULL, NULL, 0);*/
+
 	// Set the vertex and pixel shaders that will be used to render.
 	deviceContext->VSSetShader(vertexShader, NULL, 0);
 	deviceContext->PSSetShader(pixelShader, NULL, 0);
 	
 	// if Hull shader is not null then set HS and DS
+	/*hullShader ? deviceContext->HSSetShader(hullShader, NULL, 0), deviceContext->DSSetShader(domainShader, NULL, 0) :
+	             deviceContext->HSSetShader(NULL, NULL, 0), deviceContext->DSSetShader(NULL, NULL, 0);*/
 	if (hullShader)
 	{
 		deviceContext->HSSetShader(hullShader, NULL, 0);
@@ -325,6 +390,7 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 	}
 
 	// if geometry shader is not null then set GS
+	/*geometryShader ? deviceContext->GSSetShader(geometryShader, NULL, 0) : deviceContext->GSSetShader(NULL, NULL, 0);*/
 	if (geometryShader)
 	{
 		deviceContext->GSSetShader(geometryShader, NULL, 0);
@@ -332,6 +398,17 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 	else
 	{
 		deviceContext->GSSetShader(NULL, NULL, 0);
+	}
+
+	// if compute shader is not null then set CS
+	/*computeShader ? deviceContext->CSSetShader(computeShader, NULL, 0) : deviceContext->CSSetShader(NULL, NULL, 0);*/
+	if (computeShader)
+	{
+		deviceContext->CSSetShader(computeShader, NULL, 0);
+	}
+	else
+	{
+		deviceContext->CSSetShader(NULL, NULL, 0);
 	}
 
 	// Render the triangle.

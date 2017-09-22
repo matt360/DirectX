@@ -61,6 +61,7 @@ void QuadMesh::initBuffers(ID3D11Device* device)
 	// Set up the description of the static vertex buffer.
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	vertexBufferDesc.ByteWidth = sizeof(VertexType)* vertexCount;
+	//vertexBufferDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
@@ -70,6 +71,7 @@ void QuadMesh::initBuffers(ID3D11Device* device)
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 	// Now create the vertex buffer.
+
 	device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer);
 	
 	// Set up the description of the static index buffer.

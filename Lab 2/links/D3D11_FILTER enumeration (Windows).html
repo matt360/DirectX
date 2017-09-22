@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx -->
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en" class="js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./D3D11_FILTER enumeration (Windows)_files/getid.js.download"></script><script async="" charset="UTF-8" src="./D3D11_FILTER enumeration (Windows)_files/meBoot.min.js.download"></script><link rel="canonical" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476132(v=vs.85).aspx">
+    <title>D3D11_FILTER enumeration (Windows)</title>
+
+
+
+
+
+
+
+<meta name="DCS.dcsuri" content="/en-us/library/windows/desktop/ff476132(d=default,l=en-us,v=vs.85).aspx">
+
+<meta name="NormalizedUrl" content="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476132(d=default,l=en-us,v=vs.85).aspx">
+
+<meta name="ms.normalizedurl" content="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476132(d=default,l=en-us,v=vs.85).aspx">
+
+<meta name="AmbientContext" content="{&quot;layout.limit_max_width&quot;:true,&quot;AmbientContextId&quot;:&quot;2EB8BBAA-FBD1-4490-8EC7-D6379CDCDB1E&quot;,&quot;display.use_large_font&quot;:true,&quot;insight.perf_timing&quot;:true,&quot;AmbientContextDownstream&quot;:{&quot;LogTrace&quot;:false},&quot;display.high_contrast&quot;:false,&quot;insight.use_wedcs_vnext&quot;:true}">
+
+<meta name="VotingContextUrl" content="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476132(d=default,l=en-us,v=vs.85).aspx">
+
+<meta name="MN" content="FB361395-4:54:59 AM">
+
+<meta name="Search.ShortId" content="ff476132">
+
+<meta name="ms.shortidmsdn" content="ff476132">
+
+<meta name="ms.locale" content="en-us">
+
+<meta name="ms.prodver" content="VS.85">
+
+<meta name="ms.contentlang" content="EN">
+
+<meta name="ms.lang" content="EN">
+
+<meta name="ms.loc" content="GB">
+
+<meta name="ms.sitever" content="2017.08.13.1">
+
+<meta name="ms.assetid" content="873b7910-4686-4f0c-a674-2aa3585a9b36">
+
+<meta name="ms.auth" content="0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/ImageSprite.css">
+    <link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/TopicResponsive.css">
+        <link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/TopicResponsive.MediaQueries.css">
+
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/CodeSnippet.css">
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/ProgrammingSelector.css">
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/ExpandableCollapsibleArea.css">
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/CommunityContent.css">
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/TopicNotInScope.css">
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/FeedViewerBasic.css">
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/ImageSprite(1).css">
+
+    <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/ai.0.js.download" async=""></script><script type="text/javascript" data-do-not-move="true">
+        //<![CDATA[
+        var AmbientContext = null;
+
+        (function(){
+            var root = (function(){return this;}).call(null);
+
+            var GetCookie = function(name){
+                var cookies = root.document.cookie ? root.document.cookie.split('; ') : [];
+                for (var i = 0; i < cookies.length; i++) {
+                    var pos = cookies[i].indexOf('=');
+                    if (name === root.decodeURIComponent(cookies[i].slice(0, pos)))
+                    {
+                        var cookie = cookies[i].slice(pos + 1).replace(/\+/g, ' ');
+                        cookie = root.decodeURIComponent(cookie);
+                        return cookie;
+                    }
+                }
+            };
+
+            var JsonDeserialize = function(content) {
+                return root.JSON && root.JSON.parse ? root.JSON.parse(content) : (new Function('return (' + content + ')'))();
+            };
+
+            try {
+                AmbientContext = GetCookie('AmbientContext');
+                AmbientContext = AmbientContext && JsonDeserialize(AmbientContext);
+            } catch(ex) {
+            } finally {
+                AmbientContext = AmbientContext || null;
+            }
+        })();
+        //]]>
+    </script>
+
+    <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/jquery-1.9.1.min.js.download" data-do-not-move="true" data-provides="jQuery"></script>
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://msdn.microsoft.com/Areas/Epx/Themes/Windows/Content/Winlogo_favicon.ico">
+
+
+<script src="./D3D11_FILTER enumeration (Windows)_files/broker.js.download"></script><meta name="ms.layout_limit_max_width" content="true"><meta name="ms.AmbientContextId" content="2EB8BBAA-FBD1-4490-8EC7-D6379CDCDB1E"><meta name="ms.display_use_large_font" content="true"><meta name="ms.insight_perf_timing" content="true"><meta name="ms.AmbientContextDownstream" content="%7B%7D"><meta name="ms.display_high_contrast" content="false"><meta name="ms.insight_use_wedcs_vnext" content="true"><link href="./D3D11_FILTER enumeration (Windows)_files/PrintView.css" rel="stylesheet" type="text/css" media="print"><meta name="ms.perf.timing" content=",,8,8,8,10,1082,1179,1085,2847,2847,,,,"><script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/ms.js.download"></script><script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/jsll-3.2.0.js.download"></script><script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/jsll-4.2.0.js.download"></script><script async="" src="./D3D11_FILTER enumeration (Windows)_files/t.js.download"></script><style type="text/css">.msame_TxtTrunc{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;word-break:break-all}.msame_Header{display:inline-block;cursor:pointer;font-size:14px;border-width:1px;border-style:solid;border-bottom-style:none;border-color:transparent;width:100%}.msame_Header_name{padding-left:12px;max-width:160px;display:inline-block;line-height:64px;vertical-align:top;font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,sans-serif;font-size:86%;color:#505050}.msame_unauth .msame_Header_name{padding-right:12px}.msame_unauth .msame_Header_name:hover{color:#0078d7}.msame_Drop_AI_pic,.msame_Drop_active_pic,.msame_Header_pic{display:inline-block}.msame_Header_piccont{padding-top:14px;padding-bottom:14px;padding-right:12px;padding-left:8px}.msame_Mobile .msame_Header_piccont{padding-top:10px;padding-bottom:10px}.msame_Short .msame_Header_piccont{padding-left:12px}.msame_Header_picframe{width:36px;height:36px;border-radius:50%;overflow:hidden}.msame_Mobile .msame_Header_picframe{width:48px;height:48px}.msame_open .msame_Header_picframe{z-index:3000001;position:relative}.msame_Header_chev{display:none}.msame_Mobile .msame_Header_piccont{padding-right:8px;padding-left:10px}.msame_Mobile .msame_Header_name{line-height:3;font-size:114%;padding-left:10px;padding-right:10px;display:inline-block;vertical-align:top;padding-top:14px}.msame_Mobile.msame_3row .msame_Header_name{padding-top:6px}.msame_Mobile .msame_Header_chev{display:inline-block;line-height:64px;vertical-align:top;padding-right:16px;padding-left:8px;float:right}.msame_open .msame_Header_chev img{-moz-transform:scaleY(-1);-o-transform:scaleY(-1);-webkit-transform:scaleY(-1);transform:scaleY(-1);filter:FlipV;-ms-filter:FlipV}.msame_Drop_root .msame_Drop_AI:focus,.msame_Drop_root .msame_Drop_AI_remove:focus,.msame_Drop_root a:focus,.msame_Header:focus{border-style:dashed;border-color:#000;border-width:1px}.msame_Header .msame_Header_piccont img{width:36px;height:36px;line-height:normal;vertical-align:baseline}.msame_Mobile .msame_Header_piccont img{width:48px;height:48px}.msame_Mobile .msame_Header_fullName{font-size:100%;color:#000;line-height:1.333}.msame_Drop_AI_email,.msame_Drop_AI_status,.msame_Mobile .msame_Header_email,.msame_Mobile .msame_Header_nickName{font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,sans-serif;font-size:86%;color:rgba(0,0,0,.54);line-height:1.333333}.msaie8 .msame_Drop_AI_pic,.msaie8 .msame_Drop_AI_right,.msaie8 .msame_Drop_active_pic,.msaie8 .msame_Drop_active_right,.msaie8 .msame_Header,.msaie8 .msame_Header_name,.msaie8 .msame_Header_pic{zoom:1}</style></head>
+<body class="library Chrome" style="overflow-y: auto;">
+    <div id="page">
+
+        <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/Utilities.js.download" data-requires="jQuery" data-provides="utilities"></script>
+
+        
+
+    <link rel="stylesheet" type="text/css" href="./D3D11_FILTER enumeration (Windows)_files/Header.css" xmlns="http://www.w3.org/1999/xhtml"><link rel="stylesheet" type="text/css" href="./D3D11_FILTER enumeration (Windows)_files/sprite.css" xmlns="http://www.w3.org/1999/xhtml">
+
+        <link rel="stylesheet" type="text/css" href="./D3D11_FILTER enumeration (Windows)_files/UhfHeaderResponsive.css" data-do-not-move="true">
+    <div id="uhf-header-wrapper">
+        <link rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/81-22b75a" type="text/css" media="all"><script data-requires="jQuery" data-provides="uhfHeader" src="./D3D11_FILTER enumeration (Windows)_files/13-fc5afa"></script><script data-requires="jQuery" data-provides="uhfHeader" src="./D3D11_FILTER enumeration (Windows)_files/meversion"></script>    <section id="headerArea" data-m="{&quot;cN&quot;:&quot;headerArea&quot;,&quot;cT&quot;:&quot;Area_coreuiArea&quot;,&quot;id&quot;:&quot;a1Body&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;Body&quot;}">
+                    <div id="headerRegion" data-region-key="headerregion" data-m="{&quot;cN&quot;:&quot;headerRegion&quot;,&quot;cT&quot;:&quot;Region_coreui-region&quot;,&quot;id&quot;:&quot;r1a1&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;a1&quot;}">
+
+    <div id="headerUniversalHeader" data-m="{&quot;cN&quot;:&quot;headerUniversalHeader&quot;,&quot;cT&quot;:&quot;Module_coreui-universalheader&quot;,&quot;id&quot;:&quot;m1r1a1&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;r1a1&quot;}" data-module-id="Category|headerRegion|headerRegion|headerUniversalHeader|coreui-universalheader">
+        
+
+
+    <div id="uhfCookieAlert" class="uhfc-universal-context context-uhf" ms.cmpgrp="epb">
+<div class="m-alert f-information" role="alert">
+            <button class="c-action-trigger c-glyph glyph-cancel" aria-label="close alert" data-m="{&quot;cN&quot;:&quot;No thanks&quot;,&quot;id&quot;:&quot;nn1m1r1a1&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;m1r1a1&quot;}"></button>
+
+    <div>
+            <div class="c-glyph glyph-info" aria-label=""></div>
+        
+        <p class="c-paragraph">
+            By using this site you agree to the use of cookies for analytics, personalized content and ads.
+                    <span class="c-group">
+        <a role="button" class="c-action-trigger" href="https://go.microsoft.com/fwlink/?LinkId=248681" data-m="{&quot;cN&quot;:&quot;Learn more&quot;,&quot;id&quot;:&quot;n2m1r1a1&quot;,&quot;sN&quot;:2,&quot;aN&quot;:&quot;m1r1a1&quot;}">Learn more</a>
+        </span>
+
+        </p>
+    </div>
+</div>
+
+        
+    </div>
+    <style>
+        #uhfCookieAlert .m-alert {margin-top: 0 }
+
+        #uhfCookieAlert .m-alert {margin-top: 0 }
+
+        @media (min-width: 768px) and (max-width:1084px) {
+            #uhfCookieAlert  .m-alert[role="alert"] > div{
+                width: 98%;
+                margin: 0 auto; } }
+
+        @media (min-width: 1084px) {
+            #uhfCookieAlert  .m-alert[role="alert"] > div{
+                width: 92%;
+                margin: 0 auto; } }
+    </style>
+
+        <div id="epb" class="x-hidden x-hidden-vp1 x-hidden-vp2 uhfc-universal-context context-uhf" ms.cmpgrp="epb">
+
+    <div class="m-alert f-information epb-container epb-default-color" role="alert" ms.pgarea="Epb v2">
+        <div>        
+            <p class="c-paragraph">
+                    <img alt="Microsoft Edge" src="./D3D11_FILTER enumeration (Windows)_files/REZlo1">
+
+                <span class="c-text-group">
+                    <span class="epb-launch">Try Microsoft Edge</span>
+                    <span class="epb-text">A fast and secure browser that's designed for Windows 10</span>
+                </span>
+                <span class="c-group">
+                    <button id="close-epb" class="c-action-trigger c-action-cancel glyph-cancel" ms.title="EPB-dismiss" aria-label="No thanks">No thanks</button>
+                    <a id="epbTryNow" aria-label="A fast and secure browser that&#39;s designed for Windows 10" class="epb-launch c-action-trigger c-action-open" ms.title="EPB-launch">Get started</a>
+                </span>
+
+            </p>
+        </div>
+    </div>
+    <style>
+        #epb .m-alert {margin-top: 0 }
+
+        #epb .epb-container.epb-brand-color{background-color:#0078D7;color:#FFF;height:72px}.epb-container.epb-brand-color>div .c-paragraph>img{height:40px;float:left;margin-right:12px;padding:0;width:40px}.epb-container.epb-brand-color .c-text-group{float:left;margin-top:-2px}.epb-container.epb-brand-color .c-text-group .epb-text{display:block;line-height:2}.epb-container.epb-brand-color .c-text-group .epb-launch{font-size:16px;font-weight:700}.epb-container.epb-brand-color .c-group{margin-top:10px;margin-right:-36px}.epb-container.epb-brand-color>div{padding:16px 0}.epb-container.epb-brand-color>div .c-paragraph .c-group .c-action-trigger{min-width:120px;text-align:center}.epb-container.epb-brand-color>div .c-paragraph .c-group .c-action-cancel{text-decoration:underline;color:#FFF}.epb-container.epb-brand-color>div .c-paragraph .c-group .c-action-cancel:hover{background-color:#0060ac}.epb-container.epb-brand-color>div .c-paragraph .c-group .c-action-open{background-color:#FFF;color:#262626}.epb-container.epb-brand-color>div .c-paragraph .c-group .c-action-open:hover{background-color:#ccc}.epb-container.epb-default-color{background-color:#f2f2f2;height:72px}.epb-container.epb-default-color>div .c-paragraph>img{height:40px;float:left;margin-right:12px;padding:0;width:40px}.epb-container.epb-default-color .c-text-group{float:left;margin-top:-2px}.epb-container.epb-default-color .c-text-group .epb-text{color:#262626;display:block;opacity:.7;line-height:2}.epb-container.epb-default-color .c-text-group .epb-launch{color:#262626;font-size:16px;font-weight:700}.epb-container.epb-default-color .c-group{margin-top:10px;margin-right:-36px}.epb-container.epb-default-color>div{padding:16px 0}.epb-container.epb-default-color>div .c-paragraph .c-group .c-action-trigger{min-width:120px;text-align:center}.epb-container.epb-default-color>div .c-paragraph .c-group .c-action-cancel{text-decoration:underline;color:#006CC1}.epb-container.epb-default-color>div .c-paragraph .c-group .c-action-cancel:hover{background-color:#c1c1c1}.epb-container.epb-default-color>div .c-paragraph .c-group .c-action-open{background-color:#0078D7;color:#FFF}.epb-container.epb-default-color>div .c-paragraph .c-group .c-action-open:hover{background-color:#0060ac}html[dir="rtl"] .epb-container.epb-brand-color>div .c-paragraph>img{float:right;margin-right:0;margin-left:12px}html[dir="rtl"] .epb-container.epb-brand-color .c-text-group{float:right}html[dir="rtl"] .epb-container.epb-default-color>div .c-paragraph>img{float:right;margin-right:0;margin-left:12px}html[dir="rtl"] .epb-container.epb-default-color .c-text-group{float:right} .epb-container>div .c-paragraph{display:block!important}
+    </style>
+
+            
+        </div>
+        <style>
+            #epb .m-alert {
+                margin-top: 0;
+            }
+
+            #epb .m-alert {
+                margin-top: 0;
+            }
+
+            @media (min-width: 768px) and (max-width:1084px) {
+                #epb .m-alert[role="alert"] > div {
+                    width: 94%;
+                    margin: 0 auto;
+                }
+            }
+
+            @media (min-width: 1084px) {
+                #epb .m-alert[role="alert"] > div {
+                    width: 90%;
+                    margin: 0 auto;
+                }
+            }
+        </style>
+    
+        <style>
+            #epb {animation:slidedown .5s ease-in; overflow:hidden;}
+            #epb.epb-rollup {animation:slideup .5s ease-in;}
+            @keyframes slideup {from {height:50px}to{height:0}}
+            @keyframes slidedown {from {height:0}to{height:54px}}
+        </style>
+    
+
+
+
+
+<header role="banner" class="c-universal-header context-uhf js" itemscope="itemscope" data-header-footprint="en-gb/DEV_Windows/windowsdesktop-header" itemtype="http://schema.org/Organization">
+    <div class="theme-light js-global-head f-closed " ms.pgarea="Universal Header">
+        <div>
+            <button class="c-action-trigger c-glyph glyph-global-nav-button" aria-label="Toggle menu" aria-expanded="false" ms.title="Mobile menu button"></button>
+            <button class="c-action-trigger c-glyph glyph-arrow-htmllegacy" aria-label="Close search" aria-expanded="false" ms.title="Close Search"></button>
+                    <a id="uhfLogo" class="c-logo" itemprop="url" href="https://www.microsoft.com/" aria-label="Microsoft" ms.cmpgrp="logo">
+                        <img itemprop="logo" itemscope="itemscope" class="c-image" alt="Microsoft" src="./D3D11_FILTER enumeration (Windows)_files/microsoft-gray.png">
+                        <span>Microsoft</span>
+                    </a>
+            <div class="f-mobile-title">
+                <button class="c-action-trigger c-glyph glyph-chevron-left" aria-label="See more menu options" ms.title="Mobile back button"></button>
+                <span data-global-title="Microsoft home" class="js-mobile-title">Windows Dev Center</span>
+                <button class="c-action-trigger c-glyph glyph-chevron-right" aria-label="See more menu options" ms.title="Mobile forward button"></button>
+            </div>
+                    <nav id="uhf-g-nav" aria-labelledby="uhfLogo" role="navigation" ms.cmpgrp="nav">
+            <ul>
+                        <li>
+                            <div class="c-uhf-menu js-nav-menu">
+
+                                <button id="Technologies-navigation" aria-expanded="false" aria-haspopup="true" ms.title="Technologies" ms.interactiontype="14" style="white-space:nowrap">Technologies</button>
+                                <ul aria-labelledby="Technologies-navigation" aria-hidden="true" ms.cmpnm="Technologies">
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="Windows">
+
+        <button id="Windows-navigation" aria-expanded="false" ms.title="Windows" ms.interactiontype="14">Windows</button>
+        <ul aria-labelledby="Windows-navigation" aria-hidden="true">
+    <li ms.cmpnm="Windows_Apps">
+        <a id="shellmenu_2" href="https://developer.microsoft.com/windows" ms.title="Windows_Apps">Apps</a>
+        
+    </li>
+    <li ms.cmpnm="Windows_InternetofThings">
+        <a id="shellmenu_3" href="https://developer.microsoft.com/windows/iot" ms.title="Windows_InternetofThings">Internet of Things</a>
+        
+    </li>
+    <li ms.cmpnm="Windows_Holographic">
+        <a id="shellmenu_4" href="https://developer.microsoft.com/en-gb/windows/mixed-reality" ms.title="Windows_Holographic">Mixed Reality</a>
+        
+    </li>
+    <li ms.cmpnm="Windows_MicrosoftEdge">
+        <a id="shellmenu_5" href="https://developer.microsoft.com/microsoft-edge" ms.title="Windows_MicrosoftEdge">Microsoft Edge</a>
+        
+    </li>
+    <li ms.cmpnm="Windows_Hardware ">
+        <a id="shellmenu_6" href="https://developer.microsoft.com/windows/hardware" ms.title="Windows_Hardware ">Hardware </a>
+        
+    </li>
+    <li ms.cmpnm="Windows_WindowsTechCenter">
+        <a id="shellmenu_7" href="https://technet.microsoft.com/windows" ms.title="Windows_WindowsTechCenter">IT Centre</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="MicrosoftAzure">
+
+        <button id="MicrosoftAzure-navigation" aria-expanded="false" ms.title="MicrosoftAzure" ms.interactiontype="14">Microsoft Azure </button>
+        <ul aria-labelledby="MicrosoftAzure-navigation" aria-hidden="true">
+    <li ms.cmpnm="MicrosoftAzure_WhatisAzure">
+        <a id="shellmenu_9" href="https://azure.microsoft.com/overview/what-is-azure/" ms.title="MicrosoftAzure_WhatisAzure">What is Azure </a>
+        
+    </li>
+    <li ms.cmpnm="MicrosoftAzure_Products">
+        <a id="shellmenu_10" href="https://azure.microsoft.com/services/" ms.title="MicrosoftAzure_Products">Products</a>
+        
+    </li>
+    <li ms.cmpnm="MicrosoftAzure_Solutions">
+        <a id="shellmenu_11" href="https://azure.microsoft.com/solutions/?v=4" ms.title="MicrosoftAzure_Solutions">Solutions</a>
+        
+    </li>
+    <li ms.cmpnm="MicrosoftAzure_Pricing">
+        <a id="shellmenu_12" href="https://azure.microsoft.com/pricing/" ms.title="MicrosoftAzure_Pricing">Pricing</a>
+        
+    </li>
+    <li ms.cmpnm="MicrosoftAzure_CreateaFreeAccount">
+        <a id="shellmenu_13" href="https://azure.microsoft.com/free" ms.title="MicrosoftAzure_CreateaFreeAccount">Create a free account</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="MicrosoftVisualStudio">
+
+        <button id="VisualStudio-navigation" aria-expanded="false" ms.title="MicrosoftVisualStudio" ms.interactiontype="14">Visual Studio </button>
+        <ul aria-labelledby="VisualStudio-navigation" aria-hidden="true">
+    <li ms.cmpnm="MicrosoftVisualStudio_VisualStudio">
+        <a id="shellmenu_15" href="https://www.visualstudio.com/" ms.title="MicrosoftVisualStudio_VisualStudio">Visual Studio</a>
+        
+    </li>
+    <li ms.cmpnm="MicrosoftVisualStudio_VisualStudioIDE">
+        <a id="shellmenu_16" href="https://www.visualstudio.com/vs/" ms.title="MicrosoftVisualStudio_VisualStudioIDE">Visual Studio IDE</a>
+        
+    </li>
+    <li ms.cmpnm="MicrosoftVisualStudio_VisualStudioTeamServices">
+        <a id="shellmenu_17" href="https://www.visualstudio.com/team-services/" ms.title="MicrosoftVisualStudio_VisualStudioTeamServices">Visual Studio Team Services</a>
+        
+    </li>
+    <li ms.cmpnm="MicrosoftVisualStudio_VisualStudioCode">
+        <a id="shellmenu_18" href="https://code.visualstudio.com/" ms.title="MicrosoftVisualStudio_VisualStudioCode">Visual Studio Code</a>
+        
+    </li>
+    <li ms.cmpnm="MicrosoftVisualStudio_Xamarin">
+        <a id="shellmenu_19" href="https://www.xamarin.com/" ms.title="MicrosoftVisualStudio_Xamarin">Xamarin</a>
+        
+    </li>
+    <li ms.cmpnm="MicrosoftVisualStudio_VisualStudioDevEssentials">
+        <a id="shellmenu_20" href="https://www.visualstudio.com/dev-essentials/" ms.title="MicrosoftVisualStudio_VisualStudioDevEssentials">Visual Studio Dev Essentials</a>
+        
+    </li>
+    <li ms.cmpnm="MicrosoftVisualStudio_Subscriptions">
+        <a id="shellmenu_21" href="https://www.visualstudio.com/subscriptions/" ms.title="MicrosoftVisualStudio_Subscriptions">Subscriptions</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="Office">
+
+        <button id="Office-navigation" aria-expanded="false" ms.title="Office" ms.interactiontype="14">Office</button>
+        <ul aria-labelledby="Office-navigation" aria-hidden="true">
+    <li ms.cmpnm="Office_OfficeDevCenter">
+        <a id="shellmenu_23" href="https://dev.office.com/" ms.title="Office_OfficeDevCenter">Office Dev Centre                                 </a>
+        
+    </li>
+    <li ms.cmpnm="Office_Office365forITpros">
+        <a id="shellmenu_24" href="https://technet.microsoft.com/en-us/office/dn788774" ms.title="Office_Office365forITpros">Office 365 for IT pros</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li ms.cmpnm="Microsoft Graph">
+        <a id="shellmenu_25" href="https://graph.microsoft.io/en-us/docs" ms.title="Microsoft Graph">Microsoft Graph</a>
+        
+    </li>
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="Services ">
+
+        <button id="Services-navigation" aria-expanded="false" ms.title="Services " ms.interactiontype="14">Services </button>
+        <ul aria-labelledby="Services-navigation" aria-hidden="true">
+    <li ms.cmpnm="Services_OfficeDevCenter">
+        <a id="shellmenu_27" href="https://developer.microsoft.com/store" ms.title="Services_OfficeDevCenter">Store</a>
+        
+    </li>
+    <li ms.cmpnm="Services_Cortana">
+        <a id="shellmenu_28" href="https://developer.microsoft.com/cortana" ms.title="Services_Cortana">Cortana</a>
+        
+    </li>
+    <li ms.cmpnm="Services_Bing">
+        <a id="shellmenu_29" href="https://bing.com/dev/dev-center" ms.title="Services_Bing">Bing</a>
+        
+    </li>
+    <li ms.cmpnm="Services_ApplicationInsights">
+        <a id="shellmenu_30" href="https://azure.microsoft.com/services/application-insights" ms.title="Services_ApplicationInsights">Application Insights</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+                                    
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="c-uhf-menu js-nav-menu">
+
+                                <button id="Documentation-navigation" aria-expanded="false" aria-haspopup="true" ms.title="Documentation" ms.interactiontype="14" style="white-space:nowrap">Documentation</button>
+                                <ul aria-labelledby="Documentation-navigation" aria-hidden="true" ms.cmpnm="Documentation">
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="Build_DeveloperCenters">
+
+        <button id="Platforms-navigation" aria-expanded="false" ms.title="Build_DeveloperCenters" ms.interactiontype="14">Platforms</button>
+        <ul aria-labelledby="Platforms-navigation" aria-hidden="true">
+    <li ms.cmpnm="Build_DeveloperCenters_MicrosoftAzure">
+        <a id="shellmenu_33" href="https://azure.microsoft.com/en-us/documentation/" ms.title="Build_DeveloperCenters_MicrosoftAzure">Microsoft Azure</a>
+        
+    </li>
+    <li ms.cmpnm="Build_DeveloperCenters_MicrosoftGraph">
+        <a id="shellmenu_34" href="https://graph.microsoft.io/en-us/docs" ms.title="Build_DeveloperCenters_MicrosoftGraph">Microsoft Graph</a>
+        
+    </li>
+    <li ms.cmpnm="Build_DeveloperCenters_VisualStudio">
+        <a id="shellmenu_35" href="https://www.visualstudio.com/vs/getting-started/" ms.title="Build_DeveloperCenters_VisualStudio">Visual Studio</a>
+        
+    </li>
+    <li ms.cmpnm="Build_DeveloperCenters_Windows">
+        <a id="shellmenu_36" href="https://docs.microsoft.com/en-gb/windows" ms.title="Build_DeveloperCenters_Windows">Windows</a>
+        
+    </li>
+    <li ms.cmpnm="Build_DeveloperCenters_Office">
+        <a id="shellmenu_37" href="https://dev.office.com/docs" ms.title="Build_DeveloperCenters_Office">Office</a>
+        
+    </li>
+    <li ms.cmpnm="Build_DeveloperCenters_AllDeveloperCenters">
+        <a id="shellmenu_38" href="https://developer.microsoft.com/en-us/" ms.title="Build_DeveloperCenters_AllDeveloperCenters">All Developer Centres</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li ms.cmpnm="Learn_TechNet">
+        <a id="shellmenu_39" href="https://technet.microsoft.com/" ms.title="Learn_TechNet">TechNet</a>
+        
+    </li>
+    <li ms.cmpnm="Learn_MicrosoftDeveloperNetwork">
+        <a id="shellmenu_40" href="https://msdn.microsoft.com/" ms.title="Learn_MicrosoftDeveloperNetwork">Microsoft Developer Network</a>
+        
+    </li>
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="Build_TechCenters">
+
+        <button id="ITTechCenters-navigation" aria-expanded="false" ms.title="Build_TechCenters" ms.interactiontype="14">IT TechCenters</button>
+        <ul aria-labelledby="ITTechCenters-navigation" aria-hidden="true">
+    <li ms.cmpnm="TechCenter_WindowsTechCenter">
+        <a id="shellmenu_42" href="https://technet.microsoft.com/windows" ms.title="TechCenter_WindowsTechCenter">Windows IT Center</a>
+        
+    </li>
+    <li ms.cmpnm="TechCenter_Office365forITpros">
+        <a id="shellmenu_43" href="https://technet.microsoft.com/en-us/office/dn788774" ms.title="TechCenter_Office365forITpros">Office 365 for IT Pros</a>
+        
+    </li>
+    <li ms.cmpnm="TechCenter_AllTechcenters">
+        <a id="shellmenu_44" href="https://technet.microsoft.com/en-us/bb421517.aspx?wt.svl=more_centers_link" ms.title="TechCenter_AllTechcenters">All IT TechCenters</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="Build_Downloads">
+
+        <button id="Downloads-navigation" aria-expanded="false" ms.title="Build_Downloads" ms.interactiontype="14">Downloads</button>
+        <ul aria-labelledby="Downloads-navigation" aria-hidden="true">
+    <li ms.cmpnm="Build_Downloads_Microsoft Azure">
+        <a id="shellmenu_46" href="https://azure.microsoft.com/en-us/downloads/" ms.title="Build_Downloads_Microsoft Azure">Microsoft Azure</a>
+        
+    </li>
+    <li ms.cmpnm="Build_Downloads_VisualStudio">
+        <a id="shellmenu_47" href="https://www.visualstudio.com/downloads/" ms.title="Build_Downloads_VisualStudio">Visual Studio</a>
+        
+    </li>
+    <li ms.cmpnm="Build_Downloads_SDKS">
+        <a id="shellmenu_48" href="https://msdn.microsoft.com/microsoft-sdks-msdn" ms.title="Build_Downloads_SDKS">SDKs</a>
+        
+    </li>
+    <li ms.cmpnm="Build_Downloads_Windows">
+        <a id="shellmenu_49" href="https://developer.microsoft.com/en-us/windows/downloads" ms.title="Build_Downloads_Windows">Windows</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="Build_Samples">
+
+        <button id="Codesamples-navigation" aria-expanded="false" ms.title="Build_Samples" ms.interactiontype="14">Code samples</button>
+        <ul aria-labelledby="Codesamples-navigation" aria-hidden="true">
+    <li ms.cmpnm="CodeSamples_Office">
+        <a id="shellmenu_51" href="https://dev.office.com/code-samples" ms.title="CodeSamples_Office">Office</a>
+        
+    </li>
+    <li ms.cmpnm="CodeSamples_MicrosoftGraph">
+        <a id="shellmenu_52" href="https://graph.microsoft.io/en-us/code-samples-and-sdks" ms.title="CodeSamples_MicrosoftGraph">Microsoft Graph</a>
+        
+    </li>
+    <li ms.cmpnm="CodeSamples_MSDN">
+        <a id="shellmenu_53" href="https://code.msdn.microsoft.com/" ms.title="CodeSamples_MSDN">MSDN</a>
+        
+    </li>
+    <li ms.cmpnm="CodeSamples_Azure">
+        <a id="shellmenu_54" href="https://azure.microsoft.com/en-us/resources/samples/" ms.title="CodeSamples_Azure">Azure</a>
+        
+    </li>
+    <li ms.cmpnm="CodeSamples_Windows">
+        <a id="shellmenu_55" href="https://developer.microsoft.com/en-us/windows/samples" ms.title="CodeSamples_Windows">Windows</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li ms.cmpnm="documentation_powershell_scripts">
+        <a id="shellmenu_56" href="https://technet.microsoft.com/scriptcenter" ms.title="documentation_powershell_scripts">PowerShell scripts</a>
+        
+    </li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="c-uhf-menu js-nav-menu">
+
+                                <button id="Resources-navigation" aria-expanded="false" aria-haspopup="true" ms.title="Resources " ms.interactiontype="14" style="white-space:nowrap">Resources</button>
+                                <ul aria-labelledby="Resources-navigation" aria-hidden="true" ms.cmpnm="Resources ">
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="Connect_Blogs">
+
+        <button id="Blogs-navigation" aria-expanded="false" ms.title="Connect_Blogs" ms.interactiontype="14">Blogs</button>
+        <ul aria-labelledby="Blogs-navigation" aria-hidden="true">
+    <li ms.cmpnm="Connect_Blogs_MicrosoftAzure">
+        <a id="shellmenu_59" href="https://azure.microsoft.com/en-gb/blog/" ms.title="Connect_Blogs_MicrosoftAzure">Microsoft Azure</a>
+        
+    </li>
+    <li ms.cmpnm="Connect_Blogs_VisualStudio">
+        <a id="shellmenu_60" href="https://blogs.msdn.microsoft.com/visualstudio/" ms.title="Connect_Blogs_VisualStudio">Visual Studio</a>
+        
+    </li>
+    <li ms.cmpnm="Connect_Blogs_VisualStudioTeamServices">
+        <a id="shellmenu_61" href="https://blogs.msdn.microsoft.com/visualstudioalm/" ms.title="Connect_Blogs_VisualStudioTeamServices">Visual Studio Team Services </a>
+        
+    </li>
+    <li ms.cmpnm="Connect_Blogs_DevloperTools">
+        <a id="shellmenu_62" href="https://blogs.msdn.microsoft.com/developer-tools/" ms.title="Connect_Blogs_DevloperTools">Developer tools</a>
+        
+    </li>
+    <li ms.cmpnm="Connect_Blogs_OfficeDevBlog">
+        <a id="shellmenu_63" href="https://dev.office.com/blogs" ms.title="Connect_Blogs_OfficeDevBlog">Office Dev Blog</a>
+        
+    </li>
+    <li ms.cmpnm="Connect_Blogs_ServerandManagement">
+        <a id="shellmenu_64" href="https://blogs.technet.microsoft.com/server-management/" ms.title="Connect_Blogs_ServerandManagement">Server &amp; management</a>
+        
+    </li>
+    <li ms.cmpnm="Connect_Blogs_Windows">
+        <a id="shellmenu_65" href="https://blogs.windows.com/buildingapps/" ms.title="Connect_Blogs_Windows">Windows</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="Resources_CommunityandForums">
+
+        <button id="Community&amp;Forums-navigation" aria-expanded="false" ms.title="Resources_CommunityandForums" ms.interactiontype="14">Community &amp; Forums</button>
+        <ul aria-labelledby="Community&amp;Forums-navigation" aria-hidden="true">
+    <li ms.cmpnm="CommunityandForums_Developers">
+        <a id="shellmenu_67" href="https://social.msdn.microsoft.com/Forums/en-US/home" ms.title="CommunityandForums_Developers">Developers</a>
+        
+    </li>
+    <li ms.cmpnm="CommunityandForums_Technet">
+        <a id="shellmenu_68" href="https://social.technet.microsoft.com/Forums/en-US/home" ms.title="CommunityandForums_Technet">TechNet</a>
+        
+    </li>
+    <li ms.cmpnm="CommunityandForums_MicrosoftTechCommunity">
+        <a id="shellmenu_69" href="https://techcommunity.microsoft.com/" ms.title="CommunityandForums_MicrosoftTechCommunity">Microsoft Tech Community</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="Connect_CommunityandForums">
+
+        <button id="Subscriptions-navigation" aria-expanded="false" ms.title="Connect_CommunityandForums" ms.interactiontype="14">Subscriptions</button>
+        <ul aria-labelledby="Subscriptions-navigation" aria-hidden="true">
+    <li ms.cmpnm="Subscriptions_VisualStudioMSDNSubscriptions">
+        <a id="shellmenu_71" href="https://my.visualstudio.com/Benefits?wt.mc_id=o~msft~UHF&amp;campaign=o~msft~UHF" ms.title="Subscriptions_VisualStudioMSDNSubscriptions">Visual Studio (MSDN) subscriptions</a>
+        
+    </li>
+    <li ms.cmpnm="Subscriptions_ITProCloudEssentials">
+        <a id="shellmenu_72" href="https://www.microsoft.com/cloudessentials" ms.title="Subscriptions_ITProCloudEssentials">IT Pro Cloud Essentials</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li class="f-sub-menu js-nav-menu" ms.cmpnm="Resources_Training">
+
+        <button id="Training-navigation" aria-expanded="false" ms.title="Resources_Training" ms.interactiontype="14">Training</button>
+        <ul aria-labelledby="Training-navigation" aria-hidden="true">
+    <li ms.cmpnm="Training_MicrosoftVirtualAcademy">
+        <a id="shellmenu_74" href="https://mva.microsoft.com/" ms.title="Training_MicrosoftVirtualAcademy">Microsoft Virtual Academy </a>
+        
+    </li>
+    <li ms.cmpnm="Training_ITProCareerCenter">
+        <a id="shellmenu_75" href="https://www.microsoft.com/itprocareercenter" ms.title="Training_ITProCareerCenter">IT Pro Career Center</a>
+        
+    </li>
+        </ul>
+        
+    </li>   
+    <li ms.cmpnm="Resources_TechNetEvaluationCenter">
+        <a id="shellmenu_76" href="https://www.microsoft.com/evalcenter/" ms.title="Resources_TechNetEvaluationCenter">TechNet Evaluation Center</a>
+        
+    </li>
+    <li ms.cmpnm="Connect_Channel9">
+        <a id="shellmenu_77" href="https://channel9.msdn.com/" ms.title="Connect_Channel9">Channel 9</a>
+        
+    </li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
+            </ul>
+            
+        </nav>
+
+                <div ms.cmpgrp="Header actions">
+                            <form class="c-search" autocomplete="off" id="searchForm" name="searchForm" role="search" action="https://social.msdn.microsoft.com/search/windows" method="GET" data-seautosuggest="" data-seautosuggestapi="https://www.microsoft.com/services/api/v3/suggest" aria-expanded="false">
+            <input id="cli_shellHeaderSearchInput" aria-label="Search Dev Center" role="combobox" aria-autocomplete="list" aria-controls="universal-header-search-auto-suggest-transparent" type="search" name="query" placeholder="Search Dev Center" ms.title="SearchBox"><div class="x-screen-reader" aria-live="assertive"></div>
+                <input type="hidden" name="Refinement" value="183" ms.title="HiddenInput">
+            <button id="search" name="search" aria-label="Search" class="c-glyph" ms.title="Search" data-bi-dnt="true"></button>
+            <div class="m-auto-suggest" id="universal-header-search-auto-suggest-transparent" role="group">
+                <ul class="c-menu" aria-hidden="true" data-bi-dnt="true" data-js-auto-suggest-position="default" role="listbox" data-tel="wedcs" ms.cmpgrp="search suggestions"></ul>
+                <ul class="c-menu f-auto-suggest-no-results" aria-hidden="true" data-js-auto-suggest-postion="default" data-js-auto-suggest-position="default" tabindex="0">
+                    <li class="c-menu-item"> <span tabindex="-1">No results</span></li>
+                </ul>
+            </div>
+            
+        </form>
+
+                    
+                    
+                            <div id="meControl" class="c-me" data-signinsettings="{&quot;containerId&quot;:&quot;meControl&quot;,&quot;enabled&quot;:true,&quot;headerHeight&quot;:48,&quot;debug&quot;:false,&quot;extensibleLinks&quot;:[],&quot;userData&quot;:{&quot;idp&quot;:&quot;msa&quot;,&quot;firstName&quot;:&quot;&quot;,&quot;lastName&quot;:&quot;&quot;,&quot;memberName&quot;:&quot;&quot;,&quot;cid&quot;:&quot;&quot;,&quot;authenticatedState&quot;:&quot;3&quot;},&quot;rpData&quot;:{&quot;preferredIdp&quot;:&quot;msa&quot;,&quot;msaInfo&quot;:{&quot;signInUrl&quot;:&quot;/en-gb/store/signin&quot;,&quot;signOutUrl&quot;:&quot;/en-gb/store/signout&quot;,&quot;meUrl&quot;:&quot;https://login.live.com/me.srf?wa=wsignin1.0&quot;},&quot;aadInfo&quot;:{&quot;signOutUrl&quot;:&quot;/en-gb/store/signout&quot;,&quot;appId&quot;:null,&quot;siteUrl&quot;:null,&quot;blockMsaFed&quot;:true}}}" ms.cmpgrp="Me Control"><div class="msame_Header msame_unauth" role="button" tabindex="0" style="height: 48px;"><div class="msame_Header_name msame_TxtTrunc" style="line-height: 48px;">Sign in</div><div class="msame_Header_chev"></div></div></div>
+
+                    
+                </div>
+        </div>
+        
+        
+    </div>
+            <div class="theme-dark brand-neutral js-cat-head" itemprop="brand" itemscope="itemscope" itemtype="http://schema.org/Brand" ms.cmpgrp="UHF category nav">
+
+<div>
+        <a id="uhfCatLogo" class="c-logo" href="https://developer.microsoft.com/en-us/windows" aria-label="Windows Dev Center" itemprop="url" ms.title="Windows Dev Center">
+                <span>Windows Dev Center</span>
+        </a>
+    
+        <a id="dashboard" class="c-uhf-nav-link x-hidden-vp1 x-hidden-vp2" href="https://developer.microsoft.com/en-us/dashboard/apps/overview" ms.title="Dashboard">Dashboard</a>
+<button class="c-action-trigger c-glyph glyph-chevron-left" ms.title="Previous" tabindex="-1" style="display: none;"></button>
+    
+    <button class="c-action-trigger c-glyph glyph-chevron-right" ms.title="Next" tabindex="-1" style="display: none;"></button>
+            <nav id="uhf-c-nav" role="navigation" aria-labelledby="uhfCatLogo">
+
+<a id="windesktop_windowsdesktop" class="c-uhf-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop" ms.title="WinDesktop_WindowsDesktop" style="transition: margin 0.667s cubic-bezier(0.16, 1, 0.29, 0.99); margin-left: 0px;">Windows desktop</a><a id="windesktop_getstarted" class="c-uhf-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/getstarted" ms.title="WinDesktop_Getstarted">Get started</a><a id="windesktop_design" class="c-uhf-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/design" ms.title="WinDesktop_Design">Design</a><a id="windesktop_develop" class="c-uhf-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/develop" ms.title="WinDesktop_Develop">Develop</a><a id="windesktop_test" class="c-uhf-nav-link" href="https://developer.microsoft.com/en-gb/windows/desktop/test-deploy" ms.title="WinDesktop_Testdeploy">Test &amp; deploy</a><div class="c-uhf-menu js-nav-menu">
+                    <button id="resources_desktop-resources" aria-expanded="false" aria-haspopup="true" ms.title="winapps_desktop-resources">Resources</button>
+                    <ul class="" aria-labelledby="resources_desktop-resources" aria-hidden="true" ms.cmpnm="winapps_desktop-resources">
+    <li ms.cmpnm="resources_desktop-api-reference">
+        <a id="resources_desktop-api-reference" href="https://msdn.microsoft.com/library/windows/desktop/hh920508.aspx" ms.title="resources_desktop-api-reference">API reference</a>
+        
+    </li>
+    <li ms.cmpnm="winapps_downloads">
+        <a id="resources_downloads" href="https://developer.microsoft.com/en-us/windows/downloads" ms.title="winapps_downloads">Downloads</a>
+        
+    </li>
+    <li ms.cmpnm="winapps_samples">
+        <a id="resources_samples" href="https://developer.microsoft.com/en-us/windows/samples" ms.title="winapps_samples">Samples</a>
+        
+    </li>
+    <li ms.cmpnm="winapps_support">
+        <a id="resources_support" href="https://developer.microsoft.com/en-us/windows/support" ms.title="winapps_support">Support</a>
+        
+    </li>
+                        
+                    </ul>
+                </div><a id="mobile-dashboard" class="c-uhf-nav-link x-hidden x-visible-vp1-block x-visible-vp2-block" href="https://developer.microsoft.com/en-us/dashboard/apps/overview" ms.title="Dashboard">Dashboard</a>                    </nav>
+
+</div>
+
+
+            
+        </div>
+
+    
+</header>
+
+
+    </div>
+            </div>
+
+    </section>
+
+    </div>
+    <input type="hidden" id="UhfSignInOutLink" value="https://login.live.com/login.srf?wa=wsignin1.0&amp;rpsnv=13&amp;ct=1505217299&amp;rver=6.7.6640.0&amp;wp=MCMBI&amp;wlcxt=MSDN%24MSDN%24MSDN&amp;wreply=https%3a%2f%2fmsdn.microsoft.com%2fen-gb%2flibrary%2fwindows%2fdesktop%2fff476132%2528v%3dvs.85%2529.aspx&amp;lc=2057&amp;id=254354&amp;mkt=en-GB">
+    <script src="./D3D11_FILTER enumeration (Windows)_files/Uhf.js.download" data-provides="uhf"></script>
+    <script data-provides="uhfHeaderData" data-requires="uhfHeader">
+        var isAuthenticated = (false);
+        var aadEnabled= (false);
+
+        var ssoProperties = {
+          signedIn: isAuthenticated,
+          aadEnabled: aadEnabled,
+          signInOutUrl: $("#UhfSignInOutLink").val(),
+        };
+
+        if (isAuthenticated) {
+          ssoProperties.userHasProfile = (false);
+          ssoProperties.profileText = ":ProfileText:";
+          ssoProperties.createViewProfileText = ":CreateViewMSDNProfileText:";
+          ssoProperties.createViewProfileLink = ":ProfileLink:";
+          ssoProperties.MsaMemberName = ":MsaMemberName:";
+          ssoProperties.MsaFirstName = ":MsaFirstName:";
+          ssoProperties.MsaLastName = ":MsaLastName:";
+          ssoProperties.MsaCID = ":MsaCID:";
+          ssoProperties.AadDisplayName = ":AadDisplayName:";
+          ssoProperties.AadMemberName = ":AadMemberName:";
+        }
+    </script>
+    <script src="./D3D11_FILTER enumeration (Windows)_files/UhfHeader.js.download" data-requires="uhf,uhfHeaderData"></script>
+<script src="./D3D11_FILTER enumeration (Windows)_files/TocDropDown.js.download" type="text/javascript" xmlns="http://www.w3.org/1999/xhtml"></script>
+
+
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/Breadcrumbs.css">
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/Breadcrumbs.MediaQueries.css">
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/Breadcrumbs(1).css">
+<script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/Breadcrumbs.js.download" data-requires="jQuery"></script>
+
+    <div id="breadcrumbs">
+        <div id="breadcrumbDesktop" class="breadCrumb">
+                        <span class="breadcrumbEllipsis"><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476079(v=vs.85).aspx" title="Direct3D 11 Reference"></a></span>
+                        <span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476147(v=vs.85).aspx" title="Direct3D 11 Reference"><span>Direct3D 11 Reference</span></a></span>
+                        <span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476151(v=vs.85).aspx" title="Core Reference"><span>Core Reference</span></a></span>
+                        <span class="breadcrumbDropSmall">
+                            <a id="breadcrumbDropDownButton" href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#" targethref="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476151(v=vs.85).aspx" title="Core Enumerations" role="button" aria-expanded="false"><span>Core Enumerations</span></a>
+                        </span>
+        </div>
+        <div id="breadcrumbDropDownMenu" style="display: none;"></div>
+
+        <div id="breadcrumbTablet" class="breadCrumb">
+                        <span class="breadcrumbEllipsis"><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476151(v=vs.85).aspx" title="Core Reference"></a></span>
+                    <span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476152(v=vs.85).aspx" title="Core Enumerations"><span>Core Enumerations</span></a></span>
+                <span class="breadcrumbDropSmall"><a id="tocDropDownButton" href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#" title="D3D11_FILTER" role="button" aria-expanded="false"><span>D3D11_FILTER</span></a></span>
+        <div id="navigationButtons">
+            <a id="isd_print" href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(d=printer,v=vs.85).aspx" rel="nofollow"><ins class="print"></ins>Print </a>
+            <a id="isd_printABook" href="https://msdn.microsoft.com/en-gb/library/export/help/?returnUrl=%2fen-gb%2flibrary%2fwindows%2fdesktop%2fff476132(v%3dvs.85).aspx">
+                <ins class="export"></ins>Export (<span class="count">0</span>)
+            </a>
+        </div></div>
+        <div id="tocDropDownMenu" style="display: none;"></div>
+        <div id="breadcrumbMobile" class="breadCrumb">
+                <span class="breadcrumbEllipsis"><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476152(v=vs.85).aspx" title="Core Enumerations"></a></span>
+            <span class="breadcrumbDropSmall"><a id="tocPopupButton" href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#" title="D3D11_FILTER" role="button" aria-expanded="false"><span>D3D11_FILTER</span></a></span>
+        <div id="navigationButtons">
+            <a id="isd_print" href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(d=printer,v=vs.85).aspx" rel="nofollow"><ins class="print"></ins>Print </a>
+            <a id="isd_printABook" href="https://msdn.microsoft.com/en-gb/library/export/help/?returnUrl=%2fen-gb%2flibrary%2fwindows%2fdesktop%2fff476132(v%3dvs.85).aspx">
+                <ins class="export"></ins>Export (<span class="count">0</span>)
+            </a>
+        </div></div>
+    </div>
+    <div id="tocPopupMenu" style="display: none;">
+        <div id="tocPopMenuClose" class="tocCloseLarge" role="button" aria-label="Close Popup Menu" tabindex="0"></div>
+        <div id="tocTitle">D3D11_FILTER</div>
+    </div>
+
+
+        <div id="body" ms.pgarea="body" class="">
+            <span id="tabletView_large"></span>
+            <span id="tabletView_small"></span>
+            <span id="mobileView"></span>
+            
+
+
+
+
+
+
+
+    <div id="leftNav" ms.cmpgrp="left toc" role="navigation" aria-label="left toc" style="height: 965px;">
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/ResponsiveToc.css">
+    <link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/ResponsiveToc.MediaQueries.css">
+<script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/ResponsiveToc.js.download" data-requires="appInsights" data-provides="toc"></script>
+
+<div id="tocnav" class="ArchiveV2" style="width: 255px; position: fixed; top: -220px;">
+    <div class="tocunselected">
+        <div id="tocExpandArea" style="display: block;">
+            <span class="toc_empty"></span>
+            <span id="tocExpandButton"><a href="javascript:void(0)" aria-label="expand sibling toc" role="button"></a></span>
+        </div>
+        <div id="tocExpand"><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476084(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_ASYNC_GETDATA_FLAG">D3D11_ASYNC_GETDATA_FLAG</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476086(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_BLEND">D3D11_BLEND</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476088(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_BLEND_OP">D3D11_BLEND_OP</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476099(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_CLEAR_FLAG">D3D11_CLEAR_FLAG</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476100(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_COLOR_WRITE_ENABLE">D3D11_COLOR_WRITE_ENABLE</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476101(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_COMPARISON_FUNC">D3D11_COMPARISON_FUNC</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/dn859360(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_CONSERVATIVE_RASTERIZATION_MODE">D3D11_CONSERVATIVE_RASTERIZATION_MODE</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/dn859364(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_CONSERVATIVE_RASTERIZATION_TIER">D3D11_CONSERVATIVE_RASTERIZATION_TIER</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/dn859366(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_CONTEXT_TYPE">D3D11_CONTEXT_TYPE</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/hh404451(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_COPY_FLAGS">D3D11_COPY_FLAGS</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476102(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_COUNTER">D3D11_COUNTER</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476105(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_COUNTER_TYPE">D3D11_COUNTER_TYPE</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476107(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_CREATE_DEVICE_FLAG">D3D11_CREATE_DEVICE_FLAG</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/hh404432(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_1_CREATE_DEVICE_CONTEXT_STATE_FLAG">D3D11_1_CREATE_DEVICE_CONTEXT_STATE_FLAG</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476108(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_CULL_MODE">D3D11_CULL_MODE</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476113(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_DEPTH_WRITE_MASK">D3D11_DEPTH_WRITE_MASK</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476114(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_DEVICE_CONTEXT_TYPE">D3D11_DEVICE_CONTEXT_TYPE</a>                </div></div>
+    <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476124(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_FEATURE">D3D11_FEATURE</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/mt492475(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_FENCE_FLAG">D3D11_FENCE_FLAG</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476131(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_FILL_MODE">D3D11_FILL_MODE</a>                </div></div>
+    <div class="tocselected"><div class="toclevel current" data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476132(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_FILTER">D3D11_FILTER</a>                </div><div class="tocPadding"></div></div>
+    <div class="tocunselected">
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476133(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_FILTER_TYPE">D3D11_FILTER_TYPE</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/dn912870(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_FILTER_REDUCTION_TYPE">D3D11_FILTER_REDUCTION_TYPE</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476134(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_FORMAT_SUPPORT">D3D11_FORMAT_SUPPORT</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476135(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_FORMAT_SUPPORT2">D3D11_FORMAT_SUPPORT2</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476179(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_INPUT_CLASSIFICATION">D3D11_INPUT_CLASSIFICATION</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/hh404484(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_LOGIC_OP">D3D11_LOGIC_OP</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476188(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_PRIMITIVE">D3D11_PRIMITIVE</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476189(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_PRIMITIVE_TOPOLOGY">D3D11_PRIMITIVE_TOPOLOGY</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476191(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_QUERY">D3D11_QUERY</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476196(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_QUERY_MISC_FLAG">D3D11_QUERY_MISC_FLAG</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476197(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_RAISE_FLAG">D3D11_RAISE_FLAG</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/mt492476(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_SHADER_CACHE_SUPPORT_FLAGS">D3D11_SHADER_CACHE_SUPPORT_FLAGS</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/hh404495(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_SHADER_MIN_PRECISION_SUPPORT">D3D11_SHADER_MIN_PRECISION_SUPPORT</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476219(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_STENCIL_OP">D3D11_STENCIL_OP</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476256(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_TEXTURE_ADDRESS_MODE">D3D11_TEXTURE_ADDRESS_MODE</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476255(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_TEXTURECUBE_FACE">D3D11_TEXTURECUBE_FACE</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/dn280435(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="D3D11_TILED_RESOURCES_TIER">D3D11_TILED_RESOURCES_TIER</a>                </div>
+    </div>
+    <a id="tocMenuToggler" href="javascript:void(0)" role="button">
+        <span id="tocMenuTogglerIcon" class="tocMenuCollapse" role="button" aria-expanded="true" aria-label="Table of contents menu"></span>
+        <div id="tocMenuTogglerLabel">TOC</div>
+    </a>
+</div>            <div style="display:none">
+                <div id="CollapseLocalizeString">Collapse the table of content</div>
+                <div id="ExpandLocalizeString">Expand the table of content</div>
+            </div>
+        <div>
+            <a id="isd_archiveControlResponsive" style="display:none;" href="javascript:void(0)" role="button" aria-label="Hide Archived Versions" data-include-archive="Show Archived Versions" data-exclude-archive="Hide Archived Versions">
+            </a>
+            <div id="isd_archiveInstrument" style="display:none">This documentation is archived and is not being maintained.</div>
+        </div>
+    </div>
+     <div id="content" class="content" ms.cmpgrp="content body" role="main">
+
+
+
+
+
+
+
+
+    <div id="archiveDisclaimerText" style="display:none">This documentation is archived and is not being maintained.</div>
+
+
+
+<!--starting processing-->
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">D3D11_FILTER enumeration</h1>
+  <!--Content type: HTML. Transform: webcollection2mtps.xslt.-->
+  <div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Filtering options during texture sampling.</p>
+<h2>Syntax</h2>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>C++</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode(&#39;CodeSnippetContainerCode_56babcea-786c-4e93-ab4b-c0c86778b983&#39;);" ms.cmptyp="CodeSnippet">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_56babcea-786c-4e93-ab4b-c0c86778b983" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+<span style="color:Blue;">typedef</span> <span style="color:Blue;">enum</span> D3D11_FILTER { 
+  D3D11_FILTER_MIN_MAG_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0,
+  D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x1,
+  D3D11_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x4,
+  D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x5,
+  D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x10,
+  D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x11,
+  D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x14,
+  D3D11_FILTER_MIN_MAG_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x15,
+  D3D11_FILTER_ANISOTROPIC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x55,
+  D3D11_FILTER_COMPARISON_MIN_MAG_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x80,
+  D3D11_FILTER_COMPARISON_MIN_MAG_POINT_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x81,
+  D3D11_FILTER_COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT&nbsp;&nbsp;&nbsp;= 0x84,
+  D3D11_FILTER_COMPARISON_MIN_POINT_MAG_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x85,
+  D3D11_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x90,
+  D3D11_FILTER_COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR&nbsp;&nbsp;= 0x91,
+  D3D11_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x94,
+  D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x95,
+  D3D11_FILTER_COMPARISON_ANISOTROPIC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0xd5,
+  D3D11_FILTER_MINIMUM_MIN_MAG_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x100,
+  D3D11_FILTER_MINIMUM_MIN_MAG_POINT_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x101,
+  D3D11_FILTER_MINIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x104,
+  D3D11_FILTER_MINIMUM_MIN_POINT_MAG_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x105,
+  D3D11_FILTER_MINIMUM_MIN_LINEAR_MAG_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x110,
+  D3D11_FILTER_MINIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x111,
+  D3D11_FILTER_MINIMUM_MIN_MAG_LINEAR_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x114,
+  D3D11_FILTER_MINIMUM_MIN_MAG_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x115,
+  D3D11_FILTER_MINIMUM_ANISOTROPIC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x155,
+  D3D11_FILTER_MAXIMUM_MIN_MAG_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x180,
+  D3D11_FILTER_MAXIMUM_MIN_MAG_POINT_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x181,
+  D3D11_FILTER_MAXIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x184,
+  D3D11_FILTER_MAXIMUM_MIN_POINT_MAG_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x185,
+  D3D11_FILTER_MAXIMUM_MIN_LINEAR_MAG_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x190,
+  D3D11_FILTER_MAXIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x191,
+  D3D11_FILTER_MAXIMUM_MIN_MAG_LINEAR_MIP_POINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x194,
+  D3D11_FILTER_MAXIMUM_MIN_MAG_MIP_LINEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x195,
+  D3D11_FILTER_MAXIMUM_ANISOTROPIC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x1d5
+} D3D11_FILTER;
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>Constants</h2>
+<dl>
+<dt><a id="D3D11_FILTER_MIN_MAG_MIP_POINT"><!----></a><a id="d3d11_filter_min_mag_mip_point"><!----></a><strong>D3D11_FILTER_MIN_MAG_MIP_POINT</strong></dt>
+<dd>
+<p>Use point sampling for minification, magnification, and mip-level sampling.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR"><!----></a><a id="d3d11_filter_min_mag_point_mip_linear"><!----></a><strong>D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR</strong></dt>
+<dd>
+<p>Use point sampling for minification and magnification; use linear interpolation for mip-level sampling.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT"><!----></a><a id="d3d11_filter_min_point_mag_linear_mip_point"><!----></a><strong>D3D11_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT</strong></dt>
+<dd>
+<p>Use point sampling for minification; use linear interpolation for magnification; use point sampling for mip-level sampling.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR"><!----></a><a id="d3d11_filter_min_point_mag_mip_linear"><!----></a><strong>D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR</strong></dt>
+<dd>
+<p>Use point sampling for minification; use linear interpolation for magnification and mip-level sampling.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT"><!----></a><a id="d3d11_filter_min_linear_mag_mip_point"><!----></a><strong>D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT</strong></dt>
+<dd>
+<p>Use linear interpolation for minification; use point sampling for magnification and mip-level sampling.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR"><!----></a><a id="d3d11_filter_min_linear_mag_point_mip_linear"><!----></a><strong>D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR</strong></dt>
+<dd>
+<p>Use linear interpolation for minification; use point sampling for magnification; use linear interpolation for mip-level sampling.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT"><!----></a><a id="d3d11_filter_min_mag_linear_mip_point"><!----></a><strong>D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT</strong></dt>
+<dd>
+<p>Use linear interpolation for minification and magnification; use point sampling for mip-level sampling.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MIN_MAG_MIP_LINEAR"><!----></a><a id="d3d11_filter_min_mag_mip_linear"><!----></a><strong>D3D11_FILTER_MIN_MAG_MIP_LINEAR</strong></dt>
+<dd>
+<p>Use linear interpolation for minification, magnification, and mip-level sampling.</p>
+</dd>
+<dt><a id="D3D11_FILTER_ANISOTROPIC"><!----></a><a id="d3d11_filter_anisotropic"><!----></a><strong>D3D11_FILTER_ANISOTROPIC</strong></dt>
+<dd>
+<p>Use anisotropic interpolation for minification, magnification, and mip-level sampling.</p>
+</dd>
+<dt><a id="D3D11_FILTER_COMPARISON_MIN_MAG_MIP_POINT"><!----></a><a id="d3d11_filter_comparison_min_mag_mip_point"><!----></a><strong>D3D11_FILTER_COMPARISON_MIN_MAG_MIP_POINT</strong></dt>
+<dd>
+<p>Use point sampling for minification, magnification, and mip-level sampling. Compare the result to the comparison value.</p>
+</dd>
+<dt><a id="D3D11_FILTER_COMPARISON_MIN_MAG_POINT_MIP_LINEAR"><!----></a><a id="d3d11_filter_comparison_min_mag_point_mip_linear"><!----></a><strong>D3D11_FILTER_COMPARISON_MIN_MAG_POINT_MIP_LINEAR</strong></dt>
+<dd>
+<p>Use point sampling for minification and magnification; use linear interpolation for mip-level sampling. Compare the result to the comparison value.</p>
+</dd>
+<dt><a id="D3D11_FILTER_COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT"><!----></a><a id="d3d11_filter_comparison_min_point_mag_linear_mip_point"><!----></a><strong>D3D11_FILTER_COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT</strong></dt>
+<dd>
+<p>Use point sampling for minification; use linear interpolation for magnification; use point sampling for mip-level sampling. Compare the result to the comparison value.</p>
+</dd>
+<dt><a id="D3D11_FILTER_COMPARISON_MIN_POINT_MAG_MIP_LINEAR"><!----></a><a id="d3d11_filter_comparison_min_point_mag_mip_linear"><!----></a><strong>D3D11_FILTER_COMPARISON_MIN_POINT_MAG_MIP_LINEAR</strong></dt>
+<dd>
+<p>Use point sampling for minification; use linear interpolation for magnification and mip-level sampling. Compare the result to the comparison value.</p>
+</dd>
+<dt><a id="D3D11_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT"><!----></a><a id="d3d11_filter_comparison_min_linear_mag_mip_point"><!----></a><strong>D3D11_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT</strong></dt>
+<dd>
+<p>Use linear interpolation for minification; use point sampling for magnification and mip-level sampling. Compare the result to the comparison value.</p>
+</dd>
+<dt><a id="D3D11_FILTER_COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR"><!----></a><a id="d3d11_filter_comparison_min_linear_mag_point_mip_linear"><!----></a><strong>D3D11_FILTER_COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR</strong></dt>
+<dd>
+<p>Use linear interpolation for minification; use point sampling for magnification; use linear interpolation for mip-level sampling. Compare the result to the comparison value.</p>
+</dd>
+<dt><a id="D3D11_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT"><!----></a><a id="d3d11_filter_comparison_min_mag_linear_mip_point"><!----></a><strong>D3D11_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT</strong></dt>
+<dd>
+<p>Use linear interpolation for minification and magnification; use point sampling for mip-level sampling. Compare the result to the comparison value.</p>
+</dd>
+<dt><a id="D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR"><!----></a><a id="d3d11_filter_comparison_min_mag_mip_linear"><!----></a><strong>D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR</strong></dt>
+<dd>
+<p>Use linear interpolation for minification, magnification, and mip-level sampling. Compare the result to the comparison value.</p>
+</dd>
+<dt><a id="D3D11_FILTER_COMPARISON_ANISOTROPIC"><!----></a><a id="d3d11_filter_comparison_anisotropic"><!----></a><strong>D3D11_FILTER_COMPARISON_ANISOTROPIC</strong></dt>
+<dd>
+<p>Use anisotropic interpolation for minification, magnification, and mip-level sampling. Compare the result to the comparison value.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MINIMUM_MIN_MAG_MIP_POINT"><!----></a><a id="d3d11_filter_minimum_min_mag_mip_point"><!----></a><strong>D3D11_FILTER_MINIMUM_MIN_MAG_MIP_POINT</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_MAG_MIP_POINT">D3D11_FILTER_MIN_MAG_MIP_POINT</a> and instead of filtering them return the minimum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the minimum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MINIMUM_MIN_MAG_POINT_MIP_LINEAR"><!----></a><a id="d3d11_filter_minimum_min_mag_point_mip_linear"><!----></a><strong>D3D11_FILTER_MINIMUM_MIN_MAG_POINT_MIP_LINEAR</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR">D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR</a> and instead of filtering them return the minimum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the minimum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MINIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT"><!----></a><a id="d3d11_filter_minimum_min_point_mag_linear_mip_point"><!----></a><strong>D3D11_FILTER_MINIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT">D3D11_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT</a> and instead of filtering them return the minimum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the minimum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MINIMUM_MIN_POINT_MAG_MIP_LINEAR"><!----></a><a id="d3d11_filter_minimum_min_point_mag_mip_linear"><!----></a><strong>D3D11_FILTER_MINIMUM_MIN_POINT_MAG_MIP_LINEAR</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR">D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR</a> and instead of filtering them return the minimum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the minimum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MINIMUM_MIN_LINEAR_MAG_MIP_POINT"><!----></a><a id="d3d11_filter_minimum_min_linear_mag_mip_point"><!----></a><strong>D3D11_FILTER_MINIMUM_MIN_LINEAR_MAG_MIP_POINT</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT">D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT</a> and instead of filtering them return the minimum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the minimum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MINIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR"><!----></a><a id="d3d11_filter_minimum_min_linear_mag_point_mip_linear"><!----></a><strong>D3D11_FILTER_MINIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR">D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR</a> and instead of filtering them return the minimum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the minimum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MINIMUM_MIN_MAG_LINEAR_MIP_POINT"><!----></a><a id="d3d11_filter_minimum_min_mag_linear_mip_point"><!----></a><strong>D3D11_FILTER_MINIMUM_MIN_MAG_LINEAR_MIP_POINT</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT">D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT</a> and instead of filtering them return the minimum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the minimum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MINIMUM_MIN_MAG_MIP_LINEAR"><!----></a><a id="d3d11_filter_minimum_min_mag_mip_linear"><!----></a><strong>D3D11_FILTER_MINIMUM_MIN_MAG_MIP_LINEAR</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_MAG_MIP_LINEAR">D3D11_FILTER_MIN_MAG_MIP_LINEAR</a> and instead of filtering them return the minimum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the minimum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MINIMUM_ANISOTROPIC"><!----></a><a id="d3d11_filter_minimum_anisotropic"><!----></a><strong>D3D11_FILTER_MINIMUM_ANISOTROPIC</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_ANISOTROPIC">D3D11_FILTER_ANISOTROPIC</a> and instead of filtering them return the minimum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the minimum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MAXIMUM_MIN_MAG_MIP_POINT"><!----></a><a id="d3d11_filter_maximum_min_mag_mip_point"><!----></a><strong>D3D11_FILTER_MAXIMUM_MIN_MAG_MIP_POINT</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_MAG_MIP_POINT">D3D11_FILTER_MIN_MAG_MIP_POINT</a> and instead of filtering them return the maximum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the maximum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MAXIMUM_MIN_MAG_POINT_MIP_LINEAR"><!----></a><a id="d3d11_filter_maximum_min_mag_point_mip_linear"><!----></a><strong>D3D11_FILTER_MAXIMUM_MIN_MAG_POINT_MIP_LINEAR</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR">D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR</a> and instead of filtering them return the maximum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the maximum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MAXIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT"><!----></a><a id="d3d11_filter_maximum_min_point_mag_linear_mip_point"><!----></a><strong>D3D11_FILTER_MAXIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT">D3D11_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT</a> and instead of filtering them return the maximum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the maximum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MAXIMUM_MIN_POINT_MAG_MIP_LINEAR"><!----></a><a id="d3d11_filter_maximum_min_point_mag_mip_linear"><!----></a><strong>D3D11_FILTER_MAXIMUM_MIN_POINT_MAG_MIP_LINEAR</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR">D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR</a> and instead of filtering them return the maximum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the maximum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MAXIMUM_MIN_LINEAR_MAG_MIP_POINT"><!----></a><a id="d3d11_filter_maximum_min_linear_mag_mip_point"><!----></a><strong>D3D11_FILTER_MAXIMUM_MIN_LINEAR_MAG_MIP_POINT</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT">D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT</a> and instead of filtering them return the maximum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the maximum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MAXIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR"><!----></a><a id="d3d11_filter_maximum_min_linear_mag_point_mip_linear"><!----></a><strong>D3D11_FILTER_MAXIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR">D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR</a> and instead of filtering them return the maximum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the maximum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MAXIMUM_MIN_MAG_LINEAR_MIP_POINT"><!----></a><a id="d3d11_filter_maximum_min_mag_linear_mip_point"><!----></a><strong>D3D11_FILTER_MAXIMUM_MIN_MAG_LINEAR_MIP_POINT</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT">D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT</a> and instead of filtering them return the maximum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the maximum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MAXIMUM_MIN_MAG_MIP_LINEAR"><!----></a><a id="d3d11_filter_maximum_min_mag_mip_linear"><!----></a><strong>D3D11_FILTER_MAXIMUM_MIN_MAG_MIP_LINEAR</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_MIN_MAG_MIP_LINEAR">D3D11_FILTER_MIN_MAG_MIP_LINEAR</a> and instead of filtering them return the maximum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the maximum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+<dt><a id="D3D11_FILTER_MAXIMUM_ANISOTROPIC"><!----></a><a id="d3d11_filter_maximum_anisotropic"><!----></a><strong>D3D11_FILTER_MAXIMUM_ANISOTROPIC</strong></dt>
+<dd>
+<p>Fetch the same set of texels as <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#D3D11_FILTER_ANISOTROPIC">D3D11_FILTER_ANISOTROPIC</a> and instead of filtering them return the maximum of the texels.  Texels that are weighted 0 during filtering aren't counted towards the maximum.  You can query support for this filter type from the <strong>MinMaxFiltering</strong> member in the <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/dn280377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">D3D11_FEATURE_DATA_D3D11_OPTIONS1</strong></a> structure.</p>
+</dd>
+</dl>
+<h2>Remarks</h2>
+<div class="alert"><strong>Note</strong>&nbsp;&nbsp;If you use different filter types for min versus mag filter, undefined behavior occurs in certain cases where the choice between whether magnification or minification happens is ambiguous.  To prevent this undefined behavior, use filter modes that use similar filter operations for both min and mag (or use anisotropic filtering, which avoids the issue as well).</div>
+<div>&nbsp;</div>
+<p>During texture sampling, one or more texels are read and combined (this is calling filtering) to produce a single value. Point sampling reads a single texel while linear sampling reads two texels (endpoints) and linearly interpolates a third value between the endpoints.</p>
+<p>HLSL texture-sampling functions also support comparison filtering during texture sampling. Comparison filtering compares each sampled texel against a comparison value. The boolean result is blended the same way that normal texture filtering is blended.</p>
+<p>You can use HLSL intrinsic texture-sampling functions that implement texture filtering only or companion functions that use texture filtering with comparison filtering.</p>
+<div class="contentTableWrapper"><table responsive="true" summary="table">
+<tbody><tr responsive="true"><th scope="col">Texture Sampling Function</th><th scope="col">Texture Sampling Function with Comparison Filtering</th></tr>
+<tr><td data-th="Texture Sampling Function">sample</td><td data-th="Texture Sampling Function with Comparison Filtering">samplecmp or samplecmplevelzero</td></tr>
+</tbody></table></div>
+<p>&nbsp;</p>
+<p>Comparison filters only work with textures that have the following DXGI formats: R32_FLOAT_X8X24_TYPELESS, R32_FLOAT, R24_UNORM_X8_TYPELESS, R16_UNORM.</p>
+<h2>Requirements</h2>
+<div class="contentTableWrapper"><table summary="table">
+<tbody><tr><th scope="row">
+<p>Header</p>
+</th><td>
+<dl>
+<dt>D3D11.h</dt>
+</dl>
+</td></tr>
+</tbody></table></div>
+<h2><a id="see_also"><!----></a>See also</h2>
+<dl>
+<dt>
+<a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476152(v=vs.85).aspx">Core Enumerations</a>
+</dt>
+</dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+</div>
+
+
+
+
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/LibraryMemberFilter.css">
+
+<div class="libraryMemberFilter">
+    <div class="filterContainer">
+        <span>Show:</span>
+        <label>
+            <input type="checkbox" class="libraryFilterInherited" checked="checked" value="Inherit">Inherited
+        </label>
+        <label>
+            <input type="checkbox" class="libraryFilterProtected" checked="checked" value="Protected">Protected
+        </label>
+    </div>
+</div>
+    
+<input type="hidden" id="libraryMemberFilterEmptyWarning" value="There are no members available with your current filter settings.">
+<script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/LibraryMemberFilter.js.download"></script>
+
+
+    </div>
+<div id="rightNavigationMenu" ms.cmpgrp="right nav" style="position: fixed; margin-left: 3px; top: 60px;">
+    <div id="mobileButtons">
+        
+    </div>
+    <div id="navMain">
+        <div id="closeNavigation">
+            <a class="tocCloseSmall" id="closeButton"></a>
+        </div>
+        <div id="navigationButtons">
+            <a id="isd_print" href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(d=printer,v=vs.85).aspx" rel="nofollow"><ins class="print"></ins>Print </a>
+            <a id="isdShare" href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx#" role="button" aria-expanded="false">
+                <ins class="share"></ins>Share
+            </a>
+            <div id="socials" style="display: none">
+                <a class="isdFacebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmsdn.microsoft.com%2Fen-us%2Flibrary%2Fwindows%2Fdesktop%2Fff476132(v%3Dvs.85).aspx" aria-label="Share on Facebook">
+                    <ins class="facebook"></ins>
+                </a>
+                <a class="isdTwitter" href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fmsdn.microsoft.com%2Fen-us%2Flibrary%2Fwindows%2Fdesktop%2Fff476132(v%3Dvs.85).aspx&amp;text=D3D11_FILTER%20enumeration%20(Windows)&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fmsdn.microsoft.com%2Fen-us%2Flibrary%2Fwindows%2Fdesktop%2Fff476132(v%3Dvs.85).aspx" aria-label="Share on Twitter">
+                    <ins class="twitter"></ins>
+                </a>
+                <a class="isdGooglePlus" href="https://plus.google.com/share?url=https%3A%2F%2Fmsdn.microsoft.com%2Fen-us%2Flibrary%2Fwindows%2Fdesktop%2Fff476132(v%3Dvs.85).aspx" aria-label="Share on Google+">
+                    <ins class="googlePlus"></ins>
+                </a>
+            </div>
+        </div>
+        <div id="indoc_toc" style="display: none" ms.cmpgrp="indoc toc">
+            <div id="indoc_title">IN THIS ARTICLE</div>
+            <ul id="indoc_toclist"></ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/LibraryRightNavigationMenu.js.download" data-amd-enabled="true" data-requires="jQuery"></script>
+<script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/PrintExportButton.js.download" data-amd-enabled="true" data-requires="jQuery"></script>
+
+
+<script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/Toc_Fixed.js.download"></script>
+
+        </div>
+        <div class="clear"></div>
+
+        
+
+<input name="__RequestVerificationToken" type="hidden" value="bJPMUblB0OktQGtSoBLNqG5ujFC0qSB0a91LtBkLGklkS9NAPw3CciiBmQiRZOnAPei_Os2n2XZ_jQl35EHWPqdiTIc1">
+<input id="ratingValueSubmitUrl" type="hidden" value="https://msdn.microsoft.com/en-gb/library/feedback/rate/ff476132(v=vs.85).aspx">
+<input id="ratingAdditionalSubmitUrl" type="hidden" value="https://msdn.microsoft.com/en-gb/library/feedback/additional/ff476132(v=vs.85).aspx">
+<input id="isTopicRated" type="hidden" value="false">
+
+
+<script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/Utilities.js.download" data-requires="jQuery" data-provides="utilities"></script>
+    <link rel="stylesheet" type="text/css" href="./D3D11_FILTER enumeration (Windows)_files/Footer.css" xmlns="http://www.w3.org/1999/xhtml"><link rel="stylesheet" type="text/css" href="./D3D11_FILTER enumeration (Windows)_files/sprite.css" xmlns="http://www.w3.org/1999/xhtml">
+
+
+
+        <link rel="stylesheet" type="text/css" href="./D3D11_FILTER enumeration (Windows)_files/UhfFooterResponsive.css" data-do-not-move="true">
+    <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/UhfFooter.js.download"></script>
+    <input type="hidden" id="CurrentUrlLocale" value="en-gb">
+    <div id="ux-footer" class="ltr">
+        
+
+<link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/StandardRating.css">
+    <div id="standardRatingBefore" class="clear stdr-container-before"></div>
+    <div id="standardRating" class="stdr-container stdr-float" ms.pgarea="body" style="width: 1423px; margin-left: 0px; display: block;">
+        <div class="stdr-close" style="display: block;"></div>
+        <div class="stdr-vote stdr-content">
+            <div class="stdr-content">
+                <span class="stdr-votetitle">Is this page helpful?</span>
+                <button class="stdr-yes" aria-label="Yes, this page was helpful">Yes</button>
+                <button class="stdr-no" aria-label="No, this page was not helpful">No</button>
+                <input id="s_ratingValue" type="hidden" value="">
+            </div>
+        </div>
+        <div class="stdr-feedback" style="display: none">
+            <div class="stdr-form">
+                <div class="stdr-fieldtitle">Additional feedback?</div>
+                <textarea class="stdr-detail" rows="6" maxlength="1500"></textarea>
+                <div>
+                    <span class="stdr-count"><span class="stdr-charcnt">1500</span> characters remaining</span>
+                    <div class="stdr-buttons">
+                        <button class="stdr-provide" aria-label="Submit my additional feedback">Submit</button>
+                        <button class="stdr-skip" aria-label="Skip additional feedback">Skip this</button>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="stdr-thanks" style="display: none">
+            <div class="stdr-content">
+                <span class="stdr-thankyou">Thank you!</span>
+                <span class="stdr-appreciate">We appreciate your feedback.</span>
+            </div>
+        </div>
+
+        
+        <div id="contentFeedbackQAContainer" style="display: none;"></div>
+    </div>
+    <div id="standardRatingPlaceholder" style="height: 60px;"></div>
+    <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/StandardRating.js.download" data-amd-enabled="true" data-requires="utilities"></script>
+        <div id="footerContainer">
+            <div id="baseFooter">
+                    <section id="footerArea" data-m="{&quot;cN&quot;:&quot;footerArea&quot;,&quot;cT&quot;:&quot;Area_coreuiArea&quot;,&quot;id&quot;:&quot;a2Body&quot;,&quot;sN&quot;:2,&quot;aN&quot;:&quot;Body&quot;}">
+                    <div id="footerRegion" data-region-key="footerregion" data-m="{&quot;cN&quot;:&quot;footerRegion&quot;,&quot;cT&quot;:&quot;Region_coreui-region&quot;,&quot;id&quot;:&quot;r1a2&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;a2&quot;}">
+
+    <div id="footerUniversalFooter" data-m="{&quot;cN&quot;:&quot;footerUniversalFooter&quot;,&quot;cT&quot;:&quot;Module_coreui-universalfooter&quot;,&quot;id&quot;:&quot;m1r1a2&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;r1a2&quot;}" data-module-id="Category|footerRegion|footerRegion|footerUniversalFooter|coreui-universalfooter">
+        
+
+
+
+
+
+<footer id="uhf-footer" class="c-universal-footer context-uhf" data-uhf-greenid="false" data-footer-footprint="en-gb/DEV_Windows/win-dev-center-footer" ms.pgarea="Uhf footer">
+        <nav role="navigation" aria-label="Footer" ms.cmpgrp="Footer nav">
+            
+                <div>
+                        <div ms.cmpnm="What" s="" new'="">
+                            <h6 class="c-heading-4">What's new</h6>
+                            <ul class="c-list f-bare">
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/surface/devices/surface-pro/overview" ms.title="Footer_WhatsNew_NewSurfacePro">New Surface Pro</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.xbox.com/en-gb/xbox-one-x" ms.title="Footer_WhatsNew_XboxOneX">Xbox One X</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.xbox.com/en-gb/xbox-one-s?xr=shellnav" ms.title="Footer_WhatsNew_XboxOneS">Xbox One S</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/surface/devices/surface-laptop/overview" ms.title="Footer_WhatsNew_SurfaceLaptop">Surface Laptop</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/windows/windows-10-apps" ms.title="Footer_WhatsNew_Windows_10_apps">Windows 10 apps</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://store.office.com/en-gb/appshome.aspx?" ms.title="Footer_WhatsNew_OfficeApps">Office apps</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.xbox.com/en-gb/mixer" ms.title="Footer_WhatsNew_Mixer">Mixer</a>
+                                        </li>
+
+                            </ul>
+                            
+                        </div>
+                        <div ms.cmpnm="Store &amp; Support">
+                            <h6 class="c-heading-4">Store &amp; Support</h6>
+                            <ul class="c-list f-bare">
+                                        <li>
+                                            <a class="c-hyperlink" href="https://account.microsoft.com/" ms.title="Footer_StoreandSupport_AccountProfile">Account profile</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/download" ms.title="Footer_StoreandSupport_DownloadCenter">Download Center</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://go.microsoft.com/fwlink/p/?LinkID=824761&amp;clcid=0x809" ms.title="Footer_StoreandSupport_SalesAndSupport">Sales &amp; support</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://go.microsoft.com/fwlink/p/?LinkID=824764&amp;clcid=0x809" ms.title="MicrosoftStore_Returns">Returns</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://account.microsoft.com/orders" ms.title="Footer_StoreandSupport_OrderTracking">Order tracking</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/store/b/recycling?icid=GlobalFooterNav" ms.title="Footer_Recyclying">Recycling</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/store/b/aboutwarranties?icid=GlobalFooterNav" ms.title="Footer_Warranties">Commercial Warranties</a>
+                                        </li>
+
+                            </ul>
+                            
+                        </div>
+                        <div ms.cmpnm="Education">
+                            <h6 class="c-heading-4">Education</h6>
+                            <ul class="c-list f-bare">
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/education" ms.title="Footer_Education_MicrosoftInEducation">Microsoft in education</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/education/products/office/default.aspx" ms.title="Footer_Education_OfficeForStudents">Office for students</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://products.office.com/en-gb/academic/compare-office-365-education-plans" ms.title="Footer_Education_Office365ForSchools">Office 365 for schools</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/store/b/student" ms.title="Footer_Education_DealsForStudentsandEducators">Deals for students &amp; educators </a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://azure.microsoft.com/en-gb/community/education/" ms.title="Footer_MicrosoftAzureInEducation">Microsoft Azure in education</a>
+                                        </li>
+
+                            </ul>
+                            
+                        </div>
+                </div>
+                <div>
+                        <div ms.cmpnm="Enterprise">
+                            <h6 class="c-heading-4">Enterprise</h6>
+                            <ul class="c-list f-bare">
+                                        <li>
+                                            <a class="c-hyperlink" href="https://azure.microsoft.com/" ms.title="Footer_Enterprise_MicrosoftAzure ">Microsoft Azure </a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://enterprise.microsoft.com/en-gb/" ms.title="Footer_Enterprise_Enterprise">Enterprise</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/sql-server/" ms.title="Footer_Enterprise_DataPlatform">Data platform</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://partner.microsoft.com/en-gb/" ms.title="Footer_Enterprise_MicrosoftPartnerResources">Microsoft partner resources </a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://enterprise.microsoft.com/en-gb/industries/banking-and-capital-markets/" ms.title="Footer_Enterprise_FinanciaServices">Financial services</a>
+                                        </li>
+
+                            </ul>
+                            
+                        </div>
+                        <div ms.cmpnm="Developer">
+                            <h6 class="c-heading-4">Developer</h6>
+                            <ul class="c-list f-bare">
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.visualstudio.com/" ms.title="Footer_Developer_MicrosoftVisualStudio">Microsoft Visual Studio</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://msdn.microsoft.com/en-gb" ms.title="Footer_Developer_MicrosoftDeveloperNetwork">Microsoft Developer Network</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://technet.microsoft.com/en-gb" ms.title="Footer_Developer_TechNet">TechNet</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://mva.microsoft.com/" ms.title="Footer_Developer_MicrosoftVirtualAcademy">Microsoft Virtual Academy</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://channel9.msdn.com/" ms.title="Footer_Developer_Channel9">Channel 9</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://dev.office.com/" ms.title="Footer_Developer_OfficeDevCenter">Office Dev Centre</a>
+                                        </li>
+
+                            </ul>
+                            
+                        </div>
+                        <div ms.cmpnm="Company">
+                            <h6 class="c-heading-4">Company</h6>
+                            <ul class="c-list f-bare">
+                                        <li>
+                                            <a class="c-hyperlink" href="https://careers.microsoft.com/" ms.title="Footer_Company_Careers">Careers</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/about" ms.title="Footer_Company_AboutMicrosoft">About Microsoft</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://news.microsoft.com/en-gb" ms.title="Footer_Company_CompanyNews">Company news</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://privacy.microsoft.com/en-gb" ms.title="Footer_Company_PrivacyAtMicrosoft">Privacy at Microsoft</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/investor/default.aspx" ms.title="Footer_Company_Investors">Investors</a>
+                                        </li>
+                                        <li>
+                                            <a class="c-hyperlink" href="https://www.microsoft.com/en-gb/security/default.aspx" ms.title="Footer_Company_Security">Security</a>
+                                        </li>
+
+                            </ul>
+                            
+                        </div>
+                </div>
+        </nav>
+    <section>
+                <span id="selectLocaleFromPopUp">
+        <div class="locale-selector" style="position: relative">
+            <a class="current-locale" href="javascript:void(0)" aria-label="Change your language" aria-haspopup="true">
+                <span class="text">English</span>
+                <span class="gear"></span>
+            </a>
+            <div class="locale-selection-panel site-flag site-flag-lang" style="top: -245px; display: none;">
+                <div class="content" role="menu">
+                    <table class="all-locales" cellspacing="0" autogeneratecolumns="false" allowpaging="false" allowsorting="false" style="border-collapse: collapse;">
+                        <tbody>
+                            <tr>
+
+
+                                    <td><a title="Deutsch" href="http://msdn.microsoft.com/en-gb/?action=SelectLocale&amp;currentLocale=en-gb&amp;newLocale=de-de&amp;fromPage=/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx" class="locale-link" role="menuitem">Deutsch</a></td>
+                                    <td><a title="English" href="http://msdn.microsoft.com/en-gb/?action=SelectLocale&amp;currentLocale=en-gb&amp;newLocale=en-us&amp;fromPage=/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx" class="locale-link selected" role="menuitem">English</a></td>
+                                    <td><a title="Español" href="http://msdn.microsoft.com/en-gb/?action=SelectLocale&amp;currentLocale=en-gb&amp;newLocale=es-es&amp;fromPage=/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx" class="locale-link" role="menuitem">Español</a></td>
+                                    <td><a title="Français" href="http://msdn.microsoft.com/en-gb/?action=SelectLocale&amp;currentLocale=en-gb&amp;newLocale=fr-fr&amp;fromPage=/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx" class="locale-link" role="menuitem">Français</a></td>
+                                        </tr><tr>
+                                    <td><a title="Italiano" href="http://msdn.microsoft.com/en-gb/?action=SelectLocale&amp;currentLocale=en-gb&amp;newLocale=it-it&amp;fromPage=/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx" class="locale-link" role="menuitem">Italiano</a></td>
+                                    <td><a title="日本語" href="http://msdn.microsoft.com/en-gb/?action=SelectLocale&amp;currentLocale=en-gb&amp;newLocale=ja-jp&amp;fromPage=/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx" class="locale-link" role="menuitem">日本語</a></td>
+                                    <td><a title="한국어" href="http://msdn.microsoft.com/en-gb/?action=SelectLocale&amp;currentLocale=en-gb&amp;newLocale=ko-kr&amp;fromPage=/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx" class="locale-link" role="menuitem">한국어</a></td>
+                                    <td><a title="Português" href="http://msdn.microsoft.com/en-gb/?action=SelectLocale&amp;currentLocale=en-gb&amp;newLocale=pt-br&amp;fromPage=/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx" class="locale-link" role="menuitem">Português</a></td>
+                                        </tr><tr class="last">
+                                    <td><a title="Pусский" href="http://msdn.microsoft.com/en-gb/?action=SelectLocale&amp;currentLocale=en-gb&amp;newLocale=ru-ru&amp;fromPage=/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx" class="locale-link" role="menuitem">Pусский</a></td>
+                                    <td><a title="简体中文" href="http://msdn.microsoft.com/en-gb/?action=SelectLocale&amp;currentLocale=en-gb&amp;newLocale=zh-cn&amp;fromPage=/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx" class="locale-link" role="menuitem">简体中文</a></td>
+                                    <td><a title="繁體中文" href="http://msdn.microsoft.com/en-gb/?action=SelectLocale&amp;currentLocale=en-gb&amp;newLocale=zh-tw&amp;fromPage=/en-gb/library/windows/desktop/ff476132(v=vs.85).aspx" class="locale-link" role="menuitem">繁體中文</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="arrow">
+                        &nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </span>
+
+        <ul role="contentinfo" class="c-list f-bare" ms.cmpgrp="Corp links">
+                            <li>
+                    <a class="c-hyperlink" href="https://support.microsoft.com/contactus/?ws=support" ms.title="Footer_ContactUs">Contact us</a>
+                </li>
+                <li>
+                    <a class="c-hyperlink" href="https://go.microsoft.com/fwlink/?LinkId=521839" ms.title="Footer_PrivacyandCookies">Privacy &amp; Cookies</a>
+                </li>
+                <li>
+                    <a class="c-hyperlink" href="https://go.microsoft.com/fwlink/?LinkID=206977" ms.title="Footer_TermsOfUse">Terms of use</a>
+                </li>
+                <li>
+                    <a class="c-hyperlink" href="https://www.microsoft.com/trademarks" ms.title="Trademarks">Trademarks</a>
+                </li>
+                <li>
+                    <a class="c-hyperlink" href="https://choice.microsoft.com/" ms.title="Footer_AboutAds">About our ads</a>
+                </li>
+                <li>
+                    <a class="c-hyperlink" href="https://www.microsoft.com/en-ie/eucompliancedoc/default.aspx" ms.title="Footer_EUComplianceDoCs">EU Compliance DoCs</a>
+                </li>
+
+            <li>© Microsoft 2017</li>
+            
+        </ul>
+    </section>
+    
+</footer>
+
+
+
+
+
+<style>
+    .c-modal-link{cursor: pointer;}
+</style>
+    </div>
+            </div>
+
+    </section>
+
+    <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/SelectLocaleFromPopUp.js.download"></script>    
+    <link rel="stylesheet" type="text/css" href="./D3D11_FILTER enumeration (Windows)_files/SelectLocaleFromPopUp.css">
+    
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footerPrintView">
+            <div class="footerCopyrightPrintView">© 2017 Microsoft</div>
+        </div>
+
+        
+        
+        <link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/WindowsResponsive.css">
+        <link type="text/css" rel="stylesheet" href="./D3D11_FILTER enumeration (Windows)_files/Tables.MediaQueries.css">
+
+
+
+        <input id="MtpsDevice" type="hidden" value="Default">
+
+
+<!--[CDATA[ Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code, not by Microsoft.  See ASP.NET Ajax CDN Terms of Use – http://www.asp.net/ajaxlibrary/CDN.ashx. ]]-->
+
+        <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/Topic.js.download" data-provides="Topic" data-requires="JQuery"> </script>
+        <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/CodeSnippet.js.download"> </script>
+        <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/TopicNotInScope.js.download"> </script>
+            <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/ResponsiveSupport.js.download" data-provides="viewTypes"></script>
+        <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/VersionSelector.js.download"></script>
+
+<!--[CDATA[ WebTrends view model not available or IncludeLegacyWebTrendsScriptInGlobal feature flag is off]]-->
+<script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/WEDCS.js.download" data-requires="jQuery,ABTest" data-provides="WEDCS"></script>
+
+<script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/SurveyBroker.js.download"></script>
+
+<div id="globalRequestVerification">
+    <input name="__RequestVerificationToken" type="hidden" value="mAKwinb2y5YoulGcSZ2zInSqkK9YF6uxiME0rqKaZSZiS9nkRdYV3yvRmDrKWgHj3lcpvvmPHHTQrHQb-PbWcSrwQfw1">
+</div>
+
+<script>
+    $(document).ready(function() {
+        try {
+            var token = $("#globalRequestVerification input[name='__RequestVerificationToken']").clone();
+            $("#siteFeedbackForm").append(token);
+        } catch(err) {
+            
+        }
+    });
+</script>
+    </div>
+
+    <script type="text/javascript" data-provides="appInsightsId" data-requires="jQuery">
+        //<![CDATA[
+
+        window.appInsightsId = '5eb1b2eb-c47a-497a-a7ac-a1c230b2882f';
+        //]]>
+    </script>
+    <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/AppInsightsPerf.js.download" data-provides="appInsights" data-requires="jQuery,appInsightsId"></script>
+
+    
+
+    <script type="text/javascript" src="./D3D11_FILTER enumeration (Windows)_files/ABTestControl.js.download" data-provides="ABTest" data-requires="jQuery"></script>
+
+
+<script src="./D3D11_FILTER enumeration (Windows)_files/broker-config.js.download"></script></body></html>
