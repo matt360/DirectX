@@ -21,6 +21,8 @@ private:
 		XMFLOAT3 direction;
 		float specularPower;
 		XMFLOAT4 specular;
+		XMFLOAT3 position;
+		float padding;
 	};
 
 	struct CameraBufferType
