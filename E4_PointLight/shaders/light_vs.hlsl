@@ -26,7 +26,7 @@ struct OutputType
     float4 position : SV_POSITION; // SV - system value
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
-	float3 viewDirection : TEXCOORD1;
+	float3 position3D : TEXCOORD1;
 };
 
 OutputType main(InputType input)
@@ -34,6 +34,7 @@ OutputType main(InputType input)
     OutputType output;
 	float4 worldPosition;
     
+	// Change the position vector to be 4 units for proper matrix calculations.
     input.position.w = 1.0f;
 
     // Calculate the position of the vertex against the world, view, and projection matrices.
@@ -50,14 +51,8 @@ OutputType main(InputType input)
     // Normalize the normal vector.
     output.normal = normalize(output.normal);
 
-	// Calculate the position of the vertex in the world
-	worldPosition = mul(input.position, worldMatrix);
-
-	// Determine the viewing direction based on the position of the camera and the position of the vertex in the world
-	output.viewDirection = cameraPosition.xyz - worldPosition.xyz;
-	
-	// Normalize the viewing direction vector.
-	output.viewDirection = normalize(output.viewDirection);
+	// world position of vertex 
+    output.position3D = mul(input.position, worldMatrix);
 
     return output;
 }

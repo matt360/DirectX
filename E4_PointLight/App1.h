@@ -23,8 +23,9 @@ protected:
 
 	void initLight();
 private:
-	TriangleMesh* mesh;
+	TriangleMesh* triangleMesh;
 	SphereMesh* sphereMesh;
+	QuadMesh* quadMesh;
 	ColourShader* colourShader;
 	LightShader* lightShader;
 	

@@ -5,8 +5,9 @@
 App1::App1()
 {
 	//BaseApplication::BaseApplication();
-	mesh = nullptr;
+	triangleMesh = nullptr;
 	sphereMesh = nullptr;
+	quadMesh = nullptr;
 	lightShader = nullptr;
 	colourShader = nullptr;
 }
@@ -19,9 +20,11 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
 
 	// Create Mesh object
-	mesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
+
+	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
@@ -35,9 +38,10 @@ void App1::initLight()
 	m_Light = new Light;
 	m_Light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
 	m_Light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	m_Light->setDirection(0.5, -0.5f, 0.0f);
+	m_Light->setDirection(0.0, -1.0f, 0.0f);
 	m_Light->setSpecularPower(16.f);
 	m_Light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Light->setPosition(0.0f, 1.0f, 0.0f);
 }
 
 App1::~App1()
@@ -46,16 +50,22 @@ App1::~App1()
 	BaseApplication::~BaseApplication();
 
 	// Release the Direct3D object.
-	if (mesh)
+	if (triangleMesh)
 	{
-		delete mesh;
-		mesh = 0;
+		delete triangleMesh;
+		triangleMesh = 0;
 	}
 
 	if (sphereMesh)
 	{
 		delete sphereMesh;
 		sphereMesh = 0;
+	}
+
+	if (quadMesh)
+	{
+		delete quadMesh;
+		quadMesh = 0;
 	}
 
 	if (colourShader)
@@ -103,21 +113,34 @@ bool App1::render()
 	camera->update();
 
 	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	worldMatrix = renderer->getWorldMatrix();
+
 	viewMatrix = camera->getViewMatrix();
+
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// wireframe mode
 	renderer->setWireframeMode(false);
 
+	// translation and rotation
+	worldMatrix = renderer->getWorldMatrix();
+	XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(90.0f));
+	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+	// scaling
+	XMMATRIX matrixScaling = XMMatrixScaling(3.0f, 1.0f, 3.0f);
+	worldMatrix *= matrixScaling;
+
 	//// Send geometry data (from mesh)
-	//mesh->sendData(renderer->getDeviceContext());
-	sphereMesh->sendData(renderer->getDeviceContext());
+	//triangleMesh->sendData(renderer->getDeviceContext());
+	//sphereMesh->sendData(renderer->getDeviceContext());
+	quadMesh->sendData(renderer->getDeviceContext());
 
 	//// Set shader parameters (matrices and texture)
+	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
 	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
 	//// Render object (combination of mesh geometry and shader process
-	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
 
 	// Render GUI
 	gui();
