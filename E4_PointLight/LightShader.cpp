@@ -149,21 +149,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	// Now set the constant buffer in the vertex shader with the updated values.
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
 
-	//Additional
-	// Send light data to pixel shader
-	deviceContext->Map(lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	lightPtr = (LightBufferType*)mappedResource.pData;
-	lightPtr->ambient = light->getAmbientColour();
-	lightPtr->diffuse = light->getDiffuseColour();
-	lightPtr->direction = light->getDirection();
-	lightPtr->specularPower = light->getSpecularPower();
-	lightPtr->specular = light->getSpecularColour();
-	
-	//lightPtr->padding = 0.0f;
-	deviceContext->Unmap(lightBuffer, 0);
-	bufferNumber = 0;
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
-
+	// Additional //
 	// Camera
 	deviceContext->Map(cameraBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	cameraPtr = (CameraBufferType*)mappedResource.pData;
@@ -172,6 +158,22 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->Unmap(cameraBuffer, 0);
 	bufferNumber = 1;
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &cameraBuffer);
+
+	// Send light data to pixel shader
+	deviceContext->Map(lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	lightPtr = (LightBufferType*)mappedResource.pData;
+	lightPtr->ambient = light->getAmbientColour();
+	lightPtr->diffuse = light->getDiffuseColour();
+	lightPtr->direction = light->getDirection();
+	lightPtr->specularPower = light->getSpecularPower();
+	lightPtr->specular = light->getSpecularColour();
+	lightPtr->position = light->getPosition();
+	lightPtr->padding = 0.0f;
+	
+	//lightPtr->padding = 0.0f;
+	deviceContext->Unmap(lightBuffer, 0);
+	bufferNumber = 0;
+	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
 
 	// Set shader texture resource in the pixel shader.
 	deviceContext->PSSetShaderResources(0, 1, &texture);
