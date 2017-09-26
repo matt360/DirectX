@@ -41,7 +41,7 @@ void App1::initLight()
 	m_Light->setDirection(0.0, 0.0f, 0.0f);
 	m_Light->setSpecularPower(16.f);
 	m_Light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	m_Light->setPosition(0.0f, 1.0f, 0.0f);
+	m_Light->setPosition(0.0f, 0.1f, 0.0f);
 }
 
 App1::~App1()
@@ -91,6 +91,13 @@ bool App1::frame()
 	{
 		return false;
 	}
+
+	static float a = 0.f;
+
+	a += XM_PIDIV2 * timer->getTime();
+	a = fmodf(a, XM_2PI);
+
+	m_Light->setPosition(0.f, 100 + (100.f * sinf(a)), 0.f);
 
 	// Render the graphics.
 	result = render();
