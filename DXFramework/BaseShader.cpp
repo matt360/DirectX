@@ -4,6 +4,8 @@
 #include "baseshader.h"
 
 // Store pointer to render device and handle to window.
+// When the resources are being created and and interfaced with,
+// the device interface is used.
 BaseShader::BaseShader(ID3D11Device* device, HWND lhwnd)
 {
 	renderer = device;
@@ -16,37 +18,37 @@ BaseShader::~BaseShader()
 	if (pixelShader)
 	{
 		pixelShader->Release();
-		pixelShader = 0;
+		pixelShader = nullptr;
 	}
 
 	if (vertexShader)
 	{
 		vertexShader->Release();
-		vertexShader = 0;
+		vertexShader = nullptr;
 	}
 
 	if (hullShader)
 	{
 		hullShader->Release();
-		hullShader = 0;
+		hullShader = nullptr;
 	}
 
 	if (domainShader)
 	{
 		domainShader->Release();
-		domainShader = 0;
+		domainShader = nullptr;
 	}
 
 	if (geometryShader)
 	{
 		geometryShader->Release();
-		geometryShader = 0;
+		geometryShader = nullptr;
 	}
 
 	if (computeShader)
 	{
 		computeShader->Release();
-		computeShader = 0;
+		computeShader = nullptr;
 	}
 }
 

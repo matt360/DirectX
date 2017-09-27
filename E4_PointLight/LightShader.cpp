@@ -1,7 +1,8 @@
 // texture shader.cpp
 #include "lightshader.h"
 
-
+// When resources are being created and interfaced with,
+// the device interface is used.
 LightShader::LightShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
 {
 	// compiled shader object

@@ -40,9 +40,9 @@ float4 main(InputType input) : SV_TARGET
 
     float distance = length(lightDir);
 
-    lightDir /= distance;
+    //lightDir /= distance;
 	
-    //lightDir = normalize(lightDir);
+    lightDir = normalize(lightDir);
 
 	// Calculate the amount of light on this pixel.
 	lightIntensity = saturate(dot(input.normal, -lightDir));
@@ -52,7 +52,7 @@ float4 main(InputType input) : SV_TARGET
 		// attenuation
         attenuation = 1.0f / (1.0f + 0.125f * distance + 0.0f * pow(distance, 2));
 
-		// Det125ine the final diffuse color based on the diffuse color and the amount of light intensity.
+		// Determine the final diffuse color based on the diffuse color and the amount of light intensity and attenuation.
 		color += (diffuseColor * lightIntensity * attenuation);
 	
 		// Saturate the ambient and diffuse color.
