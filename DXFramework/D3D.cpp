@@ -60,8 +60,52 @@ D3D::D3D(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscre
 		D3D_FEATURE_LEVEL_11_0
 	};*/
 
+	
+	// The D3D11CreateDeviceAndSwapChain function prototype.
+	/* 
+	HRESULT D3D11CreateDeviceAndSwapChain( 
+		IDXGIAdapter *pAdapter, 
+		D3D_DRIVER_TYPE DriverType, 
+		HMODULE Software, 
+		UINT Flags, 
+		const D3D_FEATURE_LEVEL *pFeatureLevels, 
+		UINT FeatureLevels, 
+		UINT SDKVersion,
+		const DXGI_SWAP_CHAIN_DESC * pSwapChainDesc,
+		IDXGISwapChain **ppSwapChain, 
+		ID3D11Device **ppDevice, 
+		D3D_FEATURE_LEVEL *pFeatureLevel, 
+		ID3D11DeviceContext **ppImmediateContext
+	);
+	*/
+
 	// Create the swap chain, Direct3D device, and Direct3D device context.
-	D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, &featureLevel, 1, D3D11_SDK_VERSION, &swapChainDesc, &swapChain, &device, NULL, &deviceContext);
+	D3D11CreateDeviceAndSwapChain(
+		// pAdapter
+		NULL,
+		// Driver Type - enum D3D_DRIVER_TYPE { D3D_DRIVER_TYPE_UNKNOWN, D3D_DRIVER_TYPE_HARDWARE, D3D_DRIVER_TYPE_REFERENCE, D3D_DRIVER_TYPE_NULL, D3D_DRIVER_TYPE_SOFTWARE, D3D_DRIVER_TYPE_WARP }
+		D3D_DRIVER_TYPE_HARDWARE,
+		// a handle to the software driver DLL in situations when a sofware driver type is selected
+		NULL, 
+		// UINT Flags - enum D3D11_CREATE_DEVICE_FLAG { D3D11_CREATE_DEVICE_SINGLETHREADED, D3D11_CREATE_DEVICE_DEBUG, D3D11_CREATE_DEVICE_SWITCH_TO_REF, D3D11_CREATE_DEVICE_PREVENT_INTERNAL_THREADING_OPTIMIZATIONS, D3D11_CREATE_DEVICE_BGRA_SUPPORT }
+		NULL, 
+		// const D3D_FEATURE_LEVEL *pFeatureLevels
+		&featureLevel, 
+		// UINT FeatureLevels
+		1, 
+		// UINT SDKVersion
+		D3D11_SDK_VERSION,
+		// const DXGI_SWAP_CHAIN_DESC * pSwapChainDesc
+		&swapChainDesc,
+		// IDXGISwapChain **ppSwapChain
+		&swapChain,
+		// ID3D11Device **ppDevice
+		&device,
+		// D3D_FEATURE_LEVEL *pFeatureLevel
+		NULL, 
+		// ID3D11DeviceContext **ppImmediateContext
+		&deviceContext
+	);
 		
 	// Configure back buffer
 	swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferPtr);
