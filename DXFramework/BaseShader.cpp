@@ -93,6 +93,11 @@ void BaseShader::loadVertexShader(WCHAR* filename)
 		MessageBox(NULL, filename, L"File ERROR", MB_OK);
 		exit(0);
 	}
+	/*if (FAILED(result))
+	{
+		Log::Get().Write(L"Failed to create blend state");
+		return(-1);
+	}*/
 	
 	// Create the vertex shader from the buffer.
 	renderer->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &vertexShader);
