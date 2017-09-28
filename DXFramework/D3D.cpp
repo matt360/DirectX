@@ -108,8 +108,10 @@ D3D::D3D(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscre
 		&deviceContext
 	);
 		
-	// Configure back buffer
-	swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferPtr); // Acquiring the texture interface from a swap chain.
+	// Configure back buffer //
+	// Acquiring the texture interface from a swap chain.
+	swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferPtr); 
+	// Creating a render target view to allow binding the swap chain texture to the pipeline for rendering
 	device->CreateRenderTargetView(backBufferPtr, NULL, &renderTargetView);
 	backBufferPtr->Release();
 	backBufferPtr = 0;
@@ -165,7 +167,7 @@ D3D::D3D(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscre
 
 	// Setup the raster description which will determine how and what polygons will be drawn.
 	rasterDesc.AntialiasedLineEnable = false;
-	rasterDesc.CullMode = D3D11_CULL_BACK;
+	rasterDesc.CullMode = D3D11_CULL_NONE; // Changed from: D3D11_CULL_BACK to: D3D11_CULL_NONE
 	rasterDesc.DepthBias = 0;
 	rasterDesc.DepthBiasClamp = 0.0f;
 	rasterDesc.DepthClipEnable = true;
