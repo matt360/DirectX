@@ -25,7 +25,8 @@ D3D::D3D(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscre
 
 	// Initialise the swap chain description.
 	ZeroMemory(&swapChainDesc, sizeof(swapChainDesc));
-	swapChainDesc.BufferCount = 1;
+	// swapChainDesc.BufferCount = 1; // used to be 1
+	swapChainDesc.BufferCount = 2;    // changed to 2
 	swapChainDesc.BufferDesc.Width = screenWidth;
 	swapChainDesc.BufferDesc.Height = screenHeight;
 	//swapChainDesc.BufferDesc.Width = 0;	// auto sizing
