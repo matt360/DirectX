@@ -109,7 +109,7 @@ D3D::D3D(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscre
 	);
 		
 	// Configure back buffer
-	swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferPtr);
+	swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferPtr); // Acquiring the texture interface from a swap chain.
 	device->CreateRenderTargetView(backBufferPtr, NULL, &renderTargetView);
 	backBufferPtr->Release();
 	backBufferPtr = 0;
