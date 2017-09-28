@@ -119,7 +119,7 @@ bool App1::render()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
-	//// Clear the scene. (default blue colour)
+	//// Clear the scene. (default cornflower blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 
 	//// Generate the view matrix based on the camera's position.
