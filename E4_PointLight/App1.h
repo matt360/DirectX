@@ -30,6 +30,8 @@ private:
 	LightShader* lightShader;
 	
 	Light* m_Light;
+
+	float light_y;
 };
 
 #endif

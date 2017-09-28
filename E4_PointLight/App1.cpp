@@ -42,6 +42,7 @@ void App1::initLight()
 	m_Light->setSpecularPower(16.f);
 	m_Light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Light->setPosition(0.0f, 0.1f, 0.0f);
+	light_y = 0.0f;
 }
 
 App1::~App1()
@@ -92,12 +93,17 @@ bool App1::frame()
 		return false;
 	}
 
+	/*
 	static float a = 0.f;
 
 	a += XM_PIDIV2 * timer->getTime();
 	a = fmodf(a, XM_2PI);
 
 	m_Light->setPosition(0.f, 100 + (100.f * sinf(a)), 0.f);
+	*/
+
+	light_y += XM_PIDIV2 * timer->getTime();
+	light_y = fmodf(light_y, XM_2PI);
 
 	// Render the graphics.
 	result = render();
@@ -120,7 +126,6 @@ bool App1::render()
 	camera->update();
 
 	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-
 	viewMatrix = camera->getViewMatrix();
 
 	projectionMatrix = renderer->getProjectionMatrix();
@@ -137,6 +142,7 @@ bool App1::render()
 	XMMATRIX matrixScaling = XMMatrixScaling(3.0f, 1.0f, 3.0f);
 	worldMatrix *= matrixScaling;
 
+	m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
 	//// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
 	//sphereMesh->sendData(renderer->getDeviceContext());
