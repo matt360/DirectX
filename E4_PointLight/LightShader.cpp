@@ -71,6 +71,34 @@ void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	matrixBufferDesc.StructureByteStride = 0;
 
 	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
+	// ID3D11Device interface is reposnsible for creating all memory resources
+	// The created resources can then be attached to the pipeline either directly or with a resource view,
+	// where they are then used during a pipeline execution event
+	// The resource creation process uses a different ID3D11Device method for each type of resource,
+	// but they all follow the same general pattern.
+
+	// The creation mathods all take three parameters. The first parameter is a structure that specifies 
+	// all of the various options that a resource can be created with.
+	// It is referred ti as a resource description. Each resource type uses its own description structure, since they each 
+	// have a different set of available properties, but the structures all serve the same purpose - 
+	// to define the desired characteristics of the created resource.
+
+	// The second parameter in the resource creation methods is a pointer to a D3D11_SUBRESOURCE_DATA structure,
+	// which is used to provied the initial data to be loaded inta a resource.
+	// For example, if a buffer resource will hold static verted data, this structure would be used to pass a models's
+	// vertex data into the buffer. This eliminates the need to manually manipulate the buffer after it is created,
+	// if its contents will not be changing. This parameter can also just be set to null if non initialization is required. 
+
+	// The final parameter is a pointer to a pointer to the appropriate resource interface,
+	// which is where the created resource pointer is stored after a successful resource creation event.
+
+	// In each if these methods, the real configuration ocurs in the resource description structure. As mentioned above,
+	// each resource type has its own structure used to define its properties. However, there are some common elements that are
+	// shared across all of the structures. These include the usage flags, bind flags, CPU access flags, and miscellaneous flags.
+
+                           // resource       resouce  a pointer to a pointer to the appropriate resource
+	                       // description,   creation 
+	                       //                method,
 	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer);
 
 	// Create a texture sampler state description.
