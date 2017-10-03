@@ -7,6 +7,7 @@ App1::App1()
 	//BaseApplication::BaseApplication();
 	triangleMesh = nullptr;
 	sphereMesh = nullptr;
+	cubeMesh = nullptr;
 	quadMesh = nullptr;
 	planeMesh = nullptr;
 	lightShader = nullptr;
@@ -24,6 +25,8 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
+
+	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
 
@@ -64,6 +67,12 @@ App1::~App1()
 	{
 		delete sphereMesh;
 		sphereMesh = 0;
+	}
+
+	if (cubeMesh)
+	{
+		delete cubeMesh;
+		cubeMesh = 0;
 	}
 
 	if (quadMesh)
@@ -155,19 +164,24 @@ bool App1::render()
 	//// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
 	//sphereMesh->sendData(renderer->getDeviceContext());
+	cubeMesh->sendData(renderer->getDeviceContext());
 	//quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
-	planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
+	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
 
 	float time = timer->getTime();
 	float height = 1.0f;
 	float frequency = 10.0f;
+
 	//// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
 	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, light_y, height, frequency);
+
 	//// Render object (combination of mesh geometry and shader process
-	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount()); // output data from the shader programme
+	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount()); // output data from the shader programme
+	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount()); // output data from the shader programme
 	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
-	lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
+	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
 
 	// Render GUI
 	gui();
