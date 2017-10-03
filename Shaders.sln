@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXFramework", "DXFramework\DXFramework.vcxproj", "{E887C38B-1273-433A-9DAC-A153DA5CF145}"
 EndProject
@@ -19,6 +19,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E3_SpecularLighting", "E3_SpecularLighting\E3_SpecularLighting.vcxproj", "{8004C911-D61F-4DD7-A3AE-5BC0D09CEDD1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E4_PointLight", "E4_PointLight\E4_PointLight.vcxproj", "{3ABC55F4-45C4-4FE4-8B8D-E95C8B0FE8E1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E5_VertexManipulation", "E5_VertexManipulation\E5_VertexManipulation.vcxproj", "{B6BA1ADD-5422-41DC-AB4B-925DBEB7F101}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +74,12 @@ Global
 		{3ABC55F4-45C4-4FE4-8B8D-E95C8B0FE8E1}.Release|Win32.ActiveCfg = Release|Win32
 		{3ABC55F4-45C4-4FE4-8B8D-E95C8B0FE8E1}.Release|Win32.Build.0 = Release|Win32
 		{3ABC55F4-45C4-4FE4-8B8D-E95C8B0FE8E1}.Release|x64.ActiveCfg = Release|Win32
+		{B6BA1ADD-5422-41DC-AB4B-925DBEB7F101}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B6BA1ADD-5422-41DC-AB4B-925DBEB7F101}.Debug|Win32.Build.0 = Debug|Win32
+		{B6BA1ADD-5422-41DC-AB4B-925DBEB7F101}.Debug|x64.ActiveCfg = Debug|Win32
+		{B6BA1ADD-5422-41DC-AB4B-925DBEB7F101}.Release|Win32.ActiveCfg = Release|Win32
+		{B6BA1ADD-5422-41DC-AB4B-925DBEB7F101}.Release|Win32.Build.0 = Release|Win32
+		{B6BA1ADD-5422-41DC-AB4B-925DBEB7F101}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

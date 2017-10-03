@@ -6,8 +6,6 @@ App1::App1()
 {
 	//BaseApplication::BaseApplication();
 	mesh = nullptr;
-	sphereMesh = nullptr;
-	lightShader = nullptr;
 	colourShader = nullptr;
 }
 
@@ -16,27 +14,13 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
-	textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
-
 	// Create Mesh object
 	mesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
+	colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
-	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
-
-	lightShader = new LightShader(renderer->getDevice(), hwnd);
-
-	initLight();
 }
 
-void App1::initLight()
-{
-	m_Light = new Light;
-	m_Light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
-	m_Light->setDiffuseColour(1.0f, 1.0f, 0.0f, 1.0f);
-	m_Light->setDirection(0.5, 1.5f, 0.0f);
-}
 
 App1::~App1()
 {
@@ -50,22 +34,10 @@ App1::~App1()
 		mesh = 0;
 	}
 
-	if (sphereMesh)
-	{
-		delete sphereMesh;
-		sphereMesh = 0;
-	}
-
 	if (colourShader)
 	{
 		delete colourShader;
 		colourShader = 0;
-	}
-
-	if (lightShader)
-	{
-		delete lightShader;
-		lightShader = 0;
 	}
 }
 
@@ -105,17 +77,12 @@ bool App1::render()
 	viewMatrix = camera->getViewMatrix();
 	projectionMatrix = renderer->getProjectionMatrix();
 
-	// wireframe mode
-	renderer->setWireframeMode(false);
-
 	//// Send geometry data (from mesh)
-	//mesh->sendData(renderer->getDeviceContext());
-	sphereMesh->sendData(renderer->getDeviceContext());
-
+	mesh->sendData(renderer->getDeviceContext());
 	//// Set shader parameters (matrices and texture)
-	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
+	colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
 	//// Render object (combination of mesh geometry and shader process
-	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 
 	// Render GUI
 	gui();
