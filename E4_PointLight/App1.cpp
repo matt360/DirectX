@@ -169,7 +169,7 @@ bool App1::render()
 	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
 
 	float height = 1.0f;
-	float frequency = 2.0f;
+	float frequency = 1.0f;
 
 	//// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
