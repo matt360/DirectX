@@ -45,6 +45,12 @@ LightShader::~LightShader()
 		cameraBuffer->Release();
 		cameraBuffer = 0;
 	}
+
+	if (timeBuffer)
+	{
+		timeBuffer->Release();
+		timeBuffer = 0;
+	}
 	//Release base shader components
 	BaseShader::~BaseShader();
 }
@@ -55,6 +61,8 @@ void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	D3D11_SAMPLER_DESC samplerDesc;
 	D3D11_BUFFER_DESC lightBufferDesc;
+	// Time
+	D3D11_BUFFER_DESC timeBufferDesc;
 	// Camera
 	D3D11_BUFFER_DESC cameraBufferDesc;
 
@@ -142,6 +150,16 @@ void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	cameraBufferDesc.StructureByteStride = 0;
 
 	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
+
+	// Time buffer
+	timeBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	timeBufferDesc.ByteWidth = sizeof(TimeBufferType);
+	timeBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	timeBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	timeBufferDesc.MiscFlags = 0;
+	timeBufferDesc.StructureByteStride = 0;
+
+	renderer->CreateBuffer(&timeBufferDesc, NULL, &timeBuffer);
 }
 
 void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, Camera* camera)

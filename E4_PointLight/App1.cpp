@@ -142,18 +142,19 @@ bool App1::render()
 	XMMATRIX matrixScaling = XMMatrixScaling(3.0f, 1.0f, 3.0f);
 	worldMatrix *= matrixScaling;
 
-	m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
+	//m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
 	//// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
 	//sphereMesh->sendData(renderer->getDeviceContext());
-	quadMesh->sendData(renderer->getDeviceContext());
+	quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
 
+	float time = timer->getTime();
 	//// Set shader parameters (matrices and texture)
-	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
-	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
+	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
+	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, &time);
 	//// Render object (combination of mesh geometry and shader process
 	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
 
 	// Render GUI
 	gui();
