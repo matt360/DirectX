@@ -5,6 +5,7 @@
 // Includes
 #include "../DXFramework/DXF.h"
 #include "ColourShader.h"
+#include "LightShader.h"
 
 class App1 : public BaseApplication
 {
@@ -20,11 +21,17 @@ protected:
 	bool render();
 	void gui();
 
+	void initLight();
 private:
+	TriangleMesh* triangleMesh;
+	SphereMesh* sphereMesh;
+	QuadMesh* quadMesh;
 	ColourShader* colourShader;
-	TriangleMesh* mesh;
-
+	LightShader* lightShader;
 	
+	Light* m_Light;
+
+	float light_y;
 };
 
 #endif

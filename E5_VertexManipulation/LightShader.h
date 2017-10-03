@@ -21,6 +21,8 @@ private:
 		XMFLOAT3 direction;
 		float specularPower;
 		XMFLOAT4 specular;
+		XMFLOAT3 position;
+		float padding;
 	};
 
 	struct CameraBufferType
@@ -30,10 +32,13 @@ private:
 	};
 
 public:
-
+	// When resources are being created and interfaced with,
+	// the 'device' interface is used.
 	LightShader(ID3D11Device* device, HWND hwnd);
 	~LightShader();
 
+	// When the pipeline or a resource is being manipulated,
+	// the 'device context' is used.
 	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX& worldMatrix, const XMMATRIX& viewMatrix, const XMMATRIX& projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, Camera* camera);
 	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &world, const XMMATRIX &view, const XMMATRIX &projection, ID3D11ShaderResourceView* texture, Light* light);
 	void render(ID3D11DeviceContext* deviceContext, int vertexCount);

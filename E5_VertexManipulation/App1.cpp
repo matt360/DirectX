@@ -5,7 +5,10 @@
 App1::App1()
 {
 	//BaseApplication::BaseApplication();
-	mesh = nullptr;
+	triangleMesh = nullptr;
+	sphereMesh = nullptr;
+	quadMesh = nullptr;
+	lightShader = nullptr;
 	colourShader = nullptr;
 }
 
@@ -14,13 +17,33 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
+	textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
+
 	// Create Mesh object
-	mesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	colourShader = new ColourShader(renderer->getDevice(), hwnd);
+	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
 
+	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
+
+	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
+
+	lightShader = new LightShader(renderer->getDevice(), hwnd);
+
+	initLight();
 }
 
+void App1::initLight()
+{
+	m_Light = new Light;
+	m_Light->setAmbientColour(0.0f, 0.0f, 0.0f, 1.0f);
+	m_Light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Light->setDirection(0.0, 0.0f, 0.0f);
+	m_Light->setSpecularPower(16.f);
+	m_Light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Light->setPosition(0.0f, 0.1f, 0.0f);
+	light_y = 0.0f;
+}
 
 App1::~App1()
 {
@@ -28,16 +51,34 @@ App1::~App1()
 	BaseApplication::~BaseApplication();
 
 	// Release the Direct3D object.
-	if (mesh)
+	if (triangleMesh)
 	{
-		delete mesh;
-		mesh = 0;
+		delete triangleMesh;
+		triangleMesh = 0;
+	}
+
+	if (sphereMesh)
+	{
+		delete sphereMesh;
+		sphereMesh = 0;
+	}
+
+	if (quadMesh)
+	{
+		delete quadMesh;
+		quadMesh = 0;
 	}
 
 	if (colourShader)
 	{
 		delete colourShader;
 		colourShader = 0;
+	}
+
+	if (lightShader)
+	{
+		delete lightShader;
+		lightShader = 0;
 	}
 }
 
@@ -51,6 +92,18 @@ bool App1::frame()
 	{
 		return false;
 	}
+
+	/*
+	static float a = 0.f;
+
+	a += XM_PIDIV2 * timer->getTime();
+	a = fmodf(a, XM_2PI);
+
+	m_Light->setPosition(0.f, 100 + (100.f * sinf(a)), 0.f);
+	*/
+
+	light_y += XM_PIDIV2 * timer->getTime();
+	light_y = fmodf(light_y, XM_2PI);
 
 	// Render the graphics.
 	result = render();
@@ -66,23 +119,41 @@ bool App1::render()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
-	//// Clear the scene. (default blue colour)
+	//// Clear the scene. (default cornflower blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 
 	//// Generate the view matrix based on the camera's position.
 	camera->update();
 
 	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	worldMatrix = renderer->getWorldMatrix();
 	viewMatrix = camera->getViewMatrix();
+
 	projectionMatrix = renderer->getProjectionMatrix();
 
+	// wireframe mode
+	renderer->setWireframeMode(false);
+
+	// translation and rotation
+	worldMatrix = renderer->getWorldMatrix();
+	XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(90.0f));
+	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+	// scaling
+	XMMATRIX matrixScaling = XMMatrixScaling(3.0f, 1.0f, 3.0f);
+	worldMatrix *= matrixScaling;
+
+	m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
 	//// Send geometry data (from mesh)
-	mesh->sendData(renderer->getDeviceContext());
+	//triangleMesh->sendData(renderer->getDeviceContext());
+	//sphereMesh->sendData(renderer->getDeviceContext());
+	quadMesh->sendData(renderer->getDeviceContext());
+
 	//// Set shader parameters (matrices and texture)
-	colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
+	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
+	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
 	//// Render object (combination of mesh geometry and shader process
-	colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
 
 	// Render GUI
 	gui();
