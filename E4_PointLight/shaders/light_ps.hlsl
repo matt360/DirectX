@@ -66,4 +66,6 @@ float4 main(InputType input) : SV_TARGET
 	//color = saturate(color + specular);
 	
 	return color;
+    //return float4(1.0, 0.0, 0.0, 1.0);
+
 }

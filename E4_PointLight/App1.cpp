@@ -36,7 +36,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 void App1::initLight()
 {
 	m_Light = new Light;
-	m_Light->setAmbientColour(0.0f, 0.0f, 0.0f, 1.0f);
+	m_Light->setAmbientColour(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Light->setDirection(0.0, 0.0f, 0.0f);
 	m_Light->setSpecularPower(16.f);
@@ -135,12 +135,12 @@ bool App1::render()
 
 	// translation and rotation
 	worldMatrix = renderer->getWorldMatrix();
-	XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(90.0f));
-	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
-	// scaling
-	XMMATRIX matrixScaling = XMMatrixScaling(3.0f, 1.0f, 3.0f);
-	worldMatrix *= matrixScaling;
+	//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+	//XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(90.0f));
+	//worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+	//// scaling
+	//XMMATRIX matrixScaling = XMMatrixScaling(3.0f, 1.0f, 3.0f);
+	//worldMatrix *= matrixScaling;
 
 	//m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
 	//// Send geometry data (from mesh)
@@ -150,8 +150,8 @@ bool App1::render()
 
 	float time = timer->getTime();
 	//// Set shader parameters (matrices and texture)
-	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
-	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, &time);
+	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
+	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, time);
 	//// Render object (combination of mesh geometry and shader process
 	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 	lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme

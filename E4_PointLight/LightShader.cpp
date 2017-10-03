@@ -149,7 +149,7 @@ void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	cameraBufferDesc.MiscFlags = 0;
 	cameraBufferDesc.StructureByteStride = 0;
 
-	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
+//	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
 
 	// Time buffer
 	timeBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
@@ -280,7 +280,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->PSSetShaderResources(0, 1, &texture);
 }
 
-void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, float* time)
+void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, float time)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -318,12 +318,12 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	// Get a pointer to the data in the constant buffer.
 	timePtr = (TimeBufferType*)mappedResource.pData;
 	// Copy the time balue into the constant buffer.
-	timePtr->time = *time;
+	timePtr->time = time;
 	timePtr->padding = XMFLOAT3(0.0, 0.0, 0.0);
 	// Unlock the constant buffer.
 	deviceContext->Unmap(timeBuffer, 0);
 	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 2;
+	bufferNumber = 1;
 	// Now set the constant buffer in the vertex shader with the updated values.
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &timeBuffer);
 

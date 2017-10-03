@@ -8,13 +8,13 @@ cbuffer MatrixBuffer : register(cb0)
     matrix projectionMatrix;
 };
 
-cbuffer CameraBuffer : register(cb1)
-{
-	float3 cameraPosition;
-	float paddingCamera;
-};
+//cbuffer CameraBuffer : register(cb1)
+//{
+//	float3 cameraPosition;
+//	float paddingCamera;
+//};
 
-cbuffer TimeBuffer : register(cb2)
+cbuffer TimeBuffer : register(cb1)
 {
     float time;
     float3 paddingTime;
@@ -37,14 +37,43 @@ struct OutputType
 
 OutputType main(InputType input)
 {
+  //  OutputType output;
+  //  float4 worldPosition;
+    
+  //  input.position.w = 1.0f;
+
+  //   Calculate the position of the vertex against the world, view, and projection matrices.
+  //  output.position = mul(input.position, worldMatrix);
+  //  output.position = mul(output.position, viewMatrix);
+  //  output.position = mul(output.position, projectionMatrix);
+    
+  //   Store the texture coordinates for the pixel shader.
+  //  output.tex = input.tex;
+
+	 // Calculate the normal vector against the world matrix only.
+  //  output.normal = mul(input.normal, (float3x3) worldMatrix);
+	
+  //   Normalize the normal vector.
+  //  output.normal = normalize(output.normal);
+
+	 //Calculate the position of the vertex in the world
+  //  worldPosition = mul(input.position, worldMatrix);
+
+	 //Determine the viewing direction based on the position of the camera and the position of the vertex in the world
+  //  output.viewDirection = cameraPosition.xyz - worldPosition.xyz;
+	
+	 //Normalize the viewing direction vector.
+  //  output.viewDirection = normalize(output.viewDirection);
+
+  //  return output;
     OutputType output;
     float height = 1.0f;
 	
 	// Change the position vector to be 4 units for proper matrix calculations.
     input.position.w = 1.0f;
 
-    // offset position based on sine wave
-    input.position.y = height * sin(input.position.x + time);
+   //  offset position based on sine wave
+    input.position.y += height * sin(input.position.x + time);
 
     input.normal.x = 1 - cos(input.position.x + time);
     input.normal.y = abs(cos(input.position.y + time));
@@ -58,6 +87,7 @@ OutputType main(InputType input)
     output.tex = input.tex;
 
 	// Store normals for the pixel shader
+    output.position3D = mul(input.position, worldMatrix);
     output.normal = mul(input.normal, (float3x3) worldMatrix);
     output.normal = normalize(output.normal);
 
