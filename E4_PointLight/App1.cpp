@@ -149,9 +149,11 @@ bool App1::render()
 	quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
 
 	float time = timer->getTime();
+	float height = 10.0f;
+	float frequency = 10.0f;
 	//// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
-	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, time);
+	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, time, height, frequency);
 	//// Render object (combination of mesh geometry and shader process
 	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 	lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme

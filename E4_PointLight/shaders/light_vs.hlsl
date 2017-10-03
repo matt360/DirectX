@@ -17,7 +17,9 @@ cbuffer MatrixBuffer : register(cb0)
 cbuffer TimeBuffer : register(cb1)
 {
     float time;
-    float3 paddingTime;
+    float height;
+    float frequency;
+    float padding;
 };
 
 struct InputType

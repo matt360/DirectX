@@ -280,7 +280,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->PSSetShaderResources(0, 1, &texture);
 }
 
-void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, float time)
+void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, float time, float height, float frequency)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -319,7 +319,9 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	timePtr = (TimeBufferType*)mappedResource.pData;
 	// Copy the time balue into the constant buffer.
 	timePtr->time = time;
-	timePtr->padding = XMFLOAT3(0.0, 0.0, 0.0);
+	timePtr->height = height;
+	timePtr->frequency = frequency;
+	timePtr->padding = 0.0f;
 	// Unlock the constant buffer.
 	deviceContext->Unmap(timeBuffer, 0);
 	// Set the position of the constant buffer in the vertex shader.
