@@ -69,14 +69,15 @@ OutputType main(InputType input)
 
   //  return output;
     OutputType output;
-    float height = 1.0f;
+    float heightWave = height;
 	
 	// Change the position vector to be 4 units for proper matrix calculations.
     input.position.w = 1.0f;
 
    //  offset position based on sine wave
-    input.position.x += height * sin(input.position.y + time);
-    input.position.y += height * sin(input.position.x + time);
+    input.position.x += heightWave * sin((input.position.y + time) * frequency);
+    input.position.y += heightWave * sin((input.position.x + time) * frequency);
+    input.position.z += heightWave * sin((input.position.y + time) * frequency);
 
     input.normal.x = 1 - cos(input.position.x + time);
     input.normal.y = abs(cos(input.position.y + time));
@@ -90,7 +91,7 @@ OutputType main(InputType input)
     output.tex = input.tex;
 
 	// Store normals for the pixel shader
-    output.position3D = mul(input.position, worldMatrix);
+    //output.position3D = mul(input.position, worldMatrix);
     output.normal = mul(input.normal, (float3x3) worldMatrix);
     output.normal = normalize(output.normal);
 
