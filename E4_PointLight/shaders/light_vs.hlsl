@@ -11,7 +11,13 @@ cbuffer MatrixBuffer : register(cb0)
 cbuffer CameraBuffer : register(cb1)
 {
 	float3 cameraPosition;
-	float padding;
+	float paddingCamera;
+};
+
+cbuffer TimeBuffer : register(cb2)
+{
+    float time;
+    float3 paddingTime;
 };
 
 struct InputType
@@ -32,27 +38,28 @@ struct OutputType
 OutputType main(InputType input)
 {
     OutputType output;
-	float4 worldPosition;
-    
+    float height = 1.0f;
+	
 	// Change the position vector to be 4 units for proper matrix calculations.
     input.position.w = 1.0f;
 
-    // Calculate the position of the vertex against the world, view, and projection matrices.
+    // offset position based on sine wave
+    input.position.y = height * sin(input.position.x + time);
+
+    input.normal.x = 1 - cos(input.position.x + time);
+    input.normal.y = abs(cos(input.position.y + time));
+
+	// Calculate the position of the vertex against the world, view, and projection matrices.
     output.position = mul(input.position, worldMatrix);
     output.position = mul(output.position, viewMatrix);
     output.position = mul(output.position, projectionMatrix);
-    
-    // Store the texture coordinates for the pixel shader.
+
+	// Store the texture coordinates for the pixel shader.
     output.tex = input.tex;
 
-	 // Calculate the normal vector against the world matrix only.
-    output.normal = mul(input.normal, (float3x3)worldMatrix);
-	
-    // Normalize the normal vector.
+	// Store normals for the pixel shader
+    output.normal = mul(input.normal, (float3x3) worldMatrix);
     output.normal = normalize(output.normal);
-
-	// world position of vertex 
-    output.position3D = mul(input.position, worldMatrix);
 
     return output;
 }

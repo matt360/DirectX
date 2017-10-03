@@ -28,7 +28,6 @@ ColourShader::~ColourShader()
 	BaseShader::~BaseShader();
 }
 
-
 void ColourShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 {
 	D3D11_BUFFER_DESC matrixBufferDesc;
@@ -49,7 +48,6 @@ void ColourShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer);
 
 }
-
 
 void ColourShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix)
 {
@@ -86,6 +84,45 @@ void ColourShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
 }
 
+void ColourShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, float* time)
+{
+	HRESULT result;
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	MatrixBufferType* dataPtr;
+	TimeBufferType* dataPtr;
+	unsigned int bufferNumber;
+	XMMATRIX tworld, tview, tproj;
+
+
+	// Transpose the matrices to prepare them for the shader.
+	tworld = XMMatrixTranspose(worldMatrix);
+	tview = XMMatrixTranspose(viewMatrix);
+	tproj = XMMatrixTranspose(projectionMatrix);
+
+	// Lock the constant buffer so it can be written to.
+	deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+
+	// Get a pointer to the data in the constant buffer.
+	dataPtr = (MatrixBufferType*)mappedResource.pData;
+
+	// Copy the matrices into the constant buffer.
+	dataPtr->world = tworld;// worldMatrix;
+	dataPtr->view = tview;
+	dataPtr->projection = tproj;
+
+	// Unlock the constant buffer.
+	deviceContext->Unmap(matrixBuffer, 0);
+
+	// Set the position of the constant buffer in the vertex shader.
+	bufferNumber = 0;
+
+	// Now set the constant buffer in the vertex shader with the updated values.
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+
+	// Time
+	// Lock the constant buffer so it can be written to
+	//deviceContext->Map(timeBuffer, 0, )
+}
 
 
 
