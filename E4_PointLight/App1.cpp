@@ -8,6 +8,7 @@ App1::App1()
 	triangleMesh = nullptr;
 	sphereMesh = nullptr;
 	quadMesh = nullptr;
+	planeMesh = nullptr;
 	lightShader = nullptr;
 	colourShader = nullptr;
 }
@@ -26,6 +27,8 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 
 	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
 
+	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
+
 	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
 	lightShader = new LightShader(renderer->getDevice(), hwnd);
@@ -36,7 +39,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 void App1::initLight()
 {
 	m_Light = new Light;
-	m_Light->setAmbientColour(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
 	m_Light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Light->setDirection(0.0, 0.0f, 0.0f);
 	m_Light->setSpecularPower(16.f);
@@ -67,6 +70,12 @@ App1::~App1()
 	{
 		delete quadMesh;
 		quadMesh = 0;
+	}
+
+	if (planeMesh)
+	{
+		delete planeMesh;
+		planeMesh = 0;
 	}
 
 	if (colourShader)
@@ -136,27 +145,29 @@ bool App1::render()
 	// translation and rotation
 	worldMatrix = renderer->getWorldMatrix();
 	XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(90.0f));
+	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(180.0f));
 	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	// scaling
-	XMMATRIX matrixScaling = XMMatrixScaling(3.0f, 1.0f, 3.0f);
+	XMMATRIX matrixScaling = XMMatrixScaling(1.0f, 1.0f, 1.0f);
 	worldMatrix *= matrixScaling;
 
 	//m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
 	//// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
 	//sphereMesh->sendData(renderer->getDeviceContext());
-	quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
+	//quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
+	planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
 
 	float time = timer->getTime();
-	float height = 10.0f;
+	float height = 1.0f;
 	float frequency = 10.0f;
 	//// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
 	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, light_y, height, frequency);
 	//// Render object (combination of mesh geometry and shader process
 	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
+	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
+	lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
 
 	// Render GUI
 	gui();

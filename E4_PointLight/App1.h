@@ -26,6 +26,7 @@ private:
 	TriangleMesh* triangleMesh;
 	SphereMesh* sphereMesh;
 	QuadMesh* quadMesh;
+	PlaneMesh* planeMesh;
 	ColourShader* colourShader;
 	LightShader* lightShader;
 	
