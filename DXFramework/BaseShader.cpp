@@ -389,18 +389,22 @@ void BaseShader::loadComputeShader(WCHAR* filename)
 	computeShaderBuffer = 0;
 }
 
+/*
+setShaderParameters is called before this to ensure the shader parameters are setup correctly.
+*/
 // The render function sets the shader parameters and then draws the prepared model vertices using the shader.
 // De/Activate shader stages and send shaders to GPU.
 void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {
-	// Set the vertex input layout.
-	deviceContext->IASetInputLayout(layout_);
+	// The first step in this function is to set our input layout to active in the input assembler.
+	// This lets the GPU know the format of the data in the vertex buffer. 
+	deviceContext->IASetInputLayout(layout_); 
 
 	// if vertex shader and pixel shader are not null the set VS and PS
 	/*vertexShader ? deviceContext->VSSetShader(vertexShader, NULL, 0) : deviceContext->VSSetShader(NULL, NULL, 0);*/
 	/*pixelShader ? deviceContext->PSSetShader(pixelShader, NULL, 0) : deviceContext->VSSetShader(NULL, NULL, 0);*/
 
-	// Set the vertex and pixel shaders that will be used to render.
+	// The second step is to set the vertex shader and pixel shader we will be using to render this vertex buffer.
 	deviceContext->VSSetShader(vertexShader_, NULL, 0);
 	deviceContext->PSSetShader(pixelShader_, NULL, 0);
 	
@@ -441,5 +445,7 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 	}
 
 	// Render the triangle.
+	// Once the shaders are set we render the triangle by calling the DrawIndexed DirectX 11 function using the D3D device context.
+	// Once this function is called it will render the triangle.
 	deviceContext->DrawIndexed(indexCount, 0, 0);
 }

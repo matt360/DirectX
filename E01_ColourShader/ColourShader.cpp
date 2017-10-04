@@ -76,6 +76,9 @@ void ColourShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const
 	tview = XMMatrixTranspose(viewMatrix);
 	tproj = XMMatrixTranspose(projectionMatrix);
 
+	/*
+	Lock the matrixBuffer_, set the new matrices inside it, and then unlock it.
+	*/
 	// Lock the constant buffer so it can be written to.
 	deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
@@ -90,6 +93,9 @@ void ColourShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const
 	// Unlock the constant buffer.
 	deviceContext->Unmap(matrixBuffer_, 0);
 
+	/*
+	Now set the updated matrix buffer in the HLSL vertex shader.
+	*/
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 
