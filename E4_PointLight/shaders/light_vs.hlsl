@@ -1,5 +1,7 @@
 // Light vertex shader
 // Standard issue vertex shader, apply matrices, pass info to pixel shader
+Texture2D shaderTexture : register(t0);
+SamplerState SampleType : register(s0);
 
 cbuffer MatrixBuffer : register(cb0)
 {
@@ -70,27 +72,46 @@ OutputType main(InputType input)
   //  return output;
     OutputType output;
     float heightWave = height;
+
+    // Sample the pixel color from the texture using the sampler at this texture coordinate location.
+    float4 textureColor;
+    textureColor = shaderTexture.Sample(SampleType, input.tex);
 	
 	// Change the position vector to be 4 units for proper matrix calculations.
     input.position.w = 1.0f;
 
+    //for (int j = 0; j < (2048 - 1); j++)
+    //{
+    //    for (int i = 0; i < (2048 - 1); i++)
+    //    {
+    //        input.tex.xy += textureColor.xy;
+    //    }
+    //}
+
     //  offset position based on sine wave
-    input.position.x += heightWave * sin((input.position.y + time) * frequency);
-    input.position.y += heightWave * sin((input.position.x + time) * frequency);
+    //input.position.x += heightWave * sin((input.position.y + time) * frequency);
+    //input.position.y += heightWave * sin((input.position.x + time) * frequency);
     //input.position.z += heightWave * sin((input.position.y + time) * frequency);
 
-    input.position.x += heightWave * sin((input.normal.y + time) * frequency);
-    input.position.y += heightWave * sin((input.normal.x + time) * frequency);
+    //input.position.x += heightWave * sin((input.normal.y + time) * frequency);
+    //input.position.y += heightWave * sin((input.normal.x + time) * frequency);
     //input.position.z += heightWave * sin((input.normal.y + time) * frequency);
 
-    input.normal.x = 1 - cos(input.position.x + time);
-    input.normal.y = abs(cos(input.position.y + time));
-    input.normal.z = abs(cos(input.position.y + time));
+    // offset position based on the colour
+    
+    float foo = textureColor.y;
 
-	// Calculate the position of the vertex against the world, view, and projection matrices.
-    output.position = mul(input.position, worldMatrix);
-    output.position = mul(output.position, viewMatrix);
-    output.position = mul(output.position, projectionMatrix);
+    input.position.y += foo;
+
+
+ //   input.normal.x = 1 - cos(input.position.x + time);
+ //   input.normal.y = abs(cos(input.position.y + time));
+ //   input.normal.z = abs(cos(input.position.y + time));
+
+	//// Calculate the position of the vertex against the world, view, and projection matrices.
+ //   output.position = mul(input.position, worldMatrix);
+ //   output.position = mul(output.position, viewMatrix);
+ //   output.position = mul(output.position, projectionMatrix);
     
 	// Store the texture coordinates for the pixel shader.
     output.tex = input.tex;
