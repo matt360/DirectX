@@ -25,10 +25,10 @@ TextureShader::~TextureShader()
 	}
 
 	// Release the layout.
-	if (layout)
+	if (layout_)
 	{
-		layout->Release();
-		layout = 0;
+		layout_->Release();
+		layout_ = 0;
 	}
 
 	//Release base shader components

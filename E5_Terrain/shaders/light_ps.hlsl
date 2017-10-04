@@ -65,7 +65,7 @@ float4 main(PixelInputType input) : SV_TARGET
     slope = textureColor;
 	
     // determine which texutre to use based on texture's pixel color
-    if (slope < )
+   // if (slope < )
 
 
 

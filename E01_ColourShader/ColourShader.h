@@ -24,7 +24,7 @@ private:
 	void initShader(WCHAR*, WCHAR*);
 
 private:
-	ID3D11Buffer* matrixBuffer;
+	ID3D11Buffer* matrixBuffer_;
 };
 
 #endif

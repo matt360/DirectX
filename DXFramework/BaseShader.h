@@ -68,8 +68,10 @@ protected:
 	ID3D11GeometryShader* geometryShader_;
 	ID3D11ComputeShader* computeShader_;
 	ID3D11InputLayout* layout_;
-	ID3D11Buffer* matrixBuffer;
-	ID3D11SamplerState* sampleState;
+
+	// TODO delete since all of those are being created in the derived class
+	ID3D11Buffer* matrixBuffer_;
+	ID3D11SamplerState* sampleState_;
 };
 
 #endif

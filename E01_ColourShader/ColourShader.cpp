@@ -12,10 +12,10 @@ ColourShader::ColourShader(ID3D11Device* device, HWND hwnd) : BaseShader(device,
 ColourShader::~ColourShader()
 {
 	// Release the matrix constant buffer.
-	if (matrixBuffer)
+	if (matrixBuffer_)
 	{
-		matrixBuffer->Release();
-		matrixBuffer = 0;
+		matrixBuffer_->Release();
+		matrixBuffer_ = 0;
 	}
 
 	// Release the layout.
@@ -50,7 +50,7 @@ void ColourShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	matrixBufferDesc.StructureByteStride = 0;
 
 	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
-	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer);
+	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer_);
 
 }
 
@@ -70,7 +70,7 @@ void ColourShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const
 	tproj = XMMatrixTranspose(projectionMatrix);
 
 	// Lock the constant buffer so it can be written to.
-	deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
@@ -81,13 +81,13 @@ void ColourShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const
 	dataPtr->projection = tproj;
 
 	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer, 0);
+	deviceContext->Unmap(matrixBuffer_, 0);
 
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 
 	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 }
 
 
