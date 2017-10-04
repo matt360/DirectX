@@ -460,7 +460,7 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 //
 //	// if Hull shader is not null then set HS and DS
 //	hullShader_ ? deviceContext->HSSetShader(hullShader_, NULL, 0), deviceContext->DSSetShader(domainShader_, NULL, 0) :
-//	deviceContext->HSSetShader(NULL, NULL, 0), deviceContext->DSSetShader(NULL, NULL, 0);
+//	              deviceContext->HSSetShader(NULL, NULL, 0), deviceContext->DSSetShader(NULL, NULL, 0);
 //
 //	// if geometry shader is not null then set GS
 //	geometryShader_ ? deviceContext->GSSetShader(geometryShader_, NULL, 0) : deviceContext->GSSetShader(NULL, NULL, 0);
