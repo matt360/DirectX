@@ -39,10 +39,10 @@ BaseShader::~BaseShader()
 		domainShader_ = nullptr;
 	}
 
-	if (geometryShader)
+	if (geometryShader_)
 	{
-		geometryShader->Release();
-		geometryShader = nullptr;
+		geometryShader_->Release();
+		geometryShader_ = nullptr;
 	}
 
 	if (computeShader)
@@ -325,7 +325,7 @@ void BaseShader::loadGeometryShader(WCHAR* filename)
 		exit(0);
 	}
 	// Create the domain shader from the buffer.
-	renderer->CreateGeometryShader(geometryShaderBuffer->GetBufferPointer(), geometryShaderBuffer->GetBufferSize(), NULL, &geometryShader);
+	renderer->CreateGeometryShader(geometryShaderBuffer->GetBufferPointer(), geometryShaderBuffer->GetBufferSize(), NULL, &geometryShader_);
 
 	geometryShaderBuffer->Release();
 	geometryShaderBuffer = 0;
@@ -414,10 +414,10 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 	}
 
 	// if geometry shader is not null then set GS
-	/*geometryShader ? deviceContext->GSSetShader(geometryShader, NULL, 0) : deviceContext->GSSetShader(NULL, NULL, 0);*/
-	if (geometryShader)
+	/*geometryShader_ ? deviceContext->GSSetShader(geometryShader_, NULL, 0) : deviceContext->GSSetShader(NULL, NULL, 0);*/
+	if (geometryShader_)
 	{
-		deviceContext->GSSetShader(geometryShader, NULL, 0);
+		deviceContext->GSSetShader(geometryShader_, NULL, 0);
 	}
 	else
 	{

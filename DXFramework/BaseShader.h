@@ -65,7 +65,7 @@ protected:
 	ID3D11PixelShader* pixelShader_;
 	ID3D11HullShader* hullShader_;
 	ID3D11DomainShader* domainShader_;
-	ID3D11GeometryShader* geometryShader;
+	ID3D11GeometryShader* geometryShader_;
 	ID3D11ComputeShader* computeShader;
 	ID3D11InputLayout* layout_;
 	ID3D11Buffer* matrixBuffer;
