@@ -14,7 +14,6 @@ class ColourShader : public BaseShader
 {
 
 public:
-
 	ColourShader(ID3D11Device* device, HWND hwnd);
 	~ColourShader();
 

@@ -29,12 +29,17 @@ ColourShader::~ColourShader()
 	BaseShader::~BaseShader();
 }
 
-// Now we will start with one of the more important functions to this tutorial which is called initShader.
-// This function is what actually loads the shader files and makes it usable to DirectX and the GPU.
-// You will also see the setup of the layout and how the vertex buffer data is going to look on the graphics pipeline in the GPU. 
-// The layout will need the match the VertexType in the modelclass.h file as well as the one defined in the color.vs file
+/*
+ Now we will start with one of the more important functions to this tutorial which is called initShader.
+ This function is what actually loads the shader files and makes it usable to DirectX and the GPU.
+ You will also see the setup of the layout and how the vertex buffer data is going to look on the graphics pipeline in the GPU. 
+ The layout will need the match the VertexType in the modelclass.h file as well as the one defined in the color.vs file
+*/
 void ColourShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 {
+	/*
+	As we saw in the vertex shader we currently have just one constant buffer so we only need to setup one here so we can interface with the shader.
+	*/
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	
 	// Load (+ compile) shader files
@@ -42,16 +47,18 @@ void ColourShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	loadPixelShader(psFilename);
 
 	// Setup the description of the dynamic matrix constant buffer that is in the vertex shader.
-	matrixBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	matrixBufferDesc.Usage = D3D11_USAGE_DYNAMIC; // The buffer usage needs to be set to dynamic since we will be updating it each frame.
 	matrixBufferDesc.ByteWidth = sizeof(MatrixBufferType);
-	matrixBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	matrixBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	matrixBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER; // The bind flags indicate that this buffer will be a constant buffer.
+	matrixBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; // The cpu access flags need to match up with the usage so it is set to D3D11_CPU_ACCESS_WRITE. 
 	matrixBufferDesc.MiscFlags = 0;
 	matrixBufferDesc.StructureByteStride = 0;
 
+	/*
+	Once we fill out the description we can then create the constant buffer interface and then use that to access the internal variables in the shader using the function setShaderParameters.
+	*/
 	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
 	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer_);
-
 }
 
 
