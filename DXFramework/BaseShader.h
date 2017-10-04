@@ -21,6 +21,9 @@ using namespace DirectX;
 class BaseShader
 {
 protected:
+	// Here is the definition of the cBuffer type that will be used with the vertex shader.
+	// This typedef must be exactly the same as the one in the vertex shader 
+	// as the model data needs to match the typedefs in the shader for proper rendering.
 	struct MatrixBufferType
 	{
 		XMMATRIX world;
@@ -42,6 +45,7 @@ public:
 	BaseShader(ID3D11Device* device, HWND hwnd);
 	~BaseShader();
 
+	// The render function sets the shader parameters and then draws the prepared model vertices using the shader.
 	virtual void render(ID3D11DeviceContext* deviceContext, int vertexCount);
 
 protected:

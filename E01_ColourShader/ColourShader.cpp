@@ -1,7 +1,7 @@
 // texture shader.cpp
 #include "colourshader.h"
 
-// ColorShader class will be responsible for rendering the model to the screen invoking our HLSL shader.
+// The ColorShader class is what we will use to invoke our HLSL shaders for drawing the 3D models that are on the GPU.
 
 ColourShader::ColourShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
 {
@@ -29,7 +29,10 @@ ColourShader::~ColourShader()
 	BaseShader::~BaseShader();
 }
 
-
+// Now we will start with one of the more important functions to this tutorial which is called initShader.
+// This function is what actually loads the shader files and makes it usable to DirectX and the GPU.
+// You will also see the setup of the layout and how the vertex buffer data is going to look on the graphics pipeline in the GPU. 
+// The layout will need the match the VertexType in the modelclass.h file as well as the one defined in the color.vs file
 void ColourShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 {
 	D3D11_BUFFER_DESC matrixBufferDesc;

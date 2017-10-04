@@ -31,7 +31,7 @@ cbuffer MatrixBuffer : register(cb0)
 // If you want more than one of the same type then you have to add a number to the end such as TEXCOORD0, TEXCOORD1, and so forth.
 
 // The vertex shader is called by the GPU when it is processing data from the vertex buffers that have been sent to it.
-// This vertex shader which I named ColorVertexShader will be called for every single vertex in the vertex buffer.
+// This vertex shader which is named 'main' will be called for every single vertex in the vertex buffer.
 // The input to the vertex shader must match the data format in the vertex buffer as well as the type definition in the shader source file which in this case is VertexInputType. ->
 struct VertexInputType
 {

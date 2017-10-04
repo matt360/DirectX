@@ -86,6 +86,8 @@ void BaseShader::loadVertexShader(WCHAR* filename)
 		exit(0);
 	}
 	
+	// Here is where we compile the shader programs into buffers.
+	// We give it the name of the shader file and the buffer to compile the shader into.
 	// Reads compiled shader into buffer (bytecode).
 	HRESULT result = D3DReadFileToBlob(filename, &vertexShaderBuffer);
 	if (result != S_OK)
@@ -99,13 +101,19 @@ void BaseShader::loadVertexShader(WCHAR* filename)
 		return(-1);
 	}*/
 	
+	// Once the vertex shader code has successfully compiled into buffer
+	// we then use those buffers to create the shader objects themselves. 
+	// We will use these pointers to interface with the vertex shader from this point forward.
 	// Create the vertex shader from the buffer.
 	renderer->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &vertexShader);
 	
+	// The next step is to create the layout of the vertex data that will be processed by the shader.
+	// As this shader uses a position, texcoord and normal vectors we need to create all of them in the layout specifying the size of all of them as well.
+
 	// Create the vertex input layout description.
 	// This setup needs to match the VertexType stucture in the MeshClass and in the shader.
-	polygonLayout[0].SemanticName = "POSITION";
-	polygonLayout[0].SemanticIndex = 0;
+	polygonLayout[0].SemanticName = "POSITION"; // The semantic name is the first thing to fill out in the layout, this allows the shader to determine the usage of this element of the layout.
+	polygonLayout[0].SemanticIndex = 0; // As we have three different elements we use POSITION for the first one,  TEXCOORD0 for the second and NORMAL for the third.
 	polygonLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
 	polygonLayout[0].InputSlot = 0;
 	polygonLayout[0].AlignedByteOffset = 0;
@@ -368,6 +376,7 @@ void BaseShader::loadComputeShader(WCHAR* filename)
 	computeShaderBuffer = 0;
 }
 
+// The render function sets the shader parameters and then draws the prepared model vertices using the shader.
 // De/Activate shader stages and send shaders to GPU.
 void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {

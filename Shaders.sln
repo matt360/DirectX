@@ -26,6 +26,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TerrainRT", "TerrainRT\Terr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TerrainRT1", "TerrainRT1\TerrainRT1.vcxproj", "{51D3EF52-46F2-4383-A632-6B66AA444DB5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RT-T4", "RT-T4\RT-T4.vcxproj", "{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -100,6 +102,14 @@ Global
 		{51D3EF52-46F2-4383-A632-6B66AA444DB5}.Release|Win32.Build.0 = Release|Win32
 		{51D3EF52-46F2-4383-A632-6B66AA444DB5}.Release|x64.ActiveCfg = Release|x64
 		{51D3EF52-46F2-4383-A632-6B66AA444DB5}.Release|x64.Build.0 = Release|x64
+		{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}.Debug|Win32.Build.0 = Debug|Win32
+		{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}.Debug|x64.ActiveCfg = Debug|x64
+		{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}.Debug|x64.Build.0 = Debug|x64
+		{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}.Release|Win32.ActiveCfg = Release|Win32
+		{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}.Release|Win32.Build.0 = Release|Win32
+		{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}.Release|x64.ActiveCfg = Release|x64
+		{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
