@@ -16,30 +16,40 @@
 // Logically organizing these buffers is important for efficient execution of shaders as well as how the graphics card will store the buffers.
 // In this example I've put three matrices in the same buffer since I will update them each frame at the same time.
 
-cbuffer MatrixBuffer 
+cbuffer MatrixBuffer : register(cb0)
 {
 	matrix worldMatrix;
 	matrix viewMatrix;
 	matrix projectionMatrix;
 };
 
-struct InputType
+// Similar to C we can create our own type definitions. We will use different types such as float4 that are available to HLSL which make programming shaders easier and readable. 
+// The POSITION, TEXCOORD0, and NORMAL are semantics that convey to the GPU the use of the variable.
+// I have to create two different structures here since the semantics are different for vertex and pixel shaders even though the structures are the same otherwise.
+// POSITION works for vertex shaders and SV_POSITION works for pixel shaders
+// while TEXCOORD0 and NORMAL works for both.
+// If you want more than one of the same type then you have to add a number to the end such as TEXCOORD0, TEXCOORD1, and so forth.
+
+// The vertex shader is called by the GPU when it is processing data from the vertex buffers that have been sent to it.
+// This vertex shader which I named ColorVertexShader will be called for every single vertex in the vertex buffer.
+struct VertexInputType
 {
 	float4 position : POSITION;
 	float2 tex : TEXCOORD0;
 	float3 normal : NORMAL;
 };
 
-struct OutputType
+
+struct PixelInputType
 {
 	float4 position : SV_POSITION;
 	float2 tex : TEXCOORD0;
 	float3 normal : NORMAL;
 };
 
-OutputType main(InputType input)
+PixelInputType main(VertexInputType input)
 {
-	OutputType output;
+    PixelInputType output;
 	
 	input.position *= 5.0f;
 
