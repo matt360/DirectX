@@ -153,6 +153,11 @@ void BaseShader::loadVertexShader(WCHAR* filename)
 	// Also release the vertex shader buffer since they are no longer needed once the layout has been created.
 	vertexShaderBuffer->Release();
 	vertexShaderBuffer = 0;
+
+	/*
+	The final thing that needs to be setup to utilize the shader is the constant buffer.
+	Currently we set up the constant buffers in ColourShader, TextureShader, LightShader ect. shader handler class.
+	*/
 }
 
 // Given pre-compiled file, load and create pixel shader.
