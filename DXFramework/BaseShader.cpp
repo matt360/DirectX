@@ -400,17 +400,11 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 	// This lets the GPU know the format of the data in the vertex buffer. 
 	deviceContext->IASetInputLayout(layout_); 
 
-	// if vertex shader and pixel shader are not null the set VS and PS
-	/*vertexShader ? deviceContext->VSSetShader(vertexShader, NULL, 0) : deviceContext->VSSetShader(NULL, NULL, 0);*/
-	/*pixelShader ? deviceContext->PSSetShader(pixelShader, NULL, 0) : deviceContext->VSSetShader(NULL, NULL, 0);*/
-
 	// The second step is to set the vertex shader and pixel shader we will be using to render this vertex buffer.
 	deviceContext->VSSetShader(vertexShader_, NULL, 0);
 	deviceContext->PSSetShader(pixelShader_, NULL, 0);
 	
 	// if Hull shader is not null then set HS and DS
-	/*hullShader ? deviceContext->HSSetShader(hullShader_, NULL, 0), deviceContext->DSSetShader(domainShader, NULL, 0) :
-	             deviceContext->HSSetShader(NULL, NULL, 0), deviceContext->DSSetShader(NULL, NULL, 0);*/
 	if (hullShader_)
 	{
 		deviceContext->HSSetShader(hullShader_, NULL, 0);
@@ -423,7 +417,6 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 	}
 
 	// if geometry shader is not null then set GS
-	/*geometryShader_ ? deviceContext->GSSetShader(geometryShader_, NULL, 0) : deviceContext->GSSetShader(NULL, NULL, 0);*/
 	if (geometryShader_)
 	{
 		deviceContext->GSSetShader(geometryShader_, NULL, 0);
@@ -434,7 +427,6 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 	}
 
 	// if compute shader is not null then set CS
-	/*computeShader_ ? deviceContext->CSSetShader(computeShader_, NULL, 0) : deviceContext->CSSetShader(NULL, NULL, 0);*/
 	if (computeShader_)
 	{
 		deviceContext->CSSetShader(computeShader_, NULL, 0);
@@ -449,3 +441,35 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 	// Once this function is called it will render the triangle.
 	deviceContext->DrawIndexed(indexCount, 0, 0);
 }
+
+///*
+//setShaderParameters is called before this to ensure the shader parameters are setup correctly.
+//*/
+//// The render function sets the shader parameters and then draws the prepared model vertices using the shader.
+//// De/Activate shader stages and send shaders to GPU.
+//void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
+//{
+//	// The first step in this function is to set our input layout to active in the input assembler.
+//	// This lets the GPU know the format of the data in the vertex buffer. 
+//	deviceContext->IASetInputLayout(layout_);
+//
+//	// The second step is to set the vertex shader and pixel shader we will be using to render this vertex buffer.
+//	// if vertex shader and pixel shader are not null the set VS and PS
+//	vertexShader_ ? deviceContext->VSSetShader(vertexShader_, NULL, 0) : deviceContext->VSSetShader(NULL, NULL, 0);
+//	pixelShader_ ? deviceContext->PSSetShader(pixelShader_, NULL, 0) : deviceContext->VSSetShader(NULL, NULL, 0);
+//
+//	// if Hull shader is not null then set HS and DS
+//	hullShader_ ? deviceContext->HSSetShader(hullShader_, NULL, 0), deviceContext->DSSetShader(domainShader_, NULL, 0) :
+//	deviceContext->HSSetShader(NULL, NULL, 0), deviceContext->DSSetShader(NULL, NULL, 0);
+//
+//	// if geometry shader is not null then set GS
+//	geometryShader_ ? deviceContext->GSSetShader(geometryShader_, NULL, 0) : deviceContext->GSSetShader(NULL, NULL, 0);
+//
+//	// if compute shader is not null then set CS
+//	computeShader_ ? deviceContext->CSSetShader(computeShader_, NULL, 0) : deviceContext->CSSetShader(NULL, NULL, 0);
+//
+//	// Render the triangle.
+//	// Once the shaders are set we render the triangle by calling the DrawIndexed DirectX 11 function using the D3D device context.
+//	// Once this function is called it will render the triangle.
+//	deviceContext->DrawIndexed(indexCount, 0, 0);
+//}
