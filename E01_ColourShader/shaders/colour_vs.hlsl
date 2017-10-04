@@ -2,7 +2,21 @@
 // Simple geometry pass
 // texture coordinates and normals will be ignored.
 
-cbuffer MatrixBuffer : register(cb0)
+// These will be our first shader programs.
+// Shaders are small programs that do the actual rendering of models.
+// These shaders are written in HLSL and stored in source files called color.vs and color.ps
+
+/////////////
+// GLOBALS //
+/////////////
+// In shader programs you begin with the global variables. 
+// These globals can be modified externally from your C++ code.
+// You can use many types of variables such as int or float and then set them externally for the shader program to use.
+// Generally you will put most globals in buffer object types called "cbuffer" even if it is just a single global variable.
+// Logically organizing these buffers is important for efficient execution of shaders as well as how the graphics card will store the buffers.
+// In this example I've put three matrices in the same buffer since I will update them each frame at the same time.
+
+cbuffer MatrixBuffer 
 {
 	matrix worldMatrix;
 	matrix viewMatrix;
