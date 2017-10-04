@@ -45,10 +45,10 @@ BaseShader::~BaseShader()
 		geometryShader_ = nullptr;
 	}
 
-	if (computeShader)
+	if (computeShader_)
 	{
-		computeShader->Release();
-		computeShader = nullptr;
+		computeShader_->Release();
+		computeShader_ = nullptr;
 	}
 }
 
@@ -378,7 +378,7 @@ void BaseShader::loadComputeShader(WCHAR* filename)
 	}
 
 	// Create the domain shader from the buffer.
-	renderer->CreateComputeShader(computeShaderBuffer->GetBufferPointer(), computeShaderBuffer->GetBufferSize(), NULL, &computeShader);
+	renderer->CreateComputeShader(computeShaderBuffer->GetBufferPointer(), computeShaderBuffer->GetBufferSize(), NULL, &computeShader_);
 
 	computeShaderBuffer->Release();
 	computeShaderBuffer = 0;
@@ -425,10 +425,10 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 	}
 
 	// if compute shader is not null then set CS
-	/*computeShader ? deviceContext->CSSetShader(computeShader, NULL, 0) : deviceContext->CSSetShader(NULL, NULL, 0);*/
-	if (computeShader)
+	/*computeShader_ ? deviceContext->CSSetShader(computeShader_, NULL, 0) : deviceContext->CSSetShader(NULL, NULL, 0);*/
+	if (computeShader_)
 	{
-		deviceContext->CSSetShader(computeShader, NULL, 0);
+		deviceContext->CSSetShader(computeShader_, NULL, 0);
 	}
 	else
 	{
