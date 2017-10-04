@@ -114,15 +114,15 @@ void BaseShader::loadVertexShader(WCHAR* filename)
 	// This setup needs to match the VertexType stucture in the MeshClass and in the shader.
 	polygonLayout[0].SemanticName = "POSITION"; // The semantic name is the first thing to fill out in the layout, this allows the shader to determine the usage of this element of the layout.
 	polygonLayout[0].SemanticIndex = 0; // As we have three different elements we use POSITION for the first one,  TEXCOORD0 for the second and NORMAL for the third.
-	polygonLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	polygonLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT; // The next important part of the layout is the Format. For the position vector we use DXGI_FORMAT_R32G32B32_FLOAT
 	polygonLayout[0].InputSlot = 0;
-	polygonLayout[0].AlignedByteOffset = 0;
+	polygonLayout[0].AlignedByteOffset = 0; // The final thing you need to pay attention to is the AlignedByteOffset which indicates how the data is spaced in the buffer. For this layout we are telling it the first 12 bytes are position ->
 	polygonLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	polygonLayout[0].InstanceDataStepRate = 0;
 
 	polygonLayout[1].SemanticName = "TEXCOORD";
 	polygonLayout[1].SemanticIndex = 0;
-	polygonLayout[1].Format = DXGI_FORMAT_R32G32_FLOAT;
+	polygonLayout[1].Format = DXGI_FORMAT_R32G32_FLOAT; // For the TEXCOORD0 vector we use DXGI_FORMAT_R32G32_FLOAT. -> and the next 8 bytes will be texcoord -->
 	polygonLayout[1].InputSlot = 0;
 	polygonLayout[1].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
 	polygonLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
@@ -130,9 +130,9 @@ void BaseShader::loadVertexShader(WCHAR* filename)
 
 	polygonLayout[2].SemanticName = "NORMAL";
 	polygonLayout[2].SemanticIndex = 0;
-	polygonLayout[2].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	polygonLayout[2].Format = DXGI_FORMAT_R32G32B32_FLOAT; // For the NORMAL Format we use DXGI_FORMAT_R32G32B32_FLOAT. --> and the last 12 bytes will be normal, AlignedByteOffset shows where each element begins.
 	polygonLayout[2].InputSlot = 0;
-	polygonLayout[2].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+	polygonLayout[2].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT; // You can use D3D11_APPEND_ALIGNED_ELEMENT instead of placing your own values in AlignedByteOffset and it will figure out the spacing for you.
 	polygonLayout[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	polygonLayout[2].InstanceDataStepRate = 0;
 
