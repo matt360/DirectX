@@ -15,22 +15,22 @@ BaseShader::BaseShader(ID3D11Device* device, HWND lhwnd)
 // Release resources (if used).
 BaseShader::~BaseShader()
 {
-	if (pixelShader)
+	if (pixelShader_)
 	{
-		pixelShader->Release();
-		pixelShader = nullptr;
+		pixelShader_->Release();
+		pixelShader_ = nullptr;
 	}
 
-	if (vertexShader)
+	if (vertexShader_)
 	{
-		vertexShader->Release();
-		vertexShader = nullptr;
+		vertexShader_->Release();
+		vertexShader_ = nullptr;
 	}
 
-	if (hullShader)
+	if (hullShader_)
 	{
-		hullShader->Release();
-		hullShader = nullptr;
+		hullShader_->Release();
+		hullShader_ = nullptr;
 	}
 
 	if (domainShader)
@@ -86,8 +86,10 @@ void BaseShader::loadVertexShader(WCHAR* filename)
 		exit(0);
 	}
 	
-	// Here is where we compile the shader programs into buffers.
-	// We give it the name of the shader file and the buffer to compile the shader into.
+	/*
+	Here is where we compile the shader programs into buffers.
+	We give it the name of the shader file and the buffer to compile the shader into.
+	*/
 	// Reads compiled shader into buffer (bytecode).
 	HRESULT result = D3DReadFileToBlob(filename, &vertexShaderBuffer);
 	if (result != S_OK)
@@ -101,15 +103,18 @@ void BaseShader::loadVertexShader(WCHAR* filename)
 		return(-1);
 	}*/
 	
-	// Once the vertex shader code has successfully compiled into buffer
-	// we then use those buffers to create the shader objects themselves. 
-	// We will use these pointers to interface with the vertex shader from this point forward.
+	/* 
+	Once the vertex shader code has successfully compiled into buffer
+	we then use those buffers to create the shader objects themselves. 
+	We will use these pointers to interface with the vertex shader from this point forward.
+	*/
 	// Create the vertex shader from the buffer.
-	renderer->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &vertexShader);
+	renderer->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &vertexShader_);
 	
-	// The next step is to create the layout of the vertex data that will be processed by the shader.
-	// As this shader uses a position, texcoord and normal vectors we need to create all of them in the layout specifying the size of all of them as well.
-
+	/*
+	The next step is to create the layout of the vertex data that will be processed by the shader.
+	As this shader uses a position, texcoord and normal vectors we need to create all of them in the layout specifying the size of all of them as well.
+	*/
 	// Create the vertex input layout description.
 	// This setup needs to match the VertexType stucture in the MeshClass and in the shader.
 	polygonLayout[0].SemanticName = "POSITION"; // The semantic name is the first thing to fill out in the layout, this allows the shader to determine the usage of this element of the layout.
@@ -136,13 +141,16 @@ void BaseShader::loadVertexShader(WCHAR* filename)
 	polygonLayout[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	polygonLayout[2].InstanceDataStepRate = 0;
 
+	/*
+	Once the layout description has been setup we can get the size of it and then create the input layout using the D3D device.
+	*/
 	// Get a count of the elements in the layout.
 	numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 
 	// Create the vertex input layout.
-	renderer->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), &layout);
+	renderer->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), &layout_);
 	
-	// Release the vertex shader buffer and pixel shader buffer since they are no longer needed.
+	// Also release the vertex shader buffer since they are no longer needed once the layout has been created.
 	vertexShaderBuffer->Release();
 	vertexShaderBuffer = 0;
 }
@@ -185,7 +193,7 @@ void BaseShader::loadPixelShader(WCHAR* filename)
 		exit(0);
 	}
 	// Create the pixel shader from the buffer.
-	renderer->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(), pixelShaderBuffer->GetBufferSize(), NULL, &pixelShader);
+	renderer->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(), pixelShaderBuffer->GetBufferSize(), NULL, &pixelShader_);
 	
 	pixelShaderBuffer->Release();
 	pixelShaderBuffer = 0;
@@ -229,7 +237,7 @@ void BaseShader::loadHullShader(WCHAR* filename)
 		exit(0);
 	}
 	// Create the hull shader from the buffer.
-	renderer->CreateHullShader(hullShaderBuffer->GetBufferPointer(), hullShaderBuffer->GetBufferSize(), NULL, &hullShader);
+	renderer->CreateHullShader(hullShaderBuffer->GetBufferPointer(), hullShaderBuffer->GetBufferSize(), NULL, &hullShader_);
 	
 	hullShaderBuffer->Release();
 	hullShaderBuffer = 0;
@@ -381,22 +389,22 @@ void BaseShader::loadComputeShader(WCHAR* filename)
 void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {
 	// Set the vertex input layout.
-	deviceContext->IASetInputLayout(layout);
+	deviceContext->IASetInputLayout(layout_);
 
 	// if vertex shader and pixel shader are not null the set VS and PS
 	/*vertexShader ? deviceContext->VSSetShader(vertexShader, NULL, 0) : deviceContext->VSSetShader(NULL, NULL, 0);*/
 	/*pixelShader ? deviceContext->PSSetShader(pixelShader, NULL, 0) : deviceContext->VSSetShader(NULL, NULL, 0);*/
 
 	// Set the vertex and pixel shaders that will be used to render.
-	deviceContext->VSSetShader(vertexShader, NULL, 0);
-	deviceContext->PSSetShader(pixelShader, NULL, 0);
+	deviceContext->VSSetShader(vertexShader_, NULL, 0);
+	deviceContext->PSSetShader(pixelShader_, NULL, 0);
 	
 	// if Hull shader is not null then set HS and DS
-	/*hullShader ? deviceContext->HSSetShader(hullShader, NULL, 0), deviceContext->DSSetShader(domainShader, NULL, 0) :
+	/*hullShader ? deviceContext->HSSetShader(hullShader_, NULL, 0), deviceContext->DSSetShader(domainShader, NULL, 0) :
 	             deviceContext->HSSetShader(NULL, NULL, 0), deviceContext->DSSetShader(NULL, NULL, 0);*/
-	if (hullShader)
+	if (hullShader_)
 	{
-		deviceContext->HSSetShader(hullShader, NULL, 0);
+		deviceContext->HSSetShader(hullShader_, NULL, 0);
 		deviceContext->DSSetShader(domainShader, NULL, 0);
 	}
 	else

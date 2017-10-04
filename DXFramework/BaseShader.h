@@ -61,13 +61,13 @@ protected:
 	ID3D11Device* renderer;
 	HWND hwnd;
 	
-	ID3D11VertexShader* vertexShader;
-	ID3D11PixelShader* pixelShader;
-	ID3D11HullShader* hullShader;
+	ID3D11VertexShader* vertexShader_;
+	ID3D11PixelShader* pixelShader_;
+	ID3D11HullShader* hullShader_;
 	ID3D11DomainShader* domainShader;
 	ID3D11GeometryShader* geometryShader;
 	ID3D11ComputeShader* computeShader;
-	ID3D11InputLayout* layout;
+	ID3D11InputLayout* layout_;
 	ID3D11Buffer* matrixBuffer;
 	ID3D11SamplerState* sampleState;
 };
