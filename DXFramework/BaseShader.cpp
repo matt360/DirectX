@@ -33,10 +33,10 @@ BaseShader::~BaseShader()
 		hullShader_ = nullptr;
 	}
 
-	if (domainShader)
+	if (domainShader_)
 	{
-		domainShader->Release();
-		domainShader = nullptr;
+		domainShader_->Release();
+		domainShader_ = nullptr;
 	}
 
 	if (geometryShader)
@@ -281,7 +281,7 @@ void BaseShader::loadDomainShader(WCHAR* filename)
 		exit(0);
 	}
 	// Create the domain shader from the buffer.
-	renderer->CreateDomainShader(domainShaderBuffer->GetBufferPointer(), domainShaderBuffer->GetBufferSize(), NULL, &domainShader);
+	renderer->CreateDomainShader(domainShaderBuffer->GetBufferPointer(), domainShaderBuffer->GetBufferSize(), NULL, &domainShader_);
 	
 	domainShaderBuffer->Release();
 	domainShaderBuffer = 0;
@@ -405,7 +405,7 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 	if (hullShader_)
 	{
 		deviceContext->HSSetShader(hullShader_, NULL, 0);
-		deviceContext->DSSetShader(domainShader, NULL, 0);
+		deviceContext->DSSetShader(domainShader_, NULL, 0);
 	}
 	else
 	{
