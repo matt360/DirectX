@@ -2,6 +2,9 @@
 // Simple geometry pass
 // texture coordinates and normals will be ignored.
 
+/////////////
+// GLOBALS //
+/////////////
 cbuffer MatrixBuffer : register(cb0)
 {
 	matrix worldMatrix;
@@ -9,6 +12,10 @@ cbuffer MatrixBuffer : register(cb0)
 	matrix projectionMatrix;
 };
 
+//////////////
+// TYPEDEFS //
+//////////////
+// Vertex input type
 struct InputType
 {
 	float4 position : POSITION;
@@ -16,6 +23,7 @@ struct InputType
 	float3 normal : NORMAL;
 };
 
+// Pixel input type
 struct OutputType
 {
 	float4 position : SV_POSITION;
@@ -23,6 +31,9 @@ struct OutputType
 	float3 normal : NORMAL;
 };
 
+////////////////////////////////////////////////////////////////////////////////
+// Vertex Shader
+////////////////////////////////////////////////////////////////////////////////
 OutputType main(InputType input)
 {
 	OutputType output;
@@ -35,10 +46,10 @@ OutputType main(InputType input)
 	output.position = mul(output.position, viewMatrix);
 	output.position = mul(output.position, projectionMatrix);
 
-	// Store the texture coordinates for the pixel shader.
+	// Store the texture coordinates for the pixel shader to use.
 	output.tex = input.tex;
 
-	// Store normals for the pixel shader
+	// Store normals for the pixel shader to use
 	output.normal = mul(input.normal, (float3x3)worldMatrix);
 	output.normal = normalize(output.normal);
 

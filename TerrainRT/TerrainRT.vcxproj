@@ -164,12 +164,6 @@
     <ClInclude Include="timerclass.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="font.ps" />
-    <None Include="font.vs" />
-    <None Include="terrain.ps" />
-    <None Include="terrain.vs" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="applicationclass.cpp" />
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="cpuclass.cpp" />
@@ -187,6 +181,12 @@
     <ClCompile Include="textclass.cpp" />
     <ClCompile Include="textureclass.cpp" />
     <ClCompile Include="timerclass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shaders\font_ps.hlsl" />
+    <FxCompile Include="shaders\font_vs.hlsl" />
+    <FxCompile Include="shaders\terrain_ps.hlsl" />
+    <FxCompile Include="shaders\terrain_vs.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

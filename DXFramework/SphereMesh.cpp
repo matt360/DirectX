@@ -1,5 +1,10 @@
 // Sphere Mesh
 // Generates a cube sphere.
+
+// Vertex buffer 
+// Each of the triangles in the sphere model has three points to it, we call each point a vertex. So for us to render the sphere model we need to put all the vertices that form the sphere into a special 
+// data array that we call a vertex buffer. Once all the points of the sphere model are in the vertex buffer we can then send the vertex buffer to the GPU so that it can render the model.
+
 #include "spheremesh.h"
 
 // Store shape resolution (default is 20), initialise buffers and load texture.

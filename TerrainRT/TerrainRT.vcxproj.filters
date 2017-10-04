@@ -65,20 +65,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="font.vs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="terrain.vs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="terrain.ps">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="font.ps">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="applicationclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -130,5 +116,19 @@
     <ClCompile Include="timerclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shaders\font_ps.hlsl">
+      <Filter>Resource Files</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\font_vs.hlsl">
+      <Filter>Resource Files</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_ps.hlsl">
+      <Filter>Resource Files</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_vs.hlsl">
+      <Filter>Resource Files</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

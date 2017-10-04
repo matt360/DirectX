@@ -1,7 +1,7 @@
-
 // texture shader.cpp
 #include "colourshader.h"
 
+// ColorShader class will be responsible for rendering the model to the screen invoking our HLSL shader.
 
 ColourShader::ColourShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
 {

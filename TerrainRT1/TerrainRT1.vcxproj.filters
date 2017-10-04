@@ -124,17 +124,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="color.vs">
+    <FxCompile Include="shaders\color_ps.hlsl">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="font.vs">
+    </FxCompile>
+    <FxCompile Include="shaders\color_vs.hlsl">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="color.ps">
+    </FxCompile>
+    <FxCompile Include="shaders\font_ps.hlsl">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="font.ps">
+    </FxCompile>
+    <FxCompile Include="shaders\font_vs.hlsl">
       <Filter>Resource Files</Filter>
-    </None>
+    </FxCompile>
   </ItemGroup>
 </Project>
