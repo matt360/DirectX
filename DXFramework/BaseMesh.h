@@ -22,6 +22,8 @@ protected:
 
 
 
+
+
 	struct VertexType
 	{
 		XMFLOAT3 position;
