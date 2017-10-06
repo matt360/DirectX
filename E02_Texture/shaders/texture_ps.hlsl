@@ -24,6 +24,7 @@ float4 main(InputType input) : SV_TARGET
 	textureColor1 = texture0.Sample(Sampler0, input.tex);
 	textureColor2 = texture1.Sample(Sampler0, input.tex);
 
+	float4 finalCol;
 	// invert colors on texture1
 	//return 1 - textureColor1;
 
@@ -31,15 +32,11 @@ float4 main(InputType input) : SV_TARGET
 	//return 1 - textureColor2;
 
 	// blend texture1 and texture 1
-	//return lerp(textureColor1, textureColor2, 0.5);
+	return lerp(textureColor1, textureColor2, 0.5);
 
 	// color shifting
-	float4 finalCol;
-
-	finalCol.x = textureColor1.z;
-	finalCol.y = textureColor1.y;
-	finalCol.z = textureColor1.x;
-	finalCol.w = 1.0f ;
-
-	return finalCol;
+	//finalCol.x = textureColor1.z;
+	//finalCol.y = textureColor1.y;
+	//finalCol.z = textureColor1.x;
+	//finalCol.w = 1.0f ;S
 }

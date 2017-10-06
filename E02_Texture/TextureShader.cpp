@@ -144,10 +144,8 @@ void TextureShader::setShaderParameters(ID3D11DeviceContext* deviceContext, cons
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 
-	// Now set the constant buffer in the vertex shader with the updated values.
-	// TODO ask bout this bit is deviceContext->VSSetConstantBuffers(bufferNumber, 0, &matrixBuffer); is needed
+	// Now set the constant buffer in the vertex shader with the updated values.SS
 	deviceContext->VSSetConstantBuffers(bufferNumber, 0, &matrixBuffer);
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
 
 	// Set shader texture resource in the pixel shader.
 	deviceContext->PSSetShaderResources(0, 1, &texture_1);
