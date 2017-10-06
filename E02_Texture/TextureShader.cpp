@@ -73,7 +73,6 @@ void TextureShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 
 	// Create the texture sampler state.
 	renderer->CreateSamplerState(&samplerDesc, &sampleState);
-
 }
 
 
