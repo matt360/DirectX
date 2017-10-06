@@ -21,6 +21,7 @@ protected:
 	// Also take note that this typedef must match the layout in the "%Shader" handler class that will be looked at later in the tutorial.
 
 
+
 	struct VertexType
 	{
 		XMFLOAT3 position;
