@@ -391,7 +391,7 @@ void BaseShader::loadComputeShader(WCHAR* filename)
 
 /*
 setShaderParameters is called before this to ensure the shader parameters are setup correctly.
-`render` is the second function called after `setShaderParameters`. This to ensure the shader parameters are setup correctly.
+`render` is the function called after `setShaderParameters`. This to ensure the shader parameters are setup correctly.
 */
 // The render function sets the shader parameters and then draws the prepared model vertices using the shader.
 // De/Activate shader stages and send shaders to GPU.

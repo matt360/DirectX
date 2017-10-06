@@ -2,6 +2,8 @@
 // Simple cube mesh object.
 // Inherits from BaseMesh. Builds a simple cube with texture coordinates and normals.
 
+
+
 #ifndef _CUBEMESH_H_
 #define _CUBEMESH_H_
 
