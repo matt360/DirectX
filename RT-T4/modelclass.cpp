@@ -20,7 +20,7 @@ ModelClass::~ModelClass()
 {
 }
 
-
+// The Initialize function will call the initialization functions for the vertex and index buffers.
 bool ModelClass::Initialize(ID3D11Device* device)
 {
 	bool result;
@@ -36,7 +36,7 @@ bool ModelClass::Initialize(ID3D11Device* device)
 	return true;
 }
 
-
+// The Shutdown function will call the shutdown functions for the vertex and index buffers.
 void ModelClass::Shutdown()
 {
 	// Shutdown the vertex and index buffers.
