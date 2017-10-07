@@ -45,7 +45,8 @@ void ModelClass::Shutdown()
 	return;
 }
 
-
+// Render is called from the GraphicsClass::Render function. 
+// This function calls RenderBuffers to put the vertex and index buffers on the graphics pipeline so the color shader will be able to render them.
 void ModelClass::Render(ID3D11DeviceContext* deviceContext)
 {
 	// Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
@@ -54,13 +55,14 @@ void ModelClass::Render(ID3D11DeviceContext* deviceContext)
 	return;
 }
 
-
+// GetIndexCount returns the number of indexes in the model. The color shader will need this information to draw this model.
 int ModelClass::GetIndexCount()
 {
 	return m_indexCount;
 }
 
-
+// The InitializeBuffers function is where we handle creating the vertex and index buffers. Usually you would read in a model and create the buffers from that data file. 
+// For this tutorial we will just set the points in the vertex and index buffer manually since it is only a single triangle.
 bool ModelClass::InitializeBuffers(ID3D11Device* device)
 {
 	VertexType* vertices;

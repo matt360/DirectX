@@ -23,6 +23,9 @@ BaseMesh::~BaseMesh()
 	}
 }
 
+/*
+// getIndexCount returns the number of indexes in the "*Mesh". The shader handler will need this information to draw this model.
+*/
 int BaseMesh::getIndexCount()
 {
 	return indexCount_;
