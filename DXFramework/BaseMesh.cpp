@@ -28,6 +28,10 @@ int BaseMesh::getIndexCount()
 	return indexCount;
 }
 
+/*
+sendData function puts the geometry on the video card to prepare it for drawing by the shader.
+*/
+
 // Sends geometry data to the GPU. Default primitive topology is TriangleList.
 // To render alternative topologies this function needs to be overwritten.
 void BaseMesh::sendData(ID3D11DeviceContext* deviceContext)
