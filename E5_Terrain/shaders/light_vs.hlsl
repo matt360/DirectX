@@ -68,13 +68,13 @@ PixelInputType main(VertexInputType input)
     input.position.w = 1.0f;
 
     //  offset position based on sine wave
-    input.position.x += heightWave * sin((input.position.y + time) * frequency);
-    input.position.y += heightWave * sin((input.position.x + time) * frequency);
-    input.position.z += heightWave * sin((input.position.y + time) * frequency);
-
-    input.position.x += heightWave * sin((input.normal.y + time) * frequency);
-    input.position.y += heightWave * sin((input.normal.x + time) * frequency);
-    input.position.z += heightWave * sin((input.normal.y + time) * frequency);
+    input.position.x += (heightWave * sin((input.position.y + time) * frequency));
+    input.position.y += (heightWave * sin((input.position.x + time) * frequency));
+    input.position.z += (heightWave * sin((input.position.y + time) * frequency));
+                        
+    input.position.x += (heightWave * sin((input.normal.y + time) * frequency));
+    input.position.y += (heightWave * sin((input.normal.x + time) * frequency));
+    input.position.z += (heightWave * sin((input.normal.y + time) * frequency));
 
     input.normal.x = 1 - cos(input.position.x + time);
     input.normal.y = abs(cos(input.position.y + time));

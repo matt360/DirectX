@@ -18,7 +18,7 @@ class BaseMesh
 {
 protected:
 	// Here is the definition of our vertex type that will be used with the vertex buffer in derived classes.
-	// Also take note that this typedef must match the layout in the "%Shader" handler class that will be looked at later in the tutorial.
+	// Also take note that this typedef must match the layout in the "*Shader" handler class that will be looked at later in the tutorial.
 
 	struct VertexType
 	{
