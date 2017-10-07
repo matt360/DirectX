@@ -27,12 +27,12 @@ void PlaneMesh::initBuffers(ID3D11Device* device)
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	
 	// Calculate the number of vertices in the terrain mesh.
-	vertexCount = (resolution - 1) * (resolution - 1) * 8;
+	vertexCount_ = (resolution - 1) * (resolution - 1) * 8;
 
 
-	indexCount = vertexCount;
-	vertices = new VertexType[vertexCount];
-	indices = new unsigned long[indexCount];
+	indexCount_ = vertexCount_;
+	vertices = new VertexType[vertexCount_];
+	indices = new unsigned long[indexCount_];
 	
 
 	index = 0;
@@ -117,7 +117,7 @@ void PlaneMesh::initBuffers(ID3D11Device* device)
 
 	// Set up the description of the static vertex buffer.
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(VertexType)* vertexCount;
+	vertexBufferDesc.ByteWidth = sizeof(VertexType)* vertexCount_;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
@@ -127,11 +127,11 @@ void PlaneMesh::initBuffers(ID3D11Device* device)
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 	// Now create the vertex buffer.
-	device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer);
+	device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer_);
 	
 	// Set up the description of the static index buffer.
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	indexBufferDesc.ByteWidth = sizeof(unsigned long)* indexCount;
+	indexBufferDesc.ByteWidth = sizeof(unsigned long)* indexCount_;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.CPUAccessFlags = 0;
 	indexBufferDesc.MiscFlags = 0;
@@ -141,7 +141,7 @@ void PlaneMesh::initBuffers(ID3D11Device* device)
 	indexData.SysMemPitch = 0;
 	indexData.SysMemSlicePitch = 0;
 	// Create the index buffer.
-	device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer);
+	device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer_);
 	
 	// Release the arrays now that the buffers have been created and loaded.
 	delete[] vertices;

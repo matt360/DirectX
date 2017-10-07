@@ -10,22 +10,22 @@ BaseMesh::BaseMesh()
 // Release base objects (index, vertex buffers and texture object.
 BaseMesh::~BaseMesh()
 {
-	if (indexBuffer)
+	if (indexBuffer_)
 	{
-		indexBuffer->Release();
-		indexBuffer = 0;
+		indexBuffer_->Release();
+		indexBuffer_ = 0;
 	}
 
-	if (vertexBuffer)
+	if (vertexBuffer_)
 	{
-		vertexBuffer->Release();
-		vertexBuffer = 0;
+		vertexBuffer_->Release();
+		vertexBuffer_ = 0;
 	}
 }
 
 int BaseMesh::getIndexCount()
 {
-	return indexCount;
+	return indexCount_;
 }
 
 /*
@@ -44,10 +44,10 @@ void BaseMesh::sendData(ID3D11DeviceContext* deviceContext)
 	offset = 0;
 
 	// Set the vertex buffer to active in the input assembler so it can be rendered.
-	deviceContext->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
+	deviceContext->IASetVertexBuffers(0, 1, &vertexBuffer_, &stride, &offset);
 
 	// Set the index buffer to active in the input assembler so it can be rendered.
-	deviceContext->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	deviceContext->IASetIndexBuffer(indexBuffer_, DXGI_FORMAT_R32_UINT, 0);
 
 	// Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);

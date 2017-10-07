@@ -25,11 +25,11 @@ void TriangleMesh::initBuffers(ID3D11Device* device)
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 
-	vertexCount = 3;
-	indexCount = 3;
+	vertexCount_ = 3;
+	indexCount_ = 3;
 
-	vertices = new VertexType[vertexCount];
-	indices = new unsigned long[indexCount];
+	vertices = new VertexType[vertexCount_];
+	indices = new unsigned long[indexCount_];
 
 	// Load the vertex array with data.
 	vertices[0].position = XMFLOAT3(0.0f, 1.0f, 0.0f);  // Top.
@@ -51,7 +51,7 @@ void TriangleMesh::initBuffers(ID3D11Device* device)
 
 	// Set up the description of the static vertex buffer.
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(VertexType)* vertexCount;
+	vertexBufferDesc.ByteWidth = sizeof(VertexType)* vertexCount_;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
@@ -61,11 +61,11 @@ void TriangleMesh::initBuffers(ID3D11Device* device)
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 	// Now create the vertex buffer.
-	result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer);
+	result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer_);
 	
 	// Set up the description of the static index buffer.
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	indexBufferDesc.ByteWidth = sizeof(unsigned long)* indexCount;
+	indexBufferDesc.ByteWidth = sizeof(unsigned long)* indexCount_;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.CPUAccessFlags = 0;
 	indexBufferDesc.MiscFlags = 0;
@@ -75,7 +75,7 @@ void TriangleMesh::initBuffers(ID3D11Device* device)
 	indexData.SysMemPitch = 0;
 	indexData.SysMemSlicePitch = 0;
 	// Create the index buffer.
-	result = device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer);
+	result = device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer_);
 	
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
 	delete[] vertices;

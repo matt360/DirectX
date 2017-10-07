@@ -31,11 +31,11 @@ void Model::initBuffers(ID3D11Device* device)
 	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 		
-	vertices = new VertexType[vertexCount];
-	indices = new unsigned long[indexCount];
+	vertices = new VertexType[vertexCount_];
+	indices = new unsigned long[indexCount_];
 	
 	// Load the vertex array and index array with data.
-	for (int i = 0; i<vertexCount; i++)
+	for (int i = 0; i<vertexCount_; i++)
 	{
 		vertices[i].position = XMFLOAT3(model[i].x, model[i].y, -model[i].z);
 		vertices[i].texture = XMFLOAT2(model[i].tu, model[i].tv);
@@ -46,7 +46,7 @@ void Model::initBuffers(ID3D11Device* device)
 
 	// Set up the description of the static vertex buffer.
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(VertexType)* vertexCount;
+	vertexBufferDesc.ByteWidth = sizeof(VertexType)* vertexCount_;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
@@ -56,11 +56,11 @@ void Model::initBuffers(ID3D11Device* device)
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 	// Now create the vertex buffer.
-	device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer);
+	device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer_);
 
 	// Set up the description of the static index buffer.
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	indexBufferDesc.ByteWidth = sizeof(unsigned long)* indexCount;
+	indexBufferDesc.ByteWidth = sizeof(unsigned long)* indexCount_;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.CPUAccessFlags = 0;
 	indexBufferDesc.MiscFlags = 0;
@@ -70,7 +70,7 @@ void Model::initBuffers(ID3D11Device* device)
 	indexData.SysMemPitch = 0;
 	indexData.SysMemSlicePitch = 0;
 	// Create the index buffer.
-	device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer);
+	device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer_);
 	
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
 	delete[] vertices;
@@ -294,8 +294,8 @@ void Model::loadModel(char* filename)
 	int numFaces = (int)faces.size() / 9;
 
 	//// Create the model using the vertex count that was read in.
-	vertexCount = numFaces * 3;
-	model = new ModelType[vertexCount];
+	vertexCount_ = numFaces * 3;
+	model = new ModelType[vertexCount_];
 
 	// "Unroll" the loaded obj information into a list of triangles.
 	for (int f = 0; f < (int)faces.size(); f += 3)
@@ -313,7 +313,7 @@ void Model::loadModel(char* filename)
 		vIndex++;
 
 	}
-	indexCount = vIndex;
+	indexCount_ = vIndex;
 
 
 	verts.clear();

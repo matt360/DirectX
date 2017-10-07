@@ -31,11 +31,11 @@ void SphereMesh::initBuffers(ID3D11Device* device)
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	
 	// 6 vertices per quad, res*res is face, times 6 for each face
-	vertexCount = ((6 * resolution)*resolution) * 6;
-	indexCount = vertexCount;
+	vertexCount_ = ((6 * resolution)*resolution) * 6;
+	indexCount_ = vertexCount_;
 
-	vertices = new VertexType[vertexCount];
-	indices = new unsigned long[indexCount];
+	vertices = new VertexType[vertexCount_];
+	indices = new unsigned long[indexCount_];
 
 	// Vertex variables
 	float yincrement = 2.0f / resolution;
@@ -542,7 +542,7 @@ void SphereMesh::initBuffers(ID3D11Device* device)
 
 	// Set up the description of the static vertex buffer.
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(VertexType)* vertexCount;
+	vertexBufferDesc.ByteWidth = sizeof(VertexType)* vertexCount_;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
@@ -552,11 +552,11 @@ void SphereMesh::initBuffers(ID3D11Device* device)
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 	// Now create the vertex buffer.
-	device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer);
+	device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer_);
 
 	// Set up the description of the static index buffer.
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	indexBufferDesc.ByteWidth = sizeof(unsigned long)* indexCount;
+	indexBufferDesc.ByteWidth = sizeof(unsigned long)* indexCount_;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.CPUAccessFlags = 0;
 	indexBufferDesc.MiscFlags = 0;
@@ -566,7 +566,7 @@ void SphereMesh::initBuffers(ID3D11Device* device)
 	indexData.SysMemPitch = 0;
 	indexData.SysMemSlicePitch = 0;
 	// Create the index buffer.
-	device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer);
+	device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer_);
 
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
 	delete[] vertices;

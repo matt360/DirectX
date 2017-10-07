@@ -37,8 +37,10 @@ public:
 protected:
 	virtual void initBuffers(ID3D11Device*) = 0;
 
-	ID3D11Buffer *vertexBuffer, *indexBuffer;
-	int vertexCount, indexCount;
+	// The private variables in the BaseMesh are the vertex and index buffer as well as two integers to keep track of the size of each buffer. 
+	// Note that all DirectX 11 buffers generally use the generic ID3D11Buffer type and are more clearly identified by a buffer description when they are first created.
+	ID3D11Buffer *vertexBuffer_, *indexBuffer_;
+	int vertexCount_, indexCount_;
 };
 
 #endif
