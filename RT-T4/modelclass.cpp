@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "modelclass.h"
 
-
+// The class constructor initializes the vertex and index buffer pointers to null.
 ModelClass::ModelClass()
 {
 	m_vertexBuffer = 0;
