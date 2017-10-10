@@ -11,6 +11,7 @@ App1::App1()
 	quadMesh = nullptr;
 	planeMesh = nullptr;
 	lightShader = nullptr;
+	textureShader = nullptr;
 	colourShader = nullptr;
 }
 
@@ -36,7 +37,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 
 	lightShader = new LightShader(renderer->getDevice(), hwnd);
 
-	
+	textureShader = new TextureShader(renderer->getDevice(), hwnd);
 
 	initLight();
 }
@@ -99,6 +100,12 @@ App1::~App1()
 	{
 		delete lightShader;
 		lightShader = 0;
+	}
+
+	if (textureShader)
+	{
+		delete textureShader;
+		textureShader = 0;
 	}
 }
 

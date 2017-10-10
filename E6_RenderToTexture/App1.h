@@ -6,6 +6,7 @@
 #include "../DXFramework/DXF.h"
 #include "ColourShader.h"
 #include "LightShader.h"
+#include "TextureShader.h"
 
 class App1 : public BaseApplication
 {
@@ -31,6 +32,7 @@ private:
 	// Shader handler
 	ColourShader* colourShader;
 	LightShader* lightShader;
+	TextureShader* textureShader;
 	
 	Light* m_Light;
 
