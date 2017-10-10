@@ -36,8 +36,6 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 
 	lightShader = new LightShader(renderer->getDevice(), hwnd);
 
-	
-
 	initLight();
 }
 
