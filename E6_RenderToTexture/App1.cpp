@@ -10,9 +10,14 @@ App1::App1()
 	cubeMesh = nullptr;
 	quadMesh = nullptr;
 	planeMesh = nullptr;
+
+	colourShader = nullptr;
 	lightShader = nullptr;
 	textureShader = nullptr;
-	colourShader = nullptr;
+
+	m_Light = nullptr;
+
+	renderTexture = nullptr;
 }
 
 void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -37,9 +42,19 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 
 	lightShader = new LightShader(renderer->getDevice(), hwnd);
 
-	textureShader = new TextureShader(renderer->getDevice(), hwnd);
+	
 
+	// Create light source (for normal scene rendering)
 	initLight();
+
+	// RenderTexture, OrthoMesh and shader set for different renderTarget
+	renderTexture = new RenderTexture(renderer->getDevice(), screenWidth, screenHeight, SCREEN_NEAR, SCREEN_DEPTH);
+
+	// ortho size and position set based on window size
+	// 200x200 pixels (standard would be matching window size for fullscreen mesh
+	// Position default at 0x0 centre window, to offset change values (pixel)
+	orthoMesh = new OrthoMesh(renderer->getDevice(), renderer->getDeviceContext(), 200, 150, -300, 225);
+	textureShader = new TextureShader(renderer->getDevice(), hwnd);
 }
 
 void App1::initLight()
@@ -106,6 +121,24 @@ App1::~App1()
 	{
 		delete textureShader;
 		textureShader = 0;
+	}
+
+	if (m_Light)
+	{
+		delete m_Light;
+		m_Light = 0;
+	}
+
+	if (renderTexture)
+	{
+		delete renderTexture;
+		renderTexture = 0;
+	}
+
+	if (orthoMesh)
+	{
+		delete orthoMesh;
+		orthoMesh = 0;
 	}
 }
 

@@ -36,6 +36,10 @@ private:
 	
 	Light* m_Light;
 
+	RenderTexture* renderTexture;
+
+	OrthoMesh* orthoMesh;
+
 	float light_y;
 };
 
