@@ -69,7 +69,7 @@ void App1::initLight()
 	light_y = 0.0f;
 }
 
-void App1::RenderToTexture()
+void App1::RenderToTexture(float time)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
@@ -93,7 +93,7 @@ void App1::RenderToTexture()
 	lightShader->setShaderParameters(renderer->getDeviceContext(), 
 		worldMatrix, viewMatrix, projectionMatrix, 
 		textureMgr->getTexture("default"), 
-		light, timer->getTime());
+		light, time);
 
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
@@ -102,7 +102,7 @@ void App1::RenderToTexture()
 	renderer->setBackBufferRenderTarget();
 }
 
-void App1::RenderScene()
+void App1::RenderScene(float time)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoViewMatrix, orthoMatrix;
 
@@ -122,7 +122,7 @@ void App1::RenderScene()
 	// Set shader parameters (matrices and texture)
 
 	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix,
-		projectionMatrix, textureMgr->getTexture("default"), light, timer->getTime());
+		projectionMatrix, textureMgr->getTexture("default"), light, time);
 
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
@@ -144,9 +144,8 @@ void App1::RenderScene()
 	renderer->setZBuffer(true);
 
 	// Render GUI
-	//gui();
-
 	gui();
+
 	// Present the rendered scene to the screen.
 	renderer->endScene();
 }
@@ -306,8 +305,8 @@ bool App1::render()
 	////lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
 	////lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
 
-	RenderToTexture();
-	RenderScene();
+	RenderToTexture(light_y);
+	RenderScene(light_y);
 
 	//// Render GUI
 	

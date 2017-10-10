@@ -24,8 +24,8 @@ protected:
 
 	void initLight();
 
-	void RenderToTexture();
-	void RenderScene();
+	void RenderToTexture(float time);
+	void RenderScene(float time);
 
 private:
 	TriangleMesh* triangleMesh;
