@@ -28,6 +28,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TerrainRT1", "TerrainRT1\Te
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RT-T4", "RT-T4\RT-T4.vcxproj", "{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E6_RenderToTexture", "E6_RenderToTexture\E6_RenderToTexture.vcxproj", "{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -110,6 +112,12 @@ Global
 		{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}.Release|Win32.Build.0 = Release|Win32
 		{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}.Release|x64.ActiveCfg = Release|x64
 		{4C9A6AF6-9F59-4D55-BBB2-FB8ED09EB851}.Release|x64.Build.0 = Release|x64
+		{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}.Debug|Win32.Build.0 = Debug|Win32
+		{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}.Debug|x64.ActiveCfg = Debug|Win32
+		{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}.Release|Win32.ActiveCfg = Release|Win32
+		{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}.Release|Win32.Build.0 = Release|Win32
+		{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
