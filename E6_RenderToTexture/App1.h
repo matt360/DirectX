@@ -23,6 +23,10 @@ protected:
 	void gui();
 
 	void initLight();
+
+	void RenderToTexture();
+	void RenderScene();
+
 private:
 	TriangleMesh* triangleMesh;
 	SphereMesh* sphereMesh;

@@ -69,6 +69,37 @@ void App1::initLight()
 	light_y = 0.0f;
 }
 
+void App1::RenderToTexture()
+{
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+
+	// Set the render target to be the render to texture.
+	renderTexture->setRenderTarget(renderer->getDeviceContext());
+
+	// Clear the render to texture.
+	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 0.0f, 1.0f, 1.0f);
+
+	// Generate the view matrix based on the camera's position.
+	camera->update();
+
+	// Get the world, view, and projection matrices from the camera and d3d objects.	worldMatrix = renderer->getWorldMatrix();
+	viewMatrix = camera->getViewMatrix();
+	projectionMatrix = renderer->getProjectionMatrix();
+
+	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.	cubeMesh->sendData(renderer->getDeviceContext());
+
+	lightShader->setShaderParameters(renderer->getDeviceContext(), 
+		worldMatrix, viewMatrix, projectionMatrix, 
+		textureMgr->getTexture("default"), 
+		m_Light, timer->getTime());
+
+}
+
+void App1::RenderScene()
+{
+
+}
+
 App1::~App1()
 {
 	// Run base application deconstructor
