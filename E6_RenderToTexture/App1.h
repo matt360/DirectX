@@ -38,7 +38,7 @@ private:
 	LightShader* lightShader;
 	TextureShader* textureShader;
 	
-	Light* m_Light;
+	Light* light;
 
 	RenderTexture* renderTexture;
 
