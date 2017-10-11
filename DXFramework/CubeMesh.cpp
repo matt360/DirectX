@@ -50,16 +50,16 @@ void CubeMesh::initBuffers(ID3D11Device* device)
 	int v = 0;	// vertex counter
 	int i = 0;	// index counter
 
-	    //$-------------/$
+	    //1-------------/2
 	  //  .           // |
-	//1--------------$   |
+	//2--------------1   |
 	//    .          |   |
 	//    .          |   |
 	//    .          |   |
 	//    .          |   |
-	//    $.......   |   /$
+	//    0.......   |   /3
 	//               | //
-	//0--------------/1
+	//0--------------/3
 	
 	//front face
 	for (int y = 0; y<resolution; y++)	// for each quad in the y direction
