@@ -32,8 +32,13 @@ int BaseMesh::getIndexCount()
 }
 
 /*
-sendData function puts the geometry on the video card to prepare it for drawing by the shader.
-*/
+ * sendData function puts the geometry on the video card to prepare it for drawing by the shader.
+ * The purpose of this function is to set the vertex buffer and index buffer as active on the input assembler in the GPU.
+ * Once the GPU has an active vertex buffer it can then use the shader to render that buffer.
+ * This function also defines how those buffers should be drawn such as triangles, lines, fans, and so forth. 
+ * In this tutorial we set the vertex buffer and index buffer as active on the input assembler 
+ * and tell the GPU that the buffers should be drawn as triangles using the IASetPrimitiveTopology DirectX function.
+ */
 
 // Sends geometry data to the GPU. Default primitive topology is TriangleList.
 // To render alternative topologies this function needs to be overwritten.

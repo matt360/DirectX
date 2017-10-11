@@ -28,8 +28,9 @@ void QuadMesh::initBuffers(ID3D11Device* device)
 	vertexCount_ = 4;
 	indexCount_ = 6;
 
-
+	// Create the vertex array.
 	vertices = new VertexType[vertexCount_];
+	// Create the index array.
 	indices = new unsigned long[indexCount_];
 
 	// Load the vertex array with data.
@@ -80,7 +81,6 @@ void QuadMesh::initBuffers(ID3D11Device* device)
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 	// Now create the vertex buffer.
-
 	device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer_);
 	
 	// Set up the description of the static index buffer.
@@ -97,6 +97,10 @@ void QuadMesh::initBuffers(ID3D11Device* device)
 	// Create the index buffer.
 	device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer_);
 	
+	/*
+	After the vertex buffer and index buffer have been created you can delete the vertex and index arrays
+	as they are no longer needed since the data was copied into the buffers.
+	*/
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
 	delete[] vertices;
 	vertices = 0;

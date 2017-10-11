@@ -71,7 +71,7 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
     D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 
-
+	// First create two temporary arrays to hold the vertex and index data that we will use later to populate the final buffers with.
 	// Set the number of vertices in the vertex array.
 	m_vertexCount = 3;
 
@@ -91,6 +91,12 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 	{
 		return false;
 	}
+
+	// Now fill both the vertex and index array with the three points of the triangle as well as the index to each of the points. 
+	// Please note that I create the points in the clockwise order of drawing them. 
+	// If you do this counter clockwise it will think the triangle is facing the opposite direction and not draw it due to back face culling. 
+	// Always remember that the order in which you send your vertices to the GPU is very important.
+	//The color is set here as well since it is part of the vertex description. I set the color to green.
 
 	// Load the vertex array with data.
 	vertices[0].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);  // Bottom left.
@@ -115,11 +121,17 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
     vertexBufferDesc.MiscFlags = 0;
 	vertexBufferDesc.StructureByteStride = 0;
 
+	/*
+	After the description is filled out you need to also fill out a subresource pointer which will point to either your vertex or index array you previously created.
+	*/
 	// Give the subresource structure a pointer to the vertex data.
     vertexData.pSysMem = vertices;
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 
+	/*
+	With the description and subresource pointer you can call CreateBuffer using the D3D device and it will return a pointer to your new buffer.
+	*/
 	// Now create the vertex buffer.
     result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
 	if(FAILED(result))
@@ -147,6 +159,10 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 		return false;
 	}
 
+	/*
+	After the vertex buffer and index buffer have been created you can delete the vertex and index arrays
+	as they are no longer needed since the data was copied into the buffers.
+	*/
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
 	delete [] vertices;
 	vertices = 0;
@@ -177,7 +193,8 @@ void ModelClass::ShutdownBuffers()
 	return;
 }
 
-// RenderBuffers puts the vertex and index buffers on the graphics pipeline so the color shader will be able to render them.
+// RenderBuffers is called from the Render function.
+// The purpose of this function is to set the vertex buffer and index buffer as active on the input assembler in the GPU.
 void ModelClass::RenderBuffers(ID3D11DeviceContext* deviceContext)
 {
 	unsigned int stride;
