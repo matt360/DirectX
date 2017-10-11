@@ -35,6 +35,8 @@ private:
 	Light* m_Light;
 
 	float light_y;
+
+	bool wireframe;
 };
 
 #endif

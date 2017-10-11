@@ -12,6 +12,7 @@ App1::App1()
 	planeMesh = nullptr;
 	lightShader = nullptr;
 	colourShader = nullptr;
+	wireframe = false;
 }
 
 void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -22,15 +23,15 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	textureMgr->loadTexture("height", L"../res/height.png");
 
 	// Create Mesh object
-	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
+	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext(), 2);
 
-	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
+	//cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext(), 100);
 
-	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
+	//quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
+	//planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
@@ -111,6 +112,13 @@ bool App1::frame()
 		return false;
 	}
 
+	
+	if (input->isLeftMouseDown())
+	{
+		wireframe = !wireframe;
+		input->setLeftMouse(false);
+	}
+
 	/*
 	static float a = 0.f;
 
@@ -149,7 +157,7 @@ bool App1::render()
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// wireframe mode
-	renderer->setWireframeMode(true);
+	renderer->setWireframeMode(wireframe);
 
 	// translation and rotation
 	worldMatrix = renderer->getWorldMatrix();
