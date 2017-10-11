@@ -25,7 +25,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// Create Mesh object
 	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext(), 2);
+	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext(), 20);
 
 	//cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext(), 100);
 
@@ -117,6 +117,12 @@ bool App1::frame()
 	{
 		wireframe = !wireframe;
 		input->setLeftMouse(false);
+	}
+
+	if (input->isKeyDown(VK_RETURN))
+	{
+		wireframe = !wireframe;
+		input->SetKeyUp(VK_RETURN);
 	}
 
 	/*
