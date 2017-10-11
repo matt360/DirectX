@@ -49,6 +49,15 @@ void QuadMesh::initBuffers(ID3D11Device* device)
 	vertices[3].texture = XMFLOAT2(1.0f, 1.0f);
 	vertices[3].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
 
+	// 1--------------2
+	// |              |
+	// |              |
+	// |              |
+	// |              |
+	// |              |
+	// |              |
+	// 0--------------3
+
 	// Load the index array with data.
 	indices[0] = 0;  // Bottom left.
 	indices[1] = 2;  // Top right.

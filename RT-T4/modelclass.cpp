@@ -177,12 +177,11 @@ void ModelClass::ShutdownBuffers()
 	return;
 }
 
-
+// RenderBuffers puts the vertex and index buffers on the graphics pipeline so the color shader will be able to render them.
 void ModelClass::RenderBuffers(ID3D11DeviceContext* deviceContext)
 {
 	unsigned int stride;
 	unsigned int offset;
-
 
 	// Set vertex buffer stride and offset.
 	stride = sizeof(VertexType); 
