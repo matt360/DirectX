@@ -298,6 +298,10 @@ Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db
 
+# Temporary OS files
+.DS_Store
+.vs/
+
 # Dump file
 *.stackdump
 
