@@ -12,14 +12,14 @@ RenderTexture::RenderTexture(ID3D11Device* device, int ltextureWidth, int ltextu
 	D3D11_TEXTURE2D_DESC depthBufferDesc;
 	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
 
-	textureWidth = ltextureWidth;
-	textureHeight = ltextureHeight;
+	textureWidth_ = ltextureWidth;
+	textureHeight_ = ltextureHeight;
 
 	ZeroMemory(&textureDesc, sizeof(textureDesc));
 
 	// Setup the render target texture description.
-	textureDesc.Width = textureWidth;
-	textureDesc.Height = textureHeight;
+	textureDesc.Width = textureWidth_;
+	textureDesc.Height = textureHeight_;
 	textureDesc.MipLevels = 1;
 	textureDesc.ArraySize = 1;
 	textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
@@ -29,14 +29,14 @@ RenderTexture::RenderTexture(ID3D11Device* device, int ltextureWidth, int ltextu
 	textureDesc.CPUAccessFlags = 0;
 	textureDesc.MiscFlags = 0;
 	// Create the render target texture.
-	result = device->CreateTexture2D(&textureDesc, NULL, &renderTargetTexture);
+	result = device->CreateTexture2D(&textureDesc, NULL, &renderTargetTexture_);
 	
 	// Setup the description of the render target view.
 	renderTargetViewDesc.Format = textureDesc.Format;
 	renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
 	renderTargetViewDesc.Texture2D.MipSlice = 0;
 	// Create the render target view.
-	result = device->CreateRenderTargetView(renderTargetTexture, &renderTargetViewDesc, &renderTargetView);
+	result = device->CreateRenderTargetView(renderTargetTexture_, &renderTargetViewDesc, &renderTargetView_);
 	
 	// Setup the description of the shader resource view.
 	shaderResourceViewDesc.Format = textureDesc.Format;
@@ -44,12 +44,12 @@ RenderTexture::RenderTexture(ID3D11Device* device, int ltextureWidth, int ltextu
 	shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
 	shaderResourceViewDesc.Texture2D.MipLevels = 1;
 	// Create the shader resource view.
-	result = device->CreateShaderResourceView(renderTargetTexture, &shaderResourceViewDesc, &shaderResourceView);
+	result = device->CreateShaderResourceView(renderTargetTexture_, &shaderResourceViewDesc, &shaderResourceView_);
 	
 	// Set up the description of the depth buffer.
 	ZeroMemory(&depthBufferDesc, sizeof(depthBufferDesc));
-	depthBufferDesc.Width = textureWidth;
-	depthBufferDesc.Height = textureHeight;
+	depthBufferDesc.Width = textureWidth_;
+	depthBufferDesc.Height = textureHeight_;
 	depthBufferDesc.MipLevels = 1;
 	depthBufferDesc.ArraySize = 1;
 	depthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -61,7 +61,7 @@ RenderTexture::RenderTexture(ID3D11Device* device, int ltextureWidth, int ltextu
 	depthBufferDesc.MiscFlags = 0;
 
 	// Create the texture for the depth buffer using the filled out description.
-	result = device->CreateTexture2D(&depthBufferDesc, NULL, &depthStencilBuffer);
+	result = device->CreateTexture2D(&depthBufferDesc, NULL, &depthStencilBuffer_);
 	
 	// Set up the depth stencil view description.
 	ZeroMemory(&depthStencilViewDesc, sizeof(depthStencilViewDesc));
@@ -71,54 +71,54 @@ RenderTexture::RenderTexture(ID3D11Device* device, int ltextureWidth, int ltextu
 	depthStencilViewDesc.Texture2D.MipSlice = 0;
 
 	// Create the depth stencil view.
-	result = device->CreateDepthStencilView(depthStencilBuffer, &depthStencilViewDesc, &depthStencilView);
+	result = device->CreateDepthStencilView(depthStencilBuffer_, &depthStencilViewDesc, &depthStencilView_);
 	
 	// Setup the viewport for rendering.
-	viewport.Width = (float)textureWidth;
-	viewport.Height = (float)textureHeight;
-	viewport.MinDepth = 0.0f;
-	viewport.MaxDepth = 1.0f;
-	viewport.TopLeftX = 0.0f;
-	viewport.TopLeftY = 0.0f;
+	viewport_.Width = (float)textureWidth_;
+	viewport_.Height = (float)textureHeight_;
+	viewport_.MinDepth = 0.0f;
+	viewport_.MaxDepth = 1.0f;
+	viewport_.TopLeftX = 0.0f;
+	viewport_.TopLeftY = 0.0f;
 
 	// Setup the projection matrix.
-	projectionMatrix = XMMatrixPerspectiveFovLH(((float)XM_PI / 4.0f), ((float)textureWidth / (float)textureHeight), screenNear, screenFar);
+	projectionMatrix_ = XMMatrixPerspectiveFovLH(((float)XM_PI / 4.0f), ((float)textureWidth_ / (float)textureHeight_), screenNear, screenFar);
 
 	// Create an orthographic projection matrix for 2D rendering.
-	orthoMatrix = XMMatrixOrthographicLH((float)textureWidth, (float)textureHeight, screenNear, screenFar);
+	orthoMatrix_ = XMMatrixOrthographicLH((float)textureWidth_, (float)textureHeight_, screenNear, screenFar);
 }
 
 // Release resources.
 RenderTexture::~RenderTexture()
 {
-	if (depthStencilView)
+	if (depthStencilView_)
 	{
-		depthStencilView->Release();
-		depthStencilView = 0;
+		depthStencilView_->Release();
+		depthStencilView_ = 0;
 	}
 
-	if (depthStencilBuffer)
+	if (depthStencilBuffer_)
 	{
-		depthStencilBuffer->Release();
-		depthStencilBuffer = 0;
+		depthStencilBuffer_->Release();
+		depthStencilBuffer_ = 0;
 	}
 
-	if (shaderResourceView)
+	if (shaderResourceView_)
 	{
-		shaderResourceView->Release();
-		shaderResourceView = 0;
+		shaderResourceView_->Release();
+		shaderResourceView_ = 0;
 	}
 
-	if (renderTargetView)
+	if (renderTargetView_)
 	{
-		renderTargetView->Release();
-		renderTargetView = 0;
+		renderTargetView_->Release();
+		renderTargetView_ = 0;
 	}
 
-	if (renderTargetTexture)
+	if (renderTargetTexture_)
 	{
-		renderTargetTexture->Release();
-		renderTargetTexture = 0;
+		renderTargetTexture_->Release();
+		renderTargetTexture_ = 0;
 	}
 }
 
@@ -126,8 +126,8 @@ RenderTexture::~RenderTexture()
 // All rendering is now store here, rather than the back buffer.
 void RenderTexture::setRenderTarget(ID3D11DeviceContext* deviceContext)
 {
-	deviceContext->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
-	deviceContext->RSSetViewports(1, &viewport);
+	deviceContext->OMSetRenderTargets(1, &renderTargetView_, depthStencilView_);
+	deviceContext->RSSetViewports(1, &viewport_);
 }
 
 // Clear render texture to specified colour. Similar to clearing the back buffer, ready for the next frame.
@@ -140,31 +140,31 @@ void RenderTexture::clearRenderTarget(ID3D11DeviceContext* deviceContext, float 
 	color[3] = alpha;
 
 	// Clear the back buffer and depth buffer.
-	deviceContext->ClearRenderTargetView(renderTargetView, color);
-	deviceContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	deviceContext->ClearRenderTargetView(renderTargetView_, color);
+	deviceContext->ClearDepthStencilView(depthStencilView_, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 ID3D11ShaderResourceView* RenderTexture::getShaderResourceView()
 {
-	return shaderResourceView;
+	return shaderResourceView_;
 }
 
 XMMATRIX RenderTexture::getProjectionMatrix()
 {
-	return projectionMatrix;
+	return projectionMatrix_;
 }
 
 XMMATRIX RenderTexture::getOrthoMatrix()
 {
-	return orthoMatrix;
+	return orthoMatrix_;
 }
 
 int RenderTexture::getTextureWidth()
 {
-	return textureWidth;
+	return textureWidth_;
 }
 
 int RenderTexture::getTextureHeight()
 {
-	return textureHeight;
+	return textureHeight_;
 }

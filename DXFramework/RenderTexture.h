@@ -38,15 +38,15 @@ public:
 	int getTextureHeight();
 
 private:
-	int textureWidth, textureHeight;
-	ID3D11Texture2D* renderTargetTexture;           // resource
-	ID3D11RenderTargetView* renderTargetView;       // The render target view (RTV) is used to attach a resource to receive the output of the rendering pipeline
-	ID3D11ShaderResourceView* shaderResourceView;   // The shader resource view (SRV) provides read access to a resource to the programmable shader stages of the pipepline.
-	ID3D11Texture2D* depthStencilBuffer;
-	ID3D11DepthStencilView* depthStencilView;       // The depth stencil view (DSV) is similar to a render target view in that it is attached for receiving output from the rendering pipeline.
-	D3D11_VIEWPORT viewport;
-	XMMATRIX projectionMatrix;
-	XMMATRIX orthoMatrix;
+	int textureWidth_, textureHeight_;
+	ID3D11Texture2D* renderTargetTexture_;           // resource
+	ID3D11RenderTargetView* renderTargetView_;       // The render target view (RTV) is used to attach a resource to receive the output of the rendering pipeline
+	ID3D11ShaderResourceView* shaderResourceView_;   // The shader resource view (SRV) provides read access to a resource to the programmable shader stages of the pipepline.
+	ID3D11Texture2D* depthStencilBuffer_;
+	ID3D11DepthStencilView* depthStencilView_;       // The depth stencil view (DSV) is similar to a render target view in that it is attached for receiving output from the rendering pipeline.
+	D3D11_VIEWPORT viewport_;
+	XMMATRIX projectionMatrix_;
+	XMMATRIX orthoMatrix_;
 };
 
 #endif
