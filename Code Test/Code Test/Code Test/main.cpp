@@ -61,6 +61,8 @@ void Vector3::Normalise()
 	m_fZ /= vectorLenght;
 }
 // Part (c) - write your implementation here:
+// const & - const reference - GetAngleBetween will not change the contsnts of u or v
+// also allows for some compiler opitmization
 float Vector3::GetAngleBetween(const Vector3& u, const Vector3& v)
 {
 	float numerator = (u.m_fX * v.m_fX) + (u.m_fY * v.m_fY) + (u.m_fZ * v.m_fZ);
