@@ -30,6 +30,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RT-T4", "RT-T4\RT-T4.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E6_RenderToTexture", "E6_RenderToTexture\E6_RenderToTexture.vcxproj", "{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E4_2PointLights", "E4_2PointLights\E4_2PointLights.vcxproj", "{F672E333-3013-4940-BF8E-5AE555D20071}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -118,6 +120,12 @@ Global
 		{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}.Release|Win32.ActiveCfg = Release|Win32
 		{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}.Release|Win32.Build.0 = Release|Win32
 		{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}.Release|x64.ActiveCfg = Release|Win32
+		{F672E333-3013-4940-BF8E-5AE555D20071}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F672E333-3013-4940-BF8E-5AE555D20071}.Debug|Win32.Build.0 = Debug|Win32
+		{F672E333-3013-4940-BF8E-5AE555D20071}.Debug|x64.ActiveCfg = Debug|Win32
+		{F672E333-3013-4940-BF8E-5AE555D20071}.Release|Win32.ActiveCfg = Release|Win32
+		{F672E333-3013-4940-BF8E-5AE555D20071}.Release|Win32.Build.0 = Release|Win32
+		{F672E333-3013-4940-BF8E-5AE555D20071}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
