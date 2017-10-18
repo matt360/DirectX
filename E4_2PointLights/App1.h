@@ -22,6 +22,7 @@ protected:
 	void gui();
 
 	void initLight();
+	void initLightSpheres();
 private:
 	TriangleMesh* triangleMesh;
 	SphereMesh* sphereMesh;
@@ -33,8 +34,10 @@ private:
 	LightShader* lightShader;
 	
 	Light *light0_, *light1_, *light2_, *light3_;
+	SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;
 
 	float light_y;
 };
 
 #endif
+

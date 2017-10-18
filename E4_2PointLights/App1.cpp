@@ -23,7 +23,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// Create Mesh object
 	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
+	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext(), 5);
 
 	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
 
@@ -36,6 +36,8 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	lightShader = new LightShader(renderer->getDevice(), hwnd);
 
 	initLight();
+
+	initLightSpheres();
 }
 
 void App1::initLight()
@@ -74,6 +76,17 @@ void App1::initLight()
 	//light3_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	// light y position
 	light_y = 0.0f;
+}
+
+void App1::initLightSpheres()
+{
+	lightSphere0_ = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext(), 5);
+
+	lightSphere1_ = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext(), 5);
+
+	lightSphere2_ = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext(), 5);
+
+	lightSphere3_ = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext(), 5);
 }
 
 App1::~App1()
@@ -141,6 +154,30 @@ App1::~App1()
 		delete light3_;
 		light3_ = 0;
 	}
+
+	if (lightSphere0_)
+	{
+		delete lightSphere0_;
+		lightSphere0_ = 0;
+	}
+	
+	if (lightSphere1_)
+	{
+		delete lightSphere1_;
+		lightSphere1_ = 0;
+	}
+
+	if (lightSphere2_)
+	{
+		delete lightSphere2_;
+		lightSphere2_ = 0;
+	}
+
+	if (lightSphere3_)
+	{
+		delete lightSphere3_;
+		lightSphere3_ = 0;
+	}
 }
 
 
@@ -165,6 +202,8 @@ bool App1::frame()
 
 	light_y += XM_PIDIV2 * timer->getTime();
 	light_y = fmodf(light_y, XM_2PI);
+
+	light3_->setPosition(light_y, 1.0f, -3.0f);
 
 	// Render the graphics.
 	result = render();
