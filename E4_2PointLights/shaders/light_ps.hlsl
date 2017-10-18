@@ -4,16 +4,16 @@ Texture2D shaderTexture : register(t0);
 SamplerState SampleType : register(s0);
 
 // Defines - HLSL allows the use of defines. 
-const int NUM_LIGHTS = 4;
+static const int NUM_LIGHTS = 4;
 
-cbuffer LightBuffer : register(cb0)
+cbuffer LightColorBuffer : register(cb0)
 {
     float4 ambientColor;
-    float4 diffuseColor[NUM_LIGHTS];
+    float4 diffuseColor[4];
     float3 lightDirection;
     float specularPower;
     float4 specularColor;
-    float4 lightPosition[NUM_LIGHTS];
+    float4 lightPosition[4];
 };
 
 struct InputType

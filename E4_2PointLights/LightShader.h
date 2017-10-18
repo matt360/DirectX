@@ -15,7 +15,13 @@ const int NUM_LIGHTS = 4;
 class LightShader : public BaseShader
 {
 private:
-	struct LightBufferType
+	struct CameraBufferType
+	{
+		XMFLOAT3 cameraPosition;
+		float padding;
+	};
+
+	struct LightPositionBuffer
 	{
 		XMFLOAT4 ambient;
 		XMFLOAT4 diffuse[NUM_LIGHTS];
@@ -26,10 +32,15 @@ private:
 		//float padding;
 	};
 
-	struct CameraBufferType
+	struct LightColorBuffer
 	{
-		XMFLOAT3 cameraPosition;
-		float padding;
+		XMFLOAT4 ambient;
+		XMFLOAT4 diffuse[NUM_LIGHTS];
+		XMFLOAT3 direction;
+		float specularPower;
+		XMFLOAT4 specular;
+		XMFLOAT4 position[NUM_LIGHTS];
+		//float padding;
 	};
 
 public:
@@ -63,8 +74,9 @@ private:
 private:
 	ID3D11Buffer* matrixBuffer;
 	ID3D11SamplerState* sampleState;
-	ID3D11Buffer* lightBuffer;
 	ID3D11Buffer* cameraBuffer;
+	ID3D11Buffer* lightPositionBuffer;
+	ID3D11Buffer* lightColorBuffer;
 };
 
 #endif

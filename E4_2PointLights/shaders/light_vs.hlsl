@@ -17,14 +17,14 @@ cbuffer CameraBuffer : register(cb1)
 	float padding;
 };
 
-cbuffer LightBuffer : register(cb2)
+cbuffer LightPositionBuffer : register(cb2)
 {
     float4 ambientColor;
-    float4 diffuseColor[NUM_LIGHTS];
+    float4 diffuseColor[4];
     float3 lightDirection;
     float specularPower;
     float4 specularColor;
-    float4 lightPosition[NUM_LIGHTS];
+    float4 lightPosition[4];
 };
 
 struct InputType
@@ -82,4 +82,6 @@ OutputType main(InputType input)
     output.lightPos2 = normalize(output.lightPos2);
     output.lightPos3 = normalize(output.lightPos3);
     output.lightPos4 = normalize(output.lightPos4);
+
+    return output;
 }

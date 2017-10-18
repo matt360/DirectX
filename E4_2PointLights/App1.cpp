@@ -44,29 +44,29 @@ void App1::initLight()
 	light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	light0_->setPosition(-1.5f, 0.1f, 0.0f);
 	// Light 1
-	light0_ = new Light;
-	light0_->setAmbientColour(0.0f, 2.0f, 0.0f, 1.0f); // green
-	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
-	light0_->setDirection(0.0, 0.0f, 0.0f);
-	light0_->setSpecularPower(16.f);
-	light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light0_->setPosition(1.5f, 0.1f, 0.0f);
+	light1_ = new Light;
+	light1_->setAmbientColour(0.0f, 2.0f, 0.0f, 1.0f); // green
+	light1_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
+	light1_->setDirection(0.0, 0.0f, 0.0f);
+	light1_->setSpecularPower(16.f);
+	light1_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light1_->setPosition(1.5f, 0.1f, 0.0f);
 	// Light 2
-	light0_ = new Light;
-	light0_->setAmbientColour(0.0f, 0.0f, 0.2f, 1.0f); // blue
-	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
-	light0_->setDirection(0.0, 0.0f, 0.0f);
-	light0_->setSpecularPower(16.f);
-	light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light0_->setPosition(-1.5f, 0.1f, -1.5f);
+	light2_ = new Light;
+	light2_->setAmbientColour(0.0f, 0.0f, 0.2f, 1.0f); // blue
+	light2_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
+	light2_->setDirection(0.0, 0.0f, 0.0f);
+	light2_->setSpecularPower(16.f);
+	light2_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light2_->setPosition(-1.5f, 0.1f, -1.5f);
 	// Light 3
-	light0_ = new Light;
-	light0_->setAmbientColour(0.2f, 0.2f, 0.0f, 1.0f); // yellow
-	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
-	light0_->setDirection(0.0, 0.0f, 0.0f);
-	light0_->setSpecularPower(16.f);
-	light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light0_->setPosition(1.5f, 0.1f, 1.5f);
+	light3_ = new Light;
+	light3_->setAmbientColour(0.2f, 0.2f, 0.0f, 1.0f); // yellow
+	light3_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
+	light3_->setDirection(0.0, 0.0f, 0.0f);
+	light3_->setSpecularPower(16.f);
+	light3_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light3_->setPosition(1.5f, 0.1f, 1.5f);
 	// light y position
 	light_y = 0.0f;
 }
@@ -178,7 +178,19 @@ bool App1::render()
 
 	//// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
-	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
+	lightShader->setShaderParameters
+	(
+		renderer->getDeviceContext(), 
+		worldMatrix, 
+		viewMatrix, 
+		projectionMatrix, 
+		textureMgr->getTexture("default"), 
+		light0_,
+		light1_,
+		light2_,
+		light3_,
+		camera
+	);
 	//// Render object (combination of mesh geometry and shader process
 	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 	lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
