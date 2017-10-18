@@ -52,7 +52,7 @@ OutputType main(InputType input)
     output.normal = normalize(output.normal);
 
 	// world position of vertex 
-    output.position3D = mul(input.position, worldMatrix);
+    output.position3D = mul(input.position, worldMatrix); ///////////////// THAT'S WHERE position3D GETS INITIALIZED!!!!!!!!!!!!!!!!!!!!!!!! AND THEN InputType IN PIXEL SHADER TAKES IT!!!!!!!!!!!!!!!!!!!!!!!!!
 
     return output;
 }

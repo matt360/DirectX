@@ -43,6 +43,17 @@ private:
 		//float padding;
 	};
 
+	struct LightBuffer
+	{
+		XMFLOAT4 ambient;
+		XMFLOAT4 diffuse[NUM_LIGHTS];
+		XMFLOAT3 direction;
+		float specularPower;
+		XMFLOAT4 specular;
+		XMFLOAT4 position[NUM_LIGHTS];
+		//float padding;
+	};
+
 public:
 	// When resources are being created and interfaced with,
 	// the 'device' interface is used.
@@ -77,6 +88,7 @@ private:
 	ID3D11Buffer* cameraBuffer;
 	ID3D11Buffer* lightPositionBuffer;
 	ID3D11Buffer* lightColorBuffer;
+	ID3D11Buffer* lightBuffer;
 };
 
 #endif
