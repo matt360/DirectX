@@ -242,6 +242,8 @@ void App1::sendGeometryData()
 	cubeMesh->sendData(renderer->getDeviceContext());
 	//quadMesh->sendData(renderer->getDeviceContext());
 	//planeMesh->sendData(renderer->getDeviceContext());
+
+
 }
 
 void App1::renderObjects()
@@ -305,9 +307,6 @@ bool App1::render()
 	// scaling
 	//XMMATRIX matrixScaling = XMMatrixScaling(10.0f, 1.0f, 10.0f);
 	//worldMatrix *= matrixScaling;
-
-	//m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
-
 
 	// Send geometry data (from mesh)
 	sendGeometryData();
