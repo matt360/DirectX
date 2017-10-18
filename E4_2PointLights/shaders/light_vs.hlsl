@@ -17,7 +17,7 @@ cbuffer CameraBuffer : register(cb1)
 	float padding;
 };
 
-cbuffer LightBuffer : register(cb2);
+cbuffer LightBuffer : register(cb2)
 {
     float4 ambientColor;
     float4 diffuseColor[4];
@@ -50,8 +50,8 @@ OutputType main(InputType input)
     OutputType output;
 	float4 worldPosition;
     
-	// Change the position vector to be 4 units for proper matrix calculations.
-    input.position.w = 1.0f;
+	//// Change the position vector to be 4 units for proper matrix calculations.
+     input.position.w = 1.0f;
 
     // Calculate the position of the vertex against the world, view, and projection matrices.
     output.position = mul(input.position, worldMatrix);
@@ -62,13 +62,13 @@ OutputType main(InputType input)
     output.tex = input.tex;
 
 	 // Calculate the normal vector against the world matrix only.
-    output.normal = mul(input.normal, (float3x3)worldMatrix);
+    output.normal = mul(input.normal, (float3x3) worldMatrix);
 	
     // Normalize the normal vector.
     output.normal = normalize(output.normal);
 
-	// world position of vertex 
-    output.position3D = mul(input.position, worldMatrix);
+	//// world position of vertex 
+ //   //output.position3D = mul(input.position, worldMatrix);
 
     return output;
 }

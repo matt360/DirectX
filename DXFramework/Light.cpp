@@ -93,6 +93,12 @@ XMFLOAT3 Light::getPosition()
 	return temp;
 }
 
+XMFLOAT4 Light::getPosition4()
+{
+	XMFLOAT4 temp(XMVectorGetX(position), XMVectorGetY(position), XMVectorGetZ(position), XMVectorGetW(position));
+	return temp;
+}
+
 void Light::setLookAt(float x, float y, float z)
 {
 	lookAt = XMVectorSet(x, y, z, 1.0f);

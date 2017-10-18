@@ -144,7 +144,16 @@ void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
 }
 
-void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, Camera* camera)
+void LightShader::setShaderParameters
+(
+	ID3D11DeviceContext* deviceContext, 
+	const XMMATRIX &worldMatrix, 
+	const XMMATRIX &viewMatrix, 
+	const XMMATRIX &projectionMatrix, 
+	ID3D11ShaderResourceView* texture, 
+	Light* light, 
+	Camera* camera
+)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -189,16 +198,45 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	bufferNumber = 1;
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &cameraBuffer);
 
+	// Send light data to vertex shader
 	// Send light data to pixel shader
 	deviceContext->Map(lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	lightPtr = (LightBufferType*)mappedResource.pData;
 	lightPtr->ambient = light->getAmbientColour();
-	lightPtr->diffuse = light->getDiffuseColour();
+	lightPtr->diffuse[0] = light->getDiffuseColour();
+	lightPtr->diffuse[1] = light->getDiffuseColour();
+	lightPtr->diffuse[2] = light->getDiffuseColour();
+	lightPtr->diffuse[3] = light->getDiffuseColour();
 	lightPtr->direction = light->getDirection();
 	lightPtr->specularPower = light->getSpecularPower();
 	lightPtr->specular = light->getSpecularColour();
-	lightPtr->position = light->getPosition();
-	lightPtr->padding = 0.0f;
+	lightPtr->position[0] = light->getPosition4();
+	lightPtr->position[1] = light->getPosition4();
+	lightPtr->position[2] = light->getPosition4();
+	lightPtr->position[3] = light->getPosition4();
+	//lightPtr->padding = 0.0f;
+
+	//lightPtr->padding = 0.0f;
+	deviceContext->Unmap(lightBuffer, 0);
+	bufferNumber = 2;
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
+
+	// Send light data to pixel shader
+	deviceContext->Map(lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	lightPtr = (LightBufferType*)mappedResource.pData;
+	lightPtr->ambient = light->getAmbientColour();
+	lightPtr->diffuse[0] = light->getDiffuseColour();
+	lightPtr->diffuse[1] = light->getDiffuseColour();
+	lightPtr->diffuse[2] = light->getDiffuseColour();
+	lightPtr->diffuse[3] = light->getDiffuseColour();
+	lightPtr->direction = light->getDirection();
+	lightPtr->specularPower = light->getSpecularPower();
+	lightPtr->specular = light->getSpecularColour();
+	lightPtr->position[0] = light->getPosition4();
+	lightPtr->position[1] = light->getPosition4();
+	lightPtr->position[2] = light->getPosition4();
+	lightPtr->position[3] = light->getPosition4();
+	//lightPtr->padding = 0.0f;
 	
 	//lightPtr->padding = 0.0f;
 	deviceContext->Unmap(lightBuffer, 0);
@@ -209,58 +247,58 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->PSSetShaderResources(0, 1, &texture);
 }
 
-void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light)
-{
-	HRESULT result;
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	MatrixBufferType* dataPtr;
-	LightBufferType* lightPtr;
-	unsigned int bufferNumber;
-	XMMATRIX tworld, tview, tproj;
-
-
-	// Transpose the matrices to prepare them for the shader.
-	tworld = XMMatrixTranspose(worldMatrix);
-	tview = XMMatrixTranspose(viewMatrix);
-	tproj = XMMatrixTranspose(projectionMatrix);
-
-	// Lock the constant buffer so it can be written to.
-	result = deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-
-	// Get a pointer to the data in the constant buffer.
-	dataPtr = (MatrixBufferType*)mappedResource.pData;
-
-	// Copy the matrices into the constant buffer.
-	dataPtr->world = tworld;// worldMatrix;
-	dataPtr->view = tview;
-	dataPtr->projection = tproj;
-
-	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer, 0);
-
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 0;
-
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
-
-	//Additional
-	// Send light data to pixel shader
-	deviceContext->Map(lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	lightPtr = (LightBufferType*)mappedResource.pData;
-	lightPtr->ambient = light->getAmbientColour();
-	lightPtr->diffuse = light->getDiffuseColour();
-	lightPtr->direction = light->getDirection();
-	lightPtr->specularPower = light->getSpecularPower();
-	lightPtr->specular = light->getSpecularColour();
-	//lightPtr->padding = 0.0f;
-	deviceContext->Unmap(lightBuffer, 0);
-	bufferNumber = 0;
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
-
-	// Set shader texture resource in the pixel shader.
-	deviceContext->PSSetShaderResources(0, 1, &texture);
-}
+//void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light)
+//{
+//	HRESULT result;
+//	D3D11_MAPPED_SUBRESOURCE mappedResource;
+//	MatrixBufferType* dataPtr;
+//	LightBufferType* lightPtr;
+//	unsigned int bufferNumber;
+//	XMMATRIX tworld, tview, tproj;
+//
+//
+//	// Transpose the matrices to prepare them for the shader.
+//	tworld = XMMatrixTranspose(worldMatrix);
+//	tview = XMMatrixTranspose(viewMatrix);
+//	tproj = XMMatrixTranspose(projectionMatrix);
+//
+//	// Lock the constant buffer so it can be written to.
+//	result = deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+//
+//	// Get a pointer to the data in the constant buffer.
+//	dataPtr = (MatrixBufferType*)mappedResource.pData;
+//
+//	// Copy the matrices into the constant buffer.
+//	dataPtr->world = tworld;// worldMatrix;
+//	dataPtr->view = tview;
+//	dataPtr->projection = tproj;
+//
+//	// Unlock the constant buffer.
+//	deviceContext->Unmap(matrixBuffer, 0);
+//
+//	// Set the position of the constant buffer in the vertex shader.
+//	bufferNumber = 0;
+//
+//	// Now set the constant buffer in the vertex shader with the updated values.
+//	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+//
+//	//Additional
+//	// Send light data to pixel shader
+//	deviceContext->Map(lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+//	lightPtr = (LightBufferType*)mappedResource.pData;
+//	lightPtr->ambient = light->getAmbientColour();
+//	lightPtr->diffuse = light->getDiffuseColour();
+//	lightPtr->direction = light->getDirection();
+//	lightPtr->specularPower = light->getSpecularPower();
+//	lightPtr->specular = light->getSpecularColour();
+//	//lightPtr->padding = 0.0f;
+//	deviceContext->Unmap(lightBuffer, 0);
+//	bufferNumber = 0;
+//	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
+//
+//	// Set shader texture resource in the pixel shader.
+//	deviceContext->PSSetShaderResources(0, 1, &texture);
+//}
 
 void LightShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {

@@ -43,6 +43,7 @@ public:
 	XMFLOAT4 getSpecularColour();
 	float getSpecularPower();
 	XMFLOAT3 getPosition();
+	XMFLOAT4 getPosition4();
 	XMMATRIX getViewMatrix();
 	XMMATRIX getProjectionMatrix();
 	XMMATRIX getOrthoMatrix();
