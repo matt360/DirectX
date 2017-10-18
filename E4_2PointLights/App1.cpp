@@ -329,21 +329,23 @@ bool App1::render()
 	// Render object (combination of mesh geometry and shader process
 	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
 	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
-	lightSphere1_->sendData(renderer->getDeviceContext());
-	lightShader->setShaderParameters
-	(
-		renderer->getDeviceContext(),
-		worldMatrix,
-		viewMatrix,
-		projectionMatrix,
-		textureMgr->getTexture("checkerboard"), // for the default textrue pass an empty string as a name
-		diffuseColor,
-		lightPosition
-	);
-	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	// PLANE MESH
+	//planeMesh->sendData(renderer->getDeviceContext());
+	//lightShader->setShaderParameters
+	//(
+	//	renderer->getDeviceContext(),
+	//	worldMatrix,
+	//	viewMatrix,
+	//	projectionMatrix,
+	//	textureMgr->getTexture("checkerboard"), // for the default textrue pass an empty string as a name
+	//	diffuseColor,
+	//	lightPosition
+	//);
+	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// Render GUI
 	gui();

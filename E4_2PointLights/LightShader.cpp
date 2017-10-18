@@ -9,7 +9,6 @@ LightShader::LightShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, h
 	initShader(L"light_vs.cso", L"light_ps.cso");
 }
 
-
 LightShader::~LightShader()
 {
 	// Release the sampler state.
