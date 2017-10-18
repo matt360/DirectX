@@ -53,7 +53,7 @@ void ColourShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 
 void ColourShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix)
 {
-	HRESULT result;
+	//HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	MatrixBufferType* dataPtr;
 	unsigned int bufferNumber;

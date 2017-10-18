@@ -25,6 +25,8 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 
 	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
 
+	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
+
 	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
@@ -221,7 +223,8 @@ bool App1::render()
 
 	//// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
-	sphereMesh->sendData(renderer->getDeviceContext());
+	//sphereMesh->sendData(renderer->getDeviceContext());
+	cubeMesh->sendData(renderer->getDeviceContext());
 	//quadMesh->sendData(renderer->getDeviceContext());
 	//planeMesh->sendData(renderer->getDeviceContext());
 
@@ -238,7 +241,8 @@ bool App1::render()
 		lightPosition
 	);
 	//// Render object (combination of mesh geometry and shader process
-	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
 	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 

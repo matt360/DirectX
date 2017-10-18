@@ -25,8 +25,10 @@ protected:
 private:
 	TriangleMesh* triangleMesh;
 	SphereMesh* sphereMesh;
+	CubeMesh* cubeMesh;
 	QuadMesh* quadMesh;
 	PlaneMesh* planeMesh;
+
 	ColourShader* colourShader;
 	LightShader* lightShader;
 	
