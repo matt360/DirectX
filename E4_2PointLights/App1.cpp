@@ -42,7 +42,7 @@ void App1::initTextures()
 
 void App1::initShaders(HWND hwnd)
 {
-	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
+	colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
 	lightShader = new LightShader(renderer->getDevice(), hwnd);
 }
@@ -237,21 +237,15 @@ bool App1::frame()
 
 void App1::sendGeometryData()
 {
-	//triangleMesh->sendData(renderer->getDeviceContext());
-	//sphereMesh->sendData(renderer->getDeviceContext());
-	cubeMesh->sendData(renderer->getDeviceContext());
-	//quadMesh->sendData(renderer->getDeviceContext());
-	//planeMesh->sendData(renderer->getDeviceContext());
-
-
+	
 }
+
+//  "shaderName"->setShaderParameters()
 
 void App1::renderObjects()
 {
-	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	
+
 }
 
 void App1::gui()
@@ -309,7 +303,15 @@ bool App1::render()
 	//worldMatrix *= matrixScaling;
 
 	// Send geometry data (from mesh)
-	sendGeometryData();
+	//triangleMesh->sendData(renderer->getDeviceContext());
+	//sphereMesh->sendData(renderer->getDeviceContext());
+	cubeMesh->sendData(renderer->getDeviceContext());
+	//quadMesh->sendData(renderer->getDeviceContext());
+	//planeMesh->sendData(renderer->getDeviceContext());
+
+	/*lightSphere1_->sendData(renderer->getDeviceContext());
+	lightSphere2_->sendData(renderer->getDeviceContext());
+	lightSphere3_->sendData(renderer->getDeviceContext());*/
 
 	// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
@@ -325,7 +327,23 @@ bool App1::render()
 	);
 
 	// Render object (combination of mesh geometry and shader process
-	renderObjects();
+	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+
+	lightSphere1_->sendData(renderer->getDeviceContext());
+	lightShader->setShaderParameters
+	(
+		renderer->getDeviceContext(),
+		worldMatrix,
+		viewMatrix,
+		projectionMatrix,
+		textureMgr->getTexture("checkerboard"), // for the default textrue pass an empty string as a name
+		diffuseColor,
+		lightPosition
+	);
+	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 
 	// Render GUI
 	gui();
