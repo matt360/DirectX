@@ -24,7 +24,7 @@ cbuffer LightPositionBuffer : register(cb2)
     float3 lightDirection;
     float specularPower;
     float4 specularColor;
-    float4 lightPosition[4];
+    float3 lightPosition[4];
 };
 
 struct InputType
@@ -49,7 +49,6 @@ OutputType main(InputType input)
 {
     OutputType output;
     float4 worldPosition;
-
 
 	// Change the position vector to be 4 units for proper matrix calculations.
     input.position.w = 1.0f;

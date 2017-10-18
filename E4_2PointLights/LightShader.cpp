@@ -245,10 +245,10 @@ void LightShader::setShaderParameters
 	lightPosPtr->direction = light0->getDirection();
 	lightPosPtr->specularPower = light0->getSpecularPower();
 	lightPosPtr->specular = light0->getSpecularColour();
-	lightPosPtr->position[0] = light0->getPosition4();
-	lightPosPtr->position[1] = light1->getPosition4();
-	lightPosPtr->position[2] = light2->getPosition4();
-	lightPosPtr->position[3] = light3->getPosition4();
+	lightPosPtr->position[0] = light0->getPosition();
+	lightPosPtr->position[1] = light1->getPosition();
+	lightPosPtr->position[2] = light2->getPosition();
+	lightPosPtr->position[3] = light3->getPosition();
 	//lightPtr->padding = 0.0f;
 
 	//lightPtr->padding = 0.0f;
@@ -267,10 +267,10 @@ void LightShader::setShaderParameters
 	lightColPtr->direction = light0->getDirection();
 	lightColPtr->specularPower = light0->getSpecularPower();
 	lightColPtr->specular = light0->getSpecularColour();
-	lightColPtr->position[0] = light0->getPosition4();
-	lightColPtr->position[1] = light1->getPosition4();
-	lightColPtr->position[2] = light2->getPosition4();
-	lightColPtr->position[3] = light3->getPosition4();
+	lightColPtr->position[0] = light0->getPosition();
+	lightColPtr->position[1] = light1->getPosition();
+	lightColPtr->position[2] = light2->getPosition();
+	lightColPtr->position[3] = light3->getPosition();
 	//lightPtr->padding = 0.0f;
 	
 	//lightPtr->padding = 0.0f;

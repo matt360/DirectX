@@ -28,7 +28,7 @@ private:
 		XMFLOAT3 direction;
 		float specularPower;
 		XMFLOAT4 specular;
-		XMFLOAT4 position[NUM_LIGHTS];
+		XMFLOAT3 position[NUM_LIGHTS];
 		//float padding;
 	};
 
@@ -39,7 +39,7 @@ private:
 		XMFLOAT3 direction;
 		float specularPower;
 		XMFLOAT4 specular;
-		XMFLOAT4 position[NUM_LIGHTS];
+		XMFLOAT3 position[NUM_LIGHTS];
 		//float padding;
 	};
 
