@@ -17,8 +17,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
-	textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
-	textureMgr->loadTexture("checkerboard", L"../res/checkerboard.png");
+	initTextures();
 
 	initShaders(hwnd);
 
@@ -29,6 +28,12 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	initLightSpheres();
 
 	light_y = 0.0f;
+}
+
+void App1::initTextures()
+{
+	//textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
+	textureMgr->loadTexture("checkerboard", L"../res/checkerboard.png");
 }
 
 void App1::initShaders(HWND hwnd)
