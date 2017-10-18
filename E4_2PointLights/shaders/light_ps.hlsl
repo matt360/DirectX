@@ -9,11 +9,11 @@ SamplerState SampleType : register(s0);
 cbuffer LightBuffer : register(cb0)
 {
     float4 ambientColor;
-    float4 diffuseColor;
+    float4 diffuseColor[4];
     float3 lightDirection;
     float specularPower;
     float4 specularColor;
-    float3 lightPosition[NUM_LIGHTS];
+    float4 lightPosition[4];
 };
 
 struct InputType

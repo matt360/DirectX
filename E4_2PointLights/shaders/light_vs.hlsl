@@ -17,6 +17,16 @@ cbuffer CameraBuffer : register(cb1)
 	float padding;
 };
 
+cbuffer LightBuffer : register(cb2);
+{
+    float4 ambientColor;
+    float4 diffuseColor[4];
+    float3 lightDirection;
+    float specularPower;
+    float4 specularColor;
+    float4 lightPosition[4];
+};
+
 struct InputType
 {
     float4 position : POSITION;
@@ -29,7 +39,10 @@ struct OutputType
     float4 position : SV_POSITION; // SV - system value
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
-	float3 position3D : TEXCOORD1;
+    float3 lightPos1 : TEXCOORD1;
+    float3 lightPos2 : TEXCOORD2;
+    float3 lightPos3 : TEXCOORD3;
+    float3 lightPos4 : TEXCOORD4;
 };
 
 OutputType main(InputType input)

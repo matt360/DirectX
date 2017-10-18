@@ -18,12 +18,12 @@ private:
 	struct LightBufferType
 	{
 		XMFLOAT4 ambient;
-		XMFLOAT4 diffuse;
+		XMFLOAT4 diffuse[NUM_LIGHTS];
 		XMFLOAT3 direction;
 		float specularPower;
 		XMFLOAT4 specular;
-		XMFLOAT3 position;
-		float padding;
+		XMFLOAT4 position[NUM_LIGHTS];
+		//float padding;
 	};
 
 	struct CameraBufferType
