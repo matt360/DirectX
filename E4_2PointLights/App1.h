@@ -10,7 +10,6 @@
 class App1 : public BaseApplication
 {
 public:
-
 	App1();
 	~App1();
 	void init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input* in);
@@ -21,8 +20,11 @@ protected:
 	bool render();
 	void gui();
 
+	void initShaders(HWND hwnd);
+	void initGeometry();
 	void initLight();
 	void initLightSpheres();
+
 private:
 	TriangleMesh* triangleMesh;
 	SphereMesh* sphereMesh;

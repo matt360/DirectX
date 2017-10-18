@@ -20,6 +20,26 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
 	textureMgr->loadTexture("checkerboard", L"../res/checkerboard.png");
 
+	initShaders(hwnd);
+
+	initGeometry();
+
+	initLight();
+
+	initLightSpheres();
+
+	light_y = 0.0f;
+}
+
+void App1::initShaders(HWND hwnd)
+{
+	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
+
+	lightShader = new LightShader(renderer->getDevice(), hwnd);
+}
+
+void App1::initGeometry()
+{
 	// Create Mesh object
 	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
@@ -30,14 +50,6 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
-
-	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
-
-	lightShader = new LightShader(renderer->getDevice(), hwnd);
-
-	initLight();
-
-	initLightSpheres();
 }
 
 void App1::initLight()
@@ -75,7 +87,6 @@ void App1::initLight()
 	//light3_->setSpecularPower(16.f);
 	//light3_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	// light y position
-	light_y = 0.0f;
 }
 
 void App1::initLightSpheres()
