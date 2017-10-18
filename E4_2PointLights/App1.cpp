@@ -18,13 +18,16 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
 	textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
+	textureMgr->loadTexture("checkerboard", L"../res/checkerboard.png");
 
 	// Create Mesh object
 	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	//sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
+	//quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
+
+	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
@@ -61,7 +64,7 @@ void App1::initLight()
 	//light2_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	// Light 3
 	light3_ = new Light;
-	light3_->setDiffuseColour(1.0f, 1.0f, 0.0f, 1.0f);
+	light3_->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
 	light3_->setPosition(3.0f, 1.0f, -3.0f);
 	//light3_->setAmbientColour(0.2f, 0.2f, 0.0f, 1.0f); // yellow
 	//light3_->setDirection(0.0, 0.0f, 0.0f);
@@ -93,6 +96,12 @@ App1::~App1()
 	{
 		delete quadMesh;
 		quadMesh = 0;
+	}
+
+	if (planeMesh)
+	{
+		delete planeMesh;
+		planeMesh = 0;
 	}
 
 	if (colourShader)
@@ -199,12 +208,12 @@ bool App1::render()
 
 	// translation and rotation
 	worldMatrix = renderer->getWorldMatrix();
-	XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(90.0f));
+	XMMATRIX matrixTranslation = XMMatrixTranslation(-20.0f, 0.0, -20.0f);
+	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
 	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	// scaling
-	XMMATRIX matrixScaling = XMMatrixScaling(3.0f, 1.0f, 3.0f);
-	worldMatrix *= matrixScaling;
+	//XMMATRIX matrixScaling = XMMatrixScaling(10.0f, 1.0f, 10.0f);
+	//worldMatrix *= matrixScaling;
 
 	//m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
 
@@ -212,7 +221,8 @@ bool App1::render()
 	//// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
 	//sphereMesh->sendData(renderer->getDeviceContext());
-	quadMesh->sendData(renderer->getDeviceContext());
+	//quadMesh->sendData(renderer->getDeviceContext());
+	planeMesh->sendData(renderer->getDeviceContext());
 
 	//// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
@@ -222,13 +232,13 @@ bool App1::render()
 		worldMatrix, 
 		viewMatrix, 
 		projectionMatrix, 
-		textureMgr->getTexture("default"), 
+		textureMgr->getTexture("checkerboard"), 
 		diffuseColor,
 		lightPosition
 	);
 	//// Render object (combination of mesh geometry and shader process
 	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// Render GUI
 	gui();
