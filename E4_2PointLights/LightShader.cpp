@@ -204,18 +204,18 @@ void LightShader::setShaderParameters
 	// Send light data to vertex shader
 	deviceContext->Map(lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	lightPtr = (LightBufferType*)mappedResource.pData;
-	lightPtr->ambient = light->getAmbientColour();
-	lightPtr->diffuse[0] = lightDiffuseColor[0];
-	lightPtr->diffuse[1] = lightDiffuseColor[1];
-	lightPtr->diffuse[2] = lightDiffuseColor[2];
-	lightPtr->diffuse[3] = lightDiffuseColor[3];
-	lightPtr->direction = light->getDirection();
-	lightPtr->specularPower = light->getSpecularPower();
-	lightPtr->specular = light->getSpecularColour();
-	lightPtr->position[0] = lightPosition[0];
-	lightPtr->position[1] = lightPosition[1];
-	lightPtr->position[2] = lightPosition[2];
-	lightPtr->position[3] = lightPosition[3];
+	lightPtr->ambient = light0->getAmbientColour();
+	lightPtr->diffuse[0] = light0->getDiffuseColour();
+	lightPtr->diffuse[1] = light1->getDiffuseColour();
+	lightPtr->diffuse[2] = light2->getDiffuseColour();
+	lightPtr->diffuse[3] = light3->getDiffuseColour();
+	lightPtr->direction = light0->getDirection();
+	lightPtr->specularPower = light0->getSpecularPower();
+	lightPtr->specular = light0->getSpecularColour();
+	lightPtr->position[0] = light0->getPosition4();
+	lightPtr->position[1] = light1->getPosition4();
+	lightPtr->position[2] = light2->getPosition4();
+	lightPtr->position[3] = light3->getPosition4();
 	//lightPtr->padding = 0.0f;
 
 	//lightPtr->padding = 0.0f;
@@ -226,18 +226,18 @@ void LightShader::setShaderParameters
 	// Send light data to pixel shader
 	deviceContext->Map(lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	lightPtr = (LightBufferType*)mappedResource.pData;
-	lightPtr->ambient = light->getAmbientColour();
-	lightPtr->diffuse[0] = lightDiffuseColor[0];
-	lightPtr->diffuse[1] = lightDiffuseColor[1];
-	lightPtr->diffuse[2] = lightDiffuseColor[2];
-	lightPtr->diffuse[3] = lightDiffuseColor[3];
-	lightPtr->direction = light->getDirection();
-	lightPtr->specularPower = light->getSpecularPower();
-	lightPtr->specular = light->getSpecularColour();
-	lightPtr->position[0] = lightPosition[0];
-	lightPtr->position[1] = lightPosition[1];
-	lightPtr->position[2] = lightPosition[2];
-	lightPtr->position[3] = lightPosition[3];
+	lightPtr->ambient = light0->getAmbientColour();
+	lightPtr->diffuse[0] = light0->getDiffuseColour();
+	lightPtr->diffuse[1] = light1->getDiffuseColour();
+	lightPtr->diffuse[2] = light2->getDiffuseColour();
+	lightPtr->diffuse[3] = light3->getDiffuseColour();
+	lightPtr->direction = light0->getDirection();
+	lightPtr->specularPower = light0->getSpecularPower();
+	lightPtr->specular = light0->getSpecularColour();
+	lightPtr->position[0] = light0->getPosition4();
+	lightPtr->position[1] = light1->getPosition4();
+	lightPtr->position[2] = light2->getPosition4();
+	lightPtr->position[3] = light3->getPosition4();
 	//lightPtr->padding = 0.0f;
 	
 	//lightPtr->padding = 0.0f;
