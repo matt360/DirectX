@@ -21,20 +21,20 @@ cbuffer MatrixBuffer
 
 cbuffer LightPositionBuffer
 {
-    float4 lightPosition[NUM_LIGHTS];
+    float3 lightPosition[NUM_LIGHTS];
 };
 
 //////////////
 // TYPEDEFS //
 //////////////
-struct VertexInputType
+struct InputType
 {
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
 };
 
-struct PixelInputType
+struct OutputType
 {
     float4 position : SV_POSITION;
     float2 tex : TEXCOORD0;
@@ -49,9 +49,9 @@ struct PixelInputType
 ////////////////////////////////////////////////////////////////////////////////
 // Vertex Shader
 ////////////////////////////////////////////////////////////////////////////////
-PixelInputType LightVertexShader(VertexInputType input)
+OutputType main(InputType input)
 {
-    PixelInputType output;
+    OutputType output;
     float4 worldPosition;
 
 

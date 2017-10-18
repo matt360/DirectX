@@ -28,7 +28,7 @@ private:
 
 	struct LightPositionBufferType
 	{
-		XMFLOAT4 lightPosition[NUM_LIGHTS];
+		XMFLOAT3 lightPosition[NUM_LIGHTS];
 	};
 
 public:
@@ -41,7 +41,7 @@ public:
 	// the 'device context' is used.
 	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &world, const XMMATRIX &view, const XMMATRIX &projection, 
 		ID3D11ShaderResourceView* texture, XMFLOAT4 diffuseColor[],
-		XMFLOAT4 lightPosition[]);
+		XMFLOAT3 lightPosition[]);
 	void render(ID3D11DeviceContext* deviceContext, int vertexCount);
 
 private:

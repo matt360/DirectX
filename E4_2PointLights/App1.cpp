@@ -37,36 +37,36 @@ void App1::initLight()
 {
 	// Light 0
 	light0_ = new Light;
-	light0_->setAmbientColour(0.2f, 0.0f, 0.0f, 1.0f); // red
 	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
-	light0_->setDirection(0.0, 0.0f, 0.0f);
-	light0_->setSpecularPower(16.f);
-	light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	light0_->setPosition(-3.0f, 1.0f, 3.0f);
+	//light0_->setAmbientColour(0.2f, 0.0f, 0.0f, 1.0f); // red
+	//light0_->setDirection(0.0, 0.0f, 0.0f);
+	//light0_->setSpecularPower(16.f);
+	//light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	// Light 1
 	light1_ = new Light;
-	light1_->setAmbientColour(0.0f, 2.0f, 0.0f, 1.0f); // green
 	light1_->setDiffuseColour(0.0f, 1.0f, 0.0f, 1.0f);
-	light1_->setDirection(0.0, 0.0f, 0.0f);
-	light1_->setSpecularPower(16.f);
-	light1_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	light1_->setPosition(3.0f, 1.0f, 3.0f);
+	//light1_->setAmbientColour(0.0f, 2.0f, 0.0f, 1.0f); // green
+	//light1_->setDirection(0.0, 0.0f, 0.0f);
+	//light1_->setSpecularPower(16.f);
+	//light1_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	// Light 2
 	light2_ = new Light;
-	light2_->setAmbientColour(0.0f, 0.0f, 0.2f, 1.0f); // blue
 	light2_->setDiffuseColour(0.0f, 0.0f, 1.0f, 1.0f);
-	light2_->setDirection(0.0, 0.0f, 0.0f);
-	light2_->setSpecularPower(16.f);
-	light2_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	light2_->setPosition(-3.0f, 1.0f, -3.0f);
+	//light2_->setAmbientColour(0.0f, 0.0f, 0.2f, 1.0f); // blue
+	//light2_->setDirection(0.0, 0.0f, 0.0f);
+	//light2_->setSpecularPower(16.f);
+	//light2_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	// Light 3
 	light3_ = new Light;
-	light3_->setAmbientColour(0.2f, 0.2f, 0.0f, 1.0f); // yellow
 	light3_->setDiffuseColour(1.0f, 1.0f, 0.0f, 1.0f);
-	light3_->setDirection(0.0, 0.0f, 0.0f);
-	light3_->setSpecularPower(16.f);
-	light3_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	light3_->setPosition(3.0f, 1.0f, -3.0f);
+	//light3_->setAmbientColour(0.2f, 0.2f, 0.0f, 1.0f); // yellow
+	//light3_->setDirection(0.0, 0.0f, 0.0f);
+	//light3_->setSpecularPower(16.f);
+	//light3_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	// light y position
 	light_y = 0.0f;
 }
@@ -106,6 +106,30 @@ App1::~App1()
 		delete lightShader;
 		lightShader = 0;
 	}
+
+	if (light0_)
+	{
+		delete light0_;
+		light0_ = 0;
+	}
+
+	if (light1_)
+	{
+		delete light1_;
+		light1_ = 0;
+	}
+
+	if (light2_)
+	{
+		delete light2_;
+		light2_ = 0;
+	}
+
+	if (light3_)
+	{
+		delete light3_;
+		light3_ = 0;
+	}
 }
 
 
@@ -144,6 +168,20 @@ bool App1::frame()
 bool App1::render()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+	XMFLOAT4 diffuseColor[4];
+	XMFLOAT3 lightPosition[4];
+
+	// Create the diffuse color array from the four light colors.
+	diffuseColor[0] = light0_->getDiffuseColour();
+	diffuseColor[1] = light1_->getDiffuseColour();
+	diffuseColor[2] = light2_->getDiffuseColour();
+	diffuseColor[3] = light3_->getDiffuseColour();
+
+	// Create the light position array from the four light positions.
+	lightPosition[0] = light0_->getPosition();
+	lightPosition[1] = light1_->getPosition();
+	lightPosition[2] = light2_->getPosition();
+	lightPosition[3] = light3_->getPosition();
 
 	//// Clear the scene. (default cornflower blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
@@ -185,11 +223,8 @@ bool App1::render()
 		viewMatrix, 
 		projectionMatrix, 
 		textureMgr->getTexture("default"), 
-		light0_,
-		light1_,
-		light2_,
-		light3_,
-		camera
+		diffuseColor,
+		lightPosition
 	);
 	//// Render object (combination of mesh geometry and shader process
 	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());

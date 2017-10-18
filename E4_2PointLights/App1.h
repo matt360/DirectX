@@ -29,10 +29,7 @@ private:
 	ColourShader* colourShader;
 	LightShader* lightShader;
 	
-	Light* light0_;
-	Light* light1_;
-	Light* light2_;
-	Light* light3_;
+	Light *light0_, *light1_, *light2_, *light3_;
 
 	float light_y;
 };

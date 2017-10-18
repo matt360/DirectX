@@ -24,7 +24,7 @@ cbuffer LightColorBuffer
 //////////////
 // TYPEDEFS //
 //////////////
-struct PixelInputType
+struct InputType
 {
     float4 position : SV_POSITION;
     float2 tex : TEXCOORD0;
@@ -39,7 +39,7 @@ struct PixelInputType
 ////////////////////////////////////////////////////////////////////////////////
 // Pixel Shader
 ////////////////////////////////////////////////////////////////////////////////
-float4 LightPixelShader(PixelInputType input) : SV_TARGET
+float4 main(InputType input) : SV_TARGET
 {
     float4 textureColor;
     float lightIntensity1, lightIntensity2, lightIntensity3, lightIntensity4;

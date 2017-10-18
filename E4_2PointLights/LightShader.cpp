@@ -277,7 +277,7 @@ void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 //}
 
 void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX& worldMatrix, const XMMATRIX& viewMatrix, const XMMATRIX& projectionMatrix, ID3D11ShaderResourceView* texture,
-	XMFLOAT4 diffuseColor[], XMFLOAT4 lightPosition[])
+	XMFLOAT4 diffuseColor[], XMFLOAT3 lightPosition[])
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
