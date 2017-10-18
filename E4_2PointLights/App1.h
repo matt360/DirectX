@@ -19,6 +19,7 @@ public:
 protected:
 	bool render();
 	void sendGeometryData();
+	void renderObjects();
 	void gui();
 
 	void initVariables();

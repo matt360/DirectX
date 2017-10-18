@@ -35,9 +35,8 @@ void App1::initVariables()
 	light_y = 0.0f;
 }
 
-void App1::initTextures()
+void App1::initTextures() 
 {
-	//textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
 	textureMgr->loadTexture("checkerboard", L"../res/checkerboard.png");
 }
 
@@ -245,6 +244,26 @@ void App1::sendGeometryData()
 	//planeMesh->sendData(renderer->getDeviceContext());
 }
 
+void App1::renderObjects()
+{
+	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+}
+
+void App1::gui()
+{
+	// Force turn off on Geometry shader
+	renderer->getDeviceContext()->GSSetShader(NULL, NULL, 0);
+
+	// Build UI
+	ImGui::Text("FPS: %.2f", timer->getFPS());
+
+	// Render UI
+	ImGui::Render();
+}
+
 bool App1::render()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
@@ -293,7 +312,7 @@ bool App1::render()
 	// Send geometry data (from mesh)
 	sendGeometryData();
 
-	//// Set shader parameters (matrices and texture)
+	// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
 	lightShader->setShaderParameters
 	(
@@ -301,15 +320,13 @@ bool App1::render()
 		worldMatrix, 
 		viewMatrix, 
 		projectionMatrix, 
-		textureMgr->getTexture("checkerboard"), 
+		textureMgr->getTexture("checkerboard"), // for the default textrue pass an empty string as a name
 		diffuseColor,
 		lightPosition
 	);
-	//// Render object (combination of mesh geometry and shader process
-	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+
+	// Render object (combination of mesh geometry and shader process
+	renderObjects();
 
 	// Render GUI
 	gui();
@@ -318,16 +335,4 @@ bool App1::render()
 	renderer->endScene();
 
 	return true;
-}
-
-void App1::gui()
-{
-	// Force turn off on Geometry shader
-	renderer->getDeviceContext()->GSSetShader(NULL, NULL, 0);
-
-	// Build UI
-	ImGui::Text("FPS: %.2f", timer->getFPS());
-
-	// Render UI
-	ImGui::Render();
 }
