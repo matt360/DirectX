@@ -1,6 +1,9 @@
 // Light vertex shader
 // Standard issue vertex shader, apply matrices, pass info to pixel shader
 
+// Defines - HLSL allows the use of defines. 
+#define NUM_LIGHTS 4;
+
 cbuffer MatrixBuffer : register(cb0)
 {
     matrix worldMatrix;
