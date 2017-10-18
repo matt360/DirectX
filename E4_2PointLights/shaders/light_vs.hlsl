@@ -1,42 +1,42 @@
-// Light vertex shader
-// Standard issue vertex shader, apply matrices, pass info to pixel shader
+////////////////////////////////////////////////////////////////////////////////
+// Filename: light.vs
+////////////////////////////////////////////////////////////////////////////////
 
-// Defines - HLSL allows the use of defines. 
-const int NUM_LIGHTS = 4;
 
-cbuffer MatrixBuffer : register(cb0)
+/////////////
+// DEFINES //
+/////////////
+#define NUM_LIGHTS 4
+
+
+/////////////
+// GLOBALS //
+/////////////
+cbuffer MatrixBuffer
 {
     matrix worldMatrix;
     matrix viewMatrix;
     matrix projectionMatrix;
 };
 
-cbuffer CameraBuffer : register(cb1)
+cbuffer LightPositionBuffer
 {
-	float3 cameraPosition;
-	float padding;
+    float4 lightPosition[NUM_LIGHTS];
 };
 
-cbuffer LightPositionBuffer : register(cb2)
-{
-    float4 ambientColor;
-    float4 diffuseColor[4];
-    float3 lightDirection;
-    float specularPower;
-    float4 specularColor;
-    float3 lightPosition[4];
-};
-
-struct InputType
+//////////////
+// TYPEDEFS //
+//////////////
+struct VertexInputType
 {
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
 };
 
-struct OutputType
+struct PixelInputType
 {
-    float4 position : SV_POSITION; // SV - system value
+    float4 position : SV_POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
     float3 lightPos1 : TEXCOORD1;
@@ -45,10 +45,15 @@ struct OutputType
     float3 lightPos4 : TEXCOORD4;
 };
 
-OutputType main(InputType input)
+
+////////////////////////////////////////////////////////////////////////////////
+// Vertex Shader
+////////////////////////////////////////////////////////////////////////////////
+PixelInputType LightVertexShader(VertexInputType input)
 {
-    OutputType output;
+    PixelInputType output;
     float4 worldPosition;
+
 
 	// Change the position vector to be 4 units for proper matrix calculations.
     input.position.w = 1.0f;

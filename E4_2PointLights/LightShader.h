@@ -21,37 +21,14 @@ private:
 		float padding;
 	};
 
-	struct LightPositionBuffer
+	struct LightColorBufferType
 	{
-		XMFLOAT4 ambient;
-		XMFLOAT4 diffuse[NUM_LIGHTS];
-		XMFLOAT3 direction;
-		float specularPower;
-		XMFLOAT4 specular;
-		XMFLOAT3 position[NUM_LIGHTS];
-		//float padding;
+		XMFLOAT4 diffuseColor[NUM_LIGHTS];
 	};
 
-	struct LightColorBuffer
+	struct LightPositionBufferType
 	{
-		XMFLOAT4 ambient;
-		XMFLOAT4 diffuse[NUM_LIGHTS];
-		XMFLOAT3 direction;
-		float specularPower;
-		XMFLOAT4 specular;
-		XMFLOAT3 position[NUM_LIGHTS];
-		//float padding;
-	};
-
-	struct LightBuffer
-	{
-		XMFLOAT4 ambient;
-		XMFLOAT4 diffuse[NUM_LIGHTS];
-		XMFLOAT3 direction;
-		float specularPower;
-		XMFLOAT4 specular;
-		XMFLOAT4 position[NUM_LIGHTS];
-		//float padding;
+		XMFLOAT4 lightPosition[NUM_LIGHTS];
 	};
 
 public:
@@ -62,20 +39,9 @@ public:
 
 	// When the pipeline or a resource is being manipulated,
 	// the 'device context' is used.
-	void setShaderParameters
-	(
-		ID3D11DeviceContext* deviceContext, 
-		const XMMATRIX& worldMatrix, 
-		const XMMATRIX& viewMatrix, 
-		const XMMATRIX& projectionMatrix, 
-		ID3D11ShaderResourceView* texture, 
-		Light* light0,
-		Light* light1,
-		Light* light2,
-		Light* light3,
-		Camera* camera
-	);
-	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &world, const XMMATRIX &view, const XMMATRIX &projection, ID3D11ShaderResourceView* texture, Light* light);
+	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &world, const XMMATRIX &view, const XMMATRIX &projection, 
+		ID3D11ShaderResourceView* texture, XMFLOAT4 diffuseColor[],
+		XMFLOAT4 lightPosition[]);
 	void render(ID3D11DeviceContext* deviceContext, int vertexCount);
 
 private:
@@ -86,9 +52,8 @@ private:
 	ID3D11Buffer* matrixBuffer;
 	ID3D11SamplerState* sampleState;
 	ID3D11Buffer* cameraBuffer;
-	ID3D11Buffer* lightPositionBuffer;
-	ID3D11Buffer* lightColorBuffer;
-	ID3D11Buffer* lightBuffer;
+	ID3D11Buffer* m_lightColorBuffer;
+	ID3D11Buffer* m_lightPositionBuffer;
 };
 
 #endif
