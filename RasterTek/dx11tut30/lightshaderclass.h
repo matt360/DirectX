@@ -36,7 +36,8 @@ private:
 
 	struct LightColorBufferType
 	{
-		D3DXVECTOR4 diffuseColor[NUM_LIGHTS];
+		D3DXVECTOR4 
+			[NUM_LIGHTS];
 	};
 
 	struct LightPositionBufferType

@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RasterTek", "RasterTek\Rast
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dx11tut30", "dx11tut30\dx11tut30.vcxproj", "{076C4594-6E67-4F61-B49C-04DC5337E1FF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dx11tut37", "dx11tut37\dx11tut37.vcxproj", "{7EE9C1D4-202C-4E06-90D5-B2473DBF7207}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -21,6 +23,10 @@ Global
 		{076C4594-6E67-4F61-B49C-04DC5337E1FF}.Debug|x86.Build.0 = Debug|Win32
 		{076C4594-6E67-4F61-B49C-04DC5337E1FF}.Release|x86.ActiveCfg = Release|Win32
 		{076C4594-6E67-4F61-B49C-04DC5337E1FF}.Release|x86.Build.0 = Release|Win32
+		{7EE9C1D4-202C-4E06-90D5-B2473DBF7207}.Debug|x86.ActiveCfg = Debug|Win32
+		{7EE9C1D4-202C-4E06-90D5-B2473DBF7207}.Debug|x86.Build.0 = Debug|Win32
+		{7EE9C1D4-202C-4E06-90D5-B2473DBF7207}.Release|x86.ActiveCfg = Release|Win32
+		{7EE9C1D4-202C-4E06-90D5-B2473DBF7207}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

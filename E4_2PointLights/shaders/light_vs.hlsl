@@ -2,12 +2,10 @@
 // Filename: light.vs
 ////////////////////////////////////////////////////////////////////////////////
 
-
 /////////////
 // DEFINES //
 /////////////
 #define NUM_LIGHTS 4
-
 
 /////////////
 // GLOBALS //
@@ -43,10 +41,6 @@ struct OutputType
     float3 lightPos2 : TEXCOORD2;
     float3 lightPos3 : TEXCOORD3;
     float3 lightPos4 : TEXCOORD4;
-    float3 lightSpherePos1 : TEXCOORD5;
-    float3 lightSpherePos2 : TEXCOORD6;
-    float3 lightSpherePos3 : TEXCOORD7;
-    float3 lightSpherePos4 : TEXCOORD8;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -88,12 +82,6 @@ OutputType main(InputType input)
     output.lightPos2 = normalize(output.lightPos2);
     output.lightPos3 = normalize(output.lightPos3);
     output.lightPos4 = normalize(output.lightPos4);
-
-	// set the position of the light's sphere to the light's position
-    output.lightSpherePos1 = output.lightPos1;
-    output.lightSpherePos2 = output.lightPos2;
-    output.lightSpherePos3 = output.lightPos3;
-    output.lightSpherePos4 = output.lightPos4;
 
     return output;
 }

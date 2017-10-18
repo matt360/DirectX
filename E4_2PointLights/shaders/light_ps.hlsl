@@ -8,7 +8,6 @@
 /////////////
 #define NUM_LIGHTS 4
 
-
 /////////////
 // GLOBALS //
 /////////////
@@ -32,10 +31,6 @@ struct InputType
     float3 lightPos2 : TEXCOORD2;
     float3 lightPos3 : TEXCOORD3;
     float3 lightPos4 : TEXCOORD4;
-    float3 lightSpherePos1 : TEXCOORD5;
-    float3 lightSpherePos2 : TEXCOORD6;
-    float3 lightSpherePos3 : TEXCOORD7;
-    float3 lightSpherePos4 : TEXCOORD8;
 };
 
 
@@ -47,7 +42,6 @@ float4 main(InputType input) : SV_TARGET
     float4 textureColor;
     float lightIntensity1, lightIntensity2, lightIntensity3, lightIntensity4;
     float4 color, color1, color2, color3, color4;
-	
 
 	// Calculate the different amounts of light on this pixel based on the positions of the lights.
     lightIntensity1 = saturate(dot(input.normal, input.lightPos1));
