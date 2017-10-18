@@ -236,6 +236,15 @@ bool App1::frame()
 	return true;
 }
 
+void App1::sendGeometryData()
+{
+	//triangleMesh->sendData(renderer->getDeviceContext());
+	//sphereMesh->sendData(renderer->getDeviceContext());
+	cubeMesh->sendData(renderer->getDeviceContext());
+	//quadMesh->sendData(renderer->getDeviceContext());
+	//planeMesh->sendData(renderer->getDeviceContext());
+}
+
 bool App1::render()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
@@ -281,12 +290,8 @@ bool App1::render()
 	//m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
 
 
-	//// Send geometry data (from mesh)
-	//triangleMesh->sendData(renderer->getDeviceContext());
-	//sphereMesh->sendData(renderer->getDeviceContext());
-	cubeMesh->sendData(renderer->getDeviceContext());
-	//quadMesh->sendData(renderer->getDeviceContext());
-	//planeMesh->sendData(renderer->getDeviceContext());
+	// Send geometry data (from mesh)
+	sendGeometryData();
 
 	//// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
@@ -326,4 +331,3 @@ void App1::gui()
 	// Render UI
 	ImGui::Render();
 }
-
