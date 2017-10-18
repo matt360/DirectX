@@ -9,6 +9,13 @@ cbuffer MatrixBuffer : register(cb0)
 	matrix projectionMatrix;
 };
 
+// this can be accessed from the main - it's a global variable
+cbuffer LightPositionBuffer : register(cb1)
+{
+    float3 lightPosition;
+    float padding;
+}
+
 struct InputType
 {
 	float4 position : POSITION;

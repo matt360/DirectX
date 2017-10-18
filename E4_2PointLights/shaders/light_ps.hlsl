@@ -20,7 +20,6 @@ cbuffer LightColorBuffer
     float4 diffuseColor[NUM_LIGHTS];
 };
 
-
 //////////////
 // TYPEDEFS //
 //////////////
