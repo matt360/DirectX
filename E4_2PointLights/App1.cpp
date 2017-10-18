@@ -17,6 +17,8 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
+	initVariables();
+
 	initTextures();
 
 	initShaders(hwnd);
@@ -26,7 +28,10 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	initLight();
 
 	initLightSpheres();
+}
 
+void App1::initVariables()
+{
 	light_y = 0.0f;
 }
 

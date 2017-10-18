@@ -20,6 +20,7 @@ protected:
 	bool render();
 	void gui();
 
+	void initVariables();
 	void initTextures();
 	void initShaders(HWND hwnd);
 	void initGeometry();
