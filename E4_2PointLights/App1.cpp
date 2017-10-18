@@ -309,10 +309,6 @@ bool App1::render()
 	//quadMesh->sendData(renderer->getDeviceContext());
 	//planeMesh->sendData(renderer->getDeviceContext());
 
-	/*lightSphere1_->sendData(renderer->getDeviceContext());
-	lightSphere2_->sendData(renderer->getDeviceContext());
-	lightSphere3_->sendData(renderer->getDeviceContext());*/
-
 	// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
 	lightShader->setShaderParameters

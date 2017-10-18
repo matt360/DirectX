@@ -27,6 +27,11 @@ protected:
 		XMFLOAT3 normal;
 	};
 
+	struct InstanceType
+	{
+		XMFLOAT3 position;
+	};
+
 public:
 	BaseMesh();
 	~BaseMesh();
