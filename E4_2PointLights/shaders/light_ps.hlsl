@@ -32,6 +32,10 @@ struct InputType
     float3 lightPos2 : TEXCOORD2;
     float3 lightPos3 : TEXCOORD3;
     float3 lightPos4 : TEXCOORD4;
+    float3 lightSpherePos1 : TEXCOORD5;
+    float3 lightSpherePos2 : TEXCOORD6;
+    float3 lightSpherePos3 : TEXCOORD7;
+    float3 lightSpherePos4 : TEXCOORD8;
 };
 
 

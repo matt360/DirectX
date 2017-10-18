@@ -64,9 +64,9 @@ void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	D3D11_SAMPLER_DESC samplerDesc;
 	// Camera
 	D3D11_BUFFER_DESC cameraBufferDesc;
+	// Light
 	D3D11_BUFFER_DESC lightPositionBufferDesc;
 	D3D11_BUFFER_DESC lightColorBufferDesc;
-	//D3D11_BUFFER_DESC lightBufferDesc;
 
 	// Load (+ compile) shader files
 	loadVertexShader(vsFilename);
@@ -277,7 +277,8 @@ void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 //}
 
 void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX& worldMatrix, const XMMATRIX& viewMatrix, const XMMATRIX& projectionMatrix, ID3D11ShaderResourceView* texture,
-	XMFLOAT4 diffuseColor[], XMFLOAT3 lightPosition[])
+	XMFLOAT4 diffuseColor[], 
+	XMFLOAT3 lightPosition[])
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
