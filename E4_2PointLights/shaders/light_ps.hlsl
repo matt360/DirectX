@@ -1,8 +1,10 @@
 // Light pixel shader
 // Calculate diffuse lighting for a single directional light (also texturing)
-
 Texture2D shaderTexture : register(t0);
 SamplerState SampleType : register(s0);
+
+// Defines - HLSL allows the use of defines. 
+#define NUM_LIGHTS 4;
 
 cbuffer LightBuffer : register(cb0)
 {
@@ -11,7 +13,7 @@ cbuffer LightBuffer : register(cb0)
     float3 lightDirection;
     float specularPower;
     float4 specularColor;
-    float3 lightPosition;
+    float3 lightPosition[NUM_LIGHTS];
 };
 
 struct InputType
@@ -19,7 +21,10 @@ struct InputType
     float4 position : SV_POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
-	float3 position3D : TEXCOORD1;
+	float3 lightPos1 : TEXCOORD1;
+    float3 lightPos2 : TEXCOORD2;
+    float3 lightPos3 : TEXCOORD3;
+    float3 lightPos4 : TEXCOORD4;
 };
 
 float4 main(InputType input) : SV_TARGET
