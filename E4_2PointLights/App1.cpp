@@ -35,13 +35,39 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 
 void App1::initLight()
 {
-	m_Light = new Light;
-	m_Light->setAmbientColour(0.2f, 0.0f, 0.0f, 1.0f);
-	m_Light->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
-	m_Light->setDirection(0.0, 0.0f, 0.0f);
-	m_Light->setSpecularPower(16.f);
-	m_Light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	m_Light->setPosition(-1.5f, 0.1f, 0.0f);
+	// Light 0
+	light0_ = new Light;
+	light0_->setAmbientColour(0.2f, 0.0f, 0.0f, 1.0f); // red
+	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
+	light0_->setDirection(0.0, 0.0f, 0.0f);
+	light0_->setSpecularPower(16.f);
+	light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light0_->setPosition(-1.5f, 0.1f, 0.0f);
+	// Light 1
+	light0_ = new Light;
+	light0_->setAmbientColour(0.0f, 2.0f, 0.0f, 1.0f); // green
+	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
+	light0_->setDirection(0.0, 0.0f, 0.0f);
+	light0_->setSpecularPower(16.f);
+	light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light0_->setPosition(1.5f, 0.1f, 0.0f);
+	// Light 2
+	light0_ = new Light;
+	light0_->setAmbientColour(0.0f, 0.0f, 0.2f, 1.0f); // blue
+	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
+	light0_->setDirection(0.0, 0.0f, 0.0f);
+	light0_->setSpecularPower(16.f);
+	light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light0_->setPosition(-1.5f, 0.1f, -1.5f);
+	// Light 3
+	light0_ = new Light;
+	light0_->setAmbientColour(0.2f, 0.2f, 0.0f, 1.0f); // yellow
+	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
+	light0_->setDirection(0.0, 0.0f, 0.0f);
+	light0_->setSpecularPower(16.f);
+	light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light0_->setPosition(1.5f, 0.1f, 1.5f);
+	// light y position
 	light_y = 0.0f;
 }
 
