@@ -52,7 +52,7 @@ void App1::initGeometry()
 	// Create Mesh object
 	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext(), 5);
+	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext(), 10);
 
 	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
 
@@ -304,8 +304,8 @@ bool App1::render()
 
 	// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
-	//sphereMesh->sendData(renderer->getDeviceContext());
-	cubeMesh->sendData(renderer->getDeviceContext());
+	sphereMesh->sendData(renderer->getDeviceContext());
+	//cubeMesh->sendData(renderer->getDeviceContext());
 	//quadMesh->sendData(renderer->getDeviceContext());
 	//planeMesh->sendData(renderer->getDeviceContext());
 
@@ -323,8 +323,8 @@ bool App1::render()
 	);
 
 	// Render object (combination of mesh geometry and shader process
-	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
 	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());

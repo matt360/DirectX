@@ -1,10 +1,13 @@
 // Texture pixel/fragment shader
 // Basic fragment shader for rendering textured geometry
 
-
+// texture resource
+//  This will be our texture resource that will be used for rendering the texture on the model.
 Texture2D texture0 : register(t0);
 Texture2D texture1 : register(t1);
-
+// The sampler state allows us to modify how the pixels are written to the polygon face when shaded.
+// For example if the polygon is really far away and only makes up 8 pixels on the screen
+// then we use the sample state to figure out which pixels or what combination of pixels will actually be drawn from the original texture. 
 SamplerState Sampler0 : register(s0);
 
 struct InputType

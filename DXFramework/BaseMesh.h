@@ -27,6 +27,10 @@ protected:
 		XMFLOAT3 normal;
 	};
 
+	// Instancing is a method of rendering in DirectX 11 that eliminates this problem by accepting 
+	// a single vertex buffer with the geometry and then uses a second buffer called
+	// an Instance Buffer which carries the modification information for each instance of the model geometry.
+	// The vertex buffer stays cached on the video card and then it is modified and rendered for each instance in the instance buffer.
 	struct InstanceType
 	{
 		XMFLOAT3 position;
