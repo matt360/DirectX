@@ -77,7 +77,7 @@ void App1::RenderToTexture(float time)
 	renderTexture->setRenderTarget(renderer->getDeviceContext());
 
 	// Clear the render to texture.
-	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 1.0f, 1.0f, 0.0f, 1.0f);
+	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 1.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
 	camera->update();
@@ -134,7 +134,7 @@ void App1::RenderScene(float time)
 
 	// ortho matrix for 2D rendering
 	orthoMatrix = renderer->getOrthoMatrix();
-	orthoViewMatrix = camera->getOrthoViewMatrix(); // TODO
+	orthoViewMatrix = camera->getOrthoViewMatrix();
 
 	orthoMesh->sendData(renderer->getDeviceContext());
 	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, orthoViewMatrix, orthoMatrix,
@@ -258,61 +258,10 @@ bool App1::frame()
 
 bool App1::render()
 {
-	//XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-
-	////// Clear the scene. (default cornflower blue colour)
-	//renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-
-	////// Generate the view matrix based on the camera's position.
-	//camera->update();
-
-	////// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	//viewMatrix = camera->getViewMatrix();
-
-	//projectionMatrix = renderer->getProjectionMatrix();
-
-	//// wireframe mode
-	//renderer->setWireframeMode(true);
-
-	//// translation and rotation
-	//worldMatrix = renderer->getWorldMatrix();
-	//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-	//XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(180.0f));
-	//worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
-	//// scaling
-	//XMMATRIX matrixScaling = XMMatrixScaling(1.0f, 1.0f, 1.0f);
-	//worldMatrix *= matrixScaling;
-
-	////light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
-	////// Send geometry data (from mesh)
-	////triangleMesh->sendData(renderer->getDeviceContext());
-	////sphereMesh->sendData(renderer->getDeviceContext());
-	//cubeMesh->sendData(renderer->getDeviceContext());
-	////quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
-	////planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
-
-	//float height = 1.0f;
-	//float frequency = 1.0f;
-
-	////// Set shader parameters (matrices and texture)
-	////lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light);
-	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light, light_y, height, frequency);
-
-	////// Render object (combination of mesh geometry and shader process
-	////lightShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount()); // output data from the shader programme
-	////lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount()); // output data from the shader programme
-	//lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount()); // output data from the shader programme
-	////lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
-	////lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
-
+	// render it normally to the texture...
 	RenderToTexture(light_y);
+	// ...then render it again to the back buffer
 	RenderScene(light_y);
-
-	//// Render GUI
-	
-
-	//// Present the rendered scene to the screen.
-	//renderer->endScene();
 
 	return true;
 }
