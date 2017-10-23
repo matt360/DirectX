@@ -89,12 +89,14 @@ void App1::RenderToTexture(float time)
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	cubeMesh->sendData(renderer->getDeviceContext());
-
-	lightShader->setShaderParameters(renderer->getDeviceContext(), 
+	lightShader->setShaderParameters
+	(
+		renderer->getDeviceContext(), 
 		worldMatrix, viewMatrix, projectionMatrix, 
 		textureMgr->getTexture("default"), 
-		light, time);
-
+		light, 
+		time
+	);
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 
@@ -120,27 +122,34 @@ void App1::RenderScene(float time)
 	// Send geometry data (from mesh)
 	cubeMesh->sendData(renderer->getDeviceContext());
 	// Set shader parameters (matrices and texture)
-
-	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix,
-		projectionMatrix, textureMgr->getTexture("default"), light, time);
-
+	lightShader->setShaderParameters
+	(
+		renderer->getDeviceContext(), 
+		worldMatrix, viewMatrix, projectionMatrix, 
+		textureMgr->getTexture("default"), 
+		light, 
+		time
+	);
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 
 
-	// To render ortho mesh
-	// Turn off the Z buffer to begin all 2D rendering.
+	// Render to ortho mesh
+	// Turn off the Z buffer to begin all 2D rendering. //////////////////////////
 	renderer->setZBuffer(false);
-
 	// ortho matrix for 2D rendering
 	orthoMatrix = renderer->getOrthoMatrix();
 	orthoViewMatrix = camera->getOrthoViewMatrix();
 
 	orthoMesh->sendData(renderer->getDeviceContext());
-	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, orthoViewMatrix, orthoMatrix,
-		renderTexture->getShaderResourceView());
+	textureShader->setShaderParameters
+	(
+		renderer->getDeviceContext(), 
+		worldMatrix, orthoViewMatrix, orthoMatrix,
+		renderTexture->getShaderResourceView()
+	);
 	textureShader->render(renderer->getDeviceContext(), orthoMesh->getIndexCount());
-
+	// Enable Z buffering after rendering //////////////////////////////////////////
 	renderer->setZBuffer(true);
 
 	// Render GUI
