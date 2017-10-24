@@ -26,15 +26,12 @@ protected:
 
 	void initLight();
 
-	void RenderToTexture(float time);
-
+	void RenderSceneToTexture(float time);
 	void DownSampleTexture();
 	void RenderHorizontalBlurToTexture();
 	void RenderVerticalBlurToTexture();
 	void UpSampleTexture();
-	//bool Render2DTextureScene();
-
-	void RenderScene(float time);
+	void Render2DTextureScene(float time);
 
 private:
 	TriangleMesh *triangleMesh;
