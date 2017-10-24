@@ -19,23 +19,43 @@ struct InputType
 
 float4 main(InputType input) : SV_TARGET
 {
-    float weight0, weight1, weight2;
+    float weight0, weight1, weight2, weight3, weight4
+	float normalization;
     float4 colour;
 
 	// Create the weights that each neighbor pixel will contribute to the blur.
-	weight0 = 0.4062f;
+	/*weight0 = 0.4062f;
     weight1 = 0.2442f;
-    weight2 = 0.0545f;
+    weight2 = 0.0545f;*/
+	weight0 = 1.0f;
+	weight1 = 0.9f;
+	weight2 = 0.55f;
+	weight3 = 0.18f;
+	weight4 = 0.1f;
+
+	// Create a normalized value to average the weights out a bit.
+	normalization = (weight0 + 2.0f * (weight1 + weight2 + weight3 + weight4));
+
+	// Normalize the weights.
+	weight0 /= nomralization;
+	weight1 /= nomralization;
+	weight2 /= nomralization;
+	weight3 /= nomralization;
+	weight4 /= nomralization;
 
 	// Initialize the colour to black.
     colour = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
     // Add the nine horizontal pixels to the colour by the specific weight of each.
-    colour += shaderTexture.Sample(SampleType, input.texCoord1) * weight2;
-    colour += shaderTexture.Sample(SampleType, input.texCoord2) * weight1;
-    colour += shaderTexture.Sample(SampleType, input.texCoord3) * weight0;
+    colour += shaderTexture.Sample(SampleType, input.texCoord1) * weight4;
+    colour += shaderTexture.Sample(SampleType, input.texCoord2) * weight3;
+    colour += shaderTexture.Sample(SampleType, input.texCoord3) * weight2;
     colour += shaderTexture.Sample(SampleType, input.texCoord4) * weight1;
-    colour += shaderTexture.Sample(SampleType, input.texCoord5) * weight2;
+    colour += shaderTexture.Sample(SampleType, input.texCoord5) * weight0;
+	colour += shaderTexture.Sample(SampleType, input.texCoord6) * weight1;
+	colour += shaderTexture.Sample(SampleType, input.texCoord7) * weight2;
+	colour += shaderTexture.Sample(SampleType, input.texCoord8) * weight3;
+	colour += shaderTexture.Sample(SampleType, input.texCoord9) * weight4;
 
 	// Set the alpha channel to one.
     colour.a = 1.0f;
