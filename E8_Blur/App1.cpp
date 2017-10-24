@@ -456,7 +456,11 @@ the full screen completing the full screen blur effect.
 */
 void App1::Render2DTextureScene(float time)
 {
-	XMMATRIX worldMatrix, viewMatrix, orthoMatrix;
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
+	// Billboarding variables
+	XMFLOAT3 cameraPosition, modelPosition;
+	double angle;
+	float rotation;
 
 	// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
@@ -467,7 +471,31 @@ void App1::Render2DTextureScene(float time)
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	viewMatrix = camera->getViewMatrix();
 	worldMatrix = renderer->getWorldMatrix();
+	//projectionMatrix = renderer->getProjectionMatrix();
 	orthoMatrix = renderer->getProjectionMatrix();
+
+	// Get the position of the camera
+	cameraPosition = camera->getPosition();
+	// Set the position of the billboard model
+	modelPosition.x = 0.0f;
+	modelPosition.y = 1.5f;
+	modelPosition.z = 0.0f;
+
+	// Calculate the rotation that needs to be applied to the billboard model to face the current camera position using the arc tangent function.
+	angle = atan2(modelPosition.x - cameraPosition.x, modelPosition.z - cameraPosition.z) * (180.0f / XM_PI);
+
+	// Convert rotation into radians.
+	rotation = XMConvertToRadians(angle);
+
+	/*
+	Use the rotation to first rotate the world matrix accordingly, 
+	and then translate to the position of the billboard in the world
+	*/
+	// Setup the rotation of the billboard at the origin using the world matrix
+	//worldMatrix = renderer->getWorldMatrix();
+	XMMATRIX matrixRotation = XMMatrixRotationY(rotation);
+	XMMATRIX matrixTranslation = XMMatrixTranslation(modelPosition.x, modelPosition.y, modelPosition.z);
+	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 
 	// Turn off the Z buffer to begin all 2D rendering
 	renderer->setZBuffer(false);
