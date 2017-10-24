@@ -35,7 +35,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
-	textureMgr->loadTexture("height", L"../res/brick1.dds");
+	textureMgr->loadTexture("brick", L"../res/brick1.dds");
 
 	// Create Mesh object
 	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
@@ -231,7 +231,7 @@ void App1::RenderSceneToTexture(float time)
 	(
 		renderer->getDeviceContext(), 
 		worldMatrix, viewMatrix, projectionMatrix, 
-		textureMgr->getTexture("brick1"), 
+		textureMgr->getTexture("brick"), 
 		light,
 		time
 	);
