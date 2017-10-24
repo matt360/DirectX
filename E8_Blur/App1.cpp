@@ -91,6 +91,115 @@ void App1::initLight()
 	light_y = 0.0f;
 }
 
+App1::~App1()
+{
+	// Run base application deconstructor
+	BaseApplication::~BaseApplication();
+
+	// Release the Direct3D object.
+	if (triangleMesh)
+	{
+		delete triangleMesh;
+		triangleMesh = 0;
+	}
+
+	if (sphereMesh)
+	{
+		delete sphereMesh;
+		sphereMesh = 0;
+	}
+
+	if (cubeMesh)
+	{
+		delete cubeMesh;
+		cubeMesh = 0;
+	}
+
+	if (quadMesh)
+	{
+		delete quadMesh;
+		quadMesh = 0;
+	}
+
+	if (planeMesh)
+	{
+		delete planeMesh;
+		planeMesh = 0;
+	}
+
+	if (colourShader)
+	{
+		delete colourShader;
+		colourShader = 0;
+	}
+
+	if (lightShader)
+	{
+		delete lightShader;
+		lightShader = 0;
+	}
+
+	if (textureShader)
+	{
+		delete textureShader;
+		textureShader = 0;
+	}
+
+	if (light)
+	{
+		delete light;
+		light = 0;
+	}
+
+	if (renderTexture)
+	{
+		delete renderTexture;
+		renderTexture = 0;
+	}
+
+	if (downSampleTexture)
+	{
+		delete downSampleTexture;
+		downSampleTexture = 0;
+	}
+
+	if (horizontalBlurTexture)
+	{
+		delete horizontalBlurTexture;
+		horizontalBlurTexture = 0;
+	}
+
+	if (verticalBlurTexture)
+	{
+		delete verticalBlurTexture;
+		verticalBlurTexture = 0;
+	}
+
+	if (upSampleTexture)
+	{
+		delete upSampleTexture;
+		upSampleTexture = 0;
+	}
+
+	if (orthoMesh)
+	{
+		delete orthoMesh;
+		orthoMesh = 0;
+	}
+
+	if (smallWindow)
+	{
+		delete smallWindow;
+		smallWindow = 0;
+	}
+
+	if (fullScreenWindow)
+	{
+		delete fullScreenWindow;
+		fullScreenWindow = 0;
+	}
+}
+
 void App1::RenderToTexture(float time)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
@@ -204,116 +313,6 @@ void App1::RenderScene(float time)
 	// Present the rendered scene to the screen.
 	renderer->endScene();
 }
-
-App1::~App1()
-{
-	// Run base application deconstructor
-	BaseApplication::~BaseApplication();
-
-	// Release the Direct3D object.
-	if (triangleMesh)
-	{
-		delete triangleMesh;
-		triangleMesh = 0;
-	}
-
-	if (sphereMesh)
-	{
-		delete sphereMesh;
-		sphereMesh = 0;
-	}
-
-	if (cubeMesh)
-	{
-		delete cubeMesh;
-		cubeMesh = 0;
-	}
-
-	if (quadMesh)
-	{
-		delete quadMesh;
-		quadMesh = 0;
-	}
-
-	if (planeMesh)
-	{
-		delete planeMesh;
-		planeMesh = 0;
-	}
-
-	if (colourShader)
-	{
-		delete colourShader;
-		colourShader = 0;
-	}
-
-	if (lightShader)
-	{
-		delete lightShader;
-		lightShader = 0;
-	}
-
-	if (textureShader)
-	{
-		delete textureShader;
-		textureShader = 0;
-	}
-
-	if (light)
-	{
-		delete light;
-		light = 0;
-	}
-
-	if (renderTexture)
-	{
-		delete renderTexture;
-		renderTexture = 0;
-	}
-
-	if (downSampleTexure)
-	{
-		delete downSampleTexure;
-		downSampleTexure = 0;
-	}
-
-	if (horizontalBlurTexture)
-	{
-		delete horizontalBlurTexture;
-		horizontalBlurTexture = 0;
-	}
-
-	if (verticalBlurTexture)
-	{
-		delete verticalBlurTexture;
-		verticalBlurTexture = 0;
-	}
-
-	if (upSampleTexure)
-	{
-		delete upSampleTexure;
-		upSampleTexure = 0;
-	}
-
-	if (orthoMesh)
-	{
-		delete orthoMesh;
-		orthoMesh = 0;
-	}
-
-	if (smallWindow)
-	{
-		delete smallWindow;
-		smallWindow = 0;
-	}
-
-	if (fullScreenWindow)
-	{
-		delete fullScreenWindow;
-		fullScreenWindow = 0;
-	}
-}
-
 
 bool App1::frame()
 {
