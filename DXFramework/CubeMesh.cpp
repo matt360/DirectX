@@ -537,6 +537,7 @@ void CubeMesh::initBuffers(ID3D11Device* device)
 	// Now create the vertex buffer.
 	device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer_);
 
+	// We don't need to make the index buffer dynamic since the six indices will always point to the same six vertices even though the coordinates of the vertex may change.
 	// Set up the description of the static index buffer.
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	indexBufferDesc.ByteWidth = sizeof(unsigned long)* indexCount_;

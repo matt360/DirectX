@@ -141,7 +141,13 @@ void App1::RenderScene(float time)
 	orthoMatrix = renderer->getOrthoMatrix();
 	orthoViewMatrix = camera->getOrthoViewMatrix();
 
+	// // Put the bitmap vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	orthoMesh->sendData(renderer->getDeviceContext());
+	// Once the vertex/index buffers are prepared we draw them using the texture shader. 
+	// Notice we send in the orthoMatrix instead of the projectionMatrix for rendering 2D. 
+	// Due note also that if your view matrix is changing you will need to create a default one for
+	// 2D rendering and use it instead of the regular view matrix. 
+	// In this tutorial using the regular view matrix is fine as the camera in this tutorial is stationary.
 	textureShader->setShaderParameters
 	(
 		renderer->getDeviceContext(), 
@@ -149,6 +155,7 @@ void App1::RenderScene(float time)
 		renderTexture->getShaderResourceView()
 	);
 	textureShader->render(renderer->getDeviceContext(), orthoMesh->getIndexCount());
+	// After all the 2D rendering is done we turn the Z buffer back on for the next round of 3D rendering.
 	// Enable Z buffering after rendering //////////////////////////////////////////
 	renderer->setZBuffer(true);
 
