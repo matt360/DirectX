@@ -201,6 +201,10 @@ App1::~App1()
 }
 
 // First render the scene to a render texture
+/*
+The first function performs the first step of the algorithm by 
+rendering the scene to a full screen sized render to texture.
+*/
 void App1::RenderSceneToTexture(float time)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
@@ -255,6 +259,15 @@ void App1::RenderSceneToTexture(float time)
 }
 
 // Next down sample the render texture to a smaller sized texture
+/*
+The second function performs the next step of the algorithm by 
+rendering the full screen render to texture, down to
+a smaller window (down sampling) which was 
+defined as half the size of the screen in the Init function. 
+Notice also that when we get the projection matrix it is
+now an ortho matrix from the render to texture with
+smaller dimensions.
+*/
 void App1::DownSampleTexture()
 {
 	XMMATRIX worldMatrix, viewMatrix, orthoMatrix;
@@ -297,8 +310,14 @@ void App1::DownSampleTexture()
 }
 
 // Perform a horizontal blur on the down sampled render texture
+/*
+The third function performs the horizontal blur on the down sampled texture and
+stores the result in separate render to texture object which
+will be used as input to the vertical blur shader.
+*/
 void App1::RenderHorizontalBlurToTexture()
 {
+
 }
 
 // Now perform a vertical blur on the horizontal blur render texture
