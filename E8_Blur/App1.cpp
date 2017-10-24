@@ -35,7 +35,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
-	textureMgr->loadTexture("height", L"../res/height.png");
+	textureMgr->loadTexture("height", L"../res/brick1.dds");
 
 	// Create Mesh object
 	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
@@ -211,14 +211,14 @@ void App1::RenderSceneToTexture(float time)
 
 	// Clear the render to texture. 
 	// clearRenderTarget mimics the functionality of the D3DClass::BeginScene function 
-	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 1.0f, 1.0f);
+	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
 	camera->update();
 
 	// Get the world, view, and projection matrices from the camera and d3d objects.
-	worldMatrix = renderer->getWorldMatrix();
 	viewMatrix = camera->getViewMatrix();
+	worldMatrix = renderer->getWorldMatrix();
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
@@ -227,7 +227,7 @@ void App1::RenderSceneToTexture(float time)
 	(
 		renderer->getDeviceContext(), 
 		worldMatrix, viewMatrix, projectionMatrix, 
-		textureMgr->getTexture("default"), 
+		textureMgr->getTexture("brick1"), 
 		light,
 		time
 	);
@@ -240,7 +240,7 @@ void App1::RenderSceneToTexture(float time)
 	(
 		renderer->getDeviceContext(),
 		worldMatrix, viewMatrix, projectionMatrix,
-		textureMgr->getTexture("default"),
+		textureMgr->getTexture("brick1"),
 		light,
 		time
 	);
@@ -249,11 +249,43 @@ void App1::RenderSceneToTexture(float time)
 
 	// Reset the render target back to the original back buffer and not the render to texture anymore.
 	renderer->setBackBufferRenderTarget();
+
+	// Reset the viewport back to the original.
+	renderer->resetViewport();
 }
 
 // Next down sample the render texture to a smaller sized texture
 void App1::DownSampleTexture()
 {
+	XMMATRIX worldMatrix, viewMatrix, orthoMatrix;
+
+	// Set the render target to be the render to texture.
+	// setRenderTarget function sets the render target view in this class as the current rendering location for all graphics to be rendered to.
+	renderTexture->setRenderTarget(renderer->getDeviceContext());
+
+	// Clear the render to texture. 
+	// clearRenderTarget mimics the functionality of the D3DClass::BeginScene function 
+	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 0.0f, 1.0f);
+
+	// Generate the view matrix based on the camera's position
+	camera->update();
+
+	// Get the world and view matrices from the camera and d3d objects.
+	viewMatrix = camera->getViewMatrix();
+	worldMatrix = renderer->getWorldMatrix();
+	// Get the ortho matrix from the renderer to texture since texture has different dimensions being that it is smaller
+	orthoMatrix = downSampleTexture->getOrthoMatrix();
+
+	// Turn off the Z buffer to begin all the 2D rendering
+	renderer->setZBuffer(false);
+
+	// Put the small ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing
+	smallWindow->sendData(renderer->getDeviceContext());
+	// Render the model using the texture shader
+	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix, textureMgr->getTexture("brick1"));
+	// Render object (combination of mesh geometry and shader process)
+	textureShader->render(renderer->getDeviceContext(), smallWindow->getIndexCount());
+
 }
 
 // Perform a horizontal blur on the down sampled render texture
