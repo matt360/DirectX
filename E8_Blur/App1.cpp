@@ -492,7 +492,6 @@ void App1::Render2DTextureScene(float time)
 	and then translate to the position of the billboard in the world
 	*/
 	// Setup the rotation of the billboard at the origin using the world matrix
-	//worldMatrix = renderer->getWorldMatrix();
 	XMMATRIX matrixRotation = XMMatrixRotationY(rotation);
 	XMMATRIX matrixTranslation = XMMatrixTranslation(modelPosition.x, modelPosition.y, modelPosition.z);
 	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
