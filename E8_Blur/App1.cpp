@@ -286,6 +286,14 @@ void App1::DownSampleTexture()
 	// Render object (combination of mesh geometry and shader process)
 	textureShader->render(renderer->getDeviceContext(), smallWindow->getIndexCount());
 
+	// Turn the Z buffer back on now that all the 2D rendering has completer
+	renderer->setZBuffer(true);
+
+	// Reset the render target back to the original back buffer and not the render to texture anymore
+	renderer->setBackBufferRenderTarget();
+
+	// Reset the viewport back to the original 
+	renderer->resetViewport();
 }
 
 // Perform a horizontal blur on the down sampled render texture
