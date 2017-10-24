@@ -238,19 +238,6 @@ void App1::RenderSceneToTexture(float time)
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 
-	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	sphereMesh->sendData(renderer->getDeviceContext());
-	lightShader->setShaderParameters
-	(
-		renderer->getDeviceContext(),
-		worldMatrix, viewMatrix, projectionMatrix,
-		textureMgr->getTexture("brick1"),
-		light,
-		time
-	);
-	// Render object (combination of mesh geometry and shader process
-	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-
 	// Reset the render target back to the original back buffer and not the render to texture anymore.
 	renderer->setBackBufferRenderTarget();
 
@@ -346,10 +333,10 @@ void App1::RenderHorizontalBlurToTexture()
 
 	// Put the small ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing 
 	smallWindow->sendData(renderer->getDeviceContext());
-
 	// Render the small ortho window using the horizontal blur shader and the down sampled render to texture resource
 	horizontalBlurShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix, 
 		downSampleTexture->getShaderResourceView(), screenSizeX);
+	horizontalBlurShader->render(renderer->getDeviceContext(), smallWindow->getIndexCount());
 
 	// Turn the Z buffer back on now that all 2D rendering has completed.
 	renderer->setZBuffer(true);
@@ -401,6 +388,7 @@ void App1::RenderVerticalBlurToTexture()
 	// Render the small ortho window using the vertical blur shader and the horizontal blurred render to texture resource.
 	verticalBlurShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix,
 		horizontalBlurTexture->getShaderResourceView(), screenSizeY);
+	verticalBlurShader->render(renderer->getDeviceContext(), smallWindow->getIndexCount());
 
 	// Turn the Z buffer back on now that all 2D rendering has completed.
 	renderer->setZBuffer(true);
@@ -413,14 +401,62 @@ void App1::RenderVerticalBlurToTexture()
 }
 
 // Up sample the final blurred render texture to the screen size again
+/*
+The fifth function performs the up sampling of 
+the small horizontally and vertically blurred texture. 
+The up sample is done by just rendering the small blurred texture to 
+a full screen 2D window model.
+The result of this is rendered to another render to texture object called
+upSampleTexture
+*/
 void App1::UpSampleTexture()
 {
+	XMMATRIX worldMatrix, viewMatrix, orthoMatrix;
+
+	// Set the render target to be the render to texture.
+	upSampleTexture->setRenderTarget(renderer->getDeviceContext());
+
+	// Clear the render to texture.
+	upSampleTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
+
+	// Generate the view matrix based on the camera's position.
+	camera->update();
+
+	// Get the view and world matrices from the camera and d3d objects.
+	viewMatrix = camera->getViewMatrix();
+	worldMatrix = renderer->getWorldMatrix();
+
+	// Get the ortho matrix from the render to texture since texture has different dimensions.
+	orthoMatrix = upSampleTexture->getOrthoMatrix();
+
+	// Turn off the Z buffer to begin all 2D rendering.
+	renderer->setZBuffer(false);
+
+	// Put the full screen ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing.
+	smallWindow->sendData(renderer->getDeviceContext());
+	// Render the full screen ortho window using the texture shader and the small sized final blurred render to texture resource.
+	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix,
+		verticalBlurTexture->getShaderResourceView());
+	textureShader->render(renderer->getDeviceContext(), smallWindow->getIndexCount());
+
+	// Turn the Z buffer back on now that all 2D rendering has completed.
+	renderer->setZBuffer(true);
+
+	// Reset the render target back to the original back buffer and not the render to texture anymore.
+	renderer->setBackBufferRenderTarget();
+
+	// Reset the viewport back to the original.
+	renderer->resetViewport();
 }
 
 // Render the blurred up sampled render texture to the screen
+/*
+The sixth and final function draws the up sampled blurred texture to
+the full screen completing the full screen blur effect.
+*/
 void App1::Render2DTextureScene(float time)
 {
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoViewMatrix, orthoMatrix;
+	XMMATRIX worldMatrix, viewMatrix, orthoMatrix, orthoViewMatrix;
 
 	// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
@@ -429,9 +465,9 @@ void App1::Render2DTextureScene(float time)
 	camera->update();
 
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	worldMatrix = renderer->getWorldMatrix();
 	viewMatrix = camera->getViewMatrix();
-	projectionMatrix = renderer->getProjectionMatrix();
+	worldMatrix = renderer->getWorldMatrix();
+	orthoMatrix = renderer->getProjectionMatrix();
 
 	// Send geometry data (from mesh)
 	cubeMesh->sendData(renderer->getDeviceContext());
@@ -439,7 +475,7 @@ void App1::Render2DTextureScene(float time)
 	lightShader->setShaderParameters
 	(
 		renderer->getDeviceContext(), 
-		worldMatrix, viewMatrix, projectionMatrix, 
+		worldMatrix, viewMatrix, orthoMatrix,
 		textureMgr->getTexture("default"), 
 		light, 
 		time
@@ -447,25 +483,19 @@ void App1::Render2DTextureScene(float time)
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 
-	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	sphereMesh->sendData(renderer->getDeviceContext());
-	lightShader->setShaderParameters
-	(
-		renderer->getDeviceContext(),
-		worldMatrix, viewMatrix, projectionMatrix,
-		textureMgr->getTexture("default"),
-		light,
-		time
-	);
-	// Render object (combination of mesh geometry and shader process
-	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-
 	// Render to ortho mesh
 	// Turn off the Z buffer to begin all 2D rendering. //////////////////////////
 	renderer->setZBuffer(false);
 	// ortho matrix for 2D rendering
 	orthoMatrix = renderer->getOrthoMatrix();
 	orthoViewMatrix = camera->getOrthoViewMatrix();
+
+	// Put the full screen ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing.
+	fullScreenWindow->sendData(renderer->getDeviceContext());
+	// Render the full screen ortho window using the texture shader and the full screen sized blurred render to texture resource.
+	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix,
+		upSampleTexture->getShaderResourceView());
+	textureShader->render(renderer->getDeviceContext(), fullScreenWindow->getIndexCount());
 
 	// // Put the bitmap vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	orthoMesh->sendData(renderer->getDeviceContext());
@@ -528,6 +558,10 @@ bool App1::render()
 {
 	// render it normally to the texture...
 	RenderSceneToTexture(light_y);
+	DownSampleTexture();
+	RenderHorizontalBlurToTexture();
+	RenderVerticalBlurToTexture();
+	UpSampleTexture();
 	// ...then render it again to the back buffer
 	Render2DTextureScene(light_y);
 
