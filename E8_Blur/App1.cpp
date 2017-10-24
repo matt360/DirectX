@@ -200,7 +200,7 @@ App1::~App1()
 	}
 }
 
-// First render a scene to a render texture
+// First render the scene to a render texture
 void App1::RenderSceneToTexture(float time)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
@@ -236,7 +236,7 @@ void App1::RenderSceneToTexture(float time)
 	renderer->setBackBufferRenderTarget();
 }
 
-// Next down sample	the render texture to a smaller sized texture
+// Next down sample the render texture to a smaller sized texture
 void App1::DownSampleTexture()
 {
 }
@@ -251,7 +251,7 @@ void App1::RenderVerticalBlurToTexture()
 {
 }
 
-// Up sample the final blurred render texture to screen size again
+// Up sample the final blurred render texture to the screen size again
 void App1::UpSampleTexture()
 {
 }
