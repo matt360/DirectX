@@ -39,7 +39,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 
 	// Create Mesh object
 	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
-	//sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
+	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
 	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
 	//quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
 	//planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
@@ -206,9 +206,11 @@ void App1::RenderSceneToTexture(float time)
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
 	// Set the render target to be the render to texture.
+	// setRenderTarget function sets the render target view in this class as the current rendering location for all graphics to be rendered to.
 	renderTexture->setRenderTarget(renderer->getDeviceContext());
 
-	// Clear the render to texture.
+	// Clear the render to texture. 
+	// clearRenderTarget mimics the functionality of the D3DClass::BeginScene function 
 	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 1.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
@@ -226,11 +228,24 @@ void App1::RenderSceneToTexture(float time)
 		renderer->getDeviceContext(), 
 		worldMatrix, viewMatrix, projectionMatrix, 
 		textureMgr->getTexture("default"), 
-		light, 
+		light,
 		time
 	);
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+
+	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
+	sphereMesh->sendData(renderer->getDeviceContext());
+	lightShader->setShaderParameters
+	(
+		renderer->getDeviceContext(),
+		worldMatrix, viewMatrix, projectionMatrix,
+		textureMgr->getTexture("default"),
+		light,
+		time
+	);
+	// Render object (combination of mesh geometry and shader process
+	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 
 	// Reset the render target back to the original back buffer and not the render to texture anymore.
 	renderer->setBackBufferRenderTarget();
@@ -286,6 +301,18 @@ void App1::Render2DTextureScene(float time)
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 
+	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
+	sphereMesh->sendData(renderer->getDeviceContext());
+	lightShader->setShaderParameters
+	(
+		renderer->getDeviceContext(),
+		worldMatrix, viewMatrix, projectionMatrix,
+		textureMgr->getTexture("default"),
+		light,
+		time
+	);
+	// Render object (combination of mesh geometry and shader process
+	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 
 	// Render to ortho mesh
 	// Turn off the Z buffer to begin all 2D rendering. //////////////////////////
@@ -354,9 +381,9 @@ bool App1::frame()
 bool App1::render()
 {
 	// render it normally to the texture...
-	RenderToTexture(light_y);
+	RenderSceneToTexture(light_y);
 	// ...then render it again to the back buffer
-	RenderScene(light_y);
+	Render2DTextureScene(light_y);
 
 	return true;
 }
