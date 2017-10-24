@@ -504,12 +504,8 @@ void App1::Render2DTextureScene(float time)
 	// Due note also that if your view matrix is changing you will need to create a default one for
 	// 2D rendering and use it instead of the regular view matrix. 
 	// In this tutorial using the regular view matrix is fine as the camera in this tutorial is stationary.
-	textureShader->setShaderParameters
-	(
-		renderer->getDeviceContext(), 
-		worldMatrix, orthoViewMatrix, orthoMatrix,
-		renderTexture->getShaderResourceView()
-	);
+	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix,
+		upSampleTexture->getShaderResourceView());
 	textureShader->render(renderer->getDeviceContext(), orthoMesh->getIndexCount());
 	// After all the 2D rendering is done we turn the Z buffer back on for the next round of 3D rendering.
 	// Enable Z buffering after rendering //////////////////////////////////////////
