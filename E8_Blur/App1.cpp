@@ -18,7 +18,13 @@ App1::App1()
 	light = nullptr;
 
 	renderTexture = nullptr;
+	downSampleTexure = nullptr; 
+	horizontalBlurTexture = nullptr;
+	verticalBlurTexture = nullptr;
+	upSampleTexure = nullptr;
 	orthoMesh = nullptr;
+	smallWindow = nullptr; 
+	fullScreenWindow = nullptr;
 }
 
 void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -103,6 +109,23 @@ void App1::RenderToTexture(float time)
 	// Reset the render target back to the original back buffer and not the render to texture anymore.
 	renderer->setBackBufferRenderTarget();
 }
+
+void App1::DownSampleTexture()
+{
+}
+
+void App1::RenderHorizontalBlurToTexture()
+{
+}
+
+void App1::RenderVerticalBlurToTexture()
+{
+}
+
+void App1::UpSampleTexture()
+{
+}
+
 
 void App1::RenderScene(float time)
 {
@@ -232,10 +255,46 @@ App1::~App1()
 		renderTexture = 0;
 	}
 
+	if (downSampleTexure)
+	{
+		delete downSampleTexure;
+		downSampleTexure = 0;
+	}
+
+	if (horizontalBlurTexture)
+	{
+		delete horizontalBlurTexture;
+		horizontalBlurTexture = 0;
+	}
+
+	if (verticalBlurTexture)
+	{
+		delete verticalBlurTexture;
+		verticalBlurTexture = 0;
+	}
+
+	if (upSampleTexure)
+	{
+		delete upSampleTexure;
+		upSampleTexure = 0;
+	}
+
 	if (orthoMesh)
 	{
 		delete orthoMesh;
 		orthoMesh = 0;
+	}
+
+	if (smallWindow)
+	{
+		delete smallWindow;
+		smallWindow = 0;
+	}
+
+	if (fullScreenWindow)
+	{
+		delete fullScreenWindow;
+		fullScreenWindow = 0;
 	}
 }
 

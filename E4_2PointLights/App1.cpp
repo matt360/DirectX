@@ -54,7 +54,7 @@ void App1::initGeometry()
 
 	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext(), 10);
 
-	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
+	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext(), 10);
 
 	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
 
@@ -223,7 +223,7 @@ bool App1::frame()
 	light_y += XM_PIDIV2 * timer->getTime();
 	light_y = fmodf(light_y, XM_2PI);
 
-	light3_->setPosition(light_y, 1.0f, -3.0f);
+	//light3_->setPosition(light_y, 1.0f, -3.0f);
 
 	// Render the graphics.
 	result = render();
@@ -294,7 +294,7 @@ bool App1::render()
 
 	// translation and rotation
 	worldMatrix = renderer->getWorldMatrix();
-	//XMMATRIX matrixTranslation = XMMatrixTranslation(-50.0f, 0.0, -50.0f);
+	//XMMATRIX matrixTranslation = XMMatrixTranslation(-100.0f, 0.0, -150.0f);
 	//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
 	//XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(90.0f));
 	//worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
@@ -304,8 +304,8 @@ bool App1::render()
 
 	// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
-	sphereMesh->sendData(renderer->getDeviceContext());
-	//cubeMesh->sendData(renderer->getDeviceContext());
+	//sphereMesh->sendData(renderer->getDeviceContext());
+	cubeMesh->sendData(renderer->getDeviceContext());
 	//quadMesh->sendData(renderer->getDeviceContext());
 	//planeMesh->sendData(renderer->getDeviceContext());
 
@@ -323,8 +323,8 @@ bool App1::render()
 	);
 
 	// Render object (combination of mesh geometry and shader process
-	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	//lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
 	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());

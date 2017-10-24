@@ -7,6 +7,8 @@
 #include "ColourShader.h"
 #include "LightShader.h"
 #include "TextureShader.h"
+#include "HorizontalBlurShader.h"
+#include "VerticalBlurShader.h"
 
 class App1 : public BaseApplication
 {
@@ -25,24 +27,34 @@ protected:
 	void initLight();
 
 	void RenderToTexture(float time);
+
+	void DownSampleTexture();
+	void RenderHorizontalBlurToTexture();
+	void RenderVerticalBlurToTexture();
+	void UpSampleTexture();
+	//bool Render2DTextureScene();
+
 	void RenderScene(float time);
 
 private:
-	TriangleMesh* triangleMesh;
-	SphereMesh* sphereMesh;
-	CubeMesh* cubeMesh;
-	QuadMesh* quadMesh;
-	PlaneMesh* planeMesh;
+	TriangleMesh *triangleMesh;
+	SphereMesh *sphereMesh;
+	CubeMesh *cubeMesh;
+	QuadMesh *quadMesh;
+	PlaneMesh *planeMesh;
 	// Shader handler
-	ColourShader* colourShader;
-	LightShader* lightShader;
-	TextureShader* textureShader;
-	
+	ColourShader *colourShader;
+	LightShader *lightShader;
+	TextureShader *textureShader;
+	HorizontalBlurShader *horizontalBlurShader;
+	VerticalBlurShader *verticalBlurShader;
+	// RenderTexture objects
+	RenderTexture *renderTexture, *downSampleTexure, *horizontalBlurTexture, *verticalBlurTexture, *upSampleTexure;
+
 	Light* light;
 
-	RenderTexture* renderTexture;
-
-	OrthoMesh* orthoMesh;
+	OrthoMesh *orthoMesh;
+	OrthoMesh *smallWindow, *fullScreenWindow;
 
 	float light_y;
 };
