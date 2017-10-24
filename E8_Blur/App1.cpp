@@ -14,17 +14,20 @@ App1::App1()
 	colourShader = nullptr;
 	lightShader = nullptr;
 	textureShader = nullptr;
-
-	light = nullptr;
+	horizontalBlurShader = nullptr;
+	verticalBlurShader = nullptr;
 
 	renderTexture = nullptr;
-	downSampleTexure = nullptr; 
+	downSampleTexture = nullptr; 
 	horizontalBlurTexture = nullptr;
 	verticalBlurTexture = nullptr;
-	upSampleTexure = nullptr;
+	upSampleTexture = nullptr;
+
 	orthoMesh = nullptr;
 	smallWindow = nullptr; 
 	fullScreenWindow = nullptr;
+
+	light = nullptr;
 }
 
 void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -36,26 +39,37 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 
 	// Create Mesh object
 	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
-
 	//sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
-
 	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
-
 	//quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
-
 	//planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
-
 	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
+	// Shader handlers
 	lightShader = new LightShader(renderer->getDevice(), hwnd);
-
 	textureShader = new TextureShader(renderer->getDevice(), hwnd);
 
 	// Create light source (for normal scene rendering)
 	initLight();
 
+	// Size of the down-sized texture to render to
+	int downSampleWidth, downSampleHeight;
+	downSampleWidth = screenWidth / 2;
+	downSampleHeight = screenHeight / 2;
+
+	// Blur shaders
+	// Horizontal Blur Shader
+	horizontalBlurShader = new HorizontalBlurShader(renderer->getDevice(), hwnd);
+	// Vertical Blur Shader
+	verticalBlurShader = new VerticalBlurShader(renderer->getDevice(), hwnd);
+
+	// Render to texture
 	// RenderTexture, OrthoMesh and shader set for different renderTarget
 	renderTexture = new RenderTexture(renderer->getDevice(), screenWidth, screenHeight, SCREEN_NEAR, SCREEN_DEPTH);
+	downSampleTexture = new RenderTexture(renderer->getDevice(), downSampleWidth, downSampleHeight, SCREEN_NEAR, SCREEN_DEPTH);
+	horizontalBlurTexture = new RenderTexture(renderer->getDevice(), downSampleWidth, downSampleHeight, SCREEN_NEAR, SCREEN_DEPTH);
+	verticalBlurTexture = new RenderTexture(renderer->getDevice(), downSampleWidth, downSampleHeight, SCREEN_NEAR, SCREEN_DEPTH);
+	upSampleTexture = new RenderTexture(renderer->getDevice(), screenWidth, screenHeight, SCREEN_NEAR, SCREEN_DEPTH);
 
 	// ortho size and position set based on window size
 	// 200x200 pixels (standard would be matching window size for fullscreen mesh

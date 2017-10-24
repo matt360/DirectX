@@ -49,13 +49,11 @@ private:
 	HorizontalBlurShader *horizontalBlurShader;
 	VerticalBlurShader *verticalBlurShader;
 	// RenderTexture objects
-	RenderTexture *renderTexture, *downSampleTexure, *horizontalBlurTexture, *verticalBlurTexture, *upSampleTexure;
+	RenderTexture *renderTexture, *downSampleTexture, *horizontalBlurTexture, *verticalBlurTexture, *upSampleTexture;
+
+	OrthoMesh *orthoMesh, *smallWindow, *fullScreenWindow;
 
 	Light* light;
-
-	OrthoMesh *orthoMesh;
-	OrthoMesh *smallWindow, *fullScreenWindow;
-
 	float light_y;
 };
 
