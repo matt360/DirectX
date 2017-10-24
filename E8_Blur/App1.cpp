@@ -75,6 +75,8 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// 200x200 pixels (standard would be matching window size for fullscreen mesh
 	// Position default at 0x0 centre window, to offset change values (pixel)
 	orthoMesh = new OrthoMesh(renderer->getDevice(), renderer->getDeviceContext(), 200, 150, -412, 225);
+	smallWindow = new OrthoMesh(renderer->getDevice(), renderer->getDeviceContext(), downSampleWidth, downSampleHeight);
+	fullScreenWindow = new OrthoMesh(renderer->getDevice(), renderer->getDeviceContext(), screenWidth, screenHeight);
 }
 
 void App1::initLight()
