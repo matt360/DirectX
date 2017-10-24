@@ -220,7 +220,7 @@ void App1::RenderSceneToTexture(float time)
 	// Generate the view matrix based on the camera's position.
 	camera->update();
 
-	// Get the world, view, and projection matrices from the camera and d3d objects.
+	// Get the view, world, and projection matrices from the camera and d3d objects.
 	viewMatrix = camera->getViewMatrix();
 	worldMatrix = renderer->getWorldMatrix();
 	projectionMatrix = renderer->getProjectionMatrix();
@@ -274,16 +274,16 @@ void App1::DownSampleTexture()
 
 	// Set the render target to be the render to texture.
 	// setRenderTarget function sets the render target view in this class as the current rendering location for all graphics to be rendered to.
-	renderTexture->setRenderTarget(renderer->getDeviceContext());
+	downSampleTexture->setRenderTarget(renderer->getDeviceContext());
 
 	// Clear the render to texture. 
 	// clearRenderTarget mimics the functionality of the D3DClass::BeginScene function 
-	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 0.0f, 1.0f);
+	downSampleTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 0.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position
 	camera->update();
 
-	// Get the world and view matrices from the camera and d3d objects.
+	// Get the view and world matrices from the camera and d3d objects.
 	viewMatrix = camera->getViewMatrix();
 	worldMatrix = renderer->getWorldMatrix();
 	// Get the ortho matrix from the renderer to texture since texture has different dimensions being that it is smaller
@@ -294,8 +294,8 @@ void App1::DownSampleTexture()
 
 	// Put the small ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing
 	smallWindow->sendData(renderer->getDeviceContext());
-	// Render the model using the texture shader
-	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix, textureMgr->getTexture("brick1"));
+	// Render the small ortho window using the texture shader and the render to texture of the scene as the texture resource
+	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix, renderTexture->getShaderResourceView());
 	// Render object (combination of mesh geometry and shader process)
 	textureShader->render(renderer->getDeviceContext(), smallWindow->getIndexCount());
 
@@ -317,12 +317,99 @@ will be used as input to the vertical blur shader.
 */
 void App1::RenderHorizontalBlurToTexture()
 {
+	XMMATRIX worldMatrix, viewMatrix, orthoMatrix;
+	float screenSizeX;
 
+	// Store the screen width in a float that will be used in the horizontal blur shader
+	screenSizeX = (float)horizontalBlurTexture->getTextureWidth();
+
+	// Set the render target to be the render to texture
+	// setRenderTarget function sets the render target view in this class as the current rendering location for all graphics to be rendered to.
+	horizontalBlurTexture->setRenderTarget(renderer->getDeviceContext());
+
+	// Clear the render to texture
+	// clearRenderTarget mimics the functionality of the D3DClass::BeginScene function 
+	horizontalBlurTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
+
+	// Generate the view matrix based on the camera's position
+	camera->update();
+
+	// Get the view and world matrices from the camera and d3d objects.
+	viewMatrix = camera->getViewMatrix();
+	worldMatrix = renderer->getWorldMatrix();
+
+	// Get the ortho matrix from the render to texture since texture has different dimensions
+	orthoMatrix = horizontalBlurTexture->getOrthoMatrix();
+
+	// Turn off the Z buffer to begin all 2D rendering
+	renderer->setZBuffer(false);
+
+	// Put the small ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing 
+	smallWindow->sendData(renderer->getDeviceContext());
+
+	// Render the small ortho window using the horizontal blur shader and the down sampled render to texture resource
+	horizontalBlurShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix, 
+		downSampleTexture->getShaderResourceView(), screenSizeX);
+
+	// Turn the Z buffer back on now that all 2D rendering has completed.
+	renderer->setZBuffer(true);
+
+	// Reset the render target back to the original back buffer and not the render to texture anymore.
+	renderer->setBackBufferRenderTarget();
+
+	// Reset the viewport back to the original.
+	renderer->resetViewport();
 }
 
 // Now perform a vertical blur on the horizontal blur render texture
+/*
+The fourth function performs the vertical blur on 
+the horizontally blurred render to texture. 
+The result is stored in yet another render to texture object.
+*/
 void App1::RenderVerticalBlurToTexture()
 {
+	XMMATRIX worldMatrix, viewMatrix, orthoMatrix;
+	float screenSizeY;
+
+	// Store the screen height in a float that will be used in the vertical blur shader.
+	screenSizeY = (float)verticalBlurTexture->getTextureHeight();
+
+	// Set the render target to be render to texture
+	// setRenderTarget function sets the render target view in this class as the current rendering location for all the graphics to be renderer to
+	verticalBlurTexture->setRenderTarget(renderer->getDeviceContext());
+
+	// Clear render to texture
+	// clearRenderTarget mimics the functionality of the D3D::BeginScene funciton
+	verticalBlurTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
+
+	// Generate the view matrix based on the camera's position.
+	camera->update();
+
+	// Get the view and world matrices from the camera and d3d objects.
+	viewMatrix = camera->getViewMatrix();
+	worldMatrix = renderer->getWorldMatrix();
+
+	// Get the ortho matrix from the render to texture since texture has different dimensions.
+	orthoMatrix = verticalBlurTexture->getOrthoMatrix();
+
+	// Turn off the Z buffer to begin all 2D rendering.
+	renderer->setZBuffer(false);
+
+	// Put the small ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing.
+	smallWindow->sendData(renderer->getDeviceContext());
+	// Render the small ortho window using the vertical blur shader and the horizontal blurred render to texture resource.
+	verticalBlurShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix,
+		horizontalBlurTexture->getShaderResourceView(), screenSizeY);
+
+	// Turn the Z buffer back on now that all 2D rendering has completed.
+	renderer->setZBuffer(true);
+
+	// Reset the render target back to the original back buffer and not the render to texture anymore.
+	renderer->setBackBufferRenderTarget();
+
+	// Reset the viewport back to the original.
+	renderer->resetViewport();
 }
 
 // Up sample the final blurred render texture to the screen size again
