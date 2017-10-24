@@ -142,10 +142,7 @@ void App1::RenderScene(float time)
 	orthoViewMatrix = camera->getOrthoViewMatrix();
 
 	orthoMesh->sendData(renderer->getDeviceContext());
-	textureShader->setShaderParameters
-	(
-		renderer->getDeviceContext(), 
-		worldMatrix, orthoViewMatrix, orthoMatrix,
+	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, orthoViewMatrix, orthoMatrix,
 		renderTexture->getShaderResourceView()
 	);
 	textureShader->render(renderer->getDeviceContext(), orthoMesh->getIndexCount());

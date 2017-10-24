@@ -456,7 +456,7 @@ the full screen completing the full screen blur effect.
 */
 void App1::Render2DTextureScene(float time)
 {
-	XMMATRIX worldMatrix, viewMatrix, orthoMatrix, orthoViewMatrix;
+	XMMATRIX worldMatrix, viewMatrix, orthoMatrix;
 
 	// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
@@ -469,52 +469,25 @@ void App1::Render2DTextureScene(float time)
 	worldMatrix = renderer->getWorldMatrix();
 	orthoMatrix = renderer->getProjectionMatrix();
 
-	// Send geometry data (from mesh)
-	cubeMesh->sendData(renderer->getDeviceContext());
-	// Set shader parameters (matrices and texture)
-	lightShader->setShaderParameters
-	(
-		renderer->getDeviceContext(), 
-		worldMatrix, viewMatrix, orthoMatrix,
-		textureMgr->getTexture("default"), 
-		light, 
-		time
-	);
-	// Render object (combination of mesh geometry and shader process
-	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-
-	// Render to ortho mesh
-	// Turn off the Z buffer to begin all 2D rendering. //////////////////////////
+	// Turn off the Z buffer to begin all 2D rendering
 	renderer->setZBuffer(false);
 	// ortho matrix for 2D rendering
 	orthoMatrix = renderer->getOrthoMatrix();
-	orthoViewMatrix = camera->getOrthoViewMatrix();
 
 	// Put the full screen ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	fullScreenWindow->sendData(renderer->getDeviceContext());
-	// Render the full screen ortho window using the texture shader and the full screen sized blurred render to texture resource.
+	// Render the full screen ortho window using the texture shader and the full screen sized blurred render to texture resource
 	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix,
 		upSampleTexture->getShaderResourceView());
 	textureShader->render(renderer->getDeviceContext(), fullScreenWindow->getIndexCount());
 
-	// // Put the bitmap vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	orthoMesh->sendData(renderer->getDeviceContext());
-	// Once the vertex/index buffers are prepared we draw them using the texture shader. 
-	// Notice we send in the orthoMatrix instead of the projectionMatrix for rendering 2D. 
-	// Due note also that if your view matrix is changing you will need to create a default one for
-	// 2D rendering and use it instead of the regular view matrix. 
-	// In this tutorial using the regular view matrix is fine as the camera in this tutorial is stationary.
-	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix,
-		upSampleTexture->getShaderResourceView());
-	textureShader->render(renderer->getDeviceContext(), orthoMesh->getIndexCount());
-	// After all the 2D rendering is done we turn the Z buffer back on for the next round of 3D rendering.
-	// Enable Z buffering after rendering //////////////////////////////////////////
+	// Turn the Z buffer back on now that all 2D rendering has completed
 	renderer->setZBuffer(true);
 
 	// Render GUI
 	gui();
 
-	// Present the rendered scene to the screen.
+	// Present the rendered scene to the screen
 	renderer->endScene();
 }
 
