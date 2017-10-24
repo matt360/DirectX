@@ -19,7 +19,7 @@ struct InputType
 
 float4 main(InputType input) : SV_TARGET
 {
-    float weight0, weight1, weight2, weight3, weight4
+	float weight0, weight1, weight2, weight3, weight4;
 	float normalization;
     float4 colour;
 
@@ -37,11 +37,11 @@ float4 main(InputType input) : SV_TARGET
 	normalization = (weight0 + 2.0f * (weight1 + weight2 + weight3 + weight4));
 
 	// Normalize the weights.
-	weight0 /= nomralization;
-	weight1 /= nomralization;
-	weight2 /= nomralization;
-	weight3 /= nomralization;
-	weight4 /= nomralization;
+	weight0 /= normalization;
+	weight1 /= normalization;
+	weight2 /= normalization;
+	weight3 /= normalization;
+	weight4 /= normalization;
 
 	// Initialize the colour to black.
     colour = float4(0.0f, 0.0f, 0.0f, 0.0f);
