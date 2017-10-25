@@ -1,10 +1,10 @@
 // Main.cpp
 #include "../DXFramework/System.h"
-#include "App1.h"
+#include "E5_TerrainApp.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, int iCmdshow)
 {
-	App1* app = new App1();
+	E5_TerrainApp* app = new E5_TerrainApp();
 	System* system;
 
 	// Create the system object.

@@ -13,6 +13,16 @@
 // The syntax is pretty much identical to the C language with some pre-defined types. 
 // HLSL program files are composed of global variables, type defines, vertex shaders, pixel shaders, and geometry shaders. 
 
+//////////////
+// TEXTURES //
+//////////////
+Texture2D shaderTexture : register(t0);
+
+///////////////////
+// SAMPLE STATES //
+///////////////////
+SamplerState SampleType : register(s0);
+
 /////////////
 // GLOBALS //
 /////////////
@@ -64,6 +74,9 @@ PixelInputType main(VertexInputType input)
     PixelInputType output;
     float heightWave = height;
 	
+    // Sample the pixel color from the texture using the sampler at this texture coordinate location.
+    float4 textureColor = shaderTexture.Sample(SampleType, input.tex);
+
 	// Change the position vector to be 4 units for proper matrix calculations.
     input.position.w = 1.0f;
 

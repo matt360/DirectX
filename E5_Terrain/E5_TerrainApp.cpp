@@ -1,8 +1,8 @@
 // Lab1.cpp
 // Lab 1 example, simple coloured triangle mesh
-#include "App1.h"
+#include "E5_TerrainApp.h"
 
-App1::App1()
+E5_TerrainApp::E5_TerrainApp()
 {
 	//BaseApplication::BaseApplication();
 	triangleMesh = nullptr;
@@ -16,7 +16,7 @@ App1::App1()
 	wireframe = false;
 }
 
-void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
+void E5_TerrainApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
 {
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
@@ -43,7 +43,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	initLight();
 }
 
-void App1::initLight()
+void E5_TerrainApp::initLight()
 {
 	m_Light = new Light;
 	m_Light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
@@ -55,7 +55,7 @@ void App1::initLight()
 	light_y = 0.0f;
 }
 
-App1::~App1()
+E5_TerrainApp::~E5_TerrainApp()
 {
 	// Run base application deconstructor
 	BaseApplication::~BaseApplication();
@@ -111,7 +111,7 @@ App1::~App1()
 }
 
 
-bool App1::frame()
+bool E5_TerrainApp::frame()
 {
 	bool result;
 
@@ -156,7 +156,7 @@ bool App1::frame()
 	return true;
 }
 
-bool App1::render()
+bool E5_TerrainApp::render()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
@@ -217,7 +217,7 @@ bool App1::render()
 	return true;
 }
 
-void App1::gui()
+void E5_TerrainApp::gui()
 {
 	// Force turn off on Geometry shader
 	renderer->getDeviceContext()->GSSetShader(NULL, NULL, 0);

@@ -85,13 +85,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="App1.cpp" />
+    <ClCompile Include="E5_TerrainApp.cpp" />
     <ClCompile Include="ColourShader.cpp" />
     <ClCompile Include="LightShader.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App1.h" />
+    <ClInclude Include="E5_TerrainApp.h" />
     <ClInclude Include="ColourShader.h" />
     <ClInclude Include="LightShader.h" />
   </ItemGroup>

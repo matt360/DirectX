@@ -62,12 +62,9 @@ float4 main(PixelInputType input) : SV_TARGET
 
     // Calculate the slope of this point
     //slope = 1.0f - input.normal.y;
-    slope = textureColor;
 	
     // determine which texutre to use based on texture's pixel color
    // if (slope < )
-
-
 
     lightDir = -(lightPosition - input.position3D);
 

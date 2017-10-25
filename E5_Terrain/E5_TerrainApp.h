@@ -1,18 +1,18 @@
 // Application.h
-#ifndef _APP1_H
-#define _APP1_H
+#ifndef _E5_TERRAINAPP_H
+#define _E5_TERRAINAPP_H
 
 // Includes
 #include "../DXFramework/DXF.h"
 #include "ColourShader.h"
 #include "LightShader.h"
 
-class App1 : public BaseApplication
+class E5_TerrainApp : public BaseApplication
 {
 public:
 
-	App1();
-	~App1();
+	E5_TerrainApp();
+	~E5_TerrainApp();
 	void init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input* in);
 
 	bool frame();
