@@ -16,12 +16,12 @@
 //////////////
 // TEXTURES //
 //////////////
-Texture2D shaderTexture : register(t0);
+Texture2D tex0 : register(t0);
 
 ///////////////////
 // SAMPLE STATES //
 ///////////////////
-SamplerState SampleType : register(s0);
+SamplerState Sampler0 : register(s0);
 
 /////////////
 // GLOBALS //
@@ -53,14 +53,14 @@ cbuffer TimeBuffer : register(cb1)
 //////////////
 // TYPEDEFS //
 //////////////
-struct VertexInputType
+struct InputType
 {
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
 };
 
-struct PixelInputType
+struct OutputType
 {
     float4 position : SV_POSITION; // SV - system value
     float2 tex : TEXCOORD0;
@@ -68,30 +68,57 @@ struct PixelInputType
 	float3 position3D : TEXCOORD1;
 };
 
-PixelInputType main(VertexInputType input)
+OutputType main(InputType input)
 {
     //  return output;
-    PixelInputType output;
+    OutputType output;
     float heightWave = height;
+    float4 grayScale = (0.0f, 0.0f, 0.0f, 1.0f);
 	
-    // Sample the pixel color from the texture using the sampler at this texture coordinate location.
-    float4 textureColor = shaderTexture.Sample(SampleType, input.tex);
-
 	// Change the position vector to be 4 units for proper matrix calculations.
     input.position.w = 1.0f;
 
+    // Sample the pixel color from the texture using the sampler at this texture coordinate location.
+    float4 textureColor = tex0.SampleLevel(Sampler0, input.tex, 0);
+    textureColor.w = 1.0f;
     //  offset position based on sine wave
-    input.position.x += (heightWave * sin((input.position.y + time) * frequency));
-    input.position.y += (heightWave * sin((input.position.x + time) * frequency));
-    input.position.z += (heightWave * sin((input.position.y + time) * frequency));
+    //input.position.x += (heightWave * sin((input.position.y + time) * frequency));
+    //input.position.y += (heightWave * sin((input.position.x + time) * frequency));
+    //input.position.z += (heightWave * sin((input.position.y + time) * frequency));
                         
-    input.position.x += (heightWave * sin((input.normal.y + time) * frequency));
-    input.position.y += (heightWave * sin((input.normal.x + time) * frequency));
-    input.position.z += (heightWave * sin((input.normal.y + time) * frequency));
+    //input.position.x += (heightWave * sin((input.normal.y + time) * frequency));
+    //input.position.y += (heightWave * sin((input.normal.x + time) * frequency));
+    //input.position.z += (heightWave * sin((input.normal.y + time) * frequency));
 
-    input.normal.x = 1 - cos(input.position.x + time);
-    input.normal.y = abs(cos(input.position.y + time));
-    input.normal.z = abs(cos(input.position.y + time));
+    //input.normal.x = 1 - cos(input.position.x + time);
+    //input.normal.y = abs(cos(input.position.y + time));
+    //input.normal.z = abs(cos(input.position.y + time));
+
+    // vertex manipulation based on the texture's color
+   // get color
+
+    //if color > (grayscale_1) // grayscale_1 = (0.0, 0.0, 0.0) || grayscale_2 = (0.1, 0.1, 0.1) || (0.2, 0.2, 0.2) ... || (1.0, 1.0, 1.0) 
+    //&& color < (grayscale_2)
+       
+    // move the vertex by some amount
+
+    //float i = 0.1f;
+
+    //for (float i = 1.0f; i >= 0.0f; i -= 0.1f)
+    //{
+    if (textureColor.r > 0.8)
+    {
+        input.position.y -= 1.0 * 30.0f;
+        input.normal.y -= abs(0.9 * 15.0f);
+    }
+
+    //if (any(textureColor.rgb >= 1.0) && any(textureColor.rgb <= 0.7))
+    //{
+    //    input.position.y -= 1.0 * 15.0f;
+    //    input.normal.y -= abs(1.0 * 15.0f);
+    //}
+
+    //}
 
 	// Calculate the position of the vertex against the world, view, and projection matrices.
     output.position = mul(input.position, worldMatrix);

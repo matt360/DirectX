@@ -22,6 +22,7 @@ void E5_TerrainApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int sc
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
 	textureMgr->loadTexture("height", L"../res/height.png");
+	textureMgr->loadTexture("brick", L"../res/brick.dds");
 
 	// Create Mesh object
 	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
@@ -34,7 +35,7 @@ void E5_TerrainApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int sc
 
 	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 10, 100);
+	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 100);
 
 	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
