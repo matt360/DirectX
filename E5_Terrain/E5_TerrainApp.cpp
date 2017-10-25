@@ -35,7 +35,7 @@ void E5_TerrainApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int sc
 
 	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 100);
+	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
 
 	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
@@ -122,7 +122,6 @@ bool E5_TerrainApp::frame()
 		return false;
 	}
 
-	
 	if (input->isLeftMouseDown())
 	{
 		wireframe = !wireframe;
