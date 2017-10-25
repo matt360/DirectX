@@ -225,7 +225,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
 
 	// Set shader texture resource in the pixel shader.
-	//deviceContext->PSSetShaderResources(0, 1, &texture);
+	deviceContext->PSSetShaderResources(0, 1, &texture);
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
@@ -279,6 +279,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
 
 	// Set shader texture resource in the pixel shader.
+	deviceContext->PSSetShaderResources(0, 1, &texture);
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
@@ -346,6 +347,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
 
 	// Set shader texture resource in the pixel shader.
+	deviceContext->PSSetShaderResources(0, 1, &texture);
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
