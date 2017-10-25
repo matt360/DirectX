@@ -221,10 +221,12 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	//lightPtr->padding = 0.0f;
 	deviceContext->Unmap(lightBuffer, 0);
 	bufferNumber = 0;
+	//deviceContext->VSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
 
 	// Set shader texture resource in the pixel shader.
-	deviceContext->PSSetShaderResources(0, 1, &texture);
+	//deviceContext->PSSetShaderResources(0, 1, &texture);
+	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
 void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light)
@@ -277,7 +279,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
 
 	// Set shader texture resource in the pixel shader.
-	deviceContext->PSSetShaderResources(0, 1, &texture);
+	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
 void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, float time, float height, float frequency)
@@ -344,7 +346,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
 
 	// Set shader texture resource in the pixel shader.
-	deviceContext->PSSetShaderResources(0, 1, &texture);
+	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
 void LightShader::render(ID3D11DeviceContext* deviceContext, int indexCount)

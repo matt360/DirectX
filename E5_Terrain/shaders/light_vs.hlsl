@@ -104,12 +104,13 @@ OutputType main(InputType input)
 
     //float i = 0.1f;
 
-    //for (float i = 1.0f; i >= 0.0f; i -= 0.1f)
-    //{
-    if (textureColor.r > 0.8)
+    for (float i = 1.0f; i >= 0.0f; i -= 0.1f)
     {
-        input.position.y -= 1.0 * 30.0f;
-        input.normal.y -= abs(0.9 * 15.0f);
+        if (textureColor.r > i)
+        {
+            input.position.y -= i * 30.0f;
+            input.normal.y -= abs(0.9 * 15.0f);
+        }
     }
 
     //if (any(textureColor.rgb >= 1.0) && any(textureColor.rgb <= 0.7))
