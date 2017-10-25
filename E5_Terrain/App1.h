@@ -28,6 +28,7 @@ private:
 	CubeMesh* cubeMesh;
 	QuadMesh* quadMesh;
 	PlaneMesh* planeMesh;
+	TerrainMesh* terrainMesh;
 	// Shader handler
 	ColourShader* colourShader;
 	LightShader* lightShader;

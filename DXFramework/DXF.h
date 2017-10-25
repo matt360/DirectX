@@ -15,6 +15,7 @@
 #include "PointMesh.h"
 #include "QuadMesh.h"
 #include "SphereMesh.h"
+#include "TerrainMesh.h"
 #include "TessellationMesh.h"
 #include "TriangleMesh.h"
 
