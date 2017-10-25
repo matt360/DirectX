@@ -108,7 +108,7 @@ OutputType main(InputType input)
     {
         if (textureColor.r > i)
         {
-            input.position.y -= i * 15.0f;
+            input.position.y -= i * 2.0f;
             input.normal.y -= abs(0.9 * 15.0f);
         }
     }
