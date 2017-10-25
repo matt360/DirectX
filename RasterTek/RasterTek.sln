@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "terexe14", "terexe14\terexe
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tertut04", "tertut04\tertut04.vcxproj", "{DA4B25F9-20A1-453C-B9E7-E725D6F5EE01}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dx11ter02_src", "dx11ter02_src\dx11ter02_src.vcxproj", "{F79A0D51-1CFE-4ED0-A025-373C7C102008}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -69,6 +71,14 @@ Global
 		{DA4B25F9-20A1-453C-B9E7-E725D6F5EE01}.Release|x64.Build.0 = Release|x64
 		{DA4B25F9-20A1-453C-B9E7-E725D6F5EE01}.Release|x86.ActiveCfg = Release|Win32
 		{DA4B25F9-20A1-453C-B9E7-E725D6F5EE01}.Release|x86.Build.0 = Release|Win32
+		{F79A0D51-1CFE-4ED0-A025-373C7C102008}.Debug|x64.ActiveCfg = Debug|x64
+		{F79A0D51-1CFE-4ED0-A025-373C7C102008}.Debug|x64.Build.0 = Debug|x64
+		{F79A0D51-1CFE-4ED0-A025-373C7C102008}.Debug|x86.ActiveCfg = Debug|Win32
+		{F79A0D51-1CFE-4ED0-A025-373C7C102008}.Debug|x86.Build.0 = Debug|Win32
+		{F79A0D51-1CFE-4ED0-A025-373C7C102008}.Release|x64.ActiveCfg = Release|x64
+		{F79A0D51-1CFE-4ED0-A025-373C7C102008}.Release|x64.Build.0 = Release|x64
+		{F79A0D51-1CFE-4ED0-A025-373C7C102008}.Release|x86.ActiveCfg = Release|Win32
+		{F79A0D51-1CFE-4ED0-A025-373C7C102008}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

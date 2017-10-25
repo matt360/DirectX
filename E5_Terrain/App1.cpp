@@ -183,6 +183,10 @@ bool App1::render()
 	XMMATRIX matrixScaling = XMMatrixScaling(1.0f, 1.0f, 1.0f);
 	worldMatrix *= matrixScaling;
 
+	// wave's:
+	float height = 1.0f;
+	float frequency = 1.0f;
+
 	//m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
 	//// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
@@ -192,12 +196,9 @@ bool App1::render()
 	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
 	terrainMesh->sendData(renderer->getDeviceContext());
 
-	float height = 1.0f;
-	float frequency = 1.0f;
-
 	//// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
-	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, light_y, height, frequency);
+	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), m_Light, light_y, height, frequency);
 
 	//// Render object (combination of mesh geometry and shader process
 	//lightShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount()); // output data from the shader programme

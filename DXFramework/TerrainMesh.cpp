@@ -110,7 +110,6 @@ void TerrainMesh::initBuffers(ID3D11Device* device)
 			index++;
 
 			u += u_increment;
-
 		}
 
 		u = 0;
