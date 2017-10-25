@@ -6,8 +6,6 @@
 // Coloring, texturing, lighting, and most other effects you plan to do to your polygon faces are handled by the pixel shader program.
 // Pixel shaders must be efficiently written due to the number of times they will be called by the GPU.
 
-
-
 //////////////
 // TEXTURES //
 //////////////
