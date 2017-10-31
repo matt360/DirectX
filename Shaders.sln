@@ -36,6 +36,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E4_1PointLight", "E4_1Point
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E8_Blur", "E8_Blur\E8_Blur.vcxproj", "{6DA07345-1EA0-4155-83D8-94F47CE53169}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E9_Tessellation", "E9_Tessellation\E9_Tessellation.vcxproj", "{09B35FC4-9240-41BA-9D6D-91565D33B4E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -142,6 +144,12 @@ Global
 		{6DA07345-1EA0-4155-83D8-94F47CE53169}.Release|Win32.ActiveCfg = Release|Win32
 		{6DA07345-1EA0-4155-83D8-94F47CE53169}.Release|Win32.Build.0 = Release|Win32
 		{6DA07345-1EA0-4155-83D8-94F47CE53169}.Release|x64.ActiveCfg = Release|Win32
+		{09B35FC4-9240-41BA-9D6D-91565D33B4E8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{09B35FC4-9240-41BA-9D6D-91565D33B4E8}.Debug|Win32.Build.0 = Debug|Win32
+		{09B35FC4-9240-41BA-9D6D-91565D33B4E8}.Debug|x64.ActiveCfg = Debug|Win32
+		{09B35FC4-9240-41BA-9D6D-91565D33B4E8}.Release|Win32.ActiveCfg = Release|Win32
+		{09B35FC4-9240-41BA-9D6D-91565D33B4E8}.Release|Win32.Build.0 = Release|Win32
+		{09B35FC4-9240-41BA-9D6D-91565D33B4E8}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
