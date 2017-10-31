@@ -58,12 +58,6 @@ float4 main(PixelInputType input) : SV_TARGET
 	// Set the default output color to the ambient light value for all pixels.
 	color = ambientColor;
 
-    // Calculate the slope of this point
-    //slope = 1.0f - input.normal.y;
-	
-    // determine which texutre to use based on texture's pixel color
-   // if (slope < )
-
     lightDir = -(lightPosition - input.position3D);
 
     float distance = length(lightDir);
