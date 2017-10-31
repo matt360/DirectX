@@ -41,6 +41,7 @@ private:
 	TessellationShader* tessellationShader;
 
 	TriangleMesh* triangleMesh;
+	TessellationMesh* tessellationMesh;
 };
 
 #endif
