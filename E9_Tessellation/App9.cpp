@@ -110,7 +110,7 @@ bool App9::render()
 	triangleMesh->sendData(renderer->getDeviceContext());
 	//// Set shader parameters (matrices and texture)
 	//colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
-	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("brick"));
+	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
 	//// Render object (combination of mesh geometry and shader process
 	//colourShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
 	tessellationShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());

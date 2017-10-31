@@ -2,6 +2,12 @@
 // Doesn't do much, could manipulate the control points
 // Pass forward data, strip out some values not required for example.
 
+/*
+In the vertex shader we pass the vertices and color data through to the hull shader.
+Since the vertices will be increasing with the tessellation we now do the transforming and such in the domain shader. 
+The vertex shader's purpose is now just for vertex animation and passing data into the hull shader.
+*/
+
 struct InputType
 {
     float3 position : POSITION;
