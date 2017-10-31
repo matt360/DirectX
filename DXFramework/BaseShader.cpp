@@ -401,6 +401,9 @@ void BaseShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 	// This lets the GPU know the format of the data in the vertex buffer. 
 	deviceContext->IASetInputLayout(layout_); 
 
+	// Set the type of primitive that should be rendered from this vertex buffer.
+	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+
 	// The second step is to set the vertex shader and pixel shader we will be using to render this vertex buffer.
 	deviceContext->VSSetShader(vertexShader_, NULL, 0);
 	deviceContext->PSSetShader(pixelShader_, NULL, 0);
