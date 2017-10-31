@@ -16,6 +16,7 @@ App9::App9()
 	cubeMesh = nullptr;
 	quadMesh = nullptr;
 	planeMesh = nullptr;
+	terrainMesh = nullptr;
 }
 
 void App9::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -27,12 +28,12 @@ void App9::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	tessellationAmount = 4.0f;
 
 	// Create Mesh object
-	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
 	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
-	//quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
-	//planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
-	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
+	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
+	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
+	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
 
 	// shader handlers
 	colourShader = new ColourShader(renderer->getDevice(), hwnd);
@@ -116,16 +117,16 @@ bool App9::frame()
 		input->SetKeyUp(VK_RETURN);
 	}
 
-	if (input->isKeyDown(VK_LEFT))
+	if (input->isKeyDown(VK_NUMPAD4))
 	{
 		tessellationAmount = clamp(tessellationAmount -= 1.0f, 1.0f, 64.0f);
-		input->SetKeyUp(VK_LEFT);
+		input->SetKeyUp(VK_NUMPAD4);
 	}
 
-	if (input->isKeyDown(VK_RIGHT))
+	if (input->isKeyDown(VK_NUMPAD6))
 	{
 		tessellationAmount = clamp(tessellationAmount += 1.0f, 1.0f, 64.0f);
-		input->SetKeyUp(VK_RIGHT);
+		input->SetKeyUp(VK_NUMPAD6);
 	}
 
 	// Render the graphics.
@@ -156,13 +157,23 @@ bool App9::render()
 	viewMatrix = camera->getViewMatrix();
 	projectionMatrix = renderer->getProjectionMatrix();
 
-	//// Send geometry data (from mesh)
-	sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-	//// Set shader parameters (matrices and texture)
+	// Send geometry data (from mesh)
+	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+	//sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+	cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+	//quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+	//planeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+
+	// Set shader parameters (matrices and texture)
 	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
 		textureMgr->getTexture("brick"), tessellationAmount);
-	//// Render object (combination of mesh geometry and shader process
-	tessellationShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+
+	// Render object (combination of mesh geometry and shader process
+	//tessellationShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	//tessellationShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	tessellationShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//tessellationShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	//tessellationShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 	
 	// Render GUI
 	gui();

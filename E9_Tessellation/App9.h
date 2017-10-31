@@ -47,6 +47,7 @@ private:
 	CubeMesh *cubeMesh;
 	QuadMesh *quadMesh;
 	PlaneMesh *planeMesh;
+	TerrainMesh *terrainMesh;
 };
 
 #endif
