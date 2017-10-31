@@ -42,8 +42,11 @@ private:
 	ColourShader* colourShader;
 	TessellationShader* tessellationShader;
 
-	TriangleMesh* triangleMesh;
-	TessellationMesh* tessellationMesh;
+	TriangleMesh *triangleMesh;
+	SphereMesh *sphereMesh;
+	CubeMesh *cubeMesh;
+	QuadMesh *quadMesh;
+	PlaneMesh *planeMesh;
 };
 
 #endif

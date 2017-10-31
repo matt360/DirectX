@@ -12,7 +12,10 @@ App9::App9()
 
 	// geometry meshes
 	triangleMesh = nullptr;
-	tessellationMesh = nullptr;
+	sphereMesh = nullptr;
+	cubeMesh = nullptr;
+	quadMesh = nullptr;
+	planeMesh = nullptr;
 }
 
 void App9::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -24,8 +27,12 @@ void App9::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	tessellationAmount = 4.0f;
 
 	// Create Mesh object
-	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
-	tessellationMesh = new TessellationMesh(renderer->getDevice(), renderer->getDeviceContext());
+	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
+	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
+	//quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
+	//planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
+	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
 	// shader handlers
 	colourShader = new ColourShader(renderer->getDevice(), hwnd);
@@ -49,10 +56,28 @@ App9::~App9()
 		triangleMesh = 0;
 	}
 
-	if (tessellationMesh)
+	if (sphereMesh)
 	{
-		delete tessellationMesh;
-		tessellationMesh = 0;
+		delete sphereMesh;
+		sphereMesh = 0;
+	}
+
+	if (cubeMesh)
+	{
+		delete cubeMesh;
+		cubeMesh = 0;
+	}
+
+	if (quadMesh)
+	{
+		delete quadMesh;
+		quadMesh = 0;
+	}
+
+	if (planeMesh)
+	{
+		delete planeMesh;
+		planeMesh = 0;
 	}
 
 	if (colourShader)
@@ -132,12 +157,12 @@ bool App9::render()
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	//// Send geometry data (from mesh)
-	tessellationMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+	sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
 	//// Set shader parameters (matrices and texture)
 	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
 		textureMgr->getTexture("brick"), tessellationAmount);
 	//// Render object (combination of mesh geometry and shader process
-	tessellationShader->render(renderer->getDeviceContext(), tessellationMesh->getIndexCount());
+	tessellationShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 	
 	// Render GUI
 	gui();
