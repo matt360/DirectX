@@ -21,6 +21,7 @@ void App9::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
 	wireframe = false;
+	tessellationAmount = 4.0f;
 
 	// Create Mesh object
 	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
@@ -90,6 +91,18 @@ bool App9::frame()
 		input->SetKeyUp(VK_RETURN);
 	}
 
+	if (input->isKeyDown(VK_LEFT))
+	{
+		tessellationAmount = clamp(tessellationAmount -= 1.0f, 1.0f, 64.0f);
+		input->SetKeyUp(VK_LEFT);
+	}
+
+	if (input->isKeyDown(VK_RIGHT))
+	{
+		tessellationAmount = clamp(tessellationAmount += 1.0f, 1.0f, 64.0f);
+		input->SetKeyUp(VK_RIGHT);
+	}
+
 	// Render the graphics.
 	result = render();
 	if (!result)
@@ -122,7 +135,7 @@ bool App9::render()
 	tessellationMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
 	//// Set shader parameters (matrices and texture)
 	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
-		textureMgr->getTexture("brick"), 16);
+		textureMgr->getTexture("brick"), tessellationAmount);
 	//// Render object (combination of mesh geometry and shader process
 	tessellationShader->render(renderer->getDeviceContext(), tessellationMesh->getIndexCount());
 	
@@ -147,5 +160,10 @@ void App9::gui()
 
 	// Render UI
 	ImGui::Render();
+}
+
+float App9::clamp(float n, float lower, float upper)
+{
+	return std::fmax(lower, (std::fmin(n, upper)));
 }
 
