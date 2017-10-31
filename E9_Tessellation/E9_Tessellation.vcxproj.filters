@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -27,15 +24,18 @@
     <ClCompile Include="TessellationShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="App9.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ColourShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TessellationShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="App9.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

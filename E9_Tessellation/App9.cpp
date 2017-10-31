@@ -1,16 +1,16 @@
 // Lab1.cpp
 // Lab 1 example, simple coloured triangle mesh
-#include "App1.h"
+#include "App9.h"
 
-App1::App1()
+App9::App9()
 {
 	//BaseApplication::BaseApplication();
-	mesh = nullptr;
+	triangleMesh = nullptr;
 	colourShader = nullptr;
 	tessellationShader = nullptr;
 }
 
-void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
+void App9::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
 {
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
@@ -18,24 +18,28 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	wireframe = false;
 
 	// Create Mesh object
-	mesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
+	// shader handlers
 	colourShader = new ColourShader(renderer->getDevice(), hwnd);
-
 	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
+
+	// load textures
+	textureMgr->loadTexture("brick", L"../res/brick1.dds");
+	textureMgr->loadTexture("bunny", L"../res/bunny.png");
 }
 
 
-App1::~App1()
+App9::~App9()
 {
 	// Run base application deconstructor
 	BaseApplication::~BaseApplication();
 
 	// Release the Direct3D object.
-	if (mesh)
+	if (triangleMesh)
 	{
-		delete mesh;
-		mesh = 0;
+		delete triangleMesh;
+		triangleMesh = 0;
 	}
 
 	if (colourShader)
@@ -52,7 +56,7 @@ App1::~App1()
 }
 
 
-bool App1::frame()
+bool App9::frame()
 {
 	bool result;
 
@@ -84,7 +88,7 @@ bool App1::frame()
 	return true;
 }
 
-bool App1::render()
+bool App9::render()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
@@ -103,11 +107,13 @@ bool App1::render()
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	//// Send geometry data (from mesh)
-	mesh->sendData(renderer->getDeviceContext());
+	triangleMesh->sendData(renderer->getDeviceContext());
 	//// Set shader parameters (matrices and texture)
-	colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
+	//colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
+	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("brick"));
 	//// Render object (combination of mesh geometry and shader process
-	colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	//colourShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	tessellationShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
 
 	// Render GUI
 	gui();
@@ -118,7 +124,7 @@ bool App1::render()
 	return true;
 }
 
-void App1::gui()
+void App9::gui()
 {
 	// Force turn off on Geometry shader
 	renderer->getDeviceContext()->GSSetShader(NULL, NULL, 0);

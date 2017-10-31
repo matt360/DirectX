@@ -13,20 +13,20 @@ considered a single patch with three control points.
 
 */
 
-#ifndef _APP1_H
-#define _APP1_H
+#ifndef _APP9_H
+#define _APP9_H
 
 // Includes
 #include "../DXFramework/DXF.h"
 #include "ColourShader.h"
 #include "TessellationShader.h"
 
-class App1 : public BaseApplication
+class App9 : public BaseApplication
 {
 public:
 
-	App1();
-	~App1();
+	App9();
+	~App9();
 	void init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input* in);
 
 	bool frame();
@@ -40,7 +40,7 @@ private:
 	ColourShader* colourShader;
 	TessellationShader* tessellationShader;
 
-	TriangleMesh* mesh;
+	TriangleMesh* triangleMesh;
 };
 
 #endif

@@ -1,10 +1,10 @@
 // Main.cpp
 #include "../DXFramework/System.h"
-#include "App1.h"
+#include "App9.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, int iCmdshow)
 {
-	App1* app = new App1();
+	App9* app = new App9();
 	System* system;
 
 	// Create the system object.
