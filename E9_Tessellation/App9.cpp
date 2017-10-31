@@ -119,14 +119,13 @@ bool App9::render()
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	//// Send geometry data (from mesh)
-	tessellationMesh->sendData(renderer->getDeviceContext());
+	tessellationMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
 	//// Set shader parameters (matrices and texture)
-	//colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
-	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("brick"), 6);
+	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
+		textureMgr->getTexture("brick"), 16);
 	//// Render object (combination of mesh geometry and shader process
-	//colourShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
 	tessellationShader->render(renderer->getDeviceContext(), tessellationMesh->getIndexCount());
-
+	
 	// Render GUI
 	gui();
 
@@ -140,6 +139,8 @@ void App9::gui()
 {
 	// Force turn off on Geometry shader
 	renderer->getDeviceContext()->GSSetShader(NULL, NULL, 0);
+	renderer->getDeviceContext()->HSSetShader(NULL, NULL, 0);
+	renderer->getDeviceContext()->DSSetShader(NULL, NULL, 0);
 
 	// Build UI
 	ImGui::Text("FPS: %.2f", timer->getFPS());

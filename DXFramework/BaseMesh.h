@@ -41,6 +41,7 @@ public:
 	~BaseMesh();
 
 	virtual void sendData(ID3D11DeviceContext* deviceContext);
+	virtual void sendData(ID3D11DeviceContext * deviceContext, D3D11_PRIMITIVE_TOPOLOGY primitiveTopology);
 	int getIndexCount();
 
 protected:

@@ -18,7 +18,7 @@ public:
 	TessellationMesh(ID3D11Device* device, ID3D11DeviceContext* deviceContext);
 	~TessellationMesh();
 
-	void sendData(ID3D11DeviceContext*);
+	//void sendData(ID3D11DeviceContext*);
 
 protected:
 	void initBuffers(ID3D11Device* device);
