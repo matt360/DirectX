@@ -1,5 +1,6 @@
 // Tessellation Hull Shader
 // Prepares control points for tessellation
+// http://richardssoftware.net/Home/Post/28
 
 cbuffer TessellationBuffer : register(cb0)
 {
@@ -51,7 +52,7 @@ ConstantOutputType PatchConstantFunction(InputPatch<InputType, 3> inputPatch, ui
 
 
 [domain("tri")]
-[partitioning("integer")]
+[partitioning("fractional_even")]
 [outputtopology("triangle_cw")]
 [outputcontrolpoints(3)]
 [patchconstantfunc("PatchConstantFunction")]
