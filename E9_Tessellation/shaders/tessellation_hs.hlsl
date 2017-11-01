@@ -34,6 +34,7 @@ struct OutputType
     float4 colour : COLOR;
 };
 
+// CONSTANT HULL SHADER
 // triangle
 ConstantOutputType PatchConstantFunction(InputPatch<InputType, 3> inputPatch, uint patchId : SV_PrimitiveID)
 {    
@@ -50,7 +51,7 @@ ConstantOutputType PatchConstantFunction(InputPatch<InputType, 3> inputPatch, ui
     return output;
 }
 
-
+// CONTROL POINT HULL SHADER
 [domain("tri")]
 [partitioning("fractional_even")]
 [outputtopology("triangle_cw")]
