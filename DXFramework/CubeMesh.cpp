@@ -62,7 +62,7 @@ void CubeMesh::initBuffers(ID3D11Device* device)
 	//0--------------/3
 	
 	//front face
-	for (int y = 0; y<resolution; y++)	// for each quad in the y direction
+	for (int y = 0; y < resolution; y++)	// for each quad in the y direction
 	{
 		for (int x = 0; x < resolution; x++)	// for each quad in the x direction
 		{
@@ -125,15 +125,12 @@ void CubeMesh::initBuffers(ID3D11Device* device)
 			xstart += xincrement;
 			txu += txuinc;
 			//ystart -= yincrement;
-
 		}
-
 		ystart -= yincrement;
 		xstart = -1;
 
 		txu = 0;
 		txv += txvinc;
-
 	}
 
 	txv = 0;
@@ -141,7 +138,7 @@ void CubeMesh::initBuffers(ID3D11Device* device)
 	//back face
 	ystart = 1;
 	xstart = 1;
-	for (int y = 0; y<resolution; y++)	// for each quad in the y direction
+	for (int y = 0; y < resolution; y++)	// for each quad in the y direction
 	{
 		for (int x = 0; x < resolution; x++)	// for each quad in the x direction
 		{
@@ -204,15 +201,12 @@ void CubeMesh::initBuffers(ID3D11Device* device)
 			xstart -= xincrement;
 			//ystart -= yincrement;
 			txu += txuinc;
-
 		}
-
 		ystart -= yincrement;
 		xstart = 1;
 
 		txu = 0;
 		txv += txvinc;
-
 	}
 
 	txv = 0;
@@ -283,9 +277,7 @@ void CubeMesh::initBuffers(ID3D11Device* device)
 			xstart += xincrement;
 			//ystart -= yincrement;
 			txu += txuinc;
-
 		}
-
 		ystart -= yincrement;
 		xstart = -1;
 		txu = 0;
@@ -361,7 +353,6 @@ void CubeMesh::initBuffers(ID3D11Device* device)
 			//ystart -= yincrement;
 			txu += txuinc;
 		}
-
 		ystart -= yincrement;
 		xstart = 1;
 		txu = 0;
@@ -438,7 +429,6 @@ void CubeMesh::initBuffers(ID3D11Device* device)
 			//ystart -= yincrement;
 			txu += txuinc;
 		}
-
 		ystart -= yincrement;
 		xstart = -1;
 		txu = 0;
@@ -515,7 +505,6 @@ void CubeMesh::initBuffers(ID3D11Device* device)
 			//ystart -= yincrement;
 			txu += txuinc;
 		}
-
 		ystart += yincrement;
 		xstart = -1;
 		txu = 0;
