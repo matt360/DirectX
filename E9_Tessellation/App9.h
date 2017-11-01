@@ -35,7 +35,7 @@ protected:
 	bool render();
 	void gui();
 	float clamp(float n, float lower, float upper);
-	int tessellationAmount;
+	float tessellationAmount;
 
 	bool wireframe;
 private:
