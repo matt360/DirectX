@@ -9,7 +9,7 @@ cbuffer MatrixBuffer : register(cb0)
 };
 
 // triangle
-struct ConstantOutputType
+struct PatchTess
 {
 	float edges[3] : SV_TessFactor;
 	float inside : SV_InsideTessFactor;
@@ -36,7 +36,7 @@ struct DomainOut
 
 // triangle
 [domain("tri")]
-DomainOut main(ConstantOutputType input, float3 uvwCoord : SV_DomainLocation, const OutputPatch<HullOut, 4> patch)
+DomainOut main(PatchTess input, float3 uvwCoord : SV_DomainLocation, const OutputPatch<HullOut, 4> patch)
 {
     float3 vertexPosition;
     DomainOut output;

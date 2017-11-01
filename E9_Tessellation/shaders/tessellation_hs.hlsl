@@ -47,11 +47,14 @@ PatchTess ConstantHS(InputPatch<VertexOut, 3> inputPatch, uint patchId : SV_Prim
 {    
     PatchTess pt;
 
+	// Tessellating a triangle patch also consists of two parts:
+	// 1. Three edge tessellation factors control how much to tessellate along each edge.
     // Set the tessellation factors for the three edges of the triangle.
 	pt.edges[0] = tessellationAmount;
 	pt.edges[1] = tessellationAmount;
     pt.edges[2] = tessellationAmount;
 
+	// 2. One interior tessellation factor indicates how much to tessellate the triangle patch.
     // Set the tessellation factor for tessallating inside the triangle.
     pt.inside = tessellationAmount;
 
@@ -82,13 +85,17 @@ HullOut main(InputPatch<VertexOut, 3> patch, uint pointId : SV_OutputControlPoin
 //{    
 //    ConstantOutputType output;
 //
-//    // Set the tessellation factors for the three edges of the triangle.
+//  // Tessellating a quad patch consists of two parts:
+//  // 1. Four edge tessellation factors control how much to tessellate along each edge.
+//  // Set the tessellation factors for the three edges of the triangle.
 //	output.edges[0] = tessellationAmount;
 //	output.edges[1] = tessellationAmount;
 //	output.edges[2] = tessellationAmount;
 //	output.edges[3] = tessellationAmount;
 //
-//    // Set the tessellation factor for tessallating inside the triangle.
+//  // 2. Two interior tessellation factors indicate how to tessellate the quad patch (one tessellation factor for the horizontal dimension of
+//  // the quad, and one tessellation factor for the vertical dimension of the quad).
+//  // Set the tessellation factor for tessallating inside the triangle.
 //	output.inside[0] = tessellationAmount;
 //	output.inside[1] = tessellationAmount;
 //

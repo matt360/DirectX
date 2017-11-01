@@ -4,18 +4,23 @@
 // VERTEX SHADERS ARE THE PART OF THE PIPELINE WHERE YOU ARE GIVEN CONTROL OF EVERY
 // VERTEX THAT GETS PROCESSED BY THE SYSTEM.
 
-// Beginning DirectX 11 Game Programming: with the introduction of Direct3D 10,
-// all external variables now reside in constant buffers. Constant buffers are
-// used to group variables visible to the calling program so that they can be optimized for access.
-// Constant buffers are similar in definition to structures and are created using the cbuffer keyword.
-// cbuffer Variables 
-// {
-//     matrix Projection;
-// }
-// Constant buffers are commonly declared at the top of an effect file and reside outside of any other section.
-// For ease of use, it can be useful to group together variables based on the amount they are accessed. 
-// For instance, variables that get an initial value would be grouped separately from variables that are updated
-// on a frame by frame basis. You have the ability to create multiple constant buffers.
+/*
+ * Beginning DirectX 11 Game Programming: with the introduction of Direct3D 10,
+ * all external variables now reside in constant buffers. Constant buffers are
+ * used to group variables visible to the calling program so that they can be optimized for access.
+ * Constant buffers are similar in definition to structures and are created using the cbuffer keyword.
+ * 
+ * cbuffer Variables 
+ * {
+ *     matrix Projection;
+ * }
+ * 
+ * Constant buffers are commonly declared at the top of an effect file and reside outside of any other section.
+ * For ease of use, it can be useful to group together variables based on the amount they are accessed. 
+ * For instance, variables that get an initial value would be grouped separately from variables that are updated
+ * on a frame by frame basis. You have the ability to create multiple constant buffers.
+ */
+
 cbuffer MatrixBuffer : register(cb0)
 {
 	matrix worldMatrix;
