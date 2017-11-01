@@ -8,17 +8,18 @@ cbuffer TessellationBuffer : register(cb0)
 	float3 padding;
 };
 
-struct InputType
+struct VertexOut
 {
     float3 position : POSITION;
     float4 colour : COLOR;
 };
 
 // triangle
-struct ConstantOutputType
+struct PatchTess
 {
     float edges[3] : SV_TessFactor;
     float inside : SV_InsideTessFactor;
+	// Additional info you want associated per patch goes here.
 };
 
 // quad
@@ -26,29 +27,35 @@ struct ConstantOutputType
 //{
 //	float edges[4] : SV_TessFactor;
 //	float inside[2] : SV_InsideTessFactor;
+//  Additional info you want associated per patch goes here.
 //};
 
-struct OutputType
+struct HullOut
 {
     float3 position : POSITION;
     float4 colour : COLOR;
 };
-
-// CONSTANT HULL SHADER
+ 
+/*
+CONSTANT HULL SHADER
+This constant hull shader is evaluated per patch, and is tasked with outputting the so-called tessellation factors of the mesh. The
+tessellation factors instruct the tessellation stage how much to tessellate the patch. Here is an example of a quad patch with 4 control
+points, where we tessellate it uniformly 3 times.
+*/
 // triangle
-ConstantOutputType PatchConstantFunction(InputPatch<InputType, 3> inputPatch, uint patchId : SV_PrimitiveID)
+PatchTess ConstantHS(InputPatch<VertexOut, 3> inputPatch, uint patchId : SV_PrimitiveID)
 {    
-    ConstantOutputType output;
+    PatchTess pt;
 
     // Set the tessellation factors for the three edges of the triangle.
-	output.edges[0] = tessellationAmount;
-	output.edges[1] = tessellationAmount;
-	output.edges[2] = tessellationAmount;
+	pt.edges[0] = tessellationAmount;
+	pt.edges[1] = tessellationAmount;
+    pt.edges[2] = tessellationAmount;
 
     // Set the tessellation factor for tessallating inside the triangle.
-	output.inside = tessellationAmount;
+    pt.inside = tessellationAmount;
 
-    return output;
+    return pt;
 }
 
 // CONTROL POINT HULL SHADER
@@ -56,10 +63,10 @@ ConstantOutputType PatchConstantFunction(InputPatch<InputType, 3> inputPatch, ui
 [partitioning("fractional_even")]
 [outputtopology("triangle_cw")]
 [outputcontrolpoints(3)]
-[patchconstantfunc("PatchConstantFunction")]
-OutputType main(InputPatch<InputType, 3> patch, uint pointId : SV_OutputControlPointID, uint patchId : SV_PrimitiveID)
+[patchconstantfunc("ConstantHS")]
+HullOut main(InputPatch<VertexOut, 3> patch, uint pointId : SV_OutputControlPointID, uint patchId : SV_PrimitiveID)
 {
-    OutputType output;
+    HullOut output;
 
     // Set the position for this control point as the output position.
     output.position = patch[pointId].position;

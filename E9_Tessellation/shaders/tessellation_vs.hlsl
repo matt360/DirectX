@@ -8,22 +8,22 @@ Since the vertices will be increasing with the tessellation we now do the transf
 The vertex shader's purpose is now just for vertex animation and passing data into the hull shader.
 */
 
-struct InputType
+struct VertexIn
 {
     float3 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
 };
 
-struct OutputType
+struct VertexOut
 {
     float3 position : POSITION;
     float4 colour : COLOR;
 };
 
-OutputType main(InputType input)
+VertexOut main(VertexIn input)
 {
-    OutputType output;
+    VertexOut output;
 
 	 // Pass the vertex position into the hull shader.
     output.position = input.position;

@@ -22,13 +22,13 @@ struct ConstantOutputType
 //    float inside[2] : SV_InsideTessFactor;
 //};
 
-struct InputType
+struct HullOut
 {
     float3 position : POSITION;
     float4 colour : COLOR;
 };
 
-struct OutputType
+struct DomainOut
 {
     float4 position : SV_POSITION;
     float4 colour : COLOR;
@@ -36,10 +36,10 @@ struct OutputType
 
 // triangle
 [domain("tri")]
-OutputType main(ConstantOutputType input, float3 uvwCoord : SV_DomainLocation, const OutputPatch<InputType, 4> patch)
+DomainOut main(ConstantOutputType input, float3 uvwCoord : SV_DomainLocation, const OutputPatch<HullOut, 4> patch)
 {
     float3 vertexPosition;
-    OutputType output;
+    DomainOut output;
  
     // Determine the position of the new vertex.
 	// Invert the y and Z components of uvwCoord as these coords are generated in UV space and therefore y is positive downward.
