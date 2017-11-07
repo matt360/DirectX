@@ -37,11 +37,10 @@ void App10::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeig
 void App10::initLight()
 {
 	light = new Light;
-	light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
+	light->setAmbientColour(0.15f, 0.15f, 0.15f, 1.0f);
 	light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light->setDirection(0.5, -0.5f, 0.0f);
-	light->setSpecularPower(16.f);
-	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light->setLookAt(0.0f, 0.0f, 0.0f);
+	light->generateProjectionMatrix(SCREEN_DEPTH, SCREEN_NEAR);
 }
 
 App10::~App10()
