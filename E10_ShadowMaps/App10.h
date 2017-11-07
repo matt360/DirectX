@@ -7,6 +7,9 @@
 #include "DepthShader.h"
 #include "ShadowShader.h"
 
+const int SHADOWMAP_WIDTH = 1024;
+const int SHADWOMAP_HEIGHT = 1024;
+
 class App10 : public BaseApplication
 {
 public:
@@ -25,8 +28,12 @@ protected:
 
 private:
 	TerrainMesh* terrainMesh;
+	CubeMesh* cubeMesh;
+	SphereMesh* sphereMesh;
+
 	DepthShader* depthShader;
 	ShadowShader* shadowShader;
+	RenderTexture* renderTexture;
 
 	Light* light;
 };

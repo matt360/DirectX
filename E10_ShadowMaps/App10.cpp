@@ -6,6 +6,12 @@ App10::App10()
 {
 	//BaseApplication::BaseApplication();
 	terrainMesh = nullptr;
+	cubeMesh = nullptr;
+	sphereMesh = nullptr;
+	depthShader = nullptr;
+	shadowShader = nullptr;
+	renderTexture = nullptr;
+	light = nullptr;
 }
 
 void App10::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -15,10 +21,14 @@ void App10::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeig
 
 	// Create Mesh object
 	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext());
+	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
+	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	// Shader handlers
 	depthShader = new DepthShader(renderer->getDevice(), hwnd);
 	shadowShader = new ShadowShader(renderer->getDevice(), hwnd);
+
+	renderTexture = new RenderTexture(renderer->getDevice(), SHADOWMAP_WIDTH, SHADWOMAP_HEIGHT, SCREEN_NEAR, SCREEN_DEPTH);
 
 	// Light
 	initLight();
@@ -46,6 +56,18 @@ App10::~App10()
 		terrainMesh = 0;
 	}
 
+	if (cubeMesh)
+	{
+		delete cubeMesh;
+		cubeMesh = 0;
+	}
+
+	if (sphereMesh)
+	{
+		delete sphereMesh;
+		sphereMesh = 0;
+	}
+
 	if (depthShader)
 	{
 		delete depthShader;
@@ -56,6 +78,18 @@ App10::~App10()
 	{
 		delete shadowShader;
 		shadowShader = 0;
+	}
+
+	if (renderTexture)
+	{
+		delete shadowShader;
+		shadowShader = 0;
+	}
+
+	if (light)
+	{
+		delete light;
+		light = 0;
 	}
 }
 
@@ -82,7 +116,11 @@ bool App10::frame()
 
 bool App10::render()
 {
-	XMMATRIX worldMatrix, lightViewMatrix, lightProjectionMatrix;
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, lightViewMatrix, lightProjectionMatrix;
+
+	renderTexture->setRenderTarget(renderer->getDeviceContext());
+
+	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 1.0f, 1.0f);
 
 	// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
@@ -107,6 +145,19 @@ bool App10::render()
 	depthShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, lightViewMatrix, lightProjectionMatrix);
 	// Render object (combination of mesh geometry and shader process
 	depthShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
+
+	worldMatrix = renderer->getWorldMatrix();
+	viewMatrix = camera->getViewMatrix();
+	projectionMatrix = renderer->getProjectionMatrix();
+
+	// Render floor
+	// Send geometry data (from mesh)
+	terrainMesh->sendData(renderer->getDeviceContext());
+	// Set shader parameters (matrices and texture)
+	shadowShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
+		textureMgr->getTexture("brick"), renderTexture->getShaderResourceView(), light);
+	// Render object (combination of mesh geometry and shader process
+	shadowShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
 
 	// Render GUI
 	gui();
