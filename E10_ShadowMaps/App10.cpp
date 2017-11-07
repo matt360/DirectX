@@ -40,7 +40,8 @@ void App10::initLight()
 	light->setAmbientColour(0.15f, 0.15f, 0.15f, 1.0f);
 	light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
 	light->setLookAt(0.0f, 0.0f, 0.0f);
-	light->generateProjectionMatrix(SCREEN_DEPTH, SCREEN_NEAR);
+	light->setPosition(-5.0f, 5.0f, -5.0f);
+	light->generateProjectionMatrix(SCREEN_NEAR, SCREEN_DEPTH);
 }
 
 App10::~App10()
