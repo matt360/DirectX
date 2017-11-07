@@ -5,8 +5,7 @@
 App10::App10()
 {
 	//BaseApplication::BaseApplication();
-	mesh = nullptr;
-	colourShader = nullptr;
+	terrainMesh = nullptr;
 }
 
 void App10::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -15,12 +14,25 @@ void App10::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeig
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
 	// Create Mesh object
-	mesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	colourShader = new ColourShader(renderer->getDevice(), hwnd);
+	// Shader handlers
+	depthShader = new DepthShader(renderer->getDevice(), hwnd);
+	shadowShader = new ShadowShader(renderer->getDevice(), hwnd);
 
+	// Light
+	initLight();
 }
 
+void App10::initLight()
+{
+	light = new Light;
+	light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
+	light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light->setDirection(0.5, -0.5f, 0.0f);
+	light->setSpecularPower(16.f);
+	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+}
 
 App10::~App10()
 {
@@ -28,16 +40,22 @@ App10::~App10()
 	BaseApplication::~BaseApplication();
 
 	// Release the Direct3D object.
-	if (mesh)
+	if (terrainMesh)
 	{
-		delete mesh;
-		mesh = 0;
+		delete terrainMesh;
+		terrainMesh = 0;
 	}
 
-	if (colourShader)
+	if (depthShader)
 	{
-		delete colourShader;
-		colourShader = 0;
+		delete depthShader;
+		depthShader = 0;
+	}
+
+	if (shadowShader)
+	{
+		delete shadowShader;
+		shadowShader = 0;
 	}
 }
 
@@ -64,30 +82,36 @@ bool App10::frame()
 
 bool App10::render()
 {
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+	XMMATRIX worldMatrix, lightViewMatrix, lightProjectionMatrix;
 
-	//// Clear the scene. (default blue colour)
+	// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 
-	//// Generate the view matrix based on the camera's position.
+	// Generate the view matrix based on the camera's position.
 	camera->update();
 
-	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	// Get the world, view and projection matrices from the camera and Direct3D objects.
+	//light->generateViewMatrix
+	//worldMatrix = renderer->getWorldMatrix();
+	//viewMatrix = camera->getViewMatrix();
+	//projectionMatrix = renderer->getProjectionMatrix();
+	light->generateViewMatrix();
 	worldMatrix = renderer->getWorldMatrix();
-	viewMatrix = camera->getViewMatrix();
-	projectionMatrix = renderer->getProjectionMatrix();
+	lightViewMatrix = light->getViewMatrix();
+	lightProjectionMatrix = light->getProjectionMatrix();
 
-	//// Send geometry data (from mesh)
-	mesh->sendData(renderer->getDeviceContext());
-	//// Set shader parameters (matrices and texture)
-	colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
-	//// Render object (combination of mesh geometry and shader process
-	colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	// Render floor
+	// Send geometry data (from mesh)
+	terrainMesh->sendData(renderer->getDeviceContext());
+	// Set shader parameters (matrices and texture)
+	depthShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, lightViewMatrix, lightProjectionMatrix);
+	// Render object (combination of mesh geometry and shader process
+	depthShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
 
 	// Render GUI
 	gui();
 
-	//// Present the rendered scene to the screen.
+	// Present the rendered scene to the screen.
 	renderer->endScene();
 
 	return true;

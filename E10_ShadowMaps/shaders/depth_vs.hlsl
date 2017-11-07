@@ -1,3 +1,6 @@
+// VERTEX SHADER
+// DEPTH
+
 cbuffer MatrixBuffer : register(cb0)
 {
     matrix worldMatrix;
