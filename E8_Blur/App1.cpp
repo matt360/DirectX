@@ -322,7 +322,7 @@ void App1::RenderHorizontalBlurToTexture()
 	camera->update();
 
 	// Get the view and world matrices from the camera and d3d objects.
-	viewMatrix = camera->getViewMatrix();
+	viewMatrix = camera->getOrthoViewMatrix();
 	worldMatrix = renderer->getWorldMatrix();
 
 	// Get the ortho matrix from the render to texture since texture has different dimensions
@@ -374,7 +374,7 @@ void App1::RenderVerticalBlurToTexture()
 	camera->update();
 
 	// Get the view and world matrices from the camera and d3d objects.
-	viewMatrix = camera->getViewMatrix();
+	viewMatrix = camera->getOrthoViewMatrix();
 	worldMatrix = renderer->getWorldMatrix();
 
 	// Get the ortho matrix from the render to texture since texture has different dimensions.
@@ -423,7 +423,7 @@ void App1::UpSampleTexture()
 	camera->update();
 
 	// Get the view and world matrices from the camera and d3d objects.
-	viewMatrix = camera->getViewMatrix();
+	viewMatrix = camera->getOrthoViewMatrix();
 	worldMatrix = renderer->getWorldMatrix();
 
 	// Get the ortho matrix from the render to texture since texture has different dimensions.
