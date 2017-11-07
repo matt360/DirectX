@@ -46,9 +46,13 @@ points, where we tessellate it uniformly 'tessellationAmount' times.
 PatchTess ConstantHS(InputPatch<VertexOut, 3> inputPatch, uint patchId : SV_PrimitiveID)
 {    
     PatchTess pt;
-	
+    float tessellationAmount;
+
     float3 distance = inputPatch[patchId].position - cameraPosition;
-    float tessellationAmount = 64.0f / length(distance);
+    if (distance.z > 8.0f)
+        tessellationAmount = 4.0f;
+	else
+        tessellationAmount = 64.0f / length(distance);
 
 	// no need to clamp - Tessellator clamps it for us (TODO check this info)
     // clamp(tessellationAmount, 1.0f, 64.0f);

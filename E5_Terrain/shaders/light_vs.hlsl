@@ -104,6 +104,7 @@ OutputType main(InputType input)
         }
     }
 
+	// if (all(textureColor.rgb >= 1.0) && any(textureColor.rgb <= 0.7))
     // if (any(textureColor.rgb >= 1.0) && any(textureColor.rgb <= 0.7))
     // {
     //     input.position.y -= 1.0 * 15.0f;
