@@ -18,13 +18,13 @@ App1::App1()
 	verticalBlurShader = nullptr;
 
 	renderTexture = nullptr;
-	downSampleTexture = nullptr; 
+	downSampleTexture = nullptr;
 	horizontalBlurTexture = nullptr;
 	verticalBlurTexture = nullptr;
 	upSampleTexture = nullptr;
 
 	orthoMesh = nullptr;
-	smallWindow = nullptr; 
+	smallWindow = nullptr;
 	fullScreenWindow = nullptr;
 
 	light = nullptr;
@@ -35,7 +35,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
-	textureMgr->loadTexture("brick", L"../res/brick1.dds");
+	textureMgr->loadTexture("height", L"../res/brick1.dds");
 
 	// Create Mesh object
 	//triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
@@ -202,7 +202,7 @@ App1::~App1()
 
 // First render the scene to a render texture
 /*
-The first function performs the first step of the algorithm by 
+The first function performs the first step of the algorithm by
 rendering the scene to a full screen sized render to texture.
 */
 void App1::RenderSceneToTexture(float time)
@@ -229,9 +229,9 @@ void App1::RenderSceneToTexture(float time)
 	cubeMesh->sendData(renderer->getDeviceContext());
 	lightShader->setShaderParameters
 	(
-		renderer->getDeviceContext(), 
-		worldMatrix, viewMatrix, projectionMatrix, 
-		textureMgr->getTexture("brick"), 
+		renderer->getDeviceContext(),
+		worldMatrix, viewMatrix, projectionMatrix,
+		textureMgr->getTexture("brick1"),
 		light,
 		time
 	);
@@ -247,10 +247,10 @@ void App1::RenderSceneToTexture(float time)
 
 // Next down sample the render texture to a smaller sized texture
 /*
-The second function performs the next step of the algorithm by 
+The second function performs the next step of the algorithm by
 rendering the full screen render to texture, down to
-a smaller window (down sampling) which was 
-defined as half the size of the screen in the Init function. 
+a smaller window (down sampling) which was
+defined as half the size of the screen in the Init function.
 Notice also that when we get the projection matrix it is
 now an ortho matrix from the render to texture with
 smaller dimensions.
@@ -271,7 +271,7 @@ void App1::DownSampleTexture()
 	camera->update();
 
 	// Get the view and world matrices from the camera and d3d objects.
-	viewMatrix = camera->getViewMatrix();
+	viewMatrix = camera->getOrthoViewMatrix();
 	worldMatrix = renderer->getWorldMatrix();
 	// Get the ortho matrix from the renderer to texture since texture has different dimensions being that it is smaller
 	orthoMatrix = downSampleTexture->getOrthoMatrix();
@@ -334,7 +334,7 @@ void App1::RenderHorizontalBlurToTexture()
 	// Put the small ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing 
 	smallWindow->sendData(renderer->getDeviceContext());
 	// Render the small ortho window using the horizontal blur shader and the down sampled render to texture resource
-	horizontalBlurShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix, 
+	horizontalBlurShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix,
 		downSampleTexture->getShaderResourceView(), screenSizeX);
 	horizontalBlurShader->render(renderer->getDeviceContext(), smallWindow->getIndexCount());
 
@@ -350,8 +350,8 @@ void App1::RenderHorizontalBlurToTexture()
 
 // Now perform a vertical blur on the horizontal blur render texture
 /*
-The fourth function performs the vertical blur on 
-the horizontally blurred render to texture. 
+The fourth function performs the vertical blur on
+the horizontally blurred render to texture.
 The result is stored in yet another render to texture object.
 */
 void App1::RenderVerticalBlurToTexture()
@@ -402,9 +402,9 @@ void App1::RenderVerticalBlurToTexture()
 
 // Up sample the final blurred render texture to the screen size again
 /*
-The fifth function performs the up sampling of 
-the small horizontally and vertically blurred texture. 
-The up sample is done by just rendering the small blurred texture to 
+The fifth function performs the up sampling of
+the small horizontally and vertically blurred texture.
+The up sample is done by just rendering the small blurred texture to
 a full screen 2D window model.
 The result of this is rendered to another render to texture object called
 upSampleTexture
@@ -433,11 +433,11 @@ void App1::UpSampleTexture()
 	renderer->setZBuffer(false);
 
 	// Put the full screen ortho window vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	smallWindow->sendData(renderer->getDeviceContext());
+	fullScreenWindow->sendData(renderer->getDeviceContext());
 	// Render the full screen ortho window using the texture shader and the small sized final blurred render to texture resource.
 	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, orthoMatrix,
 		verticalBlurTexture->getShaderResourceView());
-	textureShader->render(renderer->getDeviceContext(), smallWindow->getIndexCount());
+	textureShader->render(renderer->getDeviceContext(), fullScreenWindow->getIndexCount());
 
 	// Turn the Z buffer back on now that all 2D rendering has completed.
 	renderer->setZBuffer(true);
@@ -456,11 +456,7 @@ the full screen completing the full screen blur effect.
 */
 void App1::Render2DTextureScene(float time)
 {
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
-	// Billboarding variables
-	XMFLOAT3 cameraPosition, modelPosition;
-	double angle;
-	float rotation;
+	XMMATRIX worldMatrix, viewMatrix, orthoMatrix;
 
 	// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
@@ -469,32 +465,9 @@ void App1::Render2DTextureScene(float time)
 	camera->update();
 
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	viewMatrix = camera->getViewMatrix();
+	viewMatrix = camera->getOrthoViewMatrix();
 	worldMatrix = renderer->getWorldMatrix();
-	//projectionMatrix = renderer->getProjectionMatrix();
 	orthoMatrix = renderer->getProjectionMatrix();
-
-	// Get the position of the camera
-	cameraPosition = camera->getPosition();
-	// Set the position of the billboard model
-	modelPosition.x = 0.0f;
-	modelPosition.y = 1.5f;
-	modelPosition.z = 0.0f;
-
-	// Calculate the rotation that needs to be applied to the billboard model to face the current camera position using the arc tangent function.
-	angle = atan2(modelPosition.x - cameraPosition.x, modelPosition.z - cameraPosition.z) * (180.0f / XM_PI);
-
-	// Convert rotation into radians.
-	rotation = XMConvertToRadians(angle);
-
-	/*
-	Use the rotation to first rotate the world matrix accordingly, 
-	and then translate to the position of the billboard in the world
-	*/
-	// Setup the rotation of the billboard at the origin using the world matrix
-	XMMATRIX matrixRotation = XMMatrixRotationY(rotation);
-	XMMATRIX matrixTranslation = XMMatrixTranslation(modelPosition.x, modelPosition.y, modelPosition.z);
-	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 
 	// Turn off the Z buffer to begin all 2D rendering
 	renderer->setZBuffer(false);
