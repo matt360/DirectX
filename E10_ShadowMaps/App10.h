@@ -18,11 +18,12 @@ public:
 	~App10();
 	void init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input* in);
 
-	void initLight();
-
 	bool frame();
-
 protected:
+	void initLight();
+	void RenderToTexture();
+	void RenderScene();
+
 	bool render();
 	void gui();
 
