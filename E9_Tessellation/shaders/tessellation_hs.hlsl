@@ -46,21 +46,25 @@ points, where we tessellate it uniformly 'tessellationAmount' times.
 PatchTess ConstantHS(InputPatch<VertexOut, 3> inputPatch, uint patchId : SV_PrimitiveID)
 {    
     PatchTess pt;
+	
+    float3 distance = inputPatch[patchId].position - cameraPosition;
+    float tessellationAmount = 64.0f / length(distance);
+
+	// no need to clamp - Tessellator clamps it for us (TODO check this info)
+    // clamp(tessellationAmount, 1.0f, 64.0f);
 
 	// Tessellating a triangle patch also consists of two parts:
 	// 1. Three edge tessellation factors control how much to tessellate along each edge.
     // Set the tessellation factors for the three edges of the triangle.
-
 	// Uniformly tessellate the patch 'tessellationAmount' times.
-	pt.edges[0] = 10;
-	pt.edges[1] = 10;
-    pt.edges[2] = 10;
+	pt.edges[0] = tessellationAmount;
+	pt.edges[1] = tessellationAmount;
+    pt.edges[2] = tessellationAmount;
 
 	// 2. One interior tessellation factor indicates how much to tessellate the triangle patch.
     // Set the tessellation factor for tessallating inside the triangle.
-
 	// Uniformly tessellate the patch 'tessellationAmount' times.
-    pt.inside = 10;
+    pt.inside = tessellationAmount;
 
     return pt;
 }
@@ -78,7 +82,7 @@ the ID uniquely identifies the patches in a draw call.
 HullOut main(InputPatch<VertexOut, 3> patch, uint pointId : SV_OutputControlPointID, uint patchId : SV_PrimitiveID)
 {
     HullOut output;
-
+	
     // Set the position for this control point as the output position.
     output.position = patch[pointId].position;
 
