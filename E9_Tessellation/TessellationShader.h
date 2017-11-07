@@ -4,6 +4,7 @@
 #define _TESSELLATIONSHADER_H_
 
 #include "../DXFramework/BaseShader.h"
+#include "../DXFramework/Camera.h"
 
 using namespace std;
 using namespace DirectX;
@@ -17,6 +18,13 @@ public:
 		float tessellationAmount;
 		XMFLOAT3 padding;
 	};
+
+	struct CameraBufferType
+	{
+		XMFLOAT3 cameraPosition;
+		float padding;
+	};
+
 public:
 
 	TessellationShader(ID3D11Device* device, HWND hwnd);
@@ -27,6 +35,8 @@ public:
 		ID3D11ShaderResourceView* texture);
 	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix,
 		ID3D11ShaderResourceView* texture, float tessellationAmount);
+	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix,
+		ID3D11ShaderResourceView* texture, Camera* camera);
 
 	void render(ID3D11DeviceContext* deviceContext, int vertexCount);
 
@@ -37,6 +47,8 @@ private:
 private:
 	ID3D11Buffer* matrixBuffer;
 	ID3D11Buffer* tessellationBuffer;
+	ID3D11Buffer* cameraBuffer;
+
 	ID3D11SamplerState* sampleState;
 
 };

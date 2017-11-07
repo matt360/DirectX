@@ -45,6 +45,8 @@ void TessellationShader::initShader(WCHAR* vsFilename,  WCHAR* psFilename)
 {
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	D3D11_BUFFER_DESC tessellationBufferDesc;
+	D3D11_BUFFER_DESC cameraBufferDesc;
+
 	D3D11_SAMPLER_DESC samplerDesc;
 
 	// Load shader files
@@ -61,15 +63,25 @@ void TessellationShader::initShader(WCHAR* vsFilename,  WCHAR* psFilename)
 	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
 	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer);
 
-	// Setup the description of the dynamic matrix constant buffer that is in the vertex shader.
-	tessellationBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-	tessellationBufferDesc.ByteWidth = sizeof(TessellationBufferType);
-	tessellationBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	tessellationBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	tessellationBufferDesc.MiscFlags = 0;
-	tessellationBufferDesc.StructureByteStride = 0;
-	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
-	renderer->CreateBuffer(&tessellationBufferDesc, NULL, &tessellationBuffer);
+	//// Setup the description of the dynamic matrix constant buffer that is in the vertex shader.
+	//tessellationBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	//tessellationBufferDesc.ByteWidth = sizeof(TessellationBufferType);
+	//tessellationBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	//tessellationBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	//tessellationBufferDesc.MiscFlags = 0;
+	//tessellationBufferDesc.StructureByteStride = 0;
+	//// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
+	//renderer->CreateBuffer(&tessellationBufferDesc, NULL, &tessellationBuffer);
+
+	// Camera buffer
+	cameraBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	cameraBufferDesc.ByteWidth = sizeof(CameraBufferType);
+	cameraBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cameraBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	cameraBufferDesc.MiscFlags = 0;
+	cameraBufferDesc.StructureByteStride = 0;
+	// Create the constant buffer pointer so we can access the domain shader constant buffer from within this class.
+	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
 
 	// Create a texture sampler state description.
 	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -208,6 +220,57 @@ void TessellationShader::setShaderParameters(ID3D11DeviceContext* deviceContext,
 	bufferNumber = 0;
 	// Now set the constant buffer in the vertex shader with the updated values.
 	deviceContext->HSSetConstantBuffers(bufferNumber, 1, &tessellationBuffer);
+
+	// Set shader texture resource in the pixel shader.
+	deviceContext->PSSetShaderResources(0, 1, &texture);
+}
+
+void TessellationShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX& worldMatrix, const XMMATRIX& viewMatrix, const XMMATRIX& projectionMatrix, 
+	ID3D11ShaderResourceView* texture, Camera* camera)
+{
+	HRESULT result;
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	MatrixBufferType* dataPtr;
+	CameraBufferType* dataPtr2;
+	//TessellationBufferType* tessellationPtr;
+	unsigned int bufferNumber;
+	XMMATRIX tworld, tview, tproj;
+
+
+	// Transpose the matrices to prepare them for the shader.
+	tworld = XMMatrixTranspose(worldMatrix);
+	tview = XMMatrixTranspose(viewMatrix);
+	tproj = XMMatrixTranspose(projectionMatrix);
+
+	// Lock the constant buffer so it can be written to.
+	result = deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	// Get a pointer to the data in the constant buffer.
+	dataPtr = (MatrixBufferType*)mappedResource.pData;
+	// Copy the matrices into the constant buffer.
+	dataPtr->world = tworld;// worldMatrix;
+	dataPtr->view = tview;
+	dataPtr->projection = tproj;
+	// Unlock the constant buffer.
+	deviceContext->Unmap(matrixBuffer, 0);
+	// Set the position of the constant buffer in the vertex shader.
+	bufferNumber = 0;
+	// Now set the constant buffer in the vertex shader with the updated values.
+	deviceContext->DSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+
+	// Additional 
+	// Lock the constant buffer so it can be written to.
+	result = deviceContext->Map(cameraBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	// Get a pointer to the data in the constant buffer.
+	dataPtr2 = (CameraBufferType*)mappedResource.pData;
+	// Copy the matrices into the constant buffer.
+	dataPtr2->cameraPosition = camera->getPosition();
+	dataPtr2->padding = 0.0f;
+	// Unlock the constant buffer.
+	deviceContext->Unmap(cameraBuffer, 0);
+	// Set the position of the constant buffer in the vertex shader.
+	bufferNumber = 0;
+	// Now set the constant buffer in the hull shader with the updated values.
+	deviceContext->HSSetConstantBuffers(bufferNumber, 1, &cameraBuffer);
 
 	// Set shader texture resource in the pixel shader.
 	deviceContext->PSSetShaderResources(0, 1, &texture);

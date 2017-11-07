@@ -2,10 +2,10 @@
 // Prepares control points for tessellation
 // http://richardssoftware.net/Home/Post/28
 
-cbuffer TessellationBuffer : register(cb0)
+cbuffer CameraBuffer : register(cb0)
 {
-	float tessellationAmount;
-	float3 padding;
+	float3 cameraPosition;
+	float padding;
 };
 
 struct VertexOut
@@ -52,15 +52,15 @@ PatchTess ConstantHS(InputPatch<VertexOut, 3> inputPatch, uint patchId : SV_Prim
     // Set the tessellation factors for the three edges of the triangle.
 
 	// Uniformly tessellate the patch 'tessellationAmount' times.
-	pt.edges[0] = tessellationAmount;
-	pt.edges[1] = tessellationAmount;
-    pt.edges[2] = tessellationAmount;
+	pt.edges[0] = 10;
+	pt.edges[1] = 10;
+    pt.edges[2] = 10;
 
 	// 2. One interior tessellation factor indicates how much to tessellate the triangle patch.
     // Set the tessellation factor for tessallating inside the triangle.
 
 	// Uniformly tessellate the patch 'tessellationAmount' times.
-    pt.inside = tessellationAmount;
+    pt.inside = 10;
 
     return pt;
 }

@@ -166,7 +166,7 @@ bool App9::render()
 
 	// Set shader parameters (matrices and texture)
 	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
-		textureMgr->getTexture("brick"), tessellationAmount);
+		textureMgr->getTexture("brick"), camera);
 
 	// Render object (combination of mesh geometry and shader process
 	tessellationShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
