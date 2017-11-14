@@ -179,9 +179,9 @@ bool App1::render()
 	XMMATRIX matrix1Translation = DirectX::XMMatrixTranslation(2.0f, 0.0f, 0.0f);
 	XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(light_y);
 	// orbit
-	worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
+	//worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
 	// translate and rotate
-	//worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
+	worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
 
 	// scaling
 	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(2.0f, 2.0f, 1.0f);
