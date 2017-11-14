@@ -49,7 +49,8 @@ PatchTess ConstantHS(InputPatch<VertexOut, 3> inputPatch, uint patchId : SV_Prim
     float tessellationAmount;
 
     float3 distance = inputPatch[patchId].position - cameraPosition;
-    if (distance.z > 8.0f)
+    
+    if (length(distance) > 8.0f)
         tessellationAmount = 4.0f;
 	else
         tessellationAmount = 64.0f / length(distance);
