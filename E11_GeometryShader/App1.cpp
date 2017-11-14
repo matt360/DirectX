@@ -140,6 +140,19 @@ bool App1::frame()
 	light_y += XM_PIDIV2 * timer->getTime();
 	light_y = fmodf(light_y, XM_2PI);
 
+	// input
+	if (input->isLeftMouseDown())
+	{
+		wireframe = !wireframe;
+		input->setLeftMouse(false);
+	}
+
+	if (input->isKeyDown(VK_RETURN))
+	{
+		wireframe = !wireframe;
+		input->SetKeyUp(VK_RETURN);
+	}
+
 	// Render the graphics.
 	result = render();
 	if (!result)
@@ -178,7 +191,7 @@ bool App1::render()
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// wireframe mode
-	//renderer->setWireframeMode(true);
+	renderer->setWireframeMode(wireframe);
 
 	//// Send geometry data (from mesh)
 	//mesh->sendData(renderer->getDeviceContext());

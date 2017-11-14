@@ -18,6 +18,8 @@ public:
 
 protected:
 	bool render();
+	bool wireframe;
+
 	void gui();
 
 	void initLight();
