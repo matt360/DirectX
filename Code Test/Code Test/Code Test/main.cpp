@@ -102,5 +102,46 @@ Vector3 Vector3::GetPerpVector(const Vector3& xVec1, const Vector3& xVec2)
 	xResult.m_fZ = (xVec1.m_fX * xVec2.m_fY) - (xVec1.m_fY * xVec2.m_fX);
 
 	return xResult;
-}int main(int argc, char* argv[]){	std::cout << "Have " << argc << " arguments:" << std::endl;	for (int i = 0; i < argc; ++i)	{		std::cout << argv[i] << std::endl;	}	Vector3 u(1, 2, 3);	Vector3 v(4, 2, 6);	printf("u(%.1f, %.1f, %.1f)\n", u.m_fX, u.m_fY, u.m_fZ);	printf("v(%.1f, %.1f, %.1f)\n", v.m_fX, v.m_fY, v.m_fZ);	/*Vector3 p;	p = p.GetPerpVector(u, v);	printf("p(%.1f, %.1f, %.1f)\n", p.m_fX, p.m_fY, p.m_fZ);*/	u.Normalise();	v.Normalise();	printf("u(%.1f, %.1f, %.1f)\n", u.m_fX, u.m_fY, u.m_fZ);	printf("v(%.1f, %.1f, %.1f)\n", v.m_fX, v.m_fY, v.m_fZ);	float angle;	Vector3 q;	angle = q.GetAngleBetween(u, v);	printf("angle: %.4f\n", angle);	getchar();	return 0;}
+}
+
+int main(int argc, char* argv[])
+{
+	std::cout << "Have " << argc << " arguments:" << std::endl;
+	for (int i = 0; i < argc; ++i)
+	{
+		std::cout << argv[i] << std::endl;
+	}
+
+
+	Vector3 u(1, 2, 3);
+	Vector3 v(4, 2, 6);
+
+	printf("u(%.1f, %.1f, %.1f)\n", u.m_fX, u.m_fY, u.m_fZ);
+	printf("v(%.1f, %.1f, %.1f)\n", v.m_fX, v.m_fY, v.m_fZ);
+
+
+	/*Vector3 p;
+
+	p = p.GetPerpVector(u, v);
+
+	printf("p(%.1f, %.1f, %.1f)\n", p.m_fX, p.m_fY, p.m_fZ);*/
+
+
+	u.Normalise();
+	v.Normalise();
+	printf("u(%.1f, %.1f, %.1f)\n", u.m_fX, u.m_fY, u.m_fZ);
+	printf("v(%.1f, %.1f, %.1f)\n", v.m_fX, v.m_fY, v.m_fZ);
+
+	float angle;
+	Vector3 q;
+
+	angle = q.GetAngleBetween(u, v);
+
+	printf("angle: %.4f\n", angle);
+
+	getchar();
+
+	return 0;
+}
+
 #pragma endregion
