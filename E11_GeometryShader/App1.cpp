@@ -176,15 +176,16 @@ bool App1::render()
 	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	worldMatrix = renderer->getWorldMatrix();
 
-	//XMMATRIX matrix1Translation = DirectX::XMMatrixTranslation(2.0f, 0.0f, 0.0f);
-	//XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(rotate);
+	XMMATRIX matrix1Translation = DirectX::XMMatrixTranslation(2.0f, 0.0f, 0.0f);
+	XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(light_y);
 	// orbit
-	//worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
+	worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
 	// translate and rotate
 	//worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
 
-	//XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(2.0f, 2.0f, 1.0f);
-	//worldMatrix *= matrix1Scaling;
+	// scaling
+	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(2.0f, 2.0f, 1.0f);
+	worldMatrix *= matrix1Scaling;
 
 	viewMatrix = camera->getViewMatrix();
 
