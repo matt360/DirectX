@@ -36,6 +36,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E3_SpecularLighting", "E3_S
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E11_GeometryShader", "E11_GeometryShader\E11_GeometryShader.vcxproj", "{8553CDFB-FC2F-43E9-BC77-A2822C254D7B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E12_ImGui", "E12_ImGui\E12_ImGui.vcxproj", "{D315E1F2-411F-4888-A405-F2F3FD399B48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -136,6 +138,14 @@ Global
 		{8553CDFB-FC2F-43E9-BC77-A2822C254D7B}.Release|Win32.ActiveCfg = Release|Win32
 		{8553CDFB-FC2F-43E9-BC77-A2822C254D7B}.Release|Win32.Build.0 = Release|Win32
 		{8553CDFB-FC2F-43E9-BC77-A2822C254D7B}.Release|x64.ActiveCfg = Release|Win32
+		{D315E1F2-411F-4888-A405-F2F3FD399B48}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D315E1F2-411F-4888-A405-F2F3FD399B48}.Debug|Win32.Build.0 = Debug|Win32
+		{D315E1F2-411F-4888-A405-F2F3FD399B48}.Debug|x64.ActiveCfg = Debug|x64
+		{D315E1F2-411F-4888-A405-F2F3FD399B48}.Debug|x64.Build.0 = Debug|x64
+		{D315E1F2-411F-4888-A405-F2F3FD399B48}.Release|Win32.ActiveCfg = Release|Win32
+		{D315E1F2-411F-4888-A405-F2F3FD399B48}.Release|Win32.Build.0 = Release|Win32
+		{D315E1F2-411F-4888-A405-F2F3FD399B48}.Release|x64.ActiveCfg = Release|x64
+		{D315E1F2-411F-4888-A405-F2F3FD399B48}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
