@@ -32,7 +32,7 @@ private:
 	// mesh
 	// light
 	void initLight();
-	Light* m_Light;
+	Light* light;
 	// render function
 	void triangleColourShader();
 

@@ -99,12 +99,12 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 
 void GraphicsApp::initLight()
 {
-	m_Light = new Light;
-	m_Light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
-	m_Light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	m_Light->setDirection(0.5, -0.5f, 0.0f);
-	m_Light->setSpecularPower(16.f);
-	m_Light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light = new Light;
+	light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
+	light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light->setDirection(0.5, -0.5f, 0.0f);
+	light->setSpecularPower(16.f);
+	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void GraphicsApp::loadTextures()
@@ -147,7 +147,7 @@ void GraphicsApp::triangleColourShader()
 	sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	//// Set shader parameters (matrices and texture)
-	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
+	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light, camera);
 	//// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 
