@@ -10,7 +10,7 @@
 //          auto-gen mipmap support.
 //
 // Note these functions are useful for images created as simple 2D textures. For
-// more complex resources, DDSTextureLoader is an excellent light-weight runtime loader.
+// more complex resources, DDSTextureLoader is an excellent specular_light-weight runtime loader.
 // For a full-featured DDS file reader, writer, and texture processing pipeline see
 // the 'Texconv' sample and the 'DirectXTex' library.
 //

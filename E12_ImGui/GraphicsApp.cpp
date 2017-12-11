@@ -16,6 +16,11 @@ GraphicsApp::GraphicsApp()
 	lightShader = nullptr;
 	tessellationShader = nullptr;
 	terrainShader = nullptr;
+	multiLightShader = nullptr;
+	light0_ = nullptr; 
+	light1_ = nullptr;
+	light2_ = nullptr;
+	light3_ = nullptr;
 }
 
 // Release the Direct3D objects
@@ -81,18 +86,9 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
 	// Create mesh objects
-	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
-	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
-	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
-	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
-	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
-	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
-
+	initGeometry();
 	// create shader handlers
-	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
-	lightShader = new LightShader(renderer->getDevice(), hwnd);
-	terrainShader = new TerrainShader(renderer->getDevice(), hwnd);
-
+	initShaders(hwnd);
 	initLight();
 	loadTextures();
 	initGui();
@@ -100,12 +96,13 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 
 void GraphicsApp::initLight()
 {
-	light = new Light;
-	light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
-	light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light->setDirection(0.5, -0.5f, 0.0f);
-	light->setSpecularPower(16.f);
-	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	// 
+	specular_light = new Light;
+	specular_light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
+	specular_light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	specular_light->setDirection(0.5, -0.5f, 0.0f);
+	specular_light->setSpecularPower(16.f);
+	specular_light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 
 	light_terrain = new Light;
 	light_terrain->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
@@ -124,6 +121,24 @@ void GraphicsApp::loadTextures()
 	textureMgr->loadTexture("bunny", L"../res/bunny.png");
 	textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
 	textureMgr->loadTexture("height", L"../res/height.png");
+}
+
+void GraphicsApp::initGeometry()
+{
+	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
+	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
+	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
+	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
+	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
+}
+
+void GraphicsApp::initShaders(HWND hwnd)
+{
+	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
+	lightShader = new LightShader(renderer->getDevice(), hwnd);
+	terrainShader = new TerrainShader(renderer->getDevice(), hwnd);
+	multiLightShader = new MultiLightShader(renderer->getDevice(), hwnd);
 }
 
 void GraphicsApp::initGui()
@@ -188,7 +203,7 @@ void GraphicsApp::renderSpecularLightExample()
 	//mesh->sendData(renderer->getDeviceContext());
 	sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	// Set shader parameters (matrices and texture)
-	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light, camera);
+	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), specular_light, camera);
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 

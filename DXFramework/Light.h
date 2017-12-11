@@ -1,5 +1,5 @@
 // Light class
-// Represents a single light object. Storing ambient, diffuse and specular colour, specular power and direction/position.
+// Represents a single specular_light object. Storing ambient, diffuse and specular colour, specular power and direction/position.
 // Additional generates view, projection and ortho matrices used in shadow mapping.
 
 #ifndef _LIGHT_H_

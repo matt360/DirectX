@@ -4,10 +4,10 @@
 
 // Includes
 #include "../DXFramework/DXF.h"
-#include "ColourShader.h"
 #include "TessellationShader.h"
 #include "LightShader.h"
 #include "TerrainShader.h"
+#include "MultiLightShader.h"
 
 class GraphicsApp : public BaseApplication
 {
@@ -25,16 +25,19 @@ protected:
 
 private:
 	// CONSTRUCTOR
+	void initVariables();
+	void initShaders(HWND hwnd);
+	void initGeometry();
 	void loadTextures();
+	void initLight();
 	
 	// SPECULAR LIGHT ////////////////////
 	bool specular_light_wireframe;
 	// shader handler
 	LightShader* lightShader;
 	// mesh
-	// light
-	void initLight();
-	Light* light;
+	// specular_light
+	Light* specular_light;
 	// render function
 	bool specular_light_example;
 	void renderSpecularLightExample();
@@ -59,12 +62,21 @@ private:
 	// TERRAIN ///////////////////////////
 	bool terrain_wireframe;
 	TerrainShader* terrainShader;
-	// light
+	// specular_light
 	Light* light_terrain;
 	float light_terrain_y;
 	// render function
 	bool terrain_example;
 	void renderTerrainExample();
+	//////////////////////////////////////
+
+	// MULTI LIGHTS //////////////////////
+	MultiLightShader* multiLightShader;
+
+	Light *light0_, *light1_, *light2_, *light3_;
+	//SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;
+
+	float light_y;
 	//////////////////////////////////////
 
 	////////////// ImGUI /////////////////

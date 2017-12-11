@@ -19,63 +19,54 @@
     <Filter Include="Resource Files\Tesselation">
       <UniqueIdentifier>{4f79edf8-dcd0-4e1c-be8b-26699f1aa072}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Specular Light">
-      <UniqueIdentifier>{f8164cd4-3aff-4452-8e11-30ad159c4727}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Tessellation">
-      <UniqueIdentifier>{30bc5081-0d5f-4204-a648-e4a1b69af5a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Specular Light">
-      <UniqueIdentifier>{44779985-f392-4560-bf6d-cbd7998d97da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Terrain">
-      <UniqueIdentifier>{90bd52c0-3b1c-4e83-9b1d-18e44669fff9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\Terrain">
       <UniqueIdentifier>{94bad596-d63b-41d2-8de3-d51a078fffd0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Terrain">
-      <UniqueIdentifier>{126b6374-148e-4af4-ac4d-de07afddf533}</UniqueIdentifier>
+    <Filter Include="Resource Files\MultiLight">
+      <UniqueIdentifier>{8baee4c0-1a1a-4163-ac81-aa0a2b3fb7ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Tessellation">
-      <UniqueIdentifier>{279a9c13-d112-45da-b3d1-af8905fd55e5}</UniqueIdentifier>
+    <Filter Include="Header Files\Shader Handlers">
+      <UniqueIdentifier>{48b897a5-2694-4b57-b1c5-2c6702f74f78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shader Handlers">
+      <UniqueIdentifier>{bad3753c-6273-408f-b032-920386dff1e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ColourShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TessellationShader.cpp">
-      <Filter>Source Files\Tessellation</Filter>
+    <ClCompile Include="TerrainShader.cpp">
+      <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
     <ClCompile Include="LightShader.cpp">
-      <Filter>Source Files\Specular Light</Filter>
+      <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="TerrainShader.cpp">
-      <Filter>Source Files\Terrain</Filter>
+    <ClCompile Include="TessellationShader.cpp">
+      <Filter>Source Files\Shader Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiLightShader.cpp">
+      <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ColourShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicsApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TerrainShader.h">
+      <Filter>Header Files\Shader Handlers</Filter>
+    </ClInclude>
     <ClInclude Include="TessellationShader.h">
-      <Filter>Header Files\Tessellation</Filter>
+      <Filter>Header Files\Shader Handlers</Filter>
     </ClInclude>
     <ClInclude Include="LightShader.h">
-      <Filter>Header Files\Specular Light</Filter>
+      <Filter>Header Files\Shader Handlers</Filter>
     </ClInclude>
-    <ClInclude Include="TerrainShader.h">
-      <Filter>Header Files\Terrain</Filter>
+    <ClInclude Include="MultiLightShader.h">
+      <Filter>Header Files\Shader Handlers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +99,12 @@
     </FxCompile>
     <FxCompile Include="shaders\terrain_vs.hlsl">
       <Filter>Resource Files\Terrain</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\multi_light_vs.hlsl">
+      <Filter>Resource Files\MultiLight</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\multi_light_ps.hlsl">
+      <Filter>Resource Files\MultiLight</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
