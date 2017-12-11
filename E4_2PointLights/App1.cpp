@@ -8,7 +8,7 @@ App1::App1()
 	triangleMesh = nullptr;
 	sphereMesh = nullptr;
 	quadMesh = nullptr;
-	lightShader = nullptr;
+	multiLightShader = nullptr;
 }
 
 void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -41,7 +41,7 @@ void App1::initTextures()
 
 void App1::initShaders(HWND hwnd)
 {
-	lightShader = new MultiLightShader(renderer->getDevice(), hwnd);
+	multiLightShader = new MultiLightShader(renderer->getDevice(), hwnd);
 }
 
 void App1::initGeometry()
@@ -136,10 +136,10 @@ App1::~App1()
 		planeMesh = 0;
 	}
 
-	if (lightShader)
+	if (multiLightShader)
 	{
-		delete lightShader;
-		lightShader = 0;
+		delete multiLightShader;
+		multiLightShader = 0;
 	}
 
 	if (light0_)
@@ -301,8 +301,8 @@ bool App1::render()
 	//planeMesh->sendData(renderer->getDeviceContext());
 
 	// Set shader parameters (matrices and texture)
-	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
-	lightShader->setShaderParameters
+	//multiLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
+	multiLightShader->setShaderParameters
 	(
 		renderer->getDeviceContext(), 
 		worldMatrix, 
@@ -314,15 +314,15 @@ bool App1::render()
 	);
 
 	// Render object (combination of mesh geometry and shader process
-	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
-	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	//multiLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	multiLightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//multiLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	//multiLightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	//multiLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// PLANE MESH
 	//planeMesh->sendData(renderer->getDeviceContext());
-	//lightShader->setShaderParameters
+	//multiLightShader->setShaderParameters
 	//(
 	//	renderer->getDeviceContext(),
 	//	worldMatrix,
@@ -332,7 +332,7 @@ bool App1::render()
 	//	diffuseColor,
 	//	lightPosition
 	//);
-	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	//multiLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// Render GUI
 	gui();

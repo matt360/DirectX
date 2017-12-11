@@ -35,7 +35,7 @@ private:
 	QuadMesh* quadMesh;
 	PlaneMesh* planeMesh;
 
-	MultiLightShader* lightShader;
+	MultiLightShader* multiLightShader;
 	
 	Light *light0_, *light1_, *light2_, *light3_;
 	SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;

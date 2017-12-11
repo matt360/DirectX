@@ -17,10 +17,10 @@ GraphicsApp::GraphicsApp()
 	tessellationShader = nullptr;
 	terrainShader = nullptr;
 	multiLightShader = nullptr;
-	light0_ = nullptr; 
+	/*light0_ = nullptr; 
 	light1_ = nullptr;
 	light2_ = nullptr;
-	light3_ = nullptr;
+	light3_ = nullptr;*/
 }
 
 // Release the Direct3D objects
