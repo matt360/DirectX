@@ -52,7 +52,7 @@ private:
 	PlaneMesh *planeMesh;
 	TerrainMesh *terrainMesh;
 	// render function
-	bool tessellation_shader;
+	bool tessellation_example;
 	void renderTessellationExample();
 	//////////////////////////////////////
 

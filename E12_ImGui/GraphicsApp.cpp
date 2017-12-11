@@ -138,7 +138,7 @@ void GraphicsApp::initGui()
 
 	// display example handlers
 	specular_light_example = false;
-	tessellation_shader = false;
+	tessellation_example = false;
 }
 
 bool GraphicsApp::frame()
@@ -283,7 +283,7 @@ void GraphicsApp::renderTerrainExample()
 	//cubeMesh->sendData(renderer->getDeviceContext());
 	//quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
 	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
-	terrainMesh->sendData(renderer->getDeviceContext());
+	terrainMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	//// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
@@ -307,8 +307,8 @@ void GraphicsApp::renderTerrainExample()
 bool GraphicsApp::render()
 {
 	if (specular_light_example) renderSpecularLightExample();
-	else if (tessellation_shader) renderTessellationExample();
-	//else if ()
+	else if (tessellation_example) renderTessellationExample();
+	else if (terrain_example) renderTerrainExample();
 	else
 	{
 		//// Clear the scene. (default blue colour)
@@ -335,28 +335,43 @@ void GraphicsApp::gui()
 	ImGui::Text("FPS: %.2f", timer->getFPS());
 	if (ImGui::Button("Specular Light Example"))
 	{
-		tessellation_shader = false;
+		tessellation_example = false;
+		terrain_example = false;
 		specular_light_example ^= 1;
 	}
+	// Buttons
 	if (ImGui::Button("Tessellation Example"))
 	{
 		specular_light_example = false;
-		tessellation_shader ^= 1;
+		terrain_example = false;
+		tessellation_example ^= 1;
 	}
-
+	if (ImGui::Button("Terrain Example"))
+	{
+		specular_light_example = false;
+		tessellation_example = false;
+		terrain_example ^= 1;
+	}
+	// Handle displaying the example
 	if (specular_light_example)
 	{
 		ImGui::Begin("Specular Light", &specular_light_example);
-		ImGui::ColorEdit3("Colour", (float*)&clear_col);
+		//ImGui::ColorEdit3("Colour", (float*)&clear_col);
 		ImGui::Checkbox("Wireframe", &specular_light_wireframe);
 		ImGui::End();
 	}
-
-	if (tessellation_shader)
+	if (tessellation_example)
 	{
-		ImGui::Begin("Tessellation", &tessellation_shader);
-		ImGui::ColorEdit3("Colour", (float*)&clear_col);
+		ImGui::Begin("Tessellation", &tessellation_example);
+		//ImGui::ColorEdit3("Colour", (float*)&clear_col);
 		ImGui::Checkbox("Wireframe", &tessellation_wireframe);
+		ImGui::End();
+	}
+	if (terrain_example)
+	{
+		ImGui::Begin("Terrain", &tessellation_example);
+		//ImGui::ColorEdit3("Colour", (float*)&clear_col);
+		ImGui::Checkbox("Wireframe", &terrain_wireframe);
 		ImGui::End();
 	}
 
