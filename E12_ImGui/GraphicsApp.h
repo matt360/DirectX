@@ -5,6 +5,7 @@
 // Includes
 #include "../DXFramework/DXF.h"
 #include "ColourShader.h"
+#include "App9.h"
 
 class GraphicsApp : public BaseApplication
 {
@@ -25,7 +26,9 @@ private:
 	TriangleMesh* mesh;
 	ImVec4 clear_col;
 	bool isWireframe;
+
 	void triangleColourShader();
+	bool isTriangleColourShader;
 };
 
 #endif

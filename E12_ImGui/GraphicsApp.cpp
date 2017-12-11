@@ -18,6 +18,7 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	colourShader = new ColourShader(renderer->getDevice(), hwnd);
 	clear_col = ImColor(114, 144, 154);
 	isWireframe = false;
+	isTriangleColourShader = false;
 }
 
 
@@ -63,11 +64,6 @@ bool GraphicsApp::frame()
 
 void GraphicsApp::triangleColourShader()
 {
-
-}
-
-bool GraphicsApp::render()
-{
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
 	//// Clear the scene. (default blue colour)
@@ -90,13 +86,25 @@ bool GraphicsApp::render()
 	//// Render object (combination of mesh geometry and shader process
 	colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 
-	
 	// Render GUI
 	gui();
 
 	//// Present the rendered scene to the screen.
 	renderer->endScene();
+}
 
+bool GraphicsApp::render()
+{
+	if (isTriangleColourShader) triangleColourShader();
+	else
+	{
+		//// Clear the scene. (default blue colour)
+		renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+		// Render GUI
+		gui();
+		//// Present the rendered scene to the screen.
+		renderer->endScene();
+	}
 	return true;
 }
 
@@ -112,6 +120,7 @@ void GraphicsApp::gui()
 	ImGui::Text("FPS: %.2f", timer->getFPS());
 	ImGui::ColorEdit3("Colour", (float*)&clear_col);
 	ImGui::Checkbox("Wireframe", &isWireframe);
+	ImGui::Checkbox("Triangle Colour Shader", &isTriangleColourShader);
 
 	// Render UI
 	ImGui::Render();

@@ -17,14 +17,16 @@ The coursework should also demonstrate key graphical techniques such as:
 
 #include "../DXFramework/System.h"
 #include "GraphicsApp.h"
+#include "App9.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, int iCmdshow)
 {
-	GraphicsApp* app = new GraphicsApp();
-	System* m_System;
+	BaseApplication* app = new GraphicsApp();
+	BaseApplication* app9 = new App9();
 
+	System* m_System;
 	// Create the system object.
-	m_System = new System(app);
+	m_System = new System(app9);
 
 	// Initialize and run the system object.
 	m_System->run();
