@@ -25,6 +25,7 @@ public:
 	~Camera();
 
 	void setPosition(float lx, float ly, float lz);
+	void setPosition(XMFLOAT3 pos);
 	void setRotation(float lx, float ly, float lz);
 
 	XMFLOAT3 getPosition();

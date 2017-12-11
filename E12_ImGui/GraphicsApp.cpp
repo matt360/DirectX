@@ -132,8 +132,9 @@ void GraphicsApp::renderSpecularLightExample()
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
+	camera->setPosition(camera_specular_light_last_position);
 	camera->update();
-
+	camera_specular_light_last_position = camera->getPosition();
 	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	worldMatrix = renderer->getWorldMatrix();
 	viewMatrix = camera->getViewMatrix();
@@ -167,7 +168,7 @@ void GraphicsApp::renderTessellationExample()
 
 	// Generate the view matrix based on the camera's position.
 	camera->update();
-
+	camera_tessellation_last_position = camera->getPosition();
 	// wireframe mode
 	renderer->setWireframeMode(tessellation_wireframe);
 

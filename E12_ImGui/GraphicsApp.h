@@ -28,7 +28,7 @@ private:
 	void initCameras();
 	// SPECULAR LIGHT ////////////////
 	// Camera
-	
+	XMFLOAT3 camera_specular_light_last_position;
 	// wireframe
 	bool specular_light_wireframe;
 	// shader handler
@@ -42,7 +42,7 @@ private:
 
 	// TESSELLATION //////////////////
 	// Camera
-	
+	XMFLOAT3 camera_tessellation_last_position;
 	bool tessellation_wireframe;
 	// shader handler
 	TessellationShader* tessellationShader;
