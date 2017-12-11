@@ -1,14 +1,14 @@
 // texture shader.cpp
-#include "lightshader.h"
+#include "SpecularLightShader.h"
 
 
-LightShader::LightShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
+SpecularLightShader::SpecularLightShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
 {
 	// compiled shader object
-	initShader(L"light_vs.cso", L"light_ps.cso");
+	initShader(L"spec_light_vs.cso", L"spec_light_ps.cso");
 }
 
-LightShader::~LightShader()
+SpecularLightShader::~SpecularLightShader()
 {
 	// Release the sampler state.
 	if (sampleState)
@@ -48,7 +48,7 @@ LightShader::~LightShader()
 }
 
 
-void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
+void SpecularLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 {
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	D3D11_SAMPLER_DESC samplerDesc;
@@ -113,7 +113,7 @@ void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
 }
 
-void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, Camera* camera)
+void SpecularLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, Camera* camera)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -176,7 +176,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->PSSetShaderResources(0, 1, &texture);
 }
 
-void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light)
+void SpecularLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -229,7 +229,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->PSSetShaderResources(0, 1, &texture);
 }
 
-void LightShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
+void SpecularLightShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {
 	// Set the sampler state in the pixel shader.
 	deviceContext->PSSetSamplers(0, 1, &sampleState);

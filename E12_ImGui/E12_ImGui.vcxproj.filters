@@ -42,13 +42,13 @@
     <ClCompile Include="TerrainShader.cpp">
       <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="LightShader.cpp">
-      <Filter>Source Files\Shader Handlers</Filter>
-    </ClCompile>
     <ClCompile Include="TessellationShader.cpp">
       <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
     <ClCompile Include="MultiLightShader.cpp">
+      <Filter>Source Files\Shader Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="SpecularLightShader.cpp">
       <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,10 +62,10 @@
     <ClInclude Include="TessellationShader.h">
       <Filter>Header Files\Shader Handlers</Filter>
     </ClInclude>
-    <ClInclude Include="LightShader.h">
+    <ClInclude Include="MultiLightShader.h">
       <Filter>Header Files\Shader Handlers</Filter>
     </ClInclude>
-    <ClInclude Include="MultiLightShader.h">
+    <ClInclude Include="SpecularLightShader.h">
       <Filter>Header Files\Shader Handlers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -94,10 +94,10 @@
     <FxCompile Include="shaders\tessellation_vs.hlsl">
       <Filter>Resource Files\Tesselation</Filter>
     </FxCompile>
-    <FxCompile Include="shaders\light_vs.hlsl">
+    <FxCompile Include="shaders\spec_light_ps.hlsl">
       <Filter>Resource Files\Specular Light</Filter>
     </FxCompile>
-    <FxCompile Include="shaders\light_ps.hlsl">
+    <FxCompile Include="shaders\spec_light_vs.hlsl">
       <Filter>Resource Files\Specular Light</Filter>
     </FxCompile>
   </ItemGroup>

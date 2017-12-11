@@ -1,7 +1,6 @@
 // Light shader.h
 // Basic single light shader setup
-#ifndef _LIGHTSHADER_H_
-#define _LIGHTSHADER_H_
+#pragma once
 
 #include "../DXFramework/BaseShader.h"
 #include "../DXFramework/Light.h"
@@ -11,7 +10,7 @@ using namespace std;
 using namespace DirectX;
 
 
-class LightShader : public BaseShader
+class SpecularLightShader : public BaseShader
 {
 private:
 	struct LightBufferType
@@ -31,8 +30,8 @@ private:
 
 public:
 
-	LightShader(ID3D11Device* device, HWND hwnd);
-	~LightShader();
+	SpecularLightShader(ID3D11Device* device, HWND hwnd);
+	~SpecularLightShader();
 
 	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX& worldMatrix, const XMMATRIX& viewMatrix, const XMMATRIX& projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, Camera* camera);
 	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &world, const XMMATRIX &view, const XMMATRIX &projection, ID3D11ShaderResourceView* texture, Light* light);
@@ -48,5 +47,3 @@ private:
 	ID3D11Buffer* lightBuffer;
 	ID3D11Buffer* cameraBuffer;
 };
-
-#endif

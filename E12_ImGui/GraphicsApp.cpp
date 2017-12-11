@@ -214,7 +214,7 @@ void GraphicsApp::initGeometry()
 void GraphicsApp::initShaders(HWND hwnd)
 {
 	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
-	lightShader = new LightShader(renderer->getDevice(), hwnd);
+	lightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
 	terrainShader = new TerrainShader(renderer->getDevice(), hwnd);
 	multiLightShader = new MultiLightShader(renderer->getDevice(), hwnd);
 }

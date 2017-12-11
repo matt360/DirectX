@@ -1,11 +1,10 @@
 // Application.h
-#ifndef _APP1_H
-#define _APP1_H
+#pragma once
 
 // Includes
 #include "../DXFramework/DXF.h"
 #include "TessellationShader.h"
-#include "LightShader.h"
+#include "SpecularLightShader.h"
 #include "TerrainShader.h"
 #include "MultiLightShader.h"
 
@@ -34,7 +33,7 @@ private:
 	// SPECULAR LIGHT ////////////////////
 	bool specular_light_wireframe;
 	// shader handler
-	LightShader* lightShader;
+	SpecularLightShader* lightShader;
 	// mesh
 	// specular_light
 	Light* specular_light;
@@ -91,5 +90,3 @@ private:
 	// math
 	float clamp(float n, float lower, float upper);
 };
-
-#endif
