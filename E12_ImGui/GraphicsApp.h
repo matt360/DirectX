@@ -26,7 +26,7 @@ private:
 	// CONSTRUCTOR
 	void loadTextures();
 
-	// TRIANGLE COLOUR SHADER //
+	// SPECULAR LIGHT //
 	// shader handler
 	LightShader* lightShader;
 	// mesh
@@ -34,7 +34,7 @@ private:
 	void initLight();
 	Light* light;
 	// render function
-	void triangleColourShader();
+	void renderSpecularLightExample();
 
 	// TESSELLATION //
 	// shader handler
@@ -47,7 +47,7 @@ private:
 	PlaneMesh *planeMesh;
 	TerrainMesh *terrainMesh;
 	// render function
-	void tessellationTerrain();
+	void renderTessellationExample();
 
 	////////////// ImGUI ///////////
 	void initGui();

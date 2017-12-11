@@ -124,7 +124,7 @@ void GraphicsApp::initGui()
 	tessellation_shader = false;
 }
 
-void GraphicsApp::triangleColourShader()
+void GraphicsApp::renderSpecularLightExample()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
@@ -158,7 +158,7 @@ void GraphicsApp::triangleColourShader()
 	renderer->endScene();
 }
 
-void GraphicsApp::tessellationTerrain()
+void GraphicsApp::renderTessellationExample()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
@@ -266,8 +266,8 @@ bool GraphicsApp::frame()
 
 bool GraphicsApp::render()
 {
-	if (triangle_colour_shader) triangleColourShader();
-	else if (tessellation_shader) tessellationTerrain();
+	if (triangle_colour_shader) renderSpecularLightExample();
+	else if (tessellation_shader) renderTessellationExample();
 	else
 	{
 		//// Clear the scene. (default blue colour)
