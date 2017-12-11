@@ -119,7 +119,8 @@ void GraphicsApp::initGui()
 {
 	// set colour variable for UI controls.
 	clear_col = ImColor(114, 144, 154);
-	isWireframe = false;
+	light_wireframe = false;
+	tessellation_wireframe = false;
 	triangle_colour_shader = false;
 	tessellation_shader = false;
 }
@@ -140,7 +141,7 @@ void GraphicsApp::renderSpecularLightExample()
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// wireframe mode
-	renderer->setWireframeMode(isWireframe);
+	renderer->setWireframeMode(light_wireframe);
 
 	// Send geometry data (from mesh)
 	//mesh->sendData(renderer->getDeviceContext());
@@ -169,7 +170,7 @@ void GraphicsApp::renderTessellationExample()
 	camera->update();
 
 	// wireframe mode
-	renderer->setWireframeMode(isWireframe);
+	renderer->setWireframeMode(tessellation_wireframe);
 
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	worldMatrix = renderer->getWorldMatrix();
@@ -212,13 +213,12 @@ void GraphicsApp::gui()
 	// Build UI
 	//ImGui::Checkbox("Triangle Colour Shader", &triangle_colour_shader);
 	ImGui::Text("FPS: %.2f", timer->getFPS());
-	ImGui::Checkbox("Wireframe", &isWireframe);
-	if (ImGui::Button("Triangle"))
+	if (ImGui::Button("Specular Light Example"))
 	{
 		tessellation_shader = false;
 		triangle_colour_shader ^= 1;
 	}
-	if (ImGui::Button("Tessellation"))
+	if (ImGui::Button("Tessellation Example"))
 	{
 		triangle_colour_shader = false;
 		tessellation_shader ^= 1;
@@ -226,9 +226,9 @@ void GraphicsApp::gui()
 
 	if (triangle_colour_shader)
 	{
-		ImGui::Begin("Triangle Colour Shader", &triangle_colour_shader);
+		ImGui::Begin("Specular Light", &triangle_colour_shader);
 		ImGui::ColorEdit3("Colour", (float*)&clear_col);
-		ImGui::Checkbox("Wireframe", &isWireframe);
+		ImGui::Checkbox("Wireframe", &light_wireframe);
 		ImGui::End();
 	}
 
@@ -236,7 +236,7 @@ void GraphicsApp::gui()
 	{
 		ImGui::Begin("Tessellation", &tessellation_shader);
 		ImGui::ColorEdit3("Colour", (float*)&clear_col);
-		ImGui::Checkbox("Wireframe", &isWireframe);
+		ImGui::Checkbox("Wireframe", &tessellation_wireframe);
 		ImGui::End();
 	}
 

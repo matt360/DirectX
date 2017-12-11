@@ -27,6 +27,8 @@ private:
 	void loadTextures();
 
 	// SPECULAR LIGHT //
+	// wireframe
+	bool light_wireframe;
 	// shader handler
 	LightShader* lightShader;
 	// mesh
@@ -37,6 +39,7 @@ private:
 	void renderSpecularLightExample();
 
 	// TESSELLATION //
+	bool tessellation_wireframe;
 	// shader handler
 	TessellationShader* tessellationShader;
 	// meshes
@@ -53,7 +56,6 @@ private:
 	void initGui();
 
 	ImVec4 clear_col;
-	bool isWireframe;
 	bool triangle_colour_shader;
 	bool tessellation_shader;
 	////////////////////////////////
