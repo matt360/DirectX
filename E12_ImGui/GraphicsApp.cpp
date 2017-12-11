@@ -18,8 +18,7 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	colourShader = new ColourShader(renderer->getDevice(), hwnd);
 	clear_col = ImColor(114, 144, 154);
 	isWireframe = false;
-	isTriangleColourShader = false;
-	triangle_colour_shader_window = false;
+	triangle_colour_shader = false;
 }
 
 
@@ -96,7 +95,7 @@ void GraphicsApp::triangleColourShader()
 
 bool GraphicsApp::render()
 {
-	if (triangle_colour_shader_window) triangleColourShader();
+	if (triangle_colour_shader) triangleColourShader();
 	else
 	{
 		//// Clear the scene. (default blue colour)
@@ -118,34 +117,18 @@ void GraphicsApp::gui()
 	renderer->setWireframeMode(false);
 
 	// Build UI
-	ImGui::Checkbox("Triangle Colour Shader", &isTriangleColourShader);
-	if (ImGui::Button("Another Window")) triangle_colour_shader_window ^= 1;
+	//ImGui::Checkbox("Triangle Colour Shader", &triangle_colour_shader);
 	ImGui::Text("FPS: %.2f", timer->getFPS());
+	if (ImGui::Button("Triangle")) triangle_colour_shader ^= 1;
 
-	if (triangle_colour_shader_window)
+	if (triangle_colour_shader)
 	{
-		ImGui::Begin("Triangle Colour Shader", &triangle_colour_shader_window);
+		ImGui::Begin("Triangle Colour Shader", &triangle_colour_shader);
+		ImGui::ColorEdit3("Colour", (float*)&clear_col);
+		ImGui::Checkbox("Wireframe", &isWireframe);
 		ImGui::End();
 	}
 
-	// Render UI
-	ImGui::Render();
-}
-
-void GraphicsApp::trianglegui()
-{
-	// Force turn off on Geometry shader and force fill rendering
-	renderer->getDeviceContext()->GSSetShader(NULL, NULL, 0);
-	renderer->getDeviceContext()->HSSetShader(NULL, NULL, 0);
-	renderer->getDeviceContext()->DSSetShader(NULL, NULL, 0);
-	renderer->setWireframeMode(false);
-
-	// Build UI
-	ImGui::Checkbox("Triangle Colour Shader", &isTriangleColourShader);
-	ImGui::Text("FPS: %.2f", timer->getFPS());
-	ImGui::ColorEdit3("Colour", (float*)&clear_col);
-	ImGui::Checkbox("Wireframe", &isWireframe);
-	
 	// Render UI
 	ImGui::Render();
 }

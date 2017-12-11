@@ -27,10 +27,8 @@ private:
 	ImVec4 clear_col;
 	bool isWireframe;
 
+	bool triangle_colour_shader;
 	void triangleColourShader();
-	void trianglegui();
-	bool isTriangleColourShader;
-	bool triangle_colour_shader_window;
 };
 
 #endif
