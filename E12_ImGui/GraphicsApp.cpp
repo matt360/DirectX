@@ -17,10 +17,10 @@ GraphicsApp::GraphicsApp()
 	tessellationShader = nullptr;
 	terrainShader = nullptr;
 	multiLightShader = nullptr;
-	/*light0_ = nullptr; 
+	light0_ = nullptr; 
 	light1_ = nullptr;
 	light2_ = nullptr;
-	light3_ = nullptr;*/
+	light3_ = nullptr;
 }
 
 // Release the Direct3D objects
@@ -189,7 +189,6 @@ void GraphicsApp::initLight()
 	//light3_->setDirection(0.0, 0.0f, 0.0f);
 	//light3_->setSpecularPower(16.f);
 	//light3_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	// light y position
 }
 
 void GraphicsApp::loadTextures()
@@ -451,7 +450,7 @@ void GraphicsApp::renderMultiLightExample()
 	//planeMesh->sendData(renderer->getDeviceContext());
 
 	// Set shader parameters (matrices and texture)
-	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
+	//multiLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
 	multiLightShader->setShaderParameters
 	(
 		renderer->getDeviceContext(),
@@ -523,25 +522,25 @@ void GraphicsApp::gui()
 	ImGui::Text("FPS: %.2f", timer->getFPS());
 	if (ImGui::Button("Specular Light Example"))
 	{
+		specular_light_example ^= 1;
 		tessellation_example = false;
 		terrain_example = false;
 		multi_light_example = false;
-		specular_light_example ^= 1;
 	}
 	// Buttons
 	if (ImGui::Button("Tessellation Example"))
 	{
 		specular_light_example = false;
+		tessellation_example ^= 1;
 		terrain_example = false;
 		multi_light_example = false;
-		tessellation_example ^= 1;
 	}
 	if (ImGui::Button("Terrain Example"))
 	{
 		specular_light_example = false;
 		tessellation_example = false;
-		multi_light_example = false;
 		terrain_example ^= 1;
+		multi_light_example = false;
 	}
 	if (ImGui::Button("Multi Light Example"))
 	{

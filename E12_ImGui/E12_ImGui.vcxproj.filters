@@ -70,30 +70,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shaders\colour_ps.hlsl">
-      <Filter>Resource Files</Filter>
-    </FxCompile>
-    <FxCompile Include="shaders\colour_vs.hlsl">
-      <Filter>Resource Files</Filter>
-    </FxCompile>
-    <FxCompile Include="shaders\light_vs.hlsl">
-      <Filter>Resource Files\Tesselation</Filter>
-    </FxCompile>
-    <FxCompile Include="shaders\light_ps.hlsl">
-      <Filter>Resource Files\Tesselation</Filter>
-    </FxCompile>
-    <FxCompile Include="shaders\tessellation_ds.hlsl">
-      <Filter>Resource Files\Specular Light</Filter>
-    </FxCompile>
-    <FxCompile Include="shaders\tessellation_hs.hlsl">
-      <Filter>Resource Files\Specular Light</Filter>
-    </FxCompile>
-    <FxCompile Include="shaders\tessellation_ps.hlsl">
-      <Filter>Resource Files\Specular Light</Filter>
-    </FxCompile>
-    <FxCompile Include="shaders\tessellation_vs.hlsl">
-      <Filter>Resource Files\Specular Light</Filter>
-    </FxCompile>
     <FxCompile Include="shaders\terrain_ps.hlsl">
       <Filter>Resource Files\Terrain</Filter>
     </FxCompile>
@@ -105,6 +81,24 @@
     </FxCompile>
     <FxCompile Include="shaders\multi_light_ps.hlsl">
       <Filter>Resource Files\MultiLight</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\tessellation_ds.hlsl">
+      <Filter>Resource Files\Tesselation</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\tessellation_hs.hlsl">
+      <Filter>Resource Files\Tesselation</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\tessellation_ps.hlsl">
+      <Filter>Resource Files\Tesselation</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\tessellation_vs.hlsl">
+      <Filter>Resource Files\Tesselation</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\light_vs.hlsl">
+      <Filter>Resource Files\Specular Light</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\light_ps.hlsl">
+      <Filter>Resource Files\Specular Light</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
