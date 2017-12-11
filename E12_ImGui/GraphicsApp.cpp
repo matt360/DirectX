@@ -177,7 +177,7 @@ void GraphicsApp::tessellationTerrain()
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// Send geometry data (from mesh)
-	triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+	terrainMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
 	//sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
 	//cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
 	//quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
@@ -188,7 +188,7 @@ void GraphicsApp::tessellationTerrain()
 		textureMgr->getTexture("brick"), camera);
 
 	// Render object (combination of mesh geometry and shader process
-	tessellationShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	tessellationShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
 	//tessellationShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 	//tessellationShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 	//tessellationShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
