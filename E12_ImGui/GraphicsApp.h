@@ -7,6 +7,7 @@
 #include "ColourShader.h"
 #include "TessellationShader.h"
 #include "LightShader.h"
+#include "TerrainShader.h"
 
 class GraphicsApp : public BaseApplication
 {
@@ -26,7 +27,7 @@ private:
 	// CONSTRUCTOR
 	void loadTextures();
 	
-	// SPECULAR LIGHT ////////////////
+	// SPECULAR LIGHT ////////////////////
 	bool specular_light_wireframe;
 	// shader handler
 	LightShader* lightShader;
@@ -35,9 +36,11 @@ private:
 	void initLight();
 	Light* light;
 	// render function
+	bool specular_light_example;
 	void renderSpecularLightExample();
+	//////////////////////////////////////
 
-	// TESSELLATION //////////////////
+	// TESSELLATION //////////////////////
 	bool tessellation_wireframe;
 	// shader handler
 	TessellationShader* tessellationShader;
@@ -49,15 +52,26 @@ private:
 	PlaneMesh *planeMesh;
 	TerrainMesh *terrainMesh;
 	// render function
+	bool tessellation_shader;
 	void renderTessellationExample();
+	//////////////////////////////////////
 
-	////////////// ImGUI ///////////
+	// TERRAIN ///////////////////////////
+	bool terrain_wireframe;
+	TerrainShader* terrainShader;
+	// light
+	Light* light_terrain;
+	float light_terrain_y;
+	// render function
+	bool terrain_example;
+	void renderTerrainExample();
+	//////////////////////////////////////
+
+	////////////// ImGUI /////////////////
 	void initGui();
 
 	ImVec4 clear_col;
-	bool triangle_colour_shader;
-	bool tessellation_shader;
-	////////////////////////////////
+	//////////////////////////////////////
 
 	// math
 	float clamp(float n, float lower, float upper);

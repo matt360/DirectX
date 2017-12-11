@@ -31,6 +31,15 @@
     <Filter Include="Source Files\Specular Light">
       <UniqueIdentifier>{44779985-f392-4560-bf6d-cbd7998d97da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Terrain">
+      <UniqueIdentifier>{90bd52c0-3b1c-4e83-9b1d-18e44669fff9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Terrain">
+      <UniqueIdentifier>{126b6374-148e-4af4-ac4d-de07afddf533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Terrain">
+      <UniqueIdentifier>{94bad596-d63b-41d2-8de3-d51a078fffd0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColourShader.cpp">
@@ -48,6 +57,9 @@
     <ClCompile Include="LightShader.cpp">
       <Filter>Source Files\Specular Light</Filter>
     </ClCompile>
+    <ClCompile Include="TerrainShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColourShader.h">
@@ -61,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="LightShader.h">
       <Filter>Header Files\Specular Light</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainShader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +102,12 @@
     </FxCompile>
     <FxCompile Include="shaders\tessellation_vs.hlsl">
       <Filter>Resource Files\Specular Light</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_ps.hlsl">
+      <Filter>Resource Files\Terrain</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_vs.hlsl">
+      <Filter>Resource Files\Terrain</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
