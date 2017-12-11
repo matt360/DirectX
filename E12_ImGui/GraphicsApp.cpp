@@ -184,6 +184,7 @@ void GraphicsApp::renderTessellationExample()
 	camera->update();
 	// remember camera's last position
 	camera_tessellation_last_position = camera->getPosition();
+
 	// wireframe mode
 	renderer->setWireframeMode(tessellation_wireframe);
 
