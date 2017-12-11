@@ -6,7 +6,7 @@ GraphicsApp::GraphicsApp()
 {
 
 	// shader handlers
-	colourShader = nullptr;
+	lightShader = nullptr;
 	tessellationShader = nullptr;
 
 	// geometry meshes
@@ -25,10 +25,10 @@ GraphicsApp::~GraphicsApp()
 	BaseApplication::~BaseApplication();
 
 	// Release the Direct3D object.
-	if (colourShader)
+	if (lightShader)
 	{
-		delete colourShader;
-		colourShader = 0;
+		delete lightShader;
+		lightShader = 0;
 	}
 
 	// Release the Direct3D object.
@@ -90,12 +90,21 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
 
 	// create shader handlers
-	colourShader = new ColourShader(renderer->getDevice(), hwnd);
 	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
+	lightShader = new LightShader(renderer->getDevice(), hwnd);
 
+	initLight();
 	loadTextures();
-
 	initGui();
+
+}
+
+void GraphicsApp::initLight()
+{
+	light = new Light;
+	light->setAmbientColour(0.1f, 0.1f, 0.1f, 1.0f);
+	light->setDiffuseColour(1.0f, 1.0f, 0.0f, 1.0f);
+	light->setDirection(0.5, 1.5f, 0.0f);
 }
 
 void GraphicsApp::loadTextures()
@@ -103,6 +112,7 @@ void GraphicsApp::loadTextures()
 	// load textures
 	textureMgr->loadTexture("brick", L"../res/brick1.dds");
 	textureMgr->loadTexture("bunny", L"../res/bunny.png");
+	textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
 }
 
 void GraphicsApp::initGui()
@@ -129,14 +139,17 @@ void GraphicsApp::triangleColourShader()
 	viewMatrix = camera->getViewMatrix();
 	projectionMatrix = renderer->getProjectionMatrix();
 
+	// wireframe mode
 	renderer->setWireframeMode(isWireframe);
 
 	//// Send geometry data (from mesh)
-	triangleMesh->sendData(renderer->getDeviceContext());
+	//mesh->sendData(renderer->getDeviceContext());
+	sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
 	//// Set shader parameters (matrices and texture)
-	colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, clear_col);
+	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light);
 	//// Render object (combination of mesh geometry and shader process
-	colourShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 
 	// Render GUI
 	gui();

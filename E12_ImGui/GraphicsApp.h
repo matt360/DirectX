@@ -6,6 +6,7 @@
 #include "../DXFramework/DXF.h"
 #include "ColourShader.h"
 #include "TessellationShader.h"
+#include "LightShader.h"
 
 class GraphicsApp : public BaseApplication
 {
@@ -26,11 +27,13 @@ private:
 	void loadTextures();
 
 	// TRIANGLE COLOUR SHADER //
-	void initTriangleColourShader();
 	// shader
-	ColourShader* colourShader;
+	LightShader* lightShader;
 	// mesh
 	TriangleMesh* mesh;
+	// light
+	void initLight();
+	Light* light;
 	// render function
 	void triangleColourShader();
 
