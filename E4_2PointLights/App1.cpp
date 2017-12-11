@@ -41,7 +41,7 @@ void App1::initTextures()
 
 void App1::initShaders(HWND hwnd)
 {
-	lightShader = new MultipleLightsShader(renderer->getDevice(), hwnd);
+	lightShader = new MultiLightShader(renderer->getDevice(), hwnd);
 }
 
 void App1::initGeometry()

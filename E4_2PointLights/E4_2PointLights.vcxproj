@@ -86,12 +86,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App1.cpp" />
-    <ClCompile Include="MultipleLightsShader.cpp" />
+    <ClCompile Include="MultiLightShader.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App1.h" />
-    <ClInclude Include="MultipleLightsShader.h" />
+    <ClInclude Include="MultiLightShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DXFramework\DXFramework.vcxproj">

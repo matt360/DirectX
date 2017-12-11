@@ -4,7 +4,7 @@
 
 // Includes
 #include "../DXFramework/DXF.h"
-#include "MultipleLightsShader.h"
+#include "MultiLightShader.h"
 
 class App1 : public BaseApplication
 {
@@ -35,7 +35,7 @@ private:
 	QuadMesh* quadMesh;
 	PlaneMesh* planeMesh;
 
-	MultipleLightsShader* lightShader;
+	MultiLightShader* lightShader;
 	
 	Light *light0_, *light1_, *light2_, *light3_;
 	SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;

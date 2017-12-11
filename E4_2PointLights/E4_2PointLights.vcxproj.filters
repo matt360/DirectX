@@ -21,7 +21,7 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MultipleLightsShader.cpp">
+    <ClCompile Include="MultiLightShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="App1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MultipleLightsShader.h">
+    <ClInclude Include="MultiLightShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

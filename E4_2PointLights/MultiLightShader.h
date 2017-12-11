@@ -11,7 +11,7 @@ using namespace DirectX;
 
 const int NUM_LIGHTS = 4;
 
-class MultipleLightsShader : public BaseShader
+class MultiLightShader : public BaseShader
 {
 private:
 	struct CameraBufferType
@@ -33,8 +33,8 @@ private:
 public:
 	// When resources are being created and interfaced with,
 	// the 'device' interface is used.
-	MultipleLightsShader(ID3D11Device* device, HWND hwnd);
-	~MultipleLightsShader();
+	MultiLightShader(ID3D11Device* device, HWND hwnd);
+	~MultiLightShader();
 
 	// When the pipeline or a resource is being manipulated,
 	// the 'device context' is used.

@@ -1,15 +1,15 @@
 // texture shader.cpp
-#include "MultipleLightsShader.h"
+#include "MultiLightShader.h"
 
 // When resources are being created and interfaced with,
 // the device interface is used.
-MultipleLightsShader::MultipleLightsShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
+MultiLightShader::MultiLightShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
 {
 	// compiled shader object
 	initShader(L"multi_light_vs.cso", L"multi_light_ps.cso");
 }
 
-MultipleLightsShader::~MultipleLightsShader()
+MultiLightShader::~MultiLightShader()
 {
 	// Release the sampler state.
 	if (sampleState)
@@ -57,7 +57,7 @@ MultipleLightsShader::~MultipleLightsShader()
 }
 
 
-void MultipleLightsShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
+void MultiLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 {
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	D3D11_SAMPLER_DESC samplerDesc;
@@ -166,7 +166,7 @@ void MultipleLightsShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	renderer->CreateBuffer(&lightColorBufferDesc, NULL, &m_lightPositionBuffer);
 }
 
-//void MultipleLightsShader::setShaderParameters
+//void MultiLightShader::setShaderParameters
 //(
 //	ID3D11DeviceContext* deviceContext, 
 //	const XMMATRIX &worldMatrix, 
@@ -275,7 +275,7 @@ void MultipleLightsShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 //	deviceContext->PSSetShaderResources(0, 1, &texture);
 //}
 
-void MultipleLightsShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX& worldMatrix, const XMMATRIX& viewMatrix, const XMMATRIX& projectionMatrix, ID3D11ShaderResourceView* texture,
+void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX& worldMatrix, const XMMATRIX& viewMatrix, const XMMATRIX& projectionMatrix, ID3D11ShaderResourceView* texture,
 	XMFLOAT4 diffuseColor[], 
 	XMFLOAT3 lightPosition[])
 {
@@ -345,7 +345,7 @@ void MultipleLightsShader::setShaderParameters(ID3D11DeviceContext* deviceContex
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &m_lightColorBuffer);
 }
 
-//void MultipleLightsShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light)
+//void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light)
 //{
 //	HRESULT result;
 //	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -398,7 +398,7 @@ void MultipleLightsShader::setShaderParameters(ID3D11DeviceContext* deviceContex
 //	deviceContext->PSSetShaderResources(0, 1, &texture);
 //}
 
-void MultipleLightsShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
+void MultiLightShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {
 	// Set the sampler state in the pixel shader.
 	//deviceContext->VSSetSamplers(0, 1, &sampleState);
