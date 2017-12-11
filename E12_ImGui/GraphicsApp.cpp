@@ -17,6 +17,7 @@ GraphicsApp::GraphicsApp()
 	tessellationShader = nullptr;
 	terrainShader = nullptr;
 	multiLightShader = nullptr;
+
 	light0_ = nullptr; 
 	light1_ = nullptr;
 	light2_ = nullptr;
@@ -214,10 +215,10 @@ void GraphicsApp::initGuiVariables()
 	//light2_->setDiffuseColour(0.0f, 0.0f, 1.0f, 1.0f);
 	//light3_->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
 
-	light0_col = ImColor(255, 0, 0, 1);
-	light1_col = ImColor(0, 255, 0, 1);
-	light2_col = ImColor(0, 0, 255, 1);
-	light3_col = ImColor(255, 255, 255, 1);
+	light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
+	light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
+	light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
+	light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// wireframe for each of the examples
 	specular_light_wireframe = false;
@@ -415,10 +416,10 @@ void GraphicsApp::renderMultiLightExample()
 	XMFLOAT3 lightPosition[4];
 
 	// Create the diffuse color array from the four light colors.
-	diffuseColor[0] = light0_->getDiffuseColour();
-	diffuseColor[1] = light1_->getDiffuseColour();
-	diffuseColor[2] = light2_->getDiffuseColour();
-	diffuseColor[3] = light3_->getDiffuseColour();
+	diffuseColor[0] = XMFLOAT4(light0_col.x, light0_col.y, light0_col.z, light0_col.w);
+	diffuseColor[1] = XMFLOAT4(light1_col.x, light1_col.y, light1_col.z, light1_col.w);
+	diffuseColor[2] = XMFLOAT4(light2_col.x, light2_col.y, light2_col.z, light2_col.w);
+	diffuseColor[3] = XMFLOAT4(light3_col.x, light3_col.y, light3_col.z, light3_col.w);
 
 	// Create the light position array from the four light positions.
 	lightPosition[0] = light0_->getPosition();
