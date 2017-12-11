@@ -7,12 +7,12 @@
 #include "ColourShader.h"
 
 
-class App1 : public BaseApplication
+class GraphicsApp : public BaseApplication
 {
 public:
 
-	App1();
-	~App1();
+	GraphicsApp();
+	~GraphicsApp();
 	void init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input*);
 
 	bool frame();

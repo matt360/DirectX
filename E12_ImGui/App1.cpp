@@ -2,13 +2,13 @@
 // Lab 1 example, simple coloured triangle mesh
 #include "App1.h"
 
-App1::App1()
+GraphicsApp::GraphicsApp()
 {
 	mesh = nullptr;
 	colourShader = nullptr;
 }
 
-void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
+void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
 {
 	// Call super init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
@@ -21,7 +21,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 }
 
 
-App1::~App1()
+GraphicsApp::~GraphicsApp()
 {
 	// Run base application deconstructor
 	BaseApplication::~BaseApplication();
@@ -41,7 +41,7 @@ App1::~App1()
 }
 
 
-bool App1::frame()
+bool GraphicsApp::frame()
 {
 	bool result;
 
@@ -61,12 +61,12 @@ bool App1::frame()
 	return true;
 }
 
-void App1::triangleColourShader()
+void GraphicsApp::triangleColourShader()
 {
 
 }
 
-bool App1::render()
+bool GraphicsApp::render()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
@@ -100,7 +100,7 @@ bool App1::render()
 	return true;
 }
 
-void App1::gui()
+void GraphicsApp::gui()
 {
 	// Force turn off on Geometry shader and force fill rendering
 	renderer->getDeviceContext()->GSSetShader(NULL, NULL, 0);

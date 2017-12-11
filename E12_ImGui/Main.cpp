@@ -1,10 +1,26 @@
 // Main.cpp
+
+/*
+Ideally the coursework
+should demonstrate the use of all shader stages:
+- Vertex
+- Pixel
+- Tessellation (including Hull and Domain)
+- Geometry
+The coursework should also demonstrate key graphical techniques such as:
+- Vertex manipulation
+- Post processing
+- Lighting and shadows
+- Tessellation
+- Geometry manipulation and/or generation
+*/
+
 #include "../DXFramework/System.h"
 #include "App1.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, int iCmdshow)
 {
-	App1* app = new App1();
+	GraphicsApp* app = new GraphicsApp();
 	System* m_System;
 
 	// Create the system object.
