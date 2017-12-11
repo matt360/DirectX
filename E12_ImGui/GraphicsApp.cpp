@@ -142,18 +142,18 @@ void GraphicsApp::renderSpecularLightExample()
 	// wireframe mode
 	renderer->setWireframeMode(specular_light_wireframe);
 
+
 	// Send geometry data (from mesh)
 	//mesh->sendData(renderer->getDeviceContext());
 	sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
 	// Set shader parameters (matrices and texture)
 	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light, camera);
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 
+
 	// Render GUI
 	gui();
-
 	// Present the rendered scene to the screen.
 	renderer->endScene();
 }
@@ -167,14 +167,15 @@ void GraphicsApp::renderTessellationExample()
 
 	camera->update();
 
-	// wireframe mode
-	renderer->setWireframeMode(tessellation_wireframe);
-
 	/// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	worldMatrix = renderer->getWorldMatrix();
 	// Generate the view matrix based on the camera's position.
 	viewMatrix = camera->getViewMatrix();
 	projectionMatrix = renderer->getProjectionMatrix();
+
+	// wireframe mode
+	renderer->setWireframeMode(tessellation_wireframe);
+
 
 	// Send geometry data (from mesh)
 	terrainMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
@@ -194,11 +195,48 @@ void GraphicsApp::renderTessellationExample()
 	//tessellationShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
 	//tessellationShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
+
 	// Render GUI
 	gui();
-
 	// Present the rendered scene to the screen.
 	renderer->endScene();
+}
+
+bool GraphicsApp::frame()
+{
+	bool result;
+
+	result = BaseApplication::frame();
+	if (!result)
+	{
+		return false;
+	}
+
+	// Render the graphics.
+	result = render();
+	if (!result)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool GraphicsApp::render()
+{
+	if (triangle_colour_shader) renderSpecularLightExample();
+	else if (tessellation_shader) renderTessellationExample();
+	else
+	{
+		//// Clear the scene. (default blue colour)
+		renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+		// Render GUI
+		gui();
+		//// Present the rendered scene to the screen.
+		renderer->endScene();
+	}
+
+	return true;
 }
 
 void GraphicsApp::gui()
@@ -241,42 +279,6 @@ void GraphicsApp::gui()
 
 	// Render UI
 	ImGui::Render();
-}
-
-bool GraphicsApp::frame()
-{
-	bool result;
-
-	result = BaseApplication::frame();
-	if (!result)
-	{
-		return false;
-	}
-
-	// Render the graphics.
-	result = render();
-	if (!result)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-bool GraphicsApp::render()
-{
-	if (triangle_colour_shader) renderSpecularLightExample();
-	else if (tessellation_shader) renderTessellationExample();
-	else
-	{
-		//// Clear the scene. (default blue colour)
-		renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-		// Render GUI
-		gui();
-		//// Present the rendered scene to the screen.
-		renderer->endScene();
-	}
-	return true;
 }
 
 float GraphicsApp::clamp(float n, float lower, float upper)
