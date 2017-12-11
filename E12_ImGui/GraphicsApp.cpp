@@ -87,10 +87,28 @@ void GraphicsApp::triangleColourShader()
 	colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 
 	// Render GUI
-	gui();
+	trianglegui();
 
 	//// Present the rendered scene to the screen.
 	renderer->endScene();
+}
+
+void GraphicsApp::trianglegui()
+{
+	// Force turn off on Geometry shader and force fill rendering
+	renderer->getDeviceContext()->GSSetShader(NULL, NULL, 0);
+	renderer->getDeviceContext()->HSSetShader(NULL, NULL, 0);
+	renderer->getDeviceContext()->DSSetShader(NULL, NULL, 0);
+	renderer->setWireframeMode(false);
+
+	// Build UI
+	ImGui::Text("FPS: %.2f", timer->getFPS());
+	ImGui::ColorEdit3("Colour", (float*)&clear_col);
+	ImGui::Checkbox("Wireframe", &isWireframe);
+	ImGui::Checkbox("Triangle Colour Shader", &isTriangleColourShader);
+
+	// Render UI
+	ImGui::Render();
 }
 
 bool GraphicsApp::render()
@@ -118,8 +136,6 @@ void GraphicsApp::gui()
 
 	// Build UI
 	ImGui::Text("FPS: %.2f", timer->getFPS());
-	ImGui::ColorEdit3("Colour", (float*)&clear_col);
-	ImGui::Checkbox("Wireframe", &isWireframe);
 	ImGui::Checkbox("Triangle Colour Shader", &isTriangleColourShader);
 
 	// Render UI

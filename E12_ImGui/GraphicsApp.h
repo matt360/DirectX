@@ -28,6 +28,7 @@ private:
 	bool isWireframe;
 
 	void triangleColourShader();
+	void trianglegui();
 	bool isTriangleColourShader;
 };
 

@@ -26,7 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 
 	System* m_System;
 	// Create the system object.
-	m_System = new System(app9);
+	m_System = new System(app);
 
 	// Initialize and run the system object.
 	m_System->run();
