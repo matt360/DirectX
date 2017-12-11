@@ -445,7 +445,7 @@ void GraphicsApp::renderMultiLightExample()
 	// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
 	//sphereMesh->sendData(renderer->getDeviceContext());
-	cubeMesh->sendData(renderer->getDeviceContext());
+	cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	//quadMesh->sendData(renderer->getDeviceContext());
 	//planeMesh->sendData(renderer->getDeviceContext());
 
