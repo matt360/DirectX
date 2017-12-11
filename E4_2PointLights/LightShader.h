@@ -1,7 +1,6 @@
 // Light shader.h
 // Basic single light shader setup
-#ifndef _LIGHTSHADER_H_
-#define _LIGHTSHADER_H_
+#pragma once
 
 #include "../DXFramework/BaseShader.h"
 #include "../DXFramework/Light.h"
@@ -12,7 +11,7 @@ using namespace DirectX;
 
 const int NUM_LIGHTS = 4;
 
-class LightShader : public BaseShader
+class MultipleLightsShader : public BaseShader
 {
 private:
 	struct CameraBufferType
@@ -34,8 +33,8 @@ private:
 public:
 	// When resources are being created and interfaced with,
 	// the 'device' interface is used.
-	LightShader(ID3D11Device* device, HWND hwnd);
-	~LightShader();
+	MultipleLightsShader(ID3D11Device* device, HWND hwnd);
+	~MultipleLightsShader();
 
 	// When the pipeline or a resource is being manipulated,
 	// the 'device context' is used.
@@ -55,5 +54,3 @@ private:
 	ID3D11Buffer* m_lightColorBuffer;
 	ID3D11Buffer* m_lightPositionBuffer;
 };
-
-#endif
