@@ -3,6 +3,7 @@
 // Includes
 #include "../DXFramework/DXF.h"
 #include "ColourShader.h"
+#include "GraphicsApp.h"
 
 class ApplicationState : public BaseApplication
 {
@@ -18,13 +19,14 @@ protected:
 	void gui();
 
 private:
-	ColourShader* colourShader;
+	BaseApplication* graphicsApp;
+	/*ColourShader* colourShader;
 	TriangleMesh* mesh;
 	ImVec4 clear_col;
 	bool isWireframe;
 
 	void triangleColourShader();
 	void trianglegui();
-	bool isTriangleColourShader;
+	bool isTriangleColourShader;*/
 };
 

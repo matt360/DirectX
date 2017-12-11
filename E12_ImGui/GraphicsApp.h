@@ -17,8 +17,8 @@ public:
 
 	bool frame();
 
-protected:
 	bool render();
+protected:
 	void gui();
 
 private:
