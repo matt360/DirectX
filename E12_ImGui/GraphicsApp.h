@@ -29,11 +29,12 @@ private:
 	void initGeometry();
 	void loadTextures();
 	void initLight();
+	void initGuiVariables();
 	
 	// SPECULAR LIGHT ////////////////////
 	bool specular_light_wireframe;
 	// shader handler
-	SpecularLightShader* lightShader;
+	SpecularLightShader* specularLightShader;
 	// mesh
 	// specular_light
 	Light* specular_light;
@@ -74,17 +75,12 @@ private:
 	MultiLightShader* multiLightShader;
 
 	Light *light0_, *light1_, *light2_, *light3_;
+	ImVec4 light0_col, light1_col, light2_col, light3_col;
 	//SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;
 	float light_y;
 	// render function
 	bool multi_light_example;
 	void renderMultiLightExample();
-	//////////////////////////////////////
-
-	////////////// ImGUI /////////////////
-	void initGuiVariables();
-
-	ImVec4 clear_col;
 	//////////////////////////////////////
 
 	// math

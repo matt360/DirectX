@@ -13,7 +13,7 @@ GraphicsApp::GraphicsApp()
 	terrainMesh = nullptr;
 
 	// shader handlers
-	lightShader = nullptr;
+	specularLightShader = nullptr;
 	tessellationShader = nullptr;
 	terrainShader = nullptr;
 	multiLightShader = nullptr;
@@ -67,10 +67,10 @@ GraphicsApp::~GraphicsApp()
 	}
 
 	// shader handlers
-	if (lightShader)
+	if (specularLightShader)
 	{
-		delete lightShader;
-		lightShader = 0;
+		delete specularLightShader;
+		specularLightShader = 0;
 	}
 
 	if (tessellationShader)
@@ -115,21 +115,6 @@ GraphicsApp::~GraphicsApp()
 		delete light3_;
 		light3_ = 0;
 	}
-}
-
-void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
-{
-	// Call super init function (required!)
-	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
-
-	initVariables();
-	// Create mesh objects
-	initGeometry();
-	// create shader handlers
-	initShaders(hwnd);
-	initLight();
-	loadTextures();
-	initGuiVariables();
 }
 
 void GraphicsApp::initVariables()
@@ -201,6 +186,7 @@ void GraphicsApp::loadTextures()
 	textureMgr->loadTexture("checkerboard", L"../res/checkerboard.png");
 }
 
+// Create mesh objects
 void GraphicsApp::initGeometry()
 {
 	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
@@ -211,10 +197,11 @@ void GraphicsApp::initGeometry()
 	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
 }
 
+// create shader handlers
 void GraphicsApp::initShaders(HWND hwnd)
 {
 	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
-	lightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
+	specularLightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
 	terrainShader = new TerrainShader(renderer->getDevice(), hwnd);
 	multiLightShader = new MultiLightShader(renderer->getDevice(), hwnd);
 }
@@ -222,7 +209,15 @@ void GraphicsApp::initShaders(HWND hwnd)
 void GraphicsApp::initGuiVariables()
 {
 	// set colour variable for UI controls.
-	clear_col = ImColor(114, 144, 154);
+	//light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
+	//light1_->setDiffuseColour(0.0f, 1.0f, 0.0f, 1.0f);
+	//light2_->setDiffuseColour(0.0f, 0.0f, 1.0f, 1.0f);
+	//light3_->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+
+	light0_col = ImColor(255, 0, 0, 1);
+	light1_col = ImColor(0, 255, 0, 1);
+	light2_col = ImColor(0, 0, 255, 1);
+	light3_col = ImColor(255, 255, 255, 1);
 
 	// wireframe for each of the examples
 	specular_light_wireframe = false;
@@ -235,6 +230,19 @@ void GraphicsApp::initGuiVariables()
 	tessellation_example = false;
 	terrain_example = false;
 	multi_light_example = false;
+}
+
+void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
+{
+	// Call super init function (required!)
+	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
+
+	initVariables();
+	initLight();
+	loadTextures();
+	initGeometry();
+	initShaders(hwnd);
+	initGuiVariables();
 }
 
 bool GraphicsApp::frame()
@@ -284,9 +292,9 @@ void GraphicsApp::renderSpecularLightExample()
 	//mesh->sendData(renderer->getDeviceContext());
 	sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	// Set shader parameters (matrices and texture)
-	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), specular_light, camera);
+	specularLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), specular_light, camera);
 	// Render object (combination of mesh geometry and shader process
-	lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	specularLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 
 
 	// Render GUI
@@ -382,15 +390,15 @@ void GraphicsApp::renderTerrainExample()
 	terrainMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	//// Set shader parameters (matrices and texture)
-	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
+	//specularLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
 	terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), light_terrain, light_terrain_y, height, frequency);
 
 	//// Render object (combination of mesh geometry and shader process
-	//lightShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount()); // output data from the shader programme
-	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount()); // output data from the shader programme
-	//lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount()); // output data from the shader programme
-	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
-	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
+	//specularLightShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount()); // output data from the shader programme
+	//specularLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount()); // output data from the shader programme
+	//specularLightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount()); // output data from the shader programme
+	//specularLightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
+	//specularLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
 	terrainShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
 
 	// Render GUI
@@ -463,15 +471,15 @@ void GraphicsApp::renderMultiLightExample()
 	);
 
 	// Render object (combination of mesh geometry and shader process
-	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
-	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	//specularLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	specularLightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//specularLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	//specularLightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	//specularLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// PLANE MESH
 	//planeMesh->sendData(renderer->getDeviceContext());
-	//lightShader->setShaderParameters
+	//specularLightShader->setShaderParameters
 	//(
 	//	renderer->getDeviceContext(),
 	//	worldMatrix,
@@ -481,7 +489,7 @@ void GraphicsApp::renderMultiLightExample()
 	//	diffuseColor,
 	//	lightPosition
 	//);
-	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	//specularLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// Render GUI
 	gui();
