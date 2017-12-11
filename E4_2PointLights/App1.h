@@ -4,7 +4,7 @@
 
 // Includes
 #include "../DXFramework/DXF.h"
-#include "LightShader.h"
+#include "MultipleLightsShader.h"
 
 class App1 : public BaseApplication
 {
