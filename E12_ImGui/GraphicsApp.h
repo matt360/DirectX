@@ -25,9 +25,10 @@ protected:
 private:
 	// CONSTRUCTOR
 	void loadTextures();
-	void initCameras();
+	
 	// SPECULAR LIGHT ////////////////
 	// Camera
+	bool camera_specular_light_position_set;
 	XMFLOAT3 camera_specular_light_last_position;
 	// wireframe
 	bool specular_light_wireframe;
@@ -42,6 +43,7 @@ private:
 
 	// TESSELLATION //////////////////
 	// Camera
+	bool camera_tessellation_position_set;
 	XMFLOAT3 camera_tessellation_last_position;
 	bool tessellation_wireframe;
 	// shader handler

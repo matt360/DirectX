@@ -35,11 +35,9 @@ void Camera::setPosition(float lx, float ly, float lz)
 	position.z = lz;
 }
 
-void Camera::setPosition(XMFLOAT3 pos)
+void Camera::setPosition(const XMFLOAT3& new_position)
 {
-	position.x = pos.x;
-	position.y = pos.y;
-	position.z = pos.z;
+	position = new_position;
 }
 
 void Camera::setRotation(float lx, float ly, float lz)
