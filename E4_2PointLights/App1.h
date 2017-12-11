@@ -4,7 +4,6 @@
 
 // Includes
 #include "../DXFramework/DXF.h"
-#include "ColourShader.h"
 #include "LightShader.h"
 
 class App1 : public BaseApplication
@@ -36,7 +35,6 @@ private:
 	QuadMesh* quadMesh;
 	PlaneMesh* planeMesh;
 
-	ColourShader* colourShader;
 	LightShader* lightShader;
 	
 	Light *light0_, *light1_, *light2_, *light3_;

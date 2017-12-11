@@ -22,9 +22,6 @@
     <Filter Include="Header Files\Specular Light">
       <UniqueIdentifier>{f8164cd4-3aff-4452-8e11-30ad159c4727}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Tessellation">
-      <UniqueIdentifier>{279a9c13-d112-45da-b3d1-af8905fd55e5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Tessellation">
       <UniqueIdentifier>{30bc5081-0d5f-4204-a648-e4a1b69af5a0}</UniqueIdentifier>
     </Filter>
@@ -34,11 +31,14 @@
     <Filter Include="Source Files\Terrain">
       <UniqueIdentifier>{90bd52c0-3b1c-4e83-9b1d-18e44669fff9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Terrain">
+      <UniqueIdentifier>{94bad596-d63b-41d2-8de3-d51a078fffd0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Terrain">
       <UniqueIdentifier>{126b6374-148e-4af4-ac4d-de07afddf533}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Terrain">
-      <UniqueIdentifier>{94bad596-d63b-41d2-8de3-d51a078fffd0}</UniqueIdentifier>
+    <Filter Include="Header Files\Tessellation">
+      <UniqueIdentifier>{279a9c13-d112-45da-b3d1-af8905fd55e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,7 +58,7 @@
       <Filter>Source Files\Specular Light</Filter>
     </ClCompile>
     <ClCompile Include="TerrainShader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,7 +75,7 @@
       <Filter>Header Files\Specular Light</Filter>
     </ClInclude>
     <ClInclude Include="TerrainShader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
