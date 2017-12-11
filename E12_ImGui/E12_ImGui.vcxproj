@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App9.cpp" />
+    <ClCompile Include="ApplicationState.cpp" />
     <ClCompile Include="GraphicsApp.cpp" />
     <ClCompile Include="ColourShader.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App9.h" />
+    <ClInclude Include="ApplicationState.h" />
     <ClInclude Include="GraphicsApp.h" />
     <ClInclude Include="ColourShader.h" />
     <ClInclude Include="TessellationShader.h" />
