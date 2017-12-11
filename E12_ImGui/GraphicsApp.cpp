@@ -584,7 +584,10 @@ void GraphicsApp::gui()
 	if (multi_light_example)
 	{
 		ImGui::Begin("Multi Light Example", &multi_light_example);
-		//ImGui::ColorEdit3("Colour", (float*)&clear_col);
+		ImGui::ColorEdit3("Light Colour 1", (float*)&light0_col);
+		ImGui::ColorEdit3("Light Colour 2", (float*)&light1_col);
+		ImGui::ColorEdit3("Light Colour 3", (float*)&light2_col);
+		ImGui::ColorEdit3("Light Colour 4", (float*)&light3_col);
 		ImGui::Checkbox("Wireframe", &multi_light_wireframe);
 		ImGui::End();
 	}
