@@ -6,7 +6,6 @@
 #include "../DXFramework/DXF.h"
 #include "ColourShader.h"
 
-
 class GraphicsApp : public BaseApplication
 {
 public:

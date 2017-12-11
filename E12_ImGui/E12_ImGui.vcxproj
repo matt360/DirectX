@@ -152,12 +152,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="App1.cpp" />
+    <ClCompile Include="GraphicsApp.cpp" />
     <ClCompile Include="ColourShader.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App1.h" />
+    <ClInclude Include="GraphicsApp.h" />
     <ClInclude Include="ColourShader.h" />
   </ItemGroup>
   <ItemGroup>

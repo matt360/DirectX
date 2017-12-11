@@ -15,21 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ColourShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicsApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App1.h">
+    <ClInclude Include="ColourShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ColourShader.h">
+    <ClInclude Include="GraphicsApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
