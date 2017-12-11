@@ -15,10 +15,6 @@ GraphicsApp::GraphicsApp()
 	// shader handlers
 	lightShader = nullptr;
 	tessellationShader = nullptr;
-
-	// cameras
-	camera_specular_light_position_set = true;
-	camera_tessellation_position_set = true;
 }
 
 // Release the Direct3D objects
@@ -135,14 +131,7 @@ void GraphicsApp::renderSpecularLightExample()
 	//// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 
-	if (!camera_specular_light_position_set)
-	{
-		camera->setPosition(camera_specular_light_last_position);
-		camera_specular_light_position_set = true;
-	}
 	camera->update();
-	// remember camera's last position
-	camera_specular_light_last_position = camera->getPosition();
 
 	/// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	worldMatrix = renderer->getWorldMatrix();
@@ -176,14 +165,7 @@ void GraphicsApp::renderTessellationExample()
 	// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 
-	if (!camera_tessellation_position_set)
-	{
-		camera->setPosition(camera_tessellation_last_position);
-		camera_tessellation_position_set = true;
-	}
 	camera->update();
-	// remember camera's last position
-	camera_tessellation_last_position = camera->getPosition();
 
 	// wireframe mode
 	renderer->setWireframeMode(tessellation_wireframe);
@@ -233,13 +215,11 @@ void GraphicsApp::gui()
 	if (ImGui::Button("Specular Light Example"))
 	{
 		tessellation_shader = false;
-		camera_specular_light_position_set = false;
 		triangle_colour_shader ^= 1;
 	}
 	if (ImGui::Button("Tessellation Example"))
 	{
 		triangle_colour_shader = false;
-		camera_tessellation_position_set = false;
 		tessellation_shader ^= 1;
 	}
 

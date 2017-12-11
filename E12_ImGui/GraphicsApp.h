@@ -27,11 +27,6 @@ private:
 	void loadTextures();
 	
 	// SPECULAR LIGHT ////////////////
-	// Camera
-	bool camera_specular_light_position_set;
-	Camera* camera_specular_light;
-	XMFLOAT3 camera_specular_light_last_position;
-	// wireframe
 	bool specular_light_wireframe;
 	// shader handler
 	LightShader* lightShader;
@@ -43,10 +38,6 @@ private:
 	void renderSpecularLightExample();
 
 	// TESSELLATION //////////////////
-	// Camera
-	bool camera_tessellation_position_set;
-	XMFLOAT3 camera_tessellation_last_position;
-	Camera* camera_tessellation;
 	bool tessellation_wireframe;
 	// shader handler
 	TessellationShader* tessellationShader;
