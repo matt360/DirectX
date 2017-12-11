@@ -30,6 +30,7 @@ private:
 	void triangleColourShader();
 	void trianglegui();
 	bool isTriangleColourShader;
+	bool triangle_colour_shader_window;
 };
 
 #endif
