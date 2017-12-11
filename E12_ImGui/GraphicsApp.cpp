@@ -16,11 +16,17 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	// Create mesh object (triangle), initialise basic colour shader and set colour variable for UI controls.
 	mesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 	colourShader = new ColourShader(renderer->getDevice(), hwnd);
+
+	initGui();
+}
+
+void GraphicsApp::initGui()
+{
 	clear_col = ImColor(114, 144, 154);
 	isWireframe = false;
 	triangle_colour_shader = false;
+	tessellation_shader = false;
 }
-
 
 GraphicsApp::~GraphicsApp()
 {
@@ -39,27 +45,6 @@ GraphicsApp::~GraphicsApp()
 		delete colourShader;
 		colourShader = 0;
 	}
-}
-
-
-bool GraphicsApp::frame()
-{
-	bool result;
-
-	result = BaseApplication::frame();
-	if (!result)
-	{
-		return false;
-	}
-
-	// Render the graphics.
-	result = render();
-	if (!result)
-	{
-		return false;
-	}
-
-	return true;
 }
 
 void GraphicsApp::triangleColourShader()
@@ -93,21 +78,6 @@ void GraphicsApp::triangleColourShader()
 	renderer->endScene();
 }
 
-bool GraphicsApp::render()
-{
-	if (triangle_colour_shader) triangleColourShader();
-	else
-	{
-		//// Clear the scene. (default blue colour)
-		renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-		// Render GUI
-		gui();
-		//// Present the rendered scene to the screen.
-		renderer->endScene();
-	}
-	return true;
-}
-
 void GraphicsApp::gui()
 {
 	// Force turn off on Geometry shader and force fill rendering
@@ -119,7 +89,16 @@ void GraphicsApp::gui()
 	// Build UI
 	//ImGui::Checkbox("Triangle Colour Shader", &triangle_colour_shader);
 	ImGui::Text("FPS: %.2f", timer->getFPS());
-	if (ImGui::Button("Triangle")) triangle_colour_shader ^= 1;
+	if (ImGui::Button("Triangle"))
+	{
+		tessellation_shader = false;
+		triangle_colour_shader ^= 1;
+	}
+	if (ImGui::Button("Tessellation"))
+	{
+		triangle_colour_shader = false;
+		tessellation_shader ^= 1;
+	}
 
 	if (triangle_colour_shader)
 	{
@@ -129,7 +108,51 @@ void GraphicsApp::gui()
 		ImGui::End();
 	}
 
+	if (tessellation_shader)
+	{
+		ImGui::Begin("Tessellation", &tessellation_shader);
+		ImGui::ColorEdit3("Colour", (float*)&clear_col);
+		ImGui::Checkbox("Wireframe", &isWireframe);
+		ImGui::End();
+	}
+
 	// Render UI
 	ImGui::Render();
+}
+
+bool GraphicsApp::frame()
+{
+	bool result;
+
+	result = BaseApplication::frame();
+	if (!result)
+	{
+		return false;
+	}
+
+	// Render the graphics.
+	result = render();
+	if (!result)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool GraphicsApp::render()
+{
+	if (triangle_colour_shader) triangleColourShader();
+	else if (tessellation_shader) triangleColourShader();
+	else
+	{
+		//// Clear the scene. (default blue colour)
+		renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+		// Render GUI
+		gui();
+		//// Present the rendered scene to the screen.
+		renderer->endScene();
+	}
+	return true;
 }
 

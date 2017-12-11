@@ -15,6 +15,7 @@ public:
 	~GraphicsApp();
 	void init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input*);
 
+
 	bool frame();
 
 protected:
@@ -24,11 +25,16 @@ protected:
 private:
 	ColourShader* colourShader;
 	TriangleMesh* mesh;
+	void triangleColourShader();
+
+	////////////// ImGUI ///////////
+	void initGui();
+
 	ImVec4 clear_col;
 	bool isWireframe;
-
 	bool triangle_colour_shader;
-	void triangleColourShader();
+	bool tessellation_shader;
+	////////////////////////////////
 };
 
 #endif
