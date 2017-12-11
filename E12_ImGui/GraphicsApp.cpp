@@ -112,6 +112,7 @@ void GraphicsApp::loadTextures()
 	textureMgr->loadTexture("brick", L"../res/brick1.dds");
 	textureMgr->loadTexture("bunny", L"../res/bunny.png");
 	textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
+	textureMgr->loadTexture("height", L"../res/height.png");
 }
 
 void GraphicsApp::initGui()
