@@ -42,7 +42,6 @@ private:
 	TessellationShader* tessellationShader;
 	// meshes
 	TriangleMesh *triangleMesh;
-	TriangleMesh *tessTriangleMesh;
 	SphereMesh *sphereMesh;
 	CubeMesh *cubeMesh;
 	QuadMesh *quadMesh;
