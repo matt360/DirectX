@@ -1,5 +1,5 @@
 // texture shader.cpp
-#include "lightshader.h"
+#include "TerrainShader.h"
 
 // When resources are being created and interfaced with,
 // the device interface is used.

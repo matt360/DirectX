@@ -11,7 +11,7 @@ E5_TerrainApp::E5_TerrainApp()
 	quadMesh = nullptr;
 	planeMesh = nullptr;
 	terrainMesh = nullptr;
-	lightShader = nullptr;
+	terrainShader = nullptr;
 	wireframe = false;
 }
 
@@ -38,7 +38,7 @@ void E5_TerrainApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int sc
 
 	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
-	lightShader = new TerrainShader(renderer->getDevice(), hwnd);
+	terrainShader = new TerrainShader(renderer->getDevice(), hwnd);
 
 	initLight();
 }
@@ -97,10 +97,10 @@ E5_TerrainApp::~E5_TerrainApp()
 		terrainMesh = 0;
 	}
 
-	if (lightShader)
+	if (terrainShader)
 	{
-		delete lightShader;
-		lightShader = 0;
+		delete terrainShader;
+		terrainShader = 0;
 	}
 }
 
@@ -193,7 +193,7 @@ bool E5_TerrainApp::render()
 
 	//// Set shader parameters (matrices and texture)
 	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
-	lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), m_Light, light_y, height, frequency);
+	terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), m_Light, light_y, height, frequency);
 
 	//// Render object (combination of mesh geometry and shader process
 	//lightShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount()); // output data from the shader programme
@@ -201,7 +201,7 @@ bool E5_TerrainApp::render()
 	//lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount()); // output data from the shader programme
 	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
 	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
-	lightShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
+	terrainShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
 
 	// Render GUI
 	gui();

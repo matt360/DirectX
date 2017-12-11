@@ -86,12 +86,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="E5_TerrainApp.cpp" />
-    <ClCompile Include="LightShader.cpp" />
+    <ClCompile Include="TerrainShader.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="E5_TerrainApp.h" />
-    <ClInclude Include="LightShader.h" />
+    <ClInclude Include="TerrainShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DXFramework\DXFramework.vcxproj">

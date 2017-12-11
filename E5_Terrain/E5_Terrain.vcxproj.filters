@@ -18,18 +18,18 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LightShader.cpp">
+    <ClCompile Include="E5_TerrainApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E5_TerrainApp.cpp">
+    <ClCompile Include="TerrainShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LightShader.h">
+    <ClInclude Include="E5_TerrainApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="E5_TerrainApp.h">
+    <ClInclude Include="TerrainShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
