@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\Specular Light">
+      <UniqueIdentifier>{92f46441-8072-42fd-8310-a4a3fa2b75db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Tesselation">
+      <UniqueIdentifier>{4f79edf8-dcd0-4e1c-be8b-26699f1aa072}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Specular Light">
+      <UniqueIdentifier>{f8164cd4-3aff-4452-8e11-30ad159c4727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tessellation">
+      <UniqueIdentifier>{279a9c13-d112-45da-b3d1-af8905fd55e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tessellation">
+      <UniqueIdentifier>{30bc5081-0d5f-4204-a648-e4a1b69af5a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Specular Light">
+      <UniqueIdentifier>{44779985-f392-4560-bf6d-cbd7998d97da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColourShader.cpp">
@@ -25,10 +43,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TessellationShader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Tessellation</Filter>
     </ClCompile>
     <ClCompile Include="LightShader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Specular Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -39,10 +57,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TessellationShader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Tessellation</Filter>
     </ClInclude>
     <ClInclude Include="LightShader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Specular Light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -52,23 +70,23 @@
     <FxCompile Include="shaders\colour_vs.hlsl">
       <Filter>Resource Files</Filter>
     </FxCompile>
-    <FxCompile Include="shaders\tessellation_ds.hlsl">
-      <Filter>Resource Files</Filter>
-    </FxCompile>
-    <FxCompile Include="shaders\tessellation_hs.hlsl">
-      <Filter>Resource Files</Filter>
-    </FxCompile>
-    <FxCompile Include="shaders\tessellation_ps.hlsl">
-      <Filter>Resource Files</Filter>
-    </FxCompile>
-    <FxCompile Include="shaders\tessellation_vs.hlsl">
-      <Filter>Resource Files</Filter>
+    <FxCompile Include="shaders\light_vs.hlsl">
+      <Filter>Resource Files\Tesselation</Filter>
     </FxCompile>
     <FxCompile Include="shaders\light_ps.hlsl">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Tesselation</Filter>
     </FxCompile>
-    <FxCompile Include="shaders\light_vs.hlsl">
-      <Filter>Resource Files</Filter>
+    <FxCompile Include="shaders\tessellation_ds.hlsl">
+      <Filter>Resource Files\Specular Light</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\tessellation_hs.hlsl">
+      <Filter>Resource Files\Specular Light</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\tessellation_ps.hlsl">
+      <Filter>Resource Files\Specular Light</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\tessellation_vs.hlsl">
+      <Filter>Resource Files\Specular Light</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
