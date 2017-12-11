@@ -199,6 +199,7 @@ void GraphicsApp::loadTextures()
 	textureMgr->loadTexture("bunny", L"../res/bunny.png");
 	textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
 	textureMgr->loadTexture("height", L"../res/height.png");
+	textureMgr->loadTexture("checkerboard", L"../res/checkerboard.png");
 }
 
 void GraphicsApp::initGeometry()
@@ -430,7 +431,7 @@ void GraphicsApp::renderMultiLightExample()
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// wireframe mode
-	renderer->setWireframeMode(false);
+	renderer->setWireframeMode(multi_light_wireframe);
 
 	// translation and rotation
 	worldMatrix = renderer->getWorldMatrix();
@@ -576,7 +577,7 @@ void GraphicsApp::gui()
 	{
 		ImGui::Begin("Multi Light Example", &multi_light_example);
 		//ImGui::ColorEdit3("Colour", (float*)&clear_col);
-		ImGui::Checkbox("Wireframe", &multi_light_example);
+		ImGui::Checkbox("Wireframe", &multi_light_wireframe);
 		ImGui::End();
 	}
 
