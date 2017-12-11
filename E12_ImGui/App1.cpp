@@ -61,6 +61,11 @@ bool App1::frame()
 	return true;
 }
 
+void App1::triangleColourShader()
+{
+
+}
+
 bool App1::render()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;

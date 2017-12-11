@@ -26,7 +26,8 @@ private:
 	TriangleMesh* mesh;
 	ImVec4 clear_col;
 	bool isWireframe;
-	
+	void triangleColourShader();
 };
 
 #endif
+
