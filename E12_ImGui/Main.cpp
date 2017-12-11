@@ -16,13 +16,11 @@ The coursework should also demonstrate key graphical techniques such as:
 */
 
 #include "../DXFramework/System.h"
-#include "GraphicsApp.h"
-#include "App9.h"
 #include "ApplicationState.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, int iCmdshow)
 {
-	BaseApplication* app = new GraphicsApp();
+	BaseApplication* app = new ApplicationState();
 	// TODO remove: BaseApplication* app9 = new App9();
 
 	System* m_System;
