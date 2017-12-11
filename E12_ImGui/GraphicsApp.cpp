@@ -4,8 +4,68 @@
 
 GraphicsApp::GraphicsApp()
 {
-	mesh = nullptr;
+
+	// shader handlers
 	colourShader = nullptr;
+	tessellationShader = nullptr;
+
+	// geometry meshes
+	triangleMesh = nullptr;
+	sphereMesh = nullptr;
+	cubeMesh = nullptr;
+	quadMesh = nullptr;
+	planeMesh = nullptr;
+	terrainMesh = nullptr;
+}
+
+GraphicsApp::~GraphicsApp()
+{
+	// Run base application deconstructor
+	BaseApplication::~BaseApplication();
+
+	// Release the Direct3D object.
+	if (colourShader)
+	{
+		delete colourShader;
+		colourShader = 0;
+	}
+
+	// Release the Direct3D object.
+	if (triangleMesh)
+	{
+		delete triangleMesh;
+		triangleMesh = 0;
+	}
+
+	if (sphereMesh)
+	{
+		delete sphereMesh;
+		sphereMesh = 0;
+	}
+
+	if (cubeMesh)
+	{
+		delete cubeMesh;
+		cubeMesh = 0;
+	}
+
+	if (quadMesh)
+	{
+		delete quadMesh;
+		quadMesh = 0;
+	}
+
+	if (planeMesh)
+	{
+		delete planeMesh;
+		planeMesh = 0;
+	}
+
+	if (tessellationShader)
+	{
+		delete tessellationShader;
+		tessellationShader = 0;
+	}
 }
 
 void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -14,7 +74,7 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
 	// Create mesh object (triangle), initialise basic colour shader and set colour variable for UI controls.
-	mesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 	colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
 	initGui();
@@ -28,24 +88,6 @@ void GraphicsApp::initGui()
 	tessellation_shader = false;
 }
 
-GraphicsApp::~GraphicsApp()
-{
-	// Run base application deconstructor
-	BaseApplication::~BaseApplication();
-
-	// Release the Direct3D object.
-	if (mesh)
-	{
-		delete mesh;
-		mesh = 0;
-	}
-
-	if (colourShader)
-	{
-		delete colourShader;
-		colourShader = 0;
-	}
-}
 
 void GraphicsApp::triangleColourShader()
 {
@@ -65,11 +107,54 @@ void GraphicsApp::triangleColourShader()
 	renderer->setWireframeMode(isWireframe);
 
 	//// Send geometry data (from mesh)
-	mesh->sendData(renderer->getDeviceContext());
+	triangleMesh->sendData(renderer->getDeviceContext());
 	//// Set shader parameters (matrices and texture)
 	colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, clear_col);
 	//// Render object (combination of mesh geometry and shader process
-	colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	colourShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+
+	// Render GUI
+	gui();
+
+	//// Present the rendered scene to the screen.
+	renderer->endScene();
+}
+
+void GraphicsApp::tessellationTerrain()
+{
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+
+	//// Clear the scene. (default blue colour)
+	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+
+	//// Generate the view matrix based on the camera's position.
+	camera->update();
+
+	// wireframe mode
+	renderer->setWireframeMode(isWireframe);
+
+	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	worldMatrix = renderer->getWorldMatrix();
+	viewMatrix = camera->getViewMatrix();
+	projectionMatrix = renderer->getProjectionMatrix();
+
+	// Send geometry data (from mesh)
+	triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+	//sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+	//cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+	//quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+	//planeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+
+	// Set shader parameters (matrices and texture)
+	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
+		textureMgr->getTexture("brick"), camera);
+
+	// Render object (combination of mesh geometry and shader process
+	tessellationShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	//tessellationShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	//tessellationShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//tessellationShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	//tessellationShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// Render GUI
 	gui();
@@ -143,7 +228,7 @@ bool GraphicsApp::frame()
 bool GraphicsApp::render()
 {
 	if (triangle_colour_shader) triangleColourShader();
-	else if (tessellation_shader) triangleColourShader();
+	else if (tessellation_shader) tessellationTerrain();
 	else
 	{
 		//// Clear the scene. (default blue colour)
@@ -154,5 +239,10 @@ bool GraphicsApp::render()
 		renderer->endScene();
 	}
 	return true;
+}
+
+float GraphicsApp::clamp(float n, float lower, float upper)
+{
+	return std::fmax(lower, (std::fmin(n, upper)));
 }
 

@@ -5,7 +5,7 @@
 // Includes
 #include "../DXFramework/DXF.h"
 #include "ColourShader.h"
-#include "App9.h"
+#include "TessellationShader.h"
 
 class GraphicsApp : public BaseApplication
 {
@@ -15,7 +15,6 @@ public:
 	~GraphicsApp();
 	void init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input*);
 
-
 	bool frame();
 
 protected:
@@ -23,9 +22,28 @@ protected:
 	void gui();
 
 private:
+
+	// TRIANGLE COLOUR SHADER //
+	void initTriangleColourShader();
+	// shader
 	ColourShader* colourShader;
+	// mesh
 	TriangleMesh* mesh;
+	// render function
 	void triangleColourShader();
+
+	// TESSELLATION //
+	// shader
+	TessellationShader* tessellationShader;
+	// meshes
+	TriangleMesh *triangleMesh;
+	SphereMesh *sphereMesh;
+	CubeMesh *cubeMesh;
+	QuadMesh *quadMesh;
+	PlaneMesh *planeMesh;
+	TerrainMesh *terrainMesh;
+	// render function
+	void tessellationTerrain();
 
 	////////////// ImGUI ///////////
 	void initGui();
@@ -35,6 +53,9 @@ private:
 	bool triangle_colour_shader;
 	bool tessellation_shader;
 	////////////////////////////////
+
+	// math
+	float clamp(float n, float lower, float upper);
 };
 
 #endif
