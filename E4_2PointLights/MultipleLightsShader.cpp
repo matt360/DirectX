@@ -6,7 +6,7 @@
 MultipleLightsShader::MultipleLightsShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
 {
 	// compiled shader object
-	initShader(L"light_vs.cso", L"light_ps.cso");
+	initShader(L"multi_light_vs.cso", L"multi_light_ps.cso");
 }
 
 MultipleLightsShader::~MultipleLightsShader()
