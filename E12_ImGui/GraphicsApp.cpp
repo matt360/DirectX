@@ -11,6 +11,7 @@ GraphicsApp::GraphicsApp()
 
 	// geometry meshes
 	triangleMesh = nullptr;
+	tessTriangleMesh = nullptr;
 	sphereMesh = nullptr;
 	cubeMesh = nullptr;
 	quadMesh = nullptr;
@@ -35,6 +36,12 @@ GraphicsApp::~GraphicsApp()
 	{
 		delete triangleMesh;
 		triangleMesh = 0;
+	}
+
+	if (tessTriangleMesh)
+	{
+		delete tessTriangleMesh;
+		tessTriangleMesh = 0;
 	}
 
 	if (sphereMesh)
@@ -73,21 +80,39 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	// Call super init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
-	// Create mesh object (triangle), initialise basic colour shader and set colour variable for UI controls.
+	// Create mesh objects
 	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	tessTriangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
+	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
+	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
+	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
+	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
+
+	// create shader handlers
 	colourShader = new ColourShader(renderer->getDevice(), hwnd);
+	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
+
+	loadTextures();
 
 	initGui();
 }
 
+void GraphicsApp::loadTextures()
+{
+	// load textures
+	textureMgr->loadTexture("brick", L"../res/brick1.dds");
+	textureMgr->loadTexture("bunny", L"../res/bunny.png");
+}
+
 void GraphicsApp::initGui()
 {
+	// set colour variable for UI controls.
 	clear_col = ImColor(114, 144, 154);
 	isWireframe = false;
 	triangle_colour_shader = false;
 	tessellation_shader = false;
 }
-
 
 void GraphicsApp::triangleColourShader()
 {
@@ -139,7 +164,7 @@ void GraphicsApp::tessellationTerrain()
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// Send geometry data (from mesh)
-	triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+	tessTriangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
 	//sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
 	//cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
 	//quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
@@ -150,7 +175,7 @@ void GraphicsApp::tessellationTerrain()
 		textureMgr->getTexture("brick"), camera);
 
 	// Render object (combination of mesh geometry and shader process
-	tessellationShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	tessellationShader->render(renderer->getDeviceContext(), tessTriangleMesh->getIndexCount());
 	//tessellationShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 	//tessellationShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 	//tessellationShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());

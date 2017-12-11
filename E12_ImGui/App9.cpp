@@ -109,6 +109,7 @@ bool App9::frame()
 		input->SetKeyUp(VK_RETURN);
 	}
 
+	// TODO put into Gui
 	if (input->isKeyDown(VK_NUMPAD4))
 	{
 		tessellationAmount = clamp(tessellationAmount -= 1.0f, 1.0f, 64.0f);

@@ -22,6 +22,8 @@ protected:
 	void gui();
 
 private:
+	// CONSTRUCTOR
+	void loadTextures();
 
 	// TRIANGLE COLOUR SHADER //
 	void initTriangleColourShader();
@@ -37,6 +39,7 @@ private:
 	TessellationShader* tessellationShader;
 	// meshes
 	TriangleMesh *triangleMesh;
+	TriangleMesh *tessTriangleMesh;
 	SphereMesh *sphereMesh;
 	CubeMesh *cubeMesh;
 	QuadMesh *quadMesh;
@@ -59,4 +62,3 @@ private:
 };
 
 #endif
-
