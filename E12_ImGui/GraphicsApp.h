@@ -27,18 +27,17 @@ private:
 	void loadTextures();
 
 	// TRIANGLE COLOUR SHADER //
-	// shader
+	// shader handler
 	LightShader* lightShader;
 	// mesh
-	TriangleMesh* mesh;
 	// light
 	void initLight();
-	Light* light;
+	Light* m_Light;
 	// render function
 	void triangleColourShader();
 
 	// TESSELLATION //
-	// shader
+	// shader handler
 	TessellationShader* tessellationShader;
 	// meshes
 	TriangleMesh *triangleMesh;
