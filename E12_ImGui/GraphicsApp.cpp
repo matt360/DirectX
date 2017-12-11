@@ -431,6 +431,7 @@ void GraphicsApp::renderMultiLightExample()
 	lightPosition[1] = XMFLOAT3(light1_pos.x, light1_pos.y, light1_pos.z);
 	lightPosition[2] = XMFLOAT3(light2_pos.x, light2_pos.y, light2_pos.z);
 	lightPosition[3] = XMFLOAT3(light3_pos.x, light3_pos.y, light3_pos.z);*/
+	// TODO set position BOOM
 	lightPosition[0] = light0_->getPosition();
 	lightPosition[1] = light1_->getPosition();
 	lightPosition[2] = light2_->getPosition();
