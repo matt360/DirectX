@@ -38,7 +38,7 @@ void E5_TerrainApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int sc
 
 	//colourShader = new ColourShader(renderer->getDevice(), hwnd);
 
-	lightShader = new LightShader(renderer->getDevice(), hwnd);
+	lightShader = new TerrainShader(renderer->getDevice(), hwnd);
 
 	initLight();
 }
@@ -175,6 +175,8 @@ bool E5_TerrainApp::render()
 	// scaling
 	XMMATRIX matrixScaling = XMMatrixScaling(1.0f, 1.0f, 1.0f);
 	worldMatrix *= matrixScaling;
+
+	// TODO remove m_Light->setPosition(0.0f, 0.0f, 0.0f);
 
 	// wave's:
 	float height = 1.0f;

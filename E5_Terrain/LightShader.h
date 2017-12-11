@@ -11,7 +11,7 @@ using namespace std;
 using namespace DirectX;
 
 
-class LightShader : public BaseShader
+class TerrainShader : public BaseShader
 {
 private:
 	struct LightBufferType
@@ -42,8 +42,8 @@ private:
 public:
 	// When resources are being created and interfaced with,
 	// the 'device' interface is used.
-	LightShader(ID3D11Device* device, HWND hwnd);
-	~LightShader();
+	TerrainShader(ID3D11Device* device, HWND hwnd);
+	~TerrainShader();
 
 	// When the pipeline or a resource is being manipulated,
 	// the 'device context' is used.

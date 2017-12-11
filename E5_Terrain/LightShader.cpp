@@ -3,14 +3,14 @@
 
 // When resources are being created and interfaced with,
 // the device interface is used.
-LightShader::LightShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
+TerrainShader::TerrainShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
 {
 	// compiled shader object
-	initShader(L"light_vs.cso", L"light_ps.cso");
+	initShader(L"terrain_vs.cso", L"terrain_ps.cso");
 }
 
 
-LightShader::~LightShader()
+TerrainShader::~TerrainShader()
 {
 	// Release the sampler state.
 	if (sampleState)
@@ -56,7 +56,7 @@ LightShader::~LightShader()
 }
 
 
-void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
+void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 {
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	D3D11_SAMPLER_DESC samplerDesc;
@@ -162,7 +162,7 @@ void LightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	renderer->CreateBuffer(&timeBufferDesc, NULL, &timeBuffer);
 }
 
-void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, Camera* camera)
+void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, Camera* camera)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -229,7 +229,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
-void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light)
+void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -283,7 +283,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
-void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, float time, float height, float frequency)
+void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, float time, float height, float frequency)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -351,7 +351,7 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
-void LightShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
+void TerrainShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {
 	// Set the sampler state in the pixel shader.
 	deviceContext->PSSetSamplers(0, 1, &sampleState);

@@ -29,7 +29,7 @@ private:
 	PlaneMesh* planeMesh;
 	TerrainMesh* terrainMesh;
 	// Shader handler
-	LightShader* lightShader;
+	TerrainShader* lightShader;
 	
 	Light* m_Light;
 
