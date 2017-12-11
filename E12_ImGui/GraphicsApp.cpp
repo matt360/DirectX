@@ -94,7 +94,6 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	initLight();
 	loadTextures();
 	initGui();
-
 }
 
 void GraphicsApp::initLight()
@@ -119,7 +118,7 @@ void GraphicsApp::initGui()
 {
 	// set colour variable for UI controls.
 	clear_col = ImColor(114, 144, 154);
-	light_wireframe = false;
+	specular_light_wireframe = false;
 	tessellation_wireframe = false;
 	triangle_colour_shader = false;
 	tessellation_shader = false;
@@ -141,7 +140,7 @@ void GraphicsApp::renderSpecularLightExample()
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// wireframe mode
-	renderer->setWireframeMode(light_wireframe);
+	renderer->setWireframeMode(specular_light_wireframe);
 
 	// Send geometry data (from mesh)
 	//mesh->sendData(renderer->getDeviceContext());
@@ -228,7 +227,7 @@ void GraphicsApp::gui()
 	{
 		ImGui::Begin("Specular Light", &triangle_colour_shader);
 		ImGui::ColorEdit3("Colour", (float*)&clear_col);
-		ImGui::Checkbox("Wireframe", &light_wireframe);
+		ImGui::Checkbox("Wireframe", &specular_light_wireframe);
 		ImGui::End();
 	}
 

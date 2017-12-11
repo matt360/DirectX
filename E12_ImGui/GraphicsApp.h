@@ -25,10 +25,12 @@ protected:
 private:
 	// CONSTRUCTOR
 	void loadTextures();
-
-	// SPECULAR LIGHT //
+	void initCameras();
+	// SPECULAR LIGHT ////////////////
+	// Camera
+	
 	// wireframe
-	bool light_wireframe;
+	bool specular_light_wireframe;
 	// shader handler
 	LightShader* lightShader;
 	// mesh
@@ -38,7 +40,9 @@ private:
 	// render function
 	void renderSpecularLightExample();
 
-	// TESSELLATION //
+	// TESSELLATION //////////////////
+	// Camera
+	
 	bool tessellation_wireframe;
 	// shader handler
 	TessellationShader* tessellationShader;
