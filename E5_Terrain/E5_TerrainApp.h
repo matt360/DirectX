@@ -4,7 +4,6 @@
 
 // Includes
 #include "../DXFramework/DXF.h"
-#include "ColourShader.h"
 #include "LightShader.h"
 
 class E5_TerrainApp : public BaseApplication
@@ -30,7 +29,6 @@ private:
 	PlaneMesh* planeMesh;
 	TerrainMesh* terrainMesh;
 	// Shader handler
-	ColourShader* colourShader;
 	LightShader* lightShader;
 	
 	Light* m_Light;

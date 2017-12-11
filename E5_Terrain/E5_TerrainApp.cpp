@@ -12,7 +12,6 @@ E5_TerrainApp::E5_TerrainApp()
 	planeMesh = nullptr;
 	terrainMesh = nullptr;
 	lightShader = nullptr;
-	colourShader = nullptr;
 	wireframe = false;
 }
 
@@ -96,12 +95,6 @@ E5_TerrainApp::~E5_TerrainApp()
 	{
 		delete terrainMesh;
 		terrainMesh = 0;
-	}
-
-	if (colourShader)
-	{
-		delete colourShader;
-		colourShader = 0;
 	}
 
 	if (lightShader)
