@@ -71,16 +71,19 @@ private:
 	//////////////////////////////////////
 
 	// MULTI LIGHTS //////////////////////
+	bool multi_light_wireframe;
 	MultiLightShader* multiLightShader;
 
 	Light *light0_, *light1_, *light2_, *light3_;
 	//SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;
-
 	float light_y;
+	// render function
+	bool multi_light_example;
+	void renderMultiLightExample();
 	//////////////////////////////////////
 
 	////////////// ImGUI /////////////////
-	void initGui();
+	void initGuiVariables();
 
 	ImVec4 clear_col;
 	//////////////////////////////////////

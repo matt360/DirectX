@@ -67,16 +67,53 @@ GraphicsApp::~GraphicsApp()
 	}
 
 	// shader handlers
+	if (lightShader)
+	{
+		delete lightShader;
+		lightShader = 0;
+	}
+
 	if (tessellationShader)
 	{
 		delete tessellationShader;
 		tessellationShader = 0;
 	}
 
-	if (lightShader)
+	if (terrainShader)
 	{
-		delete lightShader;
-		lightShader = 0;
+		delete terrainShader;
+		terrainShader = 0;
+	}
+
+	// multi lights shader handler
+	if (multiLightShader)
+	{
+		delete multiLightShader;
+		multiLightShader = 0;
+	}
+
+	if (light0_)
+	{
+		delete light0_;
+		light0_ = 0;
+	}
+
+	if (light1_)
+	{
+		delete light1_;
+		light1_ = 0;
+	}
+
+	if (light2_)
+	{
+		delete light2_;
+		light2_ = 0;
+	}
+
+	if (light3_)
+	{
+		delete light3_;
+		light3_ = 0;
 	}
 }
 
@@ -85,18 +122,24 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	// Call super init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
+	initVariables();
 	// Create mesh objects
 	initGeometry();
 	// create shader handlers
 	initShaders(hwnd);
 	initLight();
 	loadTextures();
-	initGui();
+	initGuiVariables();
+}
+
+void GraphicsApp::initVariables()
+{
+	light_terrain_y = 0.0f;
 }
 
 void GraphicsApp::initLight()
 {
-	// 
+	// specular light
 	specular_light = new Light;
 	specular_light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
 	specular_light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
@@ -104,6 +147,7 @@ void GraphicsApp::initLight()
 	specular_light->setSpecularPower(16.f);
 	specular_light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 
+	// terrain light
 	light_terrain = new Light;
 	light_terrain->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
 	light_terrain->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
@@ -111,7 +155,41 @@ void GraphicsApp::initLight()
 	light_terrain->setSpecularPower(16.f);
 	light_terrain->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	light_terrain->setPosition(0.0f, 0.1f, 0.0f);
-	light_terrain_y = 0.0f;
+
+	// Multiple lights
+	// Light 0
+	light0_ = new Light;
+	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
+	light0_->setPosition(-3.0f, 0.1f, 3.0f);
+	//light0_->setAmbientColour(0.2f, 0.0f, 0.0f, 1.0f); // red
+	//light0_->setDirection(0.0, 0.0f, 0.0f);
+	//light0_->setSpecularPower(16.f);
+	//light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	// Light 1
+	light1_ = new Light;
+	light1_->setDiffuseColour(0.0f, 1.0f, 0.0f, 1.0f);
+	light1_->setPosition(3.0f, 0.1f, 3.0f);
+	//light1_->setAmbientColour(0.0f, 2.0f, 0.0f, 1.0f); // green
+	//light1_->setDirection(0.0, 0.0f, 0.0f);
+	//light1_->setSpecularPower(16.f);
+	//light1_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	// Light 2
+	light2_ = new Light;
+	light2_->setDiffuseColour(0.0f, 0.0f, 1.0f, 1.0f);
+	light2_->setPosition(-3.0f, 0.1f, -3.0f);
+	//light2_->setAmbientColour(0.0f, 0.0f, 0.2f, 1.0f); // blue
+	//light2_->setDirection(0.0, 0.0f, 0.0f);
+	//light2_->setSpecularPower(16.f);
+	//light2_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	// Light 3
+	light3_ = new Light;
+	light3_->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light3_->setPosition(3.0f, 0.1f, -3.0f);
+	//light3_->setAmbientColour(0.2f, 0.2f, 0.0f, 1.0f); // yellow
+	//light3_->setDirection(0.0, 0.0f, 0.0f);
+	//light3_->setSpecularPower(16.f);
+	//light3_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	// light y position
 }
 
 void GraphicsApp::loadTextures()
@@ -141,7 +219,7 @@ void GraphicsApp::initShaders(HWND hwnd)
 	multiLightShader = new MultiLightShader(renderer->getDevice(), hwnd);
 }
 
-void GraphicsApp::initGui()
+void GraphicsApp::initGuiVariables()
 {
 	// set colour variable for UI controls.
 	clear_col = ImColor(114, 144, 154);
@@ -150,10 +228,13 @@ void GraphicsApp::initGui()
 	specular_light_wireframe = false;
 	tessellation_wireframe = false;
 	terrain_wireframe = false;
+	multi_light_wireframe = false;
 
 	// display example handlers
 	specular_light_example = false;
 	tessellation_example = false;
+	terrain_example = false;
+	multi_light_example = false;
 }
 
 bool GraphicsApp::frame()
@@ -319,11 +400,102 @@ void GraphicsApp::renderTerrainExample()
 	renderer->endScene();
 }
 
+void GraphicsApp::renderMultiLightExample()
+{
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+	XMFLOAT4 diffuseColor[4];
+	XMFLOAT3 lightPosition[4];
+
+	// Create the diffuse color array from the four light colors.
+	diffuseColor[0] = light0_->getDiffuseColour();
+	diffuseColor[1] = light1_->getDiffuseColour();
+	diffuseColor[2] = light2_->getDiffuseColour();
+	diffuseColor[3] = light3_->getDiffuseColour();
+
+	// Create the light position array from the four light positions.
+	lightPosition[0] = light0_->getPosition();
+	lightPosition[1] = light1_->getPosition();
+	lightPosition[2] = light2_->getPosition();
+	lightPosition[3] = light3_->getPosition();
+
+	//// Clear the scene. (default cornflower blue colour)
+	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+
+	//// Generate the view matrix based on the camera's position.
+	camera->update();
+
+	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	viewMatrix = camera->getViewMatrix();
+
+	projectionMatrix = renderer->getProjectionMatrix();
+
+	// wireframe mode
+	renderer->setWireframeMode(false);
+
+	// translation and rotation
+	worldMatrix = renderer->getWorldMatrix();
+	//XMMATRIX matrixTranslation = XMMatrixTranslation(-100.0f, 0.0, -150.0f);
+	//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+	//XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(90.0f));
+	//worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+	// scaling
+	//XMMATRIX matrixScaling = XMMatrixScaling(10.0f, 1.0f, 10.0f);
+	//worldMatrix *= matrixScaling;
+
+	// Send geometry data (from mesh)
+	//triangleMesh->sendData(renderer->getDeviceContext());
+	//sphereMesh->sendData(renderer->getDeviceContext());
+	cubeMesh->sendData(renderer->getDeviceContext());
+	//quadMesh->sendData(renderer->getDeviceContext());
+	//planeMesh->sendData(renderer->getDeviceContext());
+
+	// Set shader parameters (matrices and texture)
+	//lightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
+	multiLightShader->setShaderParameters
+	(
+		renderer->getDeviceContext(),
+		worldMatrix,
+		viewMatrix,
+		projectionMatrix,
+		textureMgr->getTexture("checkerboard"), // for the default textrue pass an empty string as a name
+		diffuseColor,
+		lightPosition
+	);
+
+	// Render object (combination of mesh geometry and shader process
+	//lightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+
+	// PLANE MESH
+	//planeMesh->sendData(renderer->getDeviceContext());
+	//lightShader->setShaderParameters
+	//(
+	//	renderer->getDeviceContext(),
+	//	worldMatrix,
+	//	viewMatrix,
+	//	projectionMatrix,
+	//	textureMgr->getTexture("checkerboard"), // for the default textrue pass an empty string as a name
+	//	diffuseColor,
+	//	lightPosition
+	//);
+	//lightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+
+	// Render GUI
+	gui();
+
+	//// Present the rendered scene to the screen.
+	renderer->endScene();
+}
+
 bool GraphicsApp::render()
 {
 	if (specular_light_example) renderSpecularLightExample();
 	else if (tessellation_example) renderTessellationExample();
 	else if (terrain_example) renderTerrainExample();
+	else if (multi_light_example) renderMultiLightExample();
 	else
 	{
 		//// Clear the scene. (default blue colour)
@@ -352,6 +524,7 @@ void GraphicsApp::gui()
 	{
 		tessellation_example = false;
 		terrain_example = false;
+		multi_light_example = false;
 		specular_light_example ^= 1;
 	}
 	// Buttons
@@ -359,14 +532,24 @@ void GraphicsApp::gui()
 	{
 		specular_light_example = false;
 		terrain_example = false;
+		multi_light_example = false;
 		tessellation_example ^= 1;
 	}
 	if (ImGui::Button("Terrain Example"))
 	{
 		specular_light_example = false;
 		tessellation_example = false;
+		multi_light_example = false;
 		terrain_example ^= 1;
 	}
+	if (ImGui::Button("Multi Light Example"))
+	{
+		specular_light_example = false;
+		tessellation_example = false;
+		terrain_example = false;
+		multi_light_example ^= 1;
+	}
+
 	// Handle displaying the example
 	if (specular_light_example)
 	{
@@ -384,9 +567,16 @@ void GraphicsApp::gui()
 	}
 	if (terrain_example)
 	{
-		ImGui::Begin("Terrain", &tessellation_example);
+		ImGui::Begin("Terrain", &terrain_example);
 		//ImGui::ColorEdit3("Colour", (float*)&clear_col);
 		ImGui::Checkbox("Wireframe", &terrain_wireframe);
+		ImGui::End();
+	}
+	if (multi_light_example)
+	{
+		ImGui::Begin("Multi Light Example", &multi_light_example);
+		//ImGui::ColorEdit3("Colour", (float*)&clear_col);
+		ImGui::Checkbox("Wireframe", &multi_light_example);
 		ImGui::End();
 	}
 
