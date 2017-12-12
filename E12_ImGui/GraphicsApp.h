@@ -89,8 +89,4 @@ private:
 
 	// math
 	float clamp(float n, float lower, float upper);
-
-	// extra functions
-	void resetCamera();
-	void resetCamera(float x, float y, float z, float pitch, float yaw, float roll);
 };

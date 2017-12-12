@@ -263,7 +263,7 @@ void Camera::resetCamera()
 	setRotation(0.0f, 0.0f, 0.0f);
 }
 
-void Camera::resetCamera(float x, float y, float z, float pitch, float yaw, float roll)
+void Camera::setPositionAndRotation(float x, float y, float z, float pitch, float yaw, float roll)
 {
 	setPosition(x, y, z);
 	setRotation(pitch, yaw, roll);
