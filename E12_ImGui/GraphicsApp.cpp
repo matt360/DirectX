@@ -613,8 +613,10 @@ void GraphicsApp::gui()
 		ImGui::SliderFloat3("Light 1 Pos", (float*)&light1_pos, -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 2 Pos", (float*)&light2_pos, -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 3 Pos", (float*)&light3_pos, -10.0f, 10.0f);
-		
+		// reset scale
 		ImGui::SliderFloat3("Scale", (float*)&ml_scale, -20.0f, 20.0f);
+		if (ImGui::Button("Reset Scale")) ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
 		ImGui::Checkbox("Triangle Mesh", &ml_triangle_mesh);
 		ImGui::Checkbox("Sphere Mesh", &ml_sphere_mesh);
 		ImGui::Checkbox("Cube Mesh", &ml_cube_mesh);
