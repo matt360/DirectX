@@ -544,6 +544,9 @@ void GraphicsApp::gui()
 		tessellation_example = false;
 		terrain_example = false;
 		multi_light_example = false;
+
+		camera->setPosition(0.0f, 0.0f, -10.0f);
+		camera->setRotation(0.0f, 0.0f, 0.0f);
 	}
 	// Buttons
 	if (ImGui::Button("Tessellation Example"))
@@ -552,6 +555,9 @@ void GraphicsApp::gui()
 		tessellation_example ^= 1;
 		terrain_example = false;
 		multi_light_example = false;
+		// set the camera
+		camera->setPosition(0.0f, 4.75f, -10.0f);
+		camera->setRotation(0.0f, 30.0f, 0.0f);
 	}
 	if (ImGui::Button("Terrain Example"))
 	{
