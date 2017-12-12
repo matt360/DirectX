@@ -440,6 +440,19 @@ void GraphicsApp::renderMultiLightExample()
 		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	}
+	else if (ml_sphere_mesh)
+	{
+		viewMatrix = camera->getViewMatrix();
+		projectionMatrix = renderer->getProjectionMatrix();
+		// translation and rotation
+		worldMatrix = renderer->getWorldMatrix();
+		XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
+		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+
+		scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
+	}
 	else
 	{
 		viewMatrix = camera->getViewMatrix();
@@ -556,27 +569,26 @@ void GraphicsApp::gui()
 		tessellation_example = false;
 		terrain_example = false;
 		multi_light_example ^= 1;
+		camera->setPosition(0.0f, 0.0f, -4.75f);
+		ml_sphere_mesh = true;
 	}
 
 	// Handle displaying the example
 	if (specular_light_example)
 	{
 		ImGui::Begin("Specular Light", &specular_light_example);
-		//ImGui::ColorEdit3("Colour", (float*)&clear_col);
 		ImGui::Checkbox("Wireframe", &specular_light_wireframe);
 		ImGui::End();
 	}
 	if (tessellation_example)
 	{
 		ImGui::Begin("Tessellation", &tessellation_example);
-		//ImGui::ColorEdit3("Colour", (float*)&clear_col);
 		ImGui::Checkbox("Wireframe", &tessellation_wireframe);
 		ImGui::End();
 	}
 	if (terrain_example)
 	{
 		ImGui::Begin("Terrain", &terrain_example);
-		//ImGui::ColorEdit3("Colour", (float*)&clear_col);
 		ImGui::Checkbox("Wireframe", &terrain_wireframe);
 		ImGui::End();
 	}
@@ -601,7 +613,6 @@ void GraphicsApp::gui()
 		ImGui::Checkbox("Quad Mesh", &ml_quad_mesh);
 		ImGui::Checkbox("Plane Mesh", &ml_plane_mesh);
 		ImGui::Checkbox("Wireframe", &ml_wireframe);
-
 		ImGui::End();
 	}
 
