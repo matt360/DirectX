@@ -225,7 +225,8 @@ void GraphicsApp::initGuiVariables()
 	light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
 	light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
 
-	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	tr_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 }
 
 void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -360,14 +361,12 @@ void GraphicsApp::renderTerrainExample()
 
 	// translation and rotation
 	worldMatrix = renderer->getWorldMatrix();
-	XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+	XMMATRIX matrixTranslation = XMMatrixTranslation(-20.0f, 0.0, 0.0f);
 	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(180.0f));
 	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	// scaling
-	XMMATRIX matrixScaling = XMMatrixScaling(1.0f, 1.0f, 1.0f);
+	XMMATRIX matrixScaling = XMMatrixScaling(tr_scale.x, tr_scale.y, tr_scale.z);
 	worldMatrix *= matrixScaling;
-
-	// TODO remove m_Light->setPosition(0.0f, 0.0f, 0.0f);
 
 	// wave's:
 	float height = 1.0f;
@@ -377,7 +376,7 @@ void GraphicsApp::renderTerrainExample()
 	renderer->setWireframeMode(terrain_wireframe);
 
 	//m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
-	//// Send geometry data (from mesh)
+	// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
 	//sphereMesh->sendData(renderer->getDeviceContext());
 	//cubeMesh->sendData(renderer->getDeviceContext());
@@ -451,7 +450,7 @@ void GraphicsApp::renderMultiLightExample()
 		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 
-		scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
+		ml_scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
 	}
 	else
 	{
@@ -465,7 +464,7 @@ void GraphicsApp::renderMultiLightExample()
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	}
 	// scaling
-	XMMATRIX matrixScaling = XMMatrixScaling(scale.x, scale.y, scale.z);
+	XMMATRIX matrixScaling = XMMatrixScaling(ml_scale.x, ml_scale.y, ml_scale.z);
 	worldMatrix *= matrixScaling;
 
 	// wireframe mode
@@ -535,7 +534,7 @@ void GraphicsApp::gui()
 	// Build UI
 	//ImGui::Checkbox("Triangle Colour Shader", &triangle_colour_shader);
 	ImGui::Text("FPS: %.2f", timer->getFPS());
-	ImGui::Text("Camera: x: %.2f y: %.2f z: %.2f", camera->getPosition().x, camera->getPosition().y, camera->getPosition().z);
+	ImGui::Text("Camera Position: x: %.2f y: %.2f z: %.2f", camera->getPosition().x, camera->getPosition().y, camera->getPosition().z);
 	if (ImGui::Button("Reset camera"))
 	{
 		camera->setPosition(0.0f, 0.0f, -10.0f);
@@ -562,6 +561,9 @@ void GraphicsApp::gui()
 		tessellation_example = false;
 		terrain_example ^= 1;
 		multi_light_example = false;
+		// set the camera
+		camera->setPosition(0.0f, 2.0f, -10.0f);
+		camera->setRotation(0.0f, -10.0f, 0.0f);
 	}
 	if (ImGui::Button("Multi Light Example"))
 	{
@@ -569,7 +571,9 @@ void GraphicsApp::gui()
 		tessellation_example = false;
 		terrain_example = false;
 		multi_light_example ^= 1;
+		// set the camera and first mesh
 		camera->setPosition(0.0f, 0.0f, -4.75f);
+		camera->setRotation(0.0f, 0.f, 0.f);
 		ml_sphere_mesh = true;
 	}
 
@@ -590,6 +594,10 @@ void GraphicsApp::gui()
 	{
 		ImGui::Begin("Terrain", &terrain_example);
 		ImGui::Checkbox("Wireframe", &terrain_wireframe);
+		ImGui::SliderFloat("Scale X", (float*)&tr_scale.x, -15.0f, 15.0f);
+		ImGui::SliderFloat("Scale Y", (float*)&tr_scale.y, -15.0f, 15.0f);
+		ImGui::SliderFloat("Scale Z", (float*)&tr_scale.z, -15.0f, 15.0f);
+		if (ImGui::Button("Reset Scale")) tr_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		ImGui::End();
 	}
 	if (multi_light_example)
@@ -606,7 +614,7 @@ void GraphicsApp::gui()
 		ImGui::SliderFloat3("Light 2 Pos", (float*)&light2_pos, -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 3 Pos", (float*)&light3_pos, -10.0f, 10.0f);
 		
-		ImGui::SliderFloat3("Scale", (float*)&scale, -20.0f, 20.0f);
+		ImGui::SliderFloat3("Scale", (float*)&ml_scale, -20.0f, 20.0f);
 		ImGui::Checkbox("Triangle Mesh", &ml_triangle_mesh);
 		ImGui::Checkbox("Sphere Mesh", &ml_sphere_mesh);
 		ImGui::Checkbox("Cube Mesh", &ml_cube_mesh);

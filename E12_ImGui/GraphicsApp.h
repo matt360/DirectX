@@ -68,6 +68,7 @@ private:
 	// render function
 	bool terrain_example;
 	void renderTerrainExample();
+	XMFLOAT3 tr_scale;
 	//////////////////////////////////////
 
 	// MULTI LIGHTS //////////////////////
@@ -78,7 +79,7 @@ private:
 	Light *light0_, *light1_, *light2_, *light3_;
 	ImVec4 light0_col, light1_col, light2_col, light3_col;
 	XMFLOAT3 light0_pos, light1_pos, light2_pos, light3_pos;
-	XMFLOAT3 scale;
+	XMFLOAT3 ml_scale;
 	//SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;
 	float light_y;
 	// render function
