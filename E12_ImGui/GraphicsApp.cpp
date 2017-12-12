@@ -224,18 +224,6 @@ void GraphicsApp::initGuiVariables()
 	light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
 	light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
 	light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
-
-	// wireframe for each of the examples
-	specular_light_wireframe = false;
-	tessellation_wireframe = false;
-	terrain_wireframe = false;
-	multi_light_wireframe = false;
-
-	// display example handlers
-	specular_light_example = false;
-	tessellation_example = false;
-	terrain_example = false;
-	multi_light_example = false;
 }
 
 void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -427,11 +415,6 @@ void GraphicsApp::renderMultiLightExample()
 	diffuseColor[3] = XMFLOAT4(light3_col.x, light3_col.y, light3_col.z, light3_col.w);
 
 	// Create the light position array from the four light positions.
-	// TODO set position
-	/*lightPosition[0] = light0_->getPosition();
-	lightPosition[1] = light1_->getPosition();
-	lightPosition[2] = light2_->getPosition();
-	lightPosition[3] = light3_->getPosition();*/
 	lightPosition[0] = light0_pos;
 	lightPosition[1] = light1_pos;
 	lightPosition[2] = light2_pos;
@@ -457,7 +440,7 @@ void GraphicsApp::renderMultiLightExample()
 	//worldMatrix *= matrixScaling;
 
 	// wireframe mode
-	renderer->setWireframeMode(multi_light_wireframe);
+	renderer->setWireframeMode(ml_wireframe);
 
 	// Send geometry data (from mesh)
 	//triangleMesh->sendData(renderer->getDeviceContext());
@@ -585,11 +568,11 @@ void GraphicsApp::gui()
 		ImGui::ColorEdit3("Light 2 Col", (float*)&light2_col);
 		ImGui::ColorEdit3("Light 3 Col", (float*)&light3_col);
 		// change lights' position
-		ImGui::SliderFloat3("Light 0 Pos", &light0_pos.x, -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 1 Pos", &light1_pos.x, -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 2 Pos", &light2_pos.x, -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 3 Pos", &light3_pos.x, -10.0f, 10.0f);
-		ImGui::Checkbox("Wireframe", &multi_light_wireframe);
+		ImGui::SliderFloat3("Light 0 Pos", (float*)&light0_pos, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 1 Pos", (float*)&light1_pos, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 2 Pos", (float*)&light2_pos, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 3 Pos", (float*)&light3_pos, -10.0f, 10.0f);
+		ImGui::Checkbox("Wireframe", &ml_wireframe);
 		ImGui::End();
 	}
 

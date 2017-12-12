@@ -71,7 +71,8 @@ private:
 	//////////////////////////////////////
 
 	// MULTI LIGHTS //////////////////////
-	bool multi_light_wireframe;
+	bool ml_wireframe;
+	bool ml_triangle_mesh, ml_sphere_mesh, ml_cube_mesh, ml_quad_mesh, ml_plane_mesh;
 	MultiLightShader* multiLightShader;
 
 	Light *light0_, *light1_, *light2_, *light3_;
