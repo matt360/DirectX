@@ -427,14 +427,28 @@ void GraphicsApp::renderMultiLightExample()
 	camera->update();
 
 	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	viewMatrix = camera->getViewMatrix();
-	projectionMatrix = renderer->getProjectionMatrix();
-	// translation and rotation
-	worldMatrix = renderer->getWorldMatrix();
-	XMMATRIX matrixTranslation = XMMatrixTranslation(-40.0f, 0.0, -40.0f);
-	//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
-	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+	if (ml_plane_mesh)
+	{
+		viewMatrix = camera->getViewMatrix();
+		projectionMatrix = renderer->getProjectionMatrix();
+		// translation and rotation
+		worldMatrix = renderer->getWorldMatrix();
+		XMMATRIX matrixTranslation = XMMatrixTranslation(-40.0f, 0.0, -40.0f);
+		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
+		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+	}
+	else
+	{
+		viewMatrix = camera->getViewMatrix();
+		projectionMatrix = renderer->getProjectionMatrix();
+		// translation and rotation
+		worldMatrix = renderer->getWorldMatrix();
+		XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
+		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+	}
 	//// scaling
 	//XMMATRIX matrixScaling = XMMatrixScaling(10.0f, 10.0f, 10.0f);
 	//worldMatrix *= matrixScaling;
@@ -443,11 +457,11 @@ void GraphicsApp::renderMultiLightExample()
 	renderer->setWireframeMode(ml_wireframe);
 
 	// Send geometry data (from mesh)
-	//triangleMesh->sendData(renderer->getDeviceContext());
-	//sphereMesh->sendData(renderer->getDeviceContext());
-	//cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	//quadMesh->sendData(renderer->getDeviceContext());
-	planeMesh->sendData(renderer->getDeviceContext());
+	if (ml_triangle_mesh) triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	if (ml_sphere_mesh)   sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	if (ml_cube_mesh)     cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	if (ml_quad_mesh)     quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	if (ml_plane_mesh)    planeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Set shader parameters (matrices and texture)
 	//multiLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
@@ -463,11 +477,11 @@ void GraphicsApp::renderMultiLightExample()
 	);
 
 	// Render object (combination of mesh geometry and shader process
-	//multiLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	//multiLightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-	//multiLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
-	//multiLightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-	multiLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	if (ml_triangle_mesh) multiLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	if (ml_sphere_mesh)   multiLightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	if (ml_cube_mesh)     multiLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	if (ml_quad_mesh)     multiLightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	if (ml_plane_mesh)    multiLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// Render GUI
 	gui();
@@ -572,7 +586,14 @@ void GraphicsApp::gui()
 		ImGui::SliderFloat3("Light 1 Pos", (float*)&light1_pos, -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 2 Pos", (float*)&light2_pos, -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 3 Pos", (float*)&light3_pos, -10.0f, 10.0f);
+		
+		ImGui::Checkbox("Triangle Mesh", &ml_triangle_mesh);
+		ImGui::Checkbox("Sphere Mesh", &ml_sphere_mesh);
+		ImGui::Checkbox("Cube Mesh", &ml_cube_mesh);
+		ImGui::Checkbox("Quad Mesh", &ml_quad_mesh);
+		ImGui::Checkbox("Plane Mesh", &ml_plane_mesh);
 		ImGui::Checkbox("Wireframe", &ml_wireframe);
+
 		ImGui::End();
 	}
 
