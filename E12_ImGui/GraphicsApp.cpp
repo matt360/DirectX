@@ -449,8 +449,6 @@ void GraphicsApp::renderMultiLightExample()
 		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
 		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
-
-		ml_scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
 	}
 	else
 	{
@@ -563,7 +561,7 @@ void GraphicsApp::gui()
 		multi_light_example = false;
 		// set the camera
 		camera->setPosition(0.0f, 2.0f, -10.0f);
-		camera->setRotation(0.0f, -10.0f, 0.0f);
+		camera->setRotation(0.0f, -45.0f, 0.0f);
 	}
 	if (ImGui::Button("Multi Light Example"))
 	{
@@ -574,6 +572,7 @@ void GraphicsApp::gui()
 		// set the camera and first mesh
 		camera->setPosition(0.0f, 0.0f, -4.75f);
 		camera->setRotation(0.0f, 0.f, 0.f);
+		ml_scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
 		ml_sphere_mesh = true;
 	}
 
@@ -621,7 +620,11 @@ void GraphicsApp::gui()
 		ImGui::Checkbox("Sphere Mesh", &ml_sphere_mesh);
 		ImGui::Checkbox("Cube Mesh", &ml_cube_mesh);
 		ImGui::Checkbox("Quad Mesh", &ml_quad_mesh);
-		ImGui::Checkbox("Plane Mesh", &ml_plane_mesh);
+		if (ImGui::Checkbox("Plane Mesh", &ml_plane_mesh))
+		{
+			camera->setPosition(0.0f, 3.0f, 0.0f);
+			ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		}
 		ImGui::Checkbox("Wireframe", &ml_wireframe);
 		ImGui::End();
 	}
