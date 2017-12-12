@@ -27,6 +27,8 @@ public:
 	void setPosition(float lx, float ly, float lz);
 	void setPosition(const XMFLOAT3& new_position);
 	void setRotation(float lx, float ly, float lz);
+	void resetCamera();
+	void resetCamera(float x, float y, float z, float pitch, float yaw, float roll);
 
 	XMFLOAT3 getPosition();
 	XMVECTOR getRotation();

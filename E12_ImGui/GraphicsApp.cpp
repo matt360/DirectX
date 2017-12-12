@@ -535,8 +535,7 @@ void GraphicsApp::gui()
 	ImGui::Text("Camera Position: x: %.2f y: %.2f z: %.2f", camera->getPosition().x, camera->getPosition().y, camera->getPosition().z);
 	if (ImGui::Button("Reset camera"))
 	{
-		camera->setPosition(0.0f, 0.0f, -10.0f);
-		camera->setRotation(0.0f, 0.0f, 0.0f);
+		resetCamera();
 	}
 	if (ImGui::Button("Specular Light Example"))
 	{ 
@@ -545,8 +544,7 @@ void GraphicsApp::gui()
 		terrain_example = false;
 		multi_light_example = false;
 
-		camera->setPosition(0.0f, 0.0f, -10.0f);
-		camera->setRotation(0.0f, 0.0f, 0.0f);
+		resetCamera();
 	}
 	// Buttons
 	if (ImGui::Button("Tessellation Example"))
@@ -642,5 +640,17 @@ void GraphicsApp::gui()
 float GraphicsApp::clamp(float n, float lower, float upper)
 {
 	return std::fmax(lower, (std::fmin(n, upper)));
+}
+
+void GraphicsApp::resetCamera()
+{
+	camera->setPosition(0.0f, 0.0f, -10.0f);
+	camera->setRotation(0.0f, 0.0f, 0.0f);
+}
+
+void GraphicsApp::resetCamera(float x, float y, float z, float pitch, float yaw, float roll)
+{
+	camera->setPosition(x, y, z);
+	camera->setRotation(pitch, yaw, roll);
 }
 

@@ -256,3 +256,15 @@ void Camera::strafeLeft()
 	position.z += sinf(radians) * speed;
 	position.x -= cosf(radians) * speed;
 }
+
+void Camera::resetCamera()
+{
+	setPosition(0.0f, 0.0f, -10.0f);
+	setRotation(0.0f, 0.0f, 0.0f);
+}
+
+void Camera::resetCamera(float x, float y, float z, float pitch, float yaw, float roll)
+{
+	setPosition(x, y, z);
+	setRotation(pitch, yaw, roll);
+}
