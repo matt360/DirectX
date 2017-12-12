@@ -12,9 +12,9 @@ Camera::Camera()
 
 	// Generate ortho matrix
 	XMVECTOR up, position, lookAt;
-	up = XMVectorSet(0.0f, 1.0, 0.0, 1.0f);
-	position = XMVectorSet(0.0f, 0.0, -10.0, 1.0f);
-	lookAt = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0);
+	up = XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
+	position = XMVectorSet(0.0f, 0.0f, -10.0f, 1.0f);
+	lookAt = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
 	orthoMatrix = XMMatrixLookAtLH(position, lookAt, up);
 }
 

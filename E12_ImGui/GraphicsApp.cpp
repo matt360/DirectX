@@ -224,6 +224,8 @@ void GraphicsApp::initGuiVariables()
 	light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
 	light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
 	light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
+
+	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 }
 
 void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -449,9 +451,9 @@ void GraphicsApp::renderMultiLightExample()
 		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	}
-	//// scaling
-	//XMMATRIX matrixScaling = XMMatrixScaling(10.0f, 10.0f, 10.0f);
-	//worldMatrix *= matrixScaling;
+	// scaling
+	XMMATRIX matrixScaling = XMMatrixScaling(scale.x, scale.y, scale.z);
+	worldMatrix *= matrixScaling;
 
 	// wireframe mode
 	renderer->setWireframeMode(ml_wireframe);
@@ -521,6 +523,11 @@ void GraphicsApp::gui()
 	//ImGui::Checkbox("Triangle Colour Shader", &triangle_colour_shader);
 	ImGui::Text("FPS: %.2f", timer->getFPS());
 	ImGui::Text("Camera: x: %.2f y: %.2f z: %.2f", camera->getPosition().x, camera->getPosition().y, camera->getPosition().z);
+	if (ImGui::Button("Reset camera"))
+	{
+		camera->setPosition(0.0f, 0.0f, -10.0f);
+		camera->setRotation(0.0f, 0.0f, 0.0f);
+	}
 	if (ImGui::Button("Specular Light Example"))
 	{ 
 		specular_light_example ^= 1;
@@ -587,6 +594,7 @@ void GraphicsApp::gui()
 		ImGui::SliderFloat3("Light 2 Pos", (float*)&light2_pos, -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 3 Pos", (float*)&light3_pos, -10.0f, 10.0f);
 		
+		ImGui::SliderFloat3("Scale", (float*)&scale, -20.0f, 20.0f);
 		ImGui::Checkbox("Triangle Mesh", &ml_triangle_mesh);
 		ImGui::Checkbox("Sphere Mesh", &ml_sphere_mesh);
 		ImGui::Checkbox("Cube Mesh", &ml_cube_mesh);
