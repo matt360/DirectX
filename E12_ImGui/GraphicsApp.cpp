@@ -561,7 +561,7 @@ void GraphicsApp::gui()
 		multi_light_example = false;
 		// set the camera
 		camera->setPosition(0.0f, 2.0f, -10.0f);
-		camera->setRotation(0.0f, -45.0f, 0.0f);
+		camera->setRotation(0.0f, -200.0f, 0.0f);
 	}
 	if (ImGui::Button("Multi Light Example"))
 	{
