@@ -76,7 +76,7 @@ private:
 
 	Light *light0_, *light1_, *light2_, *light3_;
 	ImVec4 light0_col, light1_col, light2_col, light3_col;
-	ImVec4 light0_pos, light1_pos, light2_pos, light3_pos;
+	XMFLOAT3 light0_pos, light1_pos, light2_pos, light3_pos;
 	//SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;
 	float light_y;
 	// render function

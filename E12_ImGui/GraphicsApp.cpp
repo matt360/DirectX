@@ -220,10 +220,10 @@ void GraphicsApp::initGuiVariables()
 	light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
 	light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-	light0_pos = ImColor(-3.0f, 0.1f, 3.0f);
-	light1_pos = ImColor(3.0f, 0.1f, 3.0f);
-	light2_pos = ImColor(-3.0f, 0.1f, -3.0f);
-	light3_pos = ImColor(3.0f, 0.1f, -3.0f);
+	light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
+	light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
+	light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
+	light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
 
 	// wireframe for each of the examples
 	specular_light_wireframe = false;
@@ -427,15 +427,15 @@ void GraphicsApp::renderMultiLightExample()
 	diffuseColor[3] = XMFLOAT4(light3_col.x, light3_col.y, light3_col.z, light3_col.w);
 
 	// Create the light position array from the four light positions.
-	/*lightPosition[0] = XMFLOAT3(light0_pos.x, light0_pos.y, light0_pos.z);
-	lightPosition[1] = XMFLOAT3(light1_pos.x, light1_pos.y, light1_pos.z);
-	lightPosition[2] = XMFLOAT3(light2_pos.x, light2_pos.y, light2_pos.z);
-	lightPosition[3] = XMFLOAT3(light3_pos.x, light3_pos.y, light3_pos.z);*/
-	// TODO set position BOOM
-	lightPosition[0] = light0_->getPosition();
+	// TODO set position
+	/*lightPosition[0] = light0_->getPosition();
 	lightPosition[1] = light1_->getPosition();
 	lightPosition[2] = light2_->getPosition();
-	lightPosition[3] = light3_->getPosition();
+	lightPosition[3] = light3_->getPosition();*/
+	lightPosition[0] = light0_pos;
+	lightPosition[1] = light1_pos;
+	lightPosition[2] = light2_pos;
+	lightPosition[3] = light3_pos;
 
 	//// Clear the scene. (default cornflower blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
@@ -523,8 +523,9 @@ void GraphicsApp::gui()
 	// Build UI
 	//ImGui::Checkbox("Triangle Colour Shader", &triangle_colour_shader);
 	ImGui::Text("FPS: %.2f", timer->getFPS());
+	ImGui::Text("Camera: x: %.2f y: %.2f z: %.2f", camera->getPosition().x, camera->getPosition().y, camera->getPosition().z);
 	if (ImGui::Button("Specular Light Example"))
-	{
+	{ 
 		specular_light_example ^= 1;
 		tessellation_example = false;
 		terrain_example = false;
@@ -578,14 +579,17 @@ void GraphicsApp::gui()
 	if (multi_light_example)
 	{
 		ImGui::Begin("Multi Light Example", &multi_light_example);
-		ImGui::ColorEdit3("Light Col 1", (float*)&light0_col);
-		ImGui::ColorEdit3("Light Col 2", (float*)&light1_col);
-		ImGui::ColorEdit3("Light Col 3", (float*)&light2_col);
-		ImGui::ColorEdit3("Light Col 4", (float*)&light3_col);
-		ImGui::ColorEdit3("Light Pos 1", (float*)&light0_pos);
-		ImGui::ColorEdit3("Light Pos 2", (float*)&light1_pos);
-		ImGui::ColorEdit3("Light Pos 3", (float*)&light2_pos);
-		ImGui::ColorEdit3("Light Pos 4", (float*)&light3_pos);
+		// change lights' colour
+		ImGui::ColorEdit3("Light 1 Col", (float*)&light0_col);
+		ImGui::ColorEdit3("Light 2 Col", (float*)&light1_col);
+		ImGui::ColorEdit3("Light 3 Col", (float*)&light2_col);
+		ImGui::ColorEdit3("Light 4 Col", (float*)&light3_col);
+		/*light0_pos.x, light0_pos.y, light0_pos.z);
+		light1_pos.x, light1_pos.y, light1_pos.z);
+		light2_pos.x, light2_pos.y, light2_pos.z);
+		light3_pos.x, light3_pos.y, light3_pos.z);*/
+		// 
+		ImGui::SliderFloat("Light 1 Pos X", &light0_pos.x, -10.0f, 10.0f);
 		ImGui::Checkbox("Wireframe", &multi_light_wireframe);
 		ImGui::End();
 	}
