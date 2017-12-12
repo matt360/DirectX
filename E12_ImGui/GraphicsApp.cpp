@@ -580,16 +580,15 @@ void GraphicsApp::gui()
 	{
 		ImGui::Begin("Multi Light Example", &multi_light_example);
 		// change lights' colour
-		ImGui::ColorEdit3("Light 1 Col", (float*)&light0_col);
-		ImGui::ColorEdit3("Light 2 Col", (float*)&light1_col);
-		ImGui::ColorEdit3("Light 3 Col", (float*)&light2_col);
-		ImGui::ColorEdit3("Light 4 Col", (float*)&light3_col);
-		/*light0_pos.x, light0_pos.y, light0_pos.z);
-		light1_pos.x, light1_pos.y, light1_pos.z);
-		light2_pos.x, light2_pos.y, light2_pos.z);
-		light3_pos.x, light3_pos.y, light3_pos.z);*/
-		// 
-		ImGui::SliderFloat("Light 1 Pos X", &light0_pos.x, -10.0f, 10.0f);
+		ImGui::ColorEdit3("Light 0 Col", (float*)&light0_col);
+		ImGui::ColorEdit3("Light 1 Col", (float*)&light1_col);
+		ImGui::ColorEdit3("Light 2 Col", (float*)&light2_col);
+		ImGui::ColorEdit3("Light 3 Col", (float*)&light3_col);
+		// change lights' position
+		ImGui::SliderFloat3("Light 0 Pos", &light0_pos.x, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 1 Pos", &light1_pos.x, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 2 Pos", &light2_pos.x, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 3 Pos", &light3_pos.x, -10.0f, 10.0f);
 		ImGui::Checkbox("Wireframe", &multi_light_wireframe);
 		ImGui::End();
 	}
