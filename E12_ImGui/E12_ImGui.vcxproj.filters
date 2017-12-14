@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Shader Handlers">
       <UniqueIdentifier>{bad3753c-6273-408f-b032-920386dff1e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Geometry Shader">
+      <UniqueIdentifier>{e60cea62-93c1-4b9a-9e10-fb5f69f37aa8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

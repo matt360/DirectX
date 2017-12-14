@@ -99,13 +99,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shaders\triangle_gs.hlsl">
+    <FxCompile Include="shaders\geometry_gs.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Geometry</ShaderType>
     </FxCompile>
-    <FxCompile Include="shaders\triangle_ps.hlsl">
+    <FxCompile Include="shaders\geometry_ps.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="shaders\triangle_vs.hlsl">
+    <FxCompile Include="shaders\geometry_vs.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
     </FxCompile>
   </ItemGroup>

@@ -34,13 +34,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shaders\triangle_gs.hlsl">
+    <FxCompile Include="shaders\geometry_gs.hlsl">
       <Filter>Resource Files</Filter>
     </FxCompile>
-    <FxCompile Include="shaders\triangle_ps.hlsl">
+    <FxCompile Include="shaders\geometry_vs.hlsl">
       <Filter>Resource Files</Filter>
     </FxCompile>
-    <FxCompile Include="shaders\triangle_vs.hlsl">
+    <FxCompile Include="shaders\geometry_ps.hlsl">
       <Filter>Resource Files</Filter>
     </FxCompile>
   </ItemGroup>

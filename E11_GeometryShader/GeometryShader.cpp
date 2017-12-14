@@ -4,7 +4,7 @@
 
 GeometryShader::GeometryShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
 {
-	initShader(L"triangle_vs.cso", L"triangle_gs.cso", L"triangle_ps.cso");
+	initShader(L"geometry_vs.cso", L"geometry_gs.cso", L"geometry_ps.cso");
 }
 
 
