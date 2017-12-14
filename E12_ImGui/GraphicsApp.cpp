@@ -542,30 +542,38 @@ void GraphicsApp::renderGeometryShaderExample()
 	// wireframe mode
 	renderer->setWireframeMode(gs_wireframe);
 
-	// ONE TRIANGLE
-	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	// THREE TRIANGLES
-	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
-	// *NOTE* because we're offsetting from the normals there's going to be SIX cubes around the original cube
+	/*
+	// ONE TRIANGLE - D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
+	triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	// THREE TRIANGLES - D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST
+	triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+	// *NOTE* ecause we're offsetting from the normals there's going to be SIX cubes around the original cube
 	cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	//quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
-	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
+	*/
+
+	// Send geometry data (from mesh)
+	if (gs_triangle_mesh) triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	if (gs_sphere_mesh)   sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	if (gs_cube_mesh)     cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	if (gs_quad_mesh)     quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	if (gs_plane_mesh)    planeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Set shader parameters (matrices and texture)
 	geometryShader->setShaderParameters(renderer->getDeviceContext(),
 		worldMatrix, viewMatrix, projectionMatrix,
 		textureMgr->getTexture("brick"));
+
 	// Render object (combination of mesh geometry and shader process
-	//geometryShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
-	geometryShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-	//geometryShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-	//geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	if (gs_triangle_mesh) geometryShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	if (gs_sphere_mesh)   geometryShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	if (gs_cube_mesh)     geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	if (gs_quad_mesh)     geometryShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	if (gs_plane_mesh)    geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// Render GUI
 	gui();
-	//// Present the rendered scene to the screen.
+	// Present the rendered scene to the screen.
 	renderer->endScene();
-
 }
 
 bool GraphicsApp::render()
@@ -574,7 +582,7 @@ bool GraphicsApp::render()
 	else if (tessellation_example) renderTessellationExample();
 	else if (terrain_example) renderTerrainExample();
 	else if (multi_light_example) renderMultiLightExample();
-	else if (gs_example) renderGeometryShaderExample();
+	else if (geometry_shader_example) renderGeometryShaderExample();
 	else
 	{
 		//// Clear the scene. (default blue colour)
@@ -610,7 +618,9 @@ void GraphicsApp::gui()
 		tessellation_example = false;
 		terrain_example = false;
 		multi_light_example = false;
+		geometry_shader_example = false;
 
+		// set the camera
 		camera->resetCamera();
 	}
 	// Buttons
@@ -620,6 +630,8 @@ void GraphicsApp::gui()
 		tessellation_example ^= 1;
 		terrain_example = false;
 		multi_light_example = false;
+		geometry_shader_example = false;
+
 		// set the camera
 		camera->setPosition(0.0f, 4.75f, -10.0f);
 		camera->setRotation(0.0f, 30.0f, 0.0f);
@@ -630,6 +642,8 @@ void GraphicsApp::gui()
 		tessellation_example = false;
 		terrain_example ^= 1;
 		multi_light_example = false;
+		geometry_shader_example = false;
+
 		// set the camera
 		camera->setPosition(0.0f, 2.0f, -10.0f);
 		camera->setRotation(0.0f, -200.0f, 0.0f);
@@ -640,11 +654,24 @@ void GraphicsApp::gui()
 		tessellation_example = false;
 		terrain_example = false;
 		multi_light_example ^= 1;
+		geometry_shader_example = false;
+
 		// set the camera and first mesh
 		camera->setPosition(0.0f, 0.0f, -4.75f);
 		camera->setRotation(0.0f, 0.f, 0.f);
 		ml_scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
 		ml_sphere_mesh = true;
+	}
+	if (ImGui::Button("Geometry Shader Example"))
+	{
+		specular_light_example = false;
+		tessellation_example = false;
+		terrain_example = false;
+		multi_light_example = false;
+		geometry_shader_example ^= 1;
+
+		// set the camera and first mesh
+		camera->resetCamera();
 	}
 
 	// Handle displaying the example
@@ -697,6 +724,25 @@ void GraphicsApp::gui()
 			ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		}
 		ImGui::Checkbox("Wireframe", &ml_wireframe);
+		ImGui::End();
+	}
+	if (geometry_shader_example)
+	{
+		ImGui::Begin("Geometry Shader Example", &geometry_shader_example);
+		// reset scale
+		//ImGui::SliderFloat3("Scale", (float*)&ml_scale, -20.0f, 20.0f);
+		//if (ImGui::Button("Reset Scale")) ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
+		ImGui::Checkbox("Triangle Mesh", &gs_triangle_mesh);
+		ImGui::Checkbox("Sphere Mesh", &gs_sphere_mesh);
+		ImGui::Checkbox("Cube Mesh", &gs_cube_mesh);
+		ImGui::Checkbox("Quad Mesh", &gs_quad_mesh);
+		ImGui::Checkbox("Plane Mesh", &gs_plane_mesh);
+		/*{
+			camera->setPosition(0.0f, 3.0f, 0.0f);
+			ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		}*/
+		ImGui::Checkbox("Wireframe", &gs_wireframe);
 		ImGui::End();
 	}
 
