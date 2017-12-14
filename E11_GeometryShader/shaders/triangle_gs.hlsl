@@ -36,7 +36,7 @@ struct OutputType
 };
 
 // gs function
-[maxvertexcount(4)]
+[maxvertexcount(8)]
 void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
 {
     OutputType output;
@@ -47,13 +47,29 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
     for (int i = 0; i < 4; i++)
     {
         float3 vposition = g_positions[i];
+        output.tex = input[0].tex;
+        output.normal = input[0].normal;
         // place the point in the world
-        vposition = mul(vposition, (float3x3) worldMatrix) + input[0].position;
+        vposition = mul(vposition, (float3x3) worldMatrix) + (input[0].position);
         output.position = mul(float4(vposition, 1.0), viewMatrix);
         output.position = mul(output.position, projectionMatrix);
 
+        // add the triangle to the rendering list
+        triStream.Append(output);
+    }
+
+    //triStream.RestartStrip();
+
+    for (int i = 0; i < 4; i++)
+    {
+        float3 vposition = g_positions[i];
         output.tex = input[0].tex;
         output.normal = input[0].normal;
+        // place the point in the world
+        vposition = mul(vposition, (float3x3) worldMatrix) + input[0].position + normalize(input[0].normal);
+        output.position = mul(float4(vposition, 1.0), viewMatrix);
+        output.position = mul(output.position, projectionMatrix);
+
         // add the triangle to the rendering list
         triStream.Append(output);
     }
