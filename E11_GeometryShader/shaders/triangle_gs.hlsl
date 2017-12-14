@@ -58,9 +58,9 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
         triStream.Append(output);
     }
 
-    //triStream.RestartStrip();
+    triStream.RestartStrip();
 
-    for (int i = 0; i < 4; i++)
+    for (i = 0; i < 4; i++)
     {
         float3 vposition = g_positions[i];
         output.tex = input[0].tex;
