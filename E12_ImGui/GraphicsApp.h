@@ -7,6 +7,7 @@
 #include "SpecularLightShader.h"
 #include "TerrainShader.h"
 #include "MultiLightShader.h"
+#include "GeometryShader.h"
 
 class GraphicsApp : public BaseApplication
 {
@@ -32,21 +33,21 @@ private:
 	void initGuiVariables();
 	
 	// SPECULAR LIGHT ////////////////////
-	bool specular_light_wireframe;
 	// shader handler
 	SpecularLightShader* specularLightShader;
+	bool specular_light_wireframe;
 	// mesh
 	// specular_light
 	Light* specular_light;
-	// render function
+	// render
 	bool specular_light_example;
 	void renderSpecularLightExample();
 	//////////////////////////////////////
 
 	// TESSELLATION //////////////////////
-	bool tessellation_wireframe;
 	// shader handler
 	TessellationShader* tessellationShader;
+	bool tessellation_wireframe;
 	// meshes
 	TriangleMesh *triangleMesh;
 	SphereMesh *sphereMesh;
@@ -54,27 +55,29 @@ private:
 	QuadMesh *quadMesh;
 	PlaneMesh *planeMesh;
 	TerrainMesh *terrainMesh;
-	// render function
+	// render
 	bool tessellation_example;
 	void renderTessellationExample();
 	//////////////////////////////////////
 
 	// TERRAIN ///////////////////////////
-	bool terrain_wireframe;
+	// shader handler
 	TerrainShader* terrainShader;
+	bool terrain_wireframe;
 	// specular_light
 	Light* light_terrain;
 	float light_terrain_y;
-	// render function
+	// render
 	bool terrain_example;
 	void renderTerrainExample();
 	XMFLOAT3 tr_scale;
 	//////////////////////////////////////
 
 	// MULTI LIGHTS //////////////////////
+	// shader handler
+	MultiLightShader* multiLightShader;
 	bool ml_wireframe;
 	bool ml_triangle_mesh, ml_sphere_mesh, ml_cube_mesh, ml_quad_mesh, ml_plane_mesh;
-	MultiLightShader* multiLightShader;
 
 	Light *light0_, *light1_, *light2_, *light3_;
 	ImVec4 light0_col, light1_col, light2_col, light3_col;
@@ -87,6 +90,14 @@ private:
 	void renderMultiLightExample();
 	//////////////////////////////////////
 
+	// GEOMATRY SHADER ///////////////////
+	// shader handler
+	GeometryShader* geometryShader;
+	bool gs_wireframe;
+	// render
+	bool gs_example;
+	void renderGeometryShaderExample();
+	//////////////////////////////////////
 	// math
 	float clamp(float n, float lower, float upper);
 };

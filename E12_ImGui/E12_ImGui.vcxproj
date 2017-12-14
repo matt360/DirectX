@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GeometryShader.cpp" />
     <ClCompile Include="GraphicsApp.cpp" />
     <ClCompile Include="SpecularLightShader.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="TessellationShader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GeometryShader.h" />
     <ClInclude Include="GraphicsApp.h" />
     <ClInclude Include="SpecularLightShader.h" />
     <ClInclude Include="MultiLightShader.h" />
@@ -167,6 +169,9 @@
     <ClInclude Include="TessellationShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="shaders\geometry_gs.hlsl" />
+    <FxCompile Include="shaders\geometry_ps.hlsl" />
+    <FxCompile Include="shaders\geometry_vs.hlsl" />
     <FxCompile Include="shaders\spec_light_ps.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>

@@ -17,6 +17,7 @@ GraphicsApp::GraphicsApp()
 	tessellationShader = nullptr;
 	terrainShader = nullptr;
 	multiLightShader = nullptr;
+	geometryShader = nullptr;
 
 	//light0_ = nullptr; 
 	//light1_ = nullptr;
@@ -84,6 +85,12 @@ GraphicsApp::~GraphicsApp()
 	{
 		delete terrainShader;
 		terrainShader = 0;
+	}
+
+	if (geometryShader)
+	{
+		delete geometryShader;
+		geometryShader = 0;
 	}
 
 	// multi lights shader handler
@@ -205,6 +212,7 @@ void GraphicsApp::initShaders(HWND hwnd)
 	specularLightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
 	terrainShader = new TerrainShader(renderer->getDevice(), hwnd);
 	multiLightShader = new MultiLightShader(renderer->getDevice(), hwnd);
+	geometryShader = new GeometryShader(renderer->getDevice(), hwnd);
 }
 
 void GraphicsApp::initGuiVariables()
@@ -502,12 +510,71 @@ void GraphicsApp::renderMultiLightExample()
 	renderer->endScene();
 }
 
+void GraphicsApp::renderGeometryShaderExample()
+{
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+
+	//// Clear the scene. (default blue colour)
+	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+
+	//// Generate the view matrix based on the camera's position.
+	camera->update();
+
+	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	worldMatrix = renderer->getWorldMatrix();
+
+	XMMATRIX matrix1Translation = DirectX::XMMatrixTranslation(2.0f, 0.0f, 0.0f);
+	//XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(light_y);
+	XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(0.0f);
+	// orbit
+	//worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
+	// translate and rotate
+	worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
+
+	// scaling
+	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(2.0f, 2.0f, 1.0f);
+	worldMatrix *= matrix1Scaling;
+
+	viewMatrix = camera->getViewMatrix();
+
+	projectionMatrix = renderer->getProjectionMatrix();
+
+	// wireframe mode
+	renderer->setWireframeMode(gs_wireframe);
+
+	// ONE TRIANGLE
+	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	// THREE TRIANGLES
+	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+	// *NOTE* because we're offsetting from the normals there's going to be SIX cubes around the original cube
+	cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
+	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
+
+	// Set shader parameters (matrices and texture)
+	geometryShader->setShaderParameters(renderer->getDeviceContext(),
+		worldMatrix, viewMatrix, projectionMatrix,
+		textureMgr->getTexture("brick"));
+	// Render object (combination of mesh geometry and shader process
+	//geometryShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	geometryShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//geometryShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	//geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+
+	// Render GUI
+	gui();
+	//// Present the rendered scene to the screen.
+	renderer->endScene();
+
+}
+
 bool GraphicsApp::render()
 {
 	if (specular_light_example) renderSpecularLightExample();
 	else if (tessellation_example) renderTessellationExample();
 	else if (terrain_example) renderTerrainExample();
 	else if (multi_light_example) renderMultiLightExample();
+	else if (gs_example) renderGeometryShaderExample();
 	else
 	{
 		//// Clear the scene. (default blue colour)

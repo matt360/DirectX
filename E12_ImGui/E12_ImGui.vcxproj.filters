@@ -54,6 +54,9 @@
     <ClCompile Include="SpecularLightShader.cpp">
       <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
+    <ClCompile Include="GeometryShader.cpp">
+      <Filter>Source Files\Shader Handlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsApp.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files\Shader Handlers</Filter>
     </ClInclude>
     <ClInclude Include="SpecularLightShader.h">
+      <Filter>Header Files\Shader Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryShader.h">
       <Filter>Header Files\Shader Handlers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -102,6 +108,15 @@
     </FxCompile>
     <FxCompile Include="shaders\spec_light_vs.hlsl">
       <Filter>Resource Files\Specular Light</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\geometry_gs.hlsl">
+      <Filter>Resource Files\Geometry Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\geometry_ps.hlsl">
+      <Filter>Resource Files\Geometry Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\geometry_vs.hlsl">
+      <Filter>Resource Files\Geometry Shader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
