@@ -235,6 +235,8 @@ void GraphicsApp::initGuiVariables()
 
 	ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	tr_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+
+	d3d11_primitive_topology_trianglelist = true;
 }
 
 void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -551,12 +553,16 @@ void GraphicsApp::renderGeometryShaderExample()
 	cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	*/
 
+	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
+	//d3d11_primitive_topology_trianglelist ? d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
+	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	if (d3d11_primitive_topology_pointlist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 	// Send geometry data (from mesh)
-	if (gs_triangle_mesh) triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	if (gs_sphere_mesh)   sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	if (gs_cube_mesh)     cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	if (gs_quad_mesh)     quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	if (gs_plane_mesh)    planeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	if (gs_triangle_mesh) triangleMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	if (gs_sphere_mesh)   sphereMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	if (gs_cube_mesh)     cubeMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	if (gs_quad_mesh)     quadMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	if (gs_plane_mesh)    planeMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 
 	// Set shader parameters (matrices and texture)
 	geometryShader->setShaderParameters(renderer->getDeviceContext(),
@@ -585,11 +591,11 @@ bool GraphicsApp::render()
 	else if (geometry_shader_example) renderGeometryShaderExample();
 	else
 	{
-		//// Clear the scene. (default blue colour)
+		// Clear the scene. (default blue colour)
 		renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 		// Render GUI
 		gui();
-		//// Present the rendered scene to the screen.
+		// Present the rendered scene to the screen.
 		renderer->endScene();
 	}
 
@@ -729,6 +735,11 @@ void GraphicsApp::gui()
 	if (geometry_shader_example)
 	{
 		ImGui::Begin("Geometry Shader Example", &geometry_shader_example);
+		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
+			d3d11_primitive_topology_pointlist = false;
+		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
+			d3d11_primitive_topology_trianglelist = false;
+
 		// reset scale
 		//ImGui::SliderFloat3("Scale", (float*)&ml_scale, -20.0f, 20.0f);
 		//if (ImGui::Button("Reset Scale")) ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);

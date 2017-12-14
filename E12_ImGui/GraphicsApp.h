@@ -95,6 +95,7 @@ private:
 	GeometryShader* geometryShader;
 	bool gs_wireframe;
 	bool gs_triangle_mesh, gs_sphere_mesh, gs_cube_mesh, gs_quad_mesh, gs_plane_mesh;
+	bool d3d11_primitive_topology_trianglelist, d3d11_primitive_topology_pointlist;
 	// render
 	bool geometry_shader_example;
 	void renderGeometryShaderExample();
