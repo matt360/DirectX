@@ -206,6 +206,7 @@ bool App1::render()
 	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	// THREE TRIANGLES
 	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+	// because we're offsetting from the normals there's going to be SIX cubes around the original cube
 	cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	//// Set shader parameters (matrices and texture)
