@@ -177,7 +177,8 @@ bool App1::render()
 	worldMatrix = renderer->getWorldMatrix();
 
 	XMMATRIX matrix1Translation = DirectX::XMMatrixTranslation(2.0f, 0.0f, 0.0f);
-	XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(light_y);
+	//XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(light_y);
+	XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(0.0f);
 	// orbit
 	//worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
 	// translate and rotate
@@ -193,29 +194,25 @@ bool App1::render()
 
 	// wireframe mode
 	renderer->setWireframeMode(wireframe);
-
-	// Send geometry data (from mesh)
-	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
-	// Send geometry data (from mesh)
-	//triangleMesh->sendData(renderer->getDeviceContext());
-	//sphereMesh->sendData(renderer->getDeviceContext());
-	//cubeMesh->sendData(renderer->getDeviceContext());
-	//quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
-	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
+	
 	// ONE TRIANGLE
 	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	// THREE TRIANGLES
 	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
-	// because we're offsetting from the normals there's going to be SIX cubes around the original cube
+	// *NOTE* because we're offsetting from the normals there's going to be SIX cubes around the original cube
 	cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
+	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
 
-	//// Set shader parameters (matrices and texture)
+	// Set shader parameters (matrices and texture)
 	geometryShader->setShaderParameters(renderer->getDeviceContext(),
 		worldMatrix, viewMatrix, projectionMatrix,
 		textureMgr->getTexture("brick"));
-	//// Render object (combination of mesh geometry and shader process
+	// Render object (combination of mesh geometry and shader process
 	//geometryShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
 	geometryShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//geometryShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	//geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// Render GUI
 	gui();
