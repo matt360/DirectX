@@ -778,15 +778,49 @@ void GraphicsApp::gui()
 		//ImGui::SliderFloat3("Scale", (float*)&ml_scale, -20.0f, 20.0f);
 		//if (ImGui::Button("Reset Scale")) ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
-		ImGui::Checkbox("Triangle Mesh", &gs_triangle_mesh);
-		ImGui::Checkbox("Sphere Mesh", &gs_sphere_mesh);
-		ImGui::Checkbox("Cube Mesh", &gs_cube_mesh);
-		ImGui::Checkbox("Quad Mesh", &gs_quad_mesh);
-		ImGui::Checkbox("Plane Mesh", &gs_plane_mesh);
-		/*{
-			camera->setPosition(0.0f, 3.0f, 0.0f);
-			ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-		}*/
+		if (ImGui::Checkbox("Triangle Mesh", &gs_triangle_mesh))
+		{
+			//gs_triangle_mesh = true;
+			gs_sphere_mesh = false;
+			gs_cube_mesh = false;
+			gs_quad_mesh = false;
+			gs_plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Sphere Mesh", &gs_sphere_mesh))
+		{
+			gs_triangle_mesh = false;
+			//gs_sphere_mesh = true;
+			gs_cube_mesh = false;
+			gs_quad_mesh = false;
+			gs_plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Cube Mesh", &gs_cube_mesh))
+		{
+			gs_triangle_mesh = false;
+			gs_sphere_mesh = false;
+			//gs_cube_mesh = true;
+			gs_quad_mesh = false;
+			gs_plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Quad Mesh", &gs_quad_mesh))
+		{
+			gs_triangle_mesh = false;
+			gs_sphere_mesh = false;
+			gs_cube_mesh = false;
+			//gs_quad_mesh = true;
+			gs_plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Plane Mesh", &gs_plane_mesh))
+		{
+			gs_triangle_mesh = false;
+			gs_sphere_mesh = false;
+			gs_cube_mesh = false;
+			gs_quad_mesh = false;
+			//gs_plane_mesh = true;
+			//
+			//camera->setPosition(0.0f, 3.0f, 0.0f);
+			//gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		}
 		ImGui::Checkbox("Wireframe", &gs_wireframe);
 		ImGui::End();
 	}
