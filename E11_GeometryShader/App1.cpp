@@ -27,13 +27,13 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	// Create Mesh object
 	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	//sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
+	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	//cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
+	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	//quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
+	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
 
-	//planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
+	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
 
 	geometryShader = new GeometryShader(renderer->getDevice(), hwnd);
 
@@ -194,21 +194,27 @@ bool App1::render()
 	// wireframe mode
 	renderer->setWireframeMode(wireframe);
 
-	//// Send geometry data (from mesh)
-	//mesh->sendData(renderer->getDeviceContext());
-	////// Set shader parameters (matrices and texture)
-	//textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("brick"));
-	////// Render object (combination of mesh geometry and shader process
-	//textureShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
-
 	// Send geometry data (from mesh)
-	triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+	// Send geometry data (from mesh)
+	//triangleMesh->sendData(renderer->getDeviceContext());
+	//sphereMesh->sendData(renderer->getDeviceContext());
+	//cubeMesh->sendData(renderer->getDeviceContext());
+	//quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
+	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
+	// ONE TRIANGLE
+	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	// THREE TRIANGLES
+	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+	cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
 	//// Set shader parameters (matrices and texture)
 	geometryShader->setShaderParameters(renderer->getDeviceContext(),
 		worldMatrix, viewMatrix, projectionMatrix,
 		textureMgr->getTexture("brick"));
 	//// Render object (combination of mesh geometry and shader process
-	geometryShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	//geometryShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	geometryShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 
 	// Render GUI
 	gui();
