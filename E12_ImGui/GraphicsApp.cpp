@@ -612,14 +612,15 @@ void GraphicsApp::gui()
 	renderer->getDeviceContext()->DSSetShader(NULL, NULL, 0);
 	renderer->setWireframeMode(false);
 
-	// Build UI
-	//ImGui::Checkbox("Triangle Colour Shader", &triangle_colour_shader);
+	// MAIN WINDOW DISPLAY INFO
 	ImGui::Text("FPS: %.2f", timer->getFPS());
 	ImGui::Text("Camera Position: x: %.2f y: %.2f z: %.2f", camera->getPosition().x, camera->getPosition().y, camera->getPosition().z);
+	// MAIN WINDOW BUTTONS
 	if (ImGui::Button("Reset camera"))
 	{
 		camera->resetCamera();
 	}
+	// CHOOSE SPECULAR LIGHT EXAMPLE
 	if (ImGui::Button("Specular Light Example"))
 	{ 
 		specular_light_example ^= 1;
@@ -631,7 +632,7 @@ void GraphicsApp::gui()
 		// set the camera
 		camera->resetCamera();
 	}
-	// Buttons
+	// CHOOSE TESSELLATION EXAMPLE
 	if (ImGui::Button("Tessellation Example"))
 	{
 		specular_light_example = false;
@@ -644,6 +645,7 @@ void GraphicsApp::gui()
 		camera->setPosition(0.0f, 4.75f, -10.0f);
 		camera->setRotation(0.0f, 30.0f, 0.0f);
 	}
+	// CHOOSE TERRAIN EXAMPLE 
 	if (ImGui::Button("Terrain Example"))
 	{
 		specular_light_example = false;
@@ -656,6 +658,7 @@ void GraphicsApp::gui()
 		camera->setPosition(0.0f, 2.0f, -10.0f);
 		camera->setRotation(0.0f, -200.0f, 0.0f);
 	}
+	// CHOOSE MULTI LIGHT EXAMPLE
 	if (ImGui::Button("Multi Light Example"))
 	{
 		specular_light_example = false;
@@ -670,6 +673,7 @@ void GraphicsApp::gui()
 		ml_scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
 		ml_sphere_mesh = true;
 	}
+	// CHOOSE GEOMETRY SHADER EXAMPLE 
 	if (ImGui::Button("Geometry Shader Example"))
 	{
 		specular_light_example = false;
@@ -682,19 +686,26 @@ void GraphicsApp::gui()
 		camera->resetCamera();
 	}
 
-	// Handle displaying the example
+	// EXAMPLE WINDOWS //
+	// SPECULAR LIGHT EXAMPLE WINDOW
 	if (specular_light_example)
 	{
 		ImGui::Begin("Specular Light", &specular_light_example);
 		ImGui::Checkbox("Wireframe", &specular_light_wireframe);
+		if (ImGui::Button("Reset Example Camera"))
+		{
+
+		}
 		ImGui::End();
 	}
+	// TESSELLATION EXAMPLE WINDOW
 	if (tessellation_example)
 	{
 		ImGui::Begin("Tessellation", &tessellation_example);
 		ImGui::Checkbox("Wireframe", &tessellation_wireframe);
 		ImGui::End();
 	}
+	// TERRAIN EXAMPLE WINDOW
 	if (terrain_example)
 	{
 		ImGui::Begin("Terrain", &terrain_example);
@@ -705,6 +716,7 @@ void GraphicsApp::gui()
 		if (ImGui::Button("Reset Scale")) tr_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		ImGui::End();
 	}
+	// MULTI LIGHT EXAMPLE WINDOW
 	if (multi_light_example)
 	{
 		ImGui::Begin("Multi Light Example", &multi_light_example);
@@ -768,6 +780,7 @@ void GraphicsApp::gui()
 		ImGui::Checkbox("Wireframe", &ml_wireframe);
 		ImGui::End();
 	}
+	// GEOMETRY SHADER EXAMPLE WINDOW
 	if (geometry_shader_example)
 	{
 		ImGui::Begin("Geometry Shader Example", &geometry_shader_example);
