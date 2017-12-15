@@ -514,6 +514,73 @@ void GraphicsApp::renderMultiLightExample()
 
 void GraphicsApp::renderGeometryShaderExample()
 {
+	//XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+
+	////// Clear the scene. (default blue colour)
+	//renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+
+	////// Generate the view matrix based on the camera's position.
+	//camera->update();
+
+	////// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	//worldMatrix = renderer->getWorldMatrix();
+
+	//XMMATRIX matrix1Translation = DirectX::XMMatrixTranslation(2.0f, 0.0f, 0.0f);
+	////XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(light_y);
+	//XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(0.0f);
+	//// orbit
+	////worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
+	//// translate and rotate
+	//worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
+
+	//// scaling
+	//XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(2.0f, 2.0f, 1.0f);
+	//worldMatrix *= matrix1Scaling;
+
+	//viewMatrix = camera->getViewMatrix();
+
+	//projectionMatrix = renderer->getProjectionMatrix();
+
+	//// wireframe mode
+	//renderer->setWireframeMode(gs_wireframe);
+
+	///*
+	//// ONE TRIANGLE - D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
+	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//// THREE TRIANGLES - D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST
+	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+	//// *NOTE* ecause we're offsetting from the normals there's going to be SIX cubes around the original cube
+	//cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//*/
+
+	//D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
+	////d3d11_primitive_topology_trianglelist ? d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
+	//if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	//if (d3d11_primitive_topology_pointlist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
+	//// Send geometry data (from mesh)
+	//if (gs_triangle_mesh) triangleMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	//if (gs_sphere_mesh)   sphereMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	//if (gs_cube_mesh)     cubeMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	//if (gs_quad_mesh)     quadMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	//if (gs_plane_mesh)    planeMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+
+	//// Set shader parameters (matrices and texture)
+	//geometryShader->setShaderParameters(renderer->getDeviceContext(),
+	//	worldMatrix, viewMatrix, projectionMatrix,
+	//	textureMgr->getTexture("brick"));
+
+	//// Render object (combination of mesh geometry and shader process
+	//if (gs_triangle_mesh) geometryShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+	//if (gs_sphere_mesh)   geometryShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	//if (gs_cube_mesh)     geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	//if (gs_quad_mesh)     geometryShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	//if (gs_plane_mesh)    geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+
+	//// Render GUI
+	//gui();
+	//// Present the rendered scene to the screen.
+	//renderer->endScene();
+
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
 	//// Clear the scene. (default blue colour)
@@ -544,41 +611,33 @@ void GraphicsApp::renderGeometryShaderExample()
 	// wireframe mode
 	renderer->setWireframeMode(gs_wireframe);
 
-	/*
-	// ONE TRIANGLE - D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
-	triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	// THREE TRIANGLES - D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST
-	triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
-	// *NOTE* ecause we're offsetting from the normals there's going to be SIX cubes around the original cube
-	cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	*/
-
 	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
 	//d3d11_primitive_topology_trianglelist ? d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	if (d3d11_primitive_topology_pointlist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
-	// Send geometry data (from mesh)
-	if (gs_triangle_mesh) triangleMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
-	if (gs_sphere_mesh)   sphereMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
-	if (gs_cube_mesh)     cubeMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
-	if (gs_quad_mesh)     quadMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
-	if (gs_plane_mesh)    planeMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+
+	// ONE TRIANGLE
+	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	// THREE TRIANGLES
+	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+	// *NOTE* because we're offsetting from the normals there's going to be SIX cubes around the original cube
+	if (gs_cube_mesh) cubeMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	if (gs_quad_mesh) quadMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology); // set input data in the shader programme
+	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
 
 	// Set shader parameters (matrices and texture)
 	geometryShader->setShaderParameters(renderer->getDeviceContext(),
 		worldMatrix, viewMatrix, projectionMatrix,
 		textureMgr->getTexture("brick"));
-
 	// Render object (combination of mesh geometry and shader process
-	if (gs_triangle_mesh) geometryShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	if (gs_sphere_mesh)   geometryShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-	if (gs_cube_mesh)     geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
-	if (gs_quad_mesh)     geometryShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-	if (gs_plane_mesh)    geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	//geometryShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	if (gs_cube_mesh) geometryShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+	if (gs_quad_mesh) geometryShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+	//geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// Render GUI
 	gui();
-	// Present the rendered scene to the screen.
+	//// Present the rendered scene to the screen.
 	renderer->endScene();
 }
 
