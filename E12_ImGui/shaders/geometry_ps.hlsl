@@ -27,5 +27,5 @@ float4 main(InputType input) : SV_TARGET
     float4 textureColor;
     textureColor = shaderTexture.SampleLevel(SampleType, input.tex, 0);
 
-    return textureColor * (1.0f, 1.0f, 1.0f, 1.0f);
+    return textureColor;
 }
