@@ -1,5 +1,5 @@
-Texture2D texture0 : register(t0);
-SamplerState Sampler0 : register(s0);
+Texture2D shaderTexture : register(t0);
+SamplerState SampleType : register(s0);
 
 struct InputType
 {
@@ -8,33 +8,24 @@ struct InputType
 	float3 normal : NORMAL;
 };
 
+//uniform sampler2D tex0;
+//in vec2 Vertex_UV;
+//in vec4 Vertex_Color;
+//out vec4 FragColor;
+
 float4 main(InputType input) : SV_TARGET
 {
-	// color the pixel yellow
-    //return float4(1.0, 1.0, 0.0, 1.0); // color the pixel yellow - equal read and equal green makes yellow
-    float4 t;
-   // float4 textureColor2;
-    t.w = 1.0f;
-	// Sample the pixel color from the texture using the sampler at this texture coordinate location.
-    t = texture0.Sample(Sampler0, input.tex.xy).rgba;
-    //textureColor2 = texture1.Sample(Sampler0, input.tex);
+    //vec2 uv = Vertex_UV.xy;
+    //uv.y *= -1.0;
+    //vec3 t = texture(tex0, uv).rgb;
+    //FragColor = vec4(t, 1.0) * Vertex_Color;
 
-	// invert colors on texture1
-	//return 1 - textureColor1;
+    //float2 uv = input.tex.xy;
 
-	// invert colors on texture2
-	//return 1 - textureColor2;
+    //uv.y *= -1.0f;
 
-	// blend texture1 and texture 1
-    // return lerp(textureColor1, textureColor2, 0.5);
+    float4 textureColor;
+    textureColor = shaderTexture.SampleLevel(SampleType, input.tex, 0);
 
-	// color shifting
-    //float4 finalCol;
-	//finalCol.x = textureColor1.z;
-	//finalCol.y = textureColor1.y;
-	//finalCol.z = textureColor1.x;
-	//finalCol.w = 1.0f ;
-
-	// return texture colour
-    return t;
+    return textureColor * (1.0f, 1.0f, 1.0f, 1.0f);
 }
