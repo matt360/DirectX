@@ -10,12 +10,21 @@ cbuffer MatrixBuffer : register(cb0)
 
 cbuffer PositionBuffer
 {
+	// 0------------------3
+	// |(-1, 1)     (1, 1)|
+	// |                  |
+	// |                  |
+	// |       (0.0)      |
+	// |                  |
+	// |                  |
+	// |(-1, -1)   (1, -1)|
+	// 1------------------2
     static float3 g_positions[4] =
     {
-        float3(-1.0f, 1.0f, 0.0f),
-        float3(-1.0f, -1.0f, 0.0f),
-        float3(1.0f, 1.0f, 0.0f),
-        float3(1.0f, -1.0f, 0.0f)
+        float3(-1.0f, 1.0f, 0.0f),   // 0
+        float3(-1.0f, -1.0f, 0.0f),  // 1
+        float3(1.0f, 1.0f, 0.0f),    // 2
+        float3(1.0f, -1.0f, 0.0f)    // 3
     };
 };
 
@@ -25,8 +34,8 @@ cbuffer TextureBuffer
 	{
         float2(0.0f, 0.0f),
 		float2(0.0f, 1.0f),
-		float2(1.0f, 0.0f),
-		float2(1.0f, 1.0f)
+		float2(1.0f, 1.0f),
+		float2(0.0f, 1.0f)
     };
 }
 
@@ -63,8 +72,7 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
         output.position = mul(float4(vposition, 1.0), viewMatrix);
         output.position = mul(output.position, projectionMatrix);
 
-        float2 uvposition = uv_positions[i];
-        output.tex = input[0].tex;
+        output.tex = uv_positions[i];
 
         output.normal = mul(input[0].normal, (float3x3) worldMatrix);
         output.normal = normalize(output.normal);
@@ -81,8 +89,7 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
         output.position = mul(float4(vposition, 1.0), viewMatrix);
         output.position = mul(output.position, projectionMatrix);
 
-        float2 uvposition = uv_positions[i];
-        output.tex = input[0].tex;
+        output.tex = uv_positions[i];
 
         output.normal = mul(input[0].normal, (float3x3) worldMatrix);
         output.normal = normalize(output.normal);

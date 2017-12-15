@@ -26,7 +26,7 @@ float4 main(InputType input) : SV_TARGET
 	//return 1 - textureColor2;
 
 	// blend texture1 and texture 1
-   // return lerp(textureColor1, textureColor2, 0.5);
+    // return lerp(textureColor1, textureColor2, 0.5);
 
 	// color shifting
     //float4 finalCol;
@@ -35,5 +35,6 @@ float4 main(InputType input) : SV_TARGET
 	//finalCol.z = textureColor1.x;
 	//finalCol.w = 1.0f ;
 
+	// return texture colour
     return textureColor1;
 }
