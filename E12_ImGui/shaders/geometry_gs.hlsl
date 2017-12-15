@@ -34,12 +34,12 @@ cbuffer PositionBuffer
 
 cbuffer TextureBuffer
 {
-    static float4 uv_positions[4] = 
+    static float2 uv_positions[4] = 
 	{
-        float4(0, 0, 0, 0),  // 0
-		float4(0, 1, 0, 0),  // 1
-		float4(1, 0, 0, 0),  // 2
-		float4(1, 1, 0, 0)   // 3
+        float2(0, 0),  // 0
+		float2(0, 1),  // 1
+		float2(1, 0),  // 2
+		float2(1, 1)   // 3
     };
 }
 
@@ -61,7 +61,7 @@ struct OutputType
 
 // gs function
 [maxvertexcount(8)]
-void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
+void main(point InputType input[1], inout TriangleStream<OutputType> triStream) // • < Data type > • Any data type • In mostcasesa a struct defining data for the nextshader
 {
     OutputType output;
 
