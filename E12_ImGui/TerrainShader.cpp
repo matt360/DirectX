@@ -278,7 +278,7 @@ void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, cons
 	bufferNumber = 0;
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
 
-	// Set shader texture resource in the pixel shader.
+	// Set shader texture resource in the pixel and vertex shader.
 	deviceContext->PSSetShaderResources(0, 1, &texture);
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
@@ -346,7 +346,7 @@ void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, cons
 	bufferNumber = 0;
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
 
-	// Set shader texture resource in the pixel shader.
+	// Set shader texture resource in the pixel and vertex shader.
 	deviceContext->PSSetShaderResources(0, 1, &texture);
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }

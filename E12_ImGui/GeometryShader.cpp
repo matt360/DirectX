@@ -73,7 +73,6 @@ void GeometryShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 
 	// Create the texture sampler state.
 	renderer->CreateSamplerState(&samplerDesc, &sampleState);
-
 }
 
 void GeometryShader::initShader(WCHAR* vsFilename, WCHAR* gsFilename, WCHAR* psFilename)
@@ -118,7 +117,8 @@ void GeometryShader::setShaderParameters(ID3D11DeviceContext* deviceContext, con
 
 	// Now set the constant buffer in the vertex shader with the updated values.
 	deviceContext->GSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
-
+	// Set shader texture resource in the pixel shader.
+	deviceContext->PSSetShaderResources(0, 1, &texture);
 }
 
 void GeometryShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
