@@ -11,35 +11,35 @@ cbuffer MatrixBuffer : register(cb0)
 cbuffer PositionBuffer
 {
 	/*
-		(0,0)              (1, 0)
-		  0------------------3
-		  |(-1, 1)     (1, 1)|
-		  |                  |
-		  |                  |
-		  |       (0.0)      |
-		  |                  |
-		  |                  |
-		  |(-1, -1)   (1, -1)|
-		  1------------------2
-		(0, 1)            (1, 1)
+	    (0,0)              (1, 0)
+	      0------------------2
+	      |(-1, 1)     (1, 1)|
+	      |                  |
+	      |                  |
+	      |       (0.0)      |
+	      |                  |
+	      |                  |
+	      |(-1, -1)   (1, -1)|
+	      1------------------3
+	    (0, 1)            (1, 1)
     */
     static float3 g_positions[4] =
     {
-        float3(-1.0f, 1.0f, 0.0f),   // 0
-        float3(-1.0f, -1.0f, 0.0f),  // 1
-        float3(1.0f, 1.0f, 0.0f),    // 2
-        float3(1.0f, -1.0f, 0.0f)    // 3
+        float3(-1, 1, 0),   // 0
+        float3(-1, -1, 0),  // 1
+        float3(1, 1, 0),    // 2
+        float3(1, -1, 0)    // 3
     };
 };
 
 cbuffer TextureBuffer
 {
-    static float2 uv_positions[4] = 
+    static float4 uv_positions[4] = 
 	{
-        float2(0.0f, 0.0f),
-		float2(0.0f, 1.0f),
-		float2(1.0f, 1.0f),
-		float2(0.0f, 1.0f)
+        float4(0, 0, 0, 0),  // 0
+		float4(0, 1, 0, 0),  // 1
+		float4(1, 0, 0, 0),  // 2
+		float4(1, 1, 0, 0)   // 3
     };
 }
 
