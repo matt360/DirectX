@@ -431,13 +431,13 @@ void GraphicsApp::renderMultiLightExample()
 	lightPosition[2] = light2_pos;
 	lightPosition[3] = light3_pos;
 
-	//// Clear the scene. (default cornflower blue colour)
+	// Clear the scene. (default cornflower blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 
-	//// Generate the view matrix based on the camera's position.
+	// Generate the view matrix based on the camera's position.
 	camera->update();
 
-	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	if (ml_plane_mesh)
 	{
 		viewMatrix = camera->getViewMatrix();
@@ -508,7 +508,7 @@ void GraphicsApp::renderMultiLightExample()
 	// Render GUI
 	gui();
 
-	//// Present the rendered scene to the screen.
+	// Present the rendered scene to the screen.
 	renderer->endScene();
 }
 
@@ -516,13 +516,13 @@ void GraphicsApp::renderGeometryShaderExample()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
-	//// Clear the scene. (default blue colour)
+	// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 
-	//// Generate the view matrix based on the camera's position.
+	// Generate the view matrix based on the camera's position.
 	camera->update();
 
-	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	worldMatrix = renderer->getWorldMatrix();
 
 	XMMATRIX matrix1Translation = DirectX::XMMatrixTranslation(2.0f, 0.0f, 0.0f);
@@ -629,6 +629,7 @@ void GraphicsApp::gui()
 		multi_light_example = false;
 		geometry_shader_example = false;
 
+		specular_light_wireframe = false;
 		// set specular light camera
 		camera->resetCamera();
 	}
@@ -641,6 +642,7 @@ void GraphicsApp::gui()
 		multi_light_example = false;
 		geometry_shader_example = false;
 
+		tessellation_wireframe = false;
 		// set tessellation camera
 		camera->setPosition(0.0f, 4.75f, -10.0f);
 		camera->setRotation(0.0f, 30.0f, 0.0f);
@@ -657,6 +659,8 @@ void GraphicsApp::gui()
 		// set terrain camera
 		camera->setPosition(0.0f, 2.0f, -10.0f);
 		camera->setRotation(0.0f, -200.0f, 0.0f);
+		// reset terrain wireframe mode
+		terrain_wireframe = false;
 	}
 	// CHOOSE MULTI LIGHT EXAMPLE
 	if (ImGui::Button("Multi Light Example"))
@@ -667,6 +671,7 @@ void GraphicsApp::gui()
 		multi_light_example ^= 1;
 		geometry_shader_example = false;
 
+		ml_wireframe = false;
 		// set the camera and first mesh
 		camera->setPosition(0.0f, 0.0f, -4.75f);
 		camera->setRotation(0.0f, 0.f, 0.f);
@@ -682,8 +687,23 @@ void GraphicsApp::gui()
 		multi_light_example = false;
 		geometry_shader_example ^= 1;
 
-		// set the camera and first mesh
-		camera->resetCamera();
+		// reset geometry shader scale
+		gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		// reset geometry shader wireframe mode
+		gs_wireframe = false;
+		// reset geometry shader primitive topology
+		d3d11_primitive_topology_trianglelist = true;
+		// set cube mesh
+		gs_triangle_mesh = false;
+		gs_sphere_mesh = false;
+		gs_cube_mesh = true;
+		gs_quad_mesh = false;
+		gs_plane_mesh = false;
+
+		gs_wireframe = false;
+		// set the camera
+		camera->setPosition(13.0f, 4.0f, -22.0f);
+		camera->setRotation(0.0f, -30.0f, 5.0f);
 	}
 
 	// EXAMPLE WINDOWS //
@@ -827,15 +847,28 @@ void GraphicsApp::gui()
 	// GEOMETRY SHADER EXAMPLE WINDOW
 	if (geometry_shader_example)
 	{
+		ImGui::Begin("Geometry Shader Example", &geometry_shader_example);
 		if (ImGui::Button("Reset Example"))
 		{
-			// set terrain camera
-			camera->resetCamera();
-			// reset terrain scale
-			// reset terrain wireframe mode
+			// reset geometry shader scale
+			gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+			// reset geometry shader wireframe mode
 			gs_wireframe = false;
+			// reset geometry shader primitive topology
+			d3d11_primitive_topology_trianglelist = true;
+			// set cube mesh
+			gs_triangle_mesh = false;
+			gs_sphere_mesh = false;
+			gs_cube_mesh = true;
+			gs_quad_mesh = false;
+			gs_plane_mesh = false;
+			// set the camera
+			camera->setPosition(13.0f, 4.0f, -22.0f);
+			camera->setRotation(0.0f, -35.0f, 0.0f);
 		}
-		ImGui::Begin("Geometry Shader Example", &geometry_shader_example);
+		ImGui::Checkbox("Wireframe", &gs_wireframe);
+		ImGui::SliderFloat3("Scale", (float*)&gs_scale, -10.0f, 10.0f);
+		if (ImGui::Button("Reset Scale")) gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
 			d3d11_primitive_topology_pointlist = false;
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
@@ -885,7 +918,6 @@ void GraphicsApp::gui()
 			//camera->setPosition(0.0f, 3.0f, 0.0f);
 			//gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		}
-		ImGui::Checkbox("Wireframe", &gs_wireframe);
 		ImGui::End();
 	}
 
