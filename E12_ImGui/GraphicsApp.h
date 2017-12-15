@@ -99,6 +99,7 @@ private:
 	// render
 	bool geometry_shader_example;
 	void renderGeometryShaderExample();
+	XMFLOAT3 gs_scale;
 	//////////////////////////////////////
 	// math
 	float clamp(float n, float lower, float upper);

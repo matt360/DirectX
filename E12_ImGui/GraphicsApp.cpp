@@ -19,10 +19,10 @@ GraphicsApp::GraphicsApp()
 	multiLightShader = nullptr;
 	geometryShader = nullptr;
 
-	//light0_ = nullptr; 
-	//light1_ = nullptr;
-	//light2_ = nullptr;
-	//light3_ = nullptr;
+	light0_ = nullptr; 
+	light1_ = nullptr;
+	light2_ = nullptr;
+	light3_ = nullptr;
 }
 
 // Release the Direct3D objects
@@ -132,7 +132,7 @@ void GraphicsApp::initVariables()
 
 void GraphicsApp::initLight()
 {
-	// specular light
+	// specular light example
 	specular_light = new Light;
 	specular_light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
 	specular_light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
@@ -140,7 +140,7 @@ void GraphicsApp::initLight()
 	specular_light->setSpecularPower(16.f);
 	specular_light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 
-	// terrain light
+	// terrain light example
 	light_terrain = new Light;
 	light_terrain->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
 	light_terrain->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
@@ -149,7 +149,7 @@ void GraphicsApp::initLight()
 	light_terrain->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	light_terrain->setPosition(0.0f, 0.1f, 0.0f);
 
-	// Multiple lights
+	// multiple lights example
 	// Light 0
 	light0_ = new Light;
 	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
@@ -217,25 +217,25 @@ void GraphicsApp::initShaders(HWND hwnd)
 
 void GraphicsApp::initGuiVariables()
 {
-	// set colour variable for UI controls.
-	//light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
-	//light1_->setDiffuseColour(0.0f, 1.0f, 0.0f, 1.0f);
-	//light2_->setDiffuseColour(0.0f, 0.0f, 1.0f, 1.0f);
-	//light3_->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-
+	// multi light example lights' colours
 	light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
 	light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
 	light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
 	light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
-
+	// multi light example lights' positions
 	light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
 	light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
 	light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
 	light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
 
+	// multi light exmaple scale
 	ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// terrain exmaple scale
 	tr_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// geometry shader exmaple scale 
+	gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
+	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist = true;
 }
 
@@ -534,7 +534,7 @@ void GraphicsApp::renderGeometryShaderExample()
 	worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
 
 	// scaling
-	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(2.0f, 2.0f, 1.0f);
+	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(gs_scale.x, gs_scale.y, gs_scale.z);
 	worldMatrix *= matrix1Scaling;
 
 	viewMatrix = camera->getViewMatrix();
@@ -827,15 +827,20 @@ void GraphicsApp::gui()
 	// GEOMETRY SHADER EXAMPLE WINDOW
 	if (geometry_shader_example)
 	{
+		if (ImGui::Button("Reset Example"))
+		{
+			// set terrain camera
+			camera->resetCamera();
+			// reset terrain scale
+			// reset terrain wireframe mode
+			gs_wireframe = false;
+		}
 		ImGui::Begin("Geometry Shader Example", &geometry_shader_example);
 		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
 			d3d11_primitive_topology_pointlist = false;
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
 			d3d11_primitive_topology_trianglelist = false;
 
-		// reset scale
-		//ImGui::SliderFloat3("Scale", (float*)&ml_scale, -20.0f, 20.0f);
-		//if (ImGui::Button("Reset Scale")) ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
 		if (ImGui::Checkbox("Triangle Mesh", &gs_triangle_mesh))
 		{
