@@ -12,12 +12,23 @@ cbuffer PositionBuffer
 {
     static float3 g_positions[4] =
     {
-        float3(-1, 1, 0),
-        float3(-1, -1, 0),
-        float3(1, 1, 0),
-        float3(1, -1, 0)
+        float3(-1.0f, 1.0f, 0.0f),
+        float3(-1.0f, -1.0f, 0.0f),
+        float3(1.0f, 1.0f, 0.0f),
+        float3(1.0f, -1.0f, 0.0f)
     };
 };
+
+cbuffer TextureBuffer
+{
+    static float2 uv_positions[4] = 
+	{
+        float2(0.0f, 0.0f),
+		float2(0.0f, 1.0f),
+		float2(1.0f, 0.0f),
+		float2(1.0f, 1.0f)
+    };
+}
 
 struct InputType
 {
@@ -52,6 +63,7 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
         output.position = mul(float4(vposition, 1.0), viewMatrix);
         output.position = mul(output.position, projectionMatrix);
 
+        float2 uvposition = uv_positions[i];
         output.tex = input[0].tex;
 
         output.normal = mul(input[0].normal, (float3x3) worldMatrix);
@@ -69,6 +81,7 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
         output.position = mul(float4(vposition, 1.0), viewMatrix);
         output.position = mul(output.position, projectionMatrix);
 
+        float2 uvposition = uv_positions[i];
         output.tex = input[0].tex;
 
         output.normal = mul(input[0].normal, (float3x3) worldMatrix);
