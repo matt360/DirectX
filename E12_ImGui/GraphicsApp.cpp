@@ -621,9 +621,11 @@ void GraphicsApp::renderGeometryShaderExample()
 	// THREE TRIANGLES
 	//triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 	// *NOTE* because we're offsetting from the normals there's going to be SIX cubes around the original cube
+	if (gs_triangle_mesh) triangleMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	if (gs_sphere_mesh) sphereMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 	if (gs_cube_mesh) cubeMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 	if (gs_quad_mesh) quadMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology); // set input data in the shader programme
-	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
+	if (gs_plane_mesh) planeMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology); // set input data in the shader programme
 
 	// Set shader parameters (matrices and texture)
 	geometryShader->setShaderParameters(renderer->getDeviceContext(),
@@ -631,9 +633,11 @@ void GraphicsApp::renderGeometryShaderExample()
 		textureMgr->getTexture("brick"));
 	// Render object (combination of mesh geometry and shader process
 	//geometryShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	if (gs_triangle_mesh) geometryShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
+	if (gs_sphere_mesh) geometryShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
 	if (gs_cube_mesh) geometryShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
 	if (gs_quad_mesh) geometryShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-	//geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+	if (gs_plane_mesh) geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
 
 	// Render GUI
 	gui();
