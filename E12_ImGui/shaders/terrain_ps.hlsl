@@ -6,19 +6,13 @@
 // Coloring, texturing, lighting, and most other effects you plan to do to your polygon faces are handled by the pixel shader program.
 // Pixel shaders must be efficiently written due to the number of times they will be called by the GPU.
 
-//////////////
-// TEXTURES //
-//////////////
+// Textures
 Texture2D shaderTexture : register(t0);
 
-///////////////////
-// SAMPLE STATES //
-///////////////////
+// Sample states
 SamplerState SampleType : register(s0);
 
-//////////////////////
-// CONSTANT BUFFERS //
-//////////////////////
+// Constant buffers
 cbuffer LightBuffer : register(cb0)
 {
     float4 ambientColor;
@@ -29,9 +23,7 @@ cbuffer LightBuffer : register(cb0)
     float3 lightPosition;
 };
 
-//////////////
-// TYPEDEFS //
-//////////////
+// Typedefs
 struct PixelInputType
 {
     float4 position : SV_POSITION;
@@ -40,9 +32,7 @@ struct PixelInputType
 	float3 position3D : TEXCOORD1;
 };
 
-////////////////////////////////////////////////////////////////////////////////
-// Pixel Shader
-////////////////////////////////////////////////////////////////////////////////
+// PIXEL SHADER
 float4 main(PixelInputType input) : SV_TARGET
 {
 	float4 textureColor;

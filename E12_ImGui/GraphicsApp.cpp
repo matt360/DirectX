@@ -568,8 +568,8 @@ void GraphicsApp::renderGeometryShaderExample()
 	// Set shader parameters (matrices and texture)
 	geometryShader->setShaderParameters(renderer->getDeviceContext(),
 		worldMatrix, viewMatrix, projectionMatrix,
-		textureMgr->getTexture("brick"),
-		textureMgr->getTexture("checkerboard"));
+		textureMgr->getTexture("checkerboard"),
+		textureMgr->getTexture("bunny"));
 
 	// Render object (combination of mesh geometry and shader process
 	if (gs_triangle_mesh) geometryShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());

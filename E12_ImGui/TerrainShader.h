@@ -1,7 +1,6 @@
 // Light shader.h
 // Basic single light shader setup
-#ifndef _TERRAINSHADER_H_
-#define _TERRAINSHADER_H_
+#pragma once
 
 #include "../DXFramework/BaseShader.h"
 #include "../DXFramework/Light.h"
@@ -63,5 +62,3 @@ private:
 	ID3D11Buffer* timeBuffer;
 	ID3D11Buffer* cameraBuffer;
 };
-
-#endif

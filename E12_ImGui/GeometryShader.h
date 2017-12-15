@@ -1,7 +1,6 @@
 // Light shader.h
 // Geometry shader example.
-#ifndef _GEOMETRYSHADER_H_
-#define _GEOMETRYSHADER_H_
+#pragma once
 
 #include "../DXFramework/BaseShader.h"
 
@@ -30,5 +29,3 @@ private:
 	ID3D11Buffer* matrixBuffer;
 	ID3D11SamplerState* sampleState;
 };
-
-#endif
