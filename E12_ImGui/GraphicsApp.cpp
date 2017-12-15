@@ -629,7 +629,7 @@ void GraphicsApp::gui()
 		multi_light_example = false;
 		geometry_shader_example = false;
 
-		// set the camera
+		// set specular light camera
 		camera->resetCamera();
 	}
 	// CHOOSE TESSELLATION EXAMPLE
@@ -641,7 +641,7 @@ void GraphicsApp::gui()
 		multi_light_example = false;
 		geometry_shader_example = false;
 
-		// set the camera
+		// set tessellation camera
 		camera->setPosition(0.0f, 4.75f, -10.0f);
 		camera->setRotation(0.0f, 30.0f, 0.0f);
 	}
@@ -654,7 +654,7 @@ void GraphicsApp::gui()
 		multi_light_example = false;
 		geometry_shader_example = false;
 
-		// set the camera
+		// set terrain camera
 		camera->setPosition(0.0f, 2.0f, -10.0f);
 		camera->setRotation(0.0f, -200.0f, 0.0f);
 	}
@@ -691,17 +691,25 @@ void GraphicsApp::gui()
 	if (specular_light_example)
 	{
 		ImGui::Begin("Specular Light", &specular_light_example);
-		ImGui::Checkbox("Wireframe", &specular_light_wireframe);
-		if (ImGui::Button("Reset Example Camera"))
+		if (ImGui::Button("Reset Example"))
 		{
-
+			camera->resetCamera();
+			specular_light_wireframe = false;
 		}
+		ImGui::Checkbox("Wireframe", &specular_light_wireframe);
 		ImGui::End();
 	}
 	// TESSELLATION EXAMPLE WINDOW
 	if (tessellation_example)
 	{
 		ImGui::Begin("Tessellation", &tessellation_example);
+		if (ImGui::Button("Reset Example"))
+		{
+			// set tessellation camera
+			camera->setPosition(0.0f, 4.75f, -10.0f);
+			camera->setRotation(0.0f, 30.0f, 0.0f);
+			tessellation_wireframe = false;
+		}
 		ImGui::Checkbox("Wireframe", &tessellation_wireframe);
 		ImGui::End();
 	}
@@ -709,6 +717,16 @@ void GraphicsApp::gui()
 	if (terrain_example)
 	{
 		ImGui::Begin("Terrain", &terrain_example);
+		if (ImGui::Button("Reset Example"))
+		{
+			// set terrain camera
+			camera->setPosition(0.0f, 2.0f, -10.0f);
+			camera->setRotation(0.0f, -200.0f, 0.0f);
+			// reset terrain scale
+			tr_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+			// reset terrain wireframe mode
+			terrain_wireframe = false;
+		}
 		ImGui::Checkbox("Wireframe", &terrain_wireframe);
 		ImGui::SliderFloat("Scale X", (float*)&tr_scale.x, -15.0f, 15.0f);
 		ImGui::SliderFloat("Scale Y", (float*)&tr_scale.y, -15.0f, 15.0f);
@@ -720,6 +738,33 @@ void GraphicsApp::gui()
 	if (multi_light_example)
 	{
 		ImGui::Begin("Multi Light Example", &multi_light_example);
+		if (ImGui::Button("Reset Example"))
+		{
+			// set multi light camera
+			camera->setPosition(0.0f, 0.0f, -4.75f);
+			camera->setRotation(0.0f, 0.f, 0.f);
+			// scale up sphere mesh
+			ml_scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
+			// reset light colours
+			light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
+			light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
+			light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
+			light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
+			// reset light positions
+			light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
+			light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
+			light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
+			light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
+			// render only sphere mesh
+			ml_triangle_mesh = false;
+			ml_sphere_mesh = true;
+			ml_cube_mesh = false;
+			ml_quad_mesh = false;
+			ml_plane_mesh = false;
+			// reset wireframe
+			ml_wireframe = false;
+		}
+		ImGui::Checkbox("Wireframe", &ml_wireframe);
 		// change lights' colour
 		ImGui::ColorEdit3("Light 0 Col", (float*)&light0_col);
 		ImGui::ColorEdit3("Light 1 Col", (float*)&light1_col);
@@ -777,7 +822,6 @@ void GraphicsApp::gui()
 			camera->setPosition(0.0f, 3.0f, 0.0f);
 			ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		}
-		ImGui::Checkbox("Wireframe", &ml_wireframe);
 		ImGui::End();
 	}
 	// GEOMETRY SHADER EXAMPLE WINDOW
