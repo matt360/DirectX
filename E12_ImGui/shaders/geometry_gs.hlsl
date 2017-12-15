@@ -1,5 +1,7 @@
 // Example geometry shader
 // Receives a point and outputs a triangle
+//Texture2D tex0 : register(t0);
+//SamplerState Sampler0 : register(s0);
 
 cbuffer MatrixBuffer : register(cb0)
 {
@@ -76,7 +78,8 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream) 
         output.position = mul(float4(vposition, 1.0), viewMatrix);
         output.position = mul(output.position, projectionMatrix);
 
-        output.tex = uv_positions[i];
+        float2 uv_position = uv_positions[i];
+        output.tex = uv_position;
 
         output.normal = mul(input[0].normal, (float3x3) worldMatrix);
         output.normal = normalize(output.normal);
@@ -93,7 +96,8 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream) 
         output.position = mul(float4(vposition, 1.0), viewMatrix);
         output.position = mul(output.position, projectionMatrix);
 
-        output.tex = uv_positions[i];
+        float2 uv_position = uv_positions[i];
+        output.tex = uv_position;
 
         output.normal = mul(input[0].normal, (float3x3) worldMatrix);
         output.normal = normalize(output.normal);

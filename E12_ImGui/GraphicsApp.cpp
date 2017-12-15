@@ -556,7 +556,8 @@ void GraphicsApp::renderGeometryShaderExample()
 	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
 	//d3d11_primitive_topology_trianglelist ? d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	if (d3d11_primitive_topology_pointlist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
+	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
+
 	// Send geometry data (from mesh)
 	if (gs_triangle_mesh) triangleMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 	if (gs_sphere_mesh)   sphereMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);

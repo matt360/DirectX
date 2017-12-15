@@ -12,11 +12,11 @@ float4 main(InputType input) : SV_TARGET
 {
 	// color the pixel yellow
     //return float4(1.0, 1.0, 0.0, 1.0); // color the pixel yellow - equal read and equal green makes yellow
-    float4 textureColor1;
+    float4 t;
    // float4 textureColor2;
-
+    t.w = 1.0f;
 	// Sample the pixel color from the texture using the sampler at this texture coordinate location.
-    textureColor1 = texture0.Sample(Sampler0, input.tex);
+    t = texture0.Sample(Sampler0, input.tex.xy).rgba;
     //textureColor2 = texture1.Sample(Sampler0, input.tex);
 
 	// invert colors on texture1
@@ -36,5 +36,5 @@ float4 main(InputType input) : SV_TARGET
 	//finalCol.w = 1.0f ;
 
 	// return texture colour
-    return textureColor1;
+    return t;
 }
