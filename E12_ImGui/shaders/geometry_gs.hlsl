@@ -63,7 +63,23 @@ struct OutputType
 
 // gs function
 [maxvertexcount(8)]
-void main(point InputType input[1], inout TriangleStream<OutputType> triStream) // • < Data type > • Any data type • In mostcasesa a struct defining data for the nextshader
+// input[1] means take one point from the primitive
+
+// if the topology is a pointlist and the mesh is a triangle
+// then each vertex will become first and only point
+// so gs will execute 3 times for each vertex
+// creating a quad in a place of a vertex 
+// (3 quads instead of 3 points overall)
+
+// if the topology is a trianglelist and the mesh is a triangle
+// then the gs will run only once taking the first vertex from
+// the triangle mesh and convert it into a quad
+// creating a quad in a place of a vertex
+// (1 quad instead of 1 triangle)
+                                                    // < Data type > 
+                                                    // - Any data type 
+                                                    // - In most casesa a struct defining data for the next shader
+void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
 {
     OutputType output;
 
