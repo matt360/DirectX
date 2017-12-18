@@ -14,6 +14,7 @@ SpecularLightExample::~SpecularLightExample()
 
 void SpecularLightExample::init(D3D* renderer, HWND hwnd)
 {
+	initLight();
 	initShaders(renderer, hwnd);
 }
 
@@ -21,6 +22,17 @@ void SpecularLightExample::init(D3D* renderer, HWND hwnd)
 void SpecularLightExample::initShaders(D3D* renderer, HWND hwnd)
 {
 	specularLightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
+}
+
+void SpecularLightExample::initLight()
+{
+	// specular light example
+	specular_light = new Light;
+	specular_light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
+	specular_light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	specular_light->setDirection(0.5, -0.5f, 0.0f);
+	specular_light->setSpecularPower(16.f);
+	specular_light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void SpecularLightExample::renderSpecularLightExample(D3D* renderer, Camera* camera, BaseMesh* sphereMesh, TextureManager* textureMgr)

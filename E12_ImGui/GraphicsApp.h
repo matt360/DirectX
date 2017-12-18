@@ -8,6 +8,7 @@
 #include "TerrainShader.h"
 #include "MultiLightShader.h"
 #include "GeometryShader.h"
+#include "SpecularLightExample.h"
 
 class GraphicsApp : public BaseApplication
 {
@@ -55,16 +56,20 @@ private:
 	// ShaderHandler* shader;
 	// void renderExampleFunction();
 
+	// SPECULAR LIGHT EXAMPLE ////////////////////
+	SpecularLightExample specularLightExample;
+	//////////////////////////////////////
+
 	// SPECULAR LIGHT ////////////////////
 	// shader handler
-	SpecularLightShader* specularLightShader;
-	bool specular_light_wireframe;
-	// mesh
-	// specular_light
-	Light* specular_light;
-	// render
-	bool specular_light_example;
-	void renderSpecularLightExample();
+	//SpecularLightShader* specularLightShader;
+	//bool specular_light_wireframe;
+	//// mesh
+	//// specular_light
+	//Light* specular_light;
+	//// render
+	//bool specular_light_example;
+	//void renderSpecularLightExample();
 	//////////////////////////////////////
 
 	// TESSELLATION //////////////////////

@@ -21,6 +21,7 @@ public:
 	Light* specular_light;
 	// render
 	void initShaders(D3D* renderer, HWND hwnd);
+	void initLight();
 	void renderSpecularLightExample(D3D* renderer, Camera* camera, BaseMesh* sphereMesh, TextureManager* textureMgr);
 	void gui();
 	//////////////////////////////////////

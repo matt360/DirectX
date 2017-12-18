@@ -12,7 +12,7 @@ GraphicsApp::GraphicsApp()
 	terrainMesh = nullptr;
 
 	// shader handlers
-	specularLightShader = nullptr;
+	//specularLightShader = nullptr;
 	tessellationShader = nullptr;
 	terrainShader = nullptr;
 	multiLightShader = nullptr;
@@ -131,13 +131,13 @@ void GraphicsApp::initVariables()
 
 void GraphicsApp::initLight()
 {
-	// specular light example
-	specular_light = new Light;
-	specular_light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
-	specular_light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	specular_light->setDirection(0.5, -0.5f, 0.0f);
-	specular_light->setSpecularPower(16.f);
-	specular_light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	//// specular light example
+	//specular_light = new Light;
+	//specular_light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
+	//specular_light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	//specular_light->setDirection(0.5, -0.5f, 0.0f);
+	//specular_light->setSpecularPower(16.f);
+	//specular_light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// terrain light example
 	light_terrain = new Light;
