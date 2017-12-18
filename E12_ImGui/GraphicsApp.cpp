@@ -591,8 +591,6 @@ bool GraphicsApp::render()
 {
 	if (specularLightExample.specular_light_example) {
 		specularLightExample.renderSpecularLightExample(renderer, camera, sphereMesh, textureMgr);
-		// Clear the scene. (default blue colour)
-		
 		// Render GUI
 		gui();
 		// Present the rendered scene to the screen.
