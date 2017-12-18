@@ -71,5 +71,5 @@ void SpecularLightExample::renderSpecularLightExample(D3D* renderer, Camera* cam
 	// Render GUI
 	//gui();
 	// Present the rendered scene to the screen.
-	renderer->endScene();
+	//renderer->endScene();
 }

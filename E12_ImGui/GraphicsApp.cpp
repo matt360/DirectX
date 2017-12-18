@@ -589,7 +589,15 @@ void GraphicsApp::renderGeometryShaderExample()
 
 bool GraphicsApp::render()
 {
-	if (specularLightExample.specular_light_example) specularLightExample.renderSpecularLightExample(renderer, camera, sphereMesh, textureMgr);
+	if (specularLightExample.specular_light_example) {
+		specularLightExample.renderSpecularLightExample(renderer, camera, sphereMesh, textureMgr);
+		// Clear the scene. (default blue colour)
+		
+		// Render GUI
+		gui();
+		// Present the rendered scene to the screen.
+		renderer->endScene();
+	}
 	else if (tessellation_example) renderTessellationExample();
 	else if (terrain_example) renderTerrainExample();
 	else if (multi_light_example) renderMultiLightExample();
@@ -599,7 +607,7 @@ bool GraphicsApp::render()
 		// Clear the scene. (default blue colour)
 		renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 		// Render GUI
-		f_gui;
+		gui();
 		// Present the rendered scene to the screen.
 		renderer->endScene();
 	}
