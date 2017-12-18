@@ -12,19 +12,20 @@ cbuffer MatrixBuffer : register(cb0)
 
 cbuffer PositionBuffer
 {
-	/*
-	    (0,0)              (1, 0)
-	      0------------------2
-	      |(-1, 1)     (1, 1)|
-	      |                  |
-	      |                  |
-	      |       (0.0)      |
-	      |                  |
-	      |                  |
-	      |(-1, -1)   (1, -1)|
-	      1------------------3
-	    (0, 1)            (1, 1)
-    */
+	/*  
+		((UV)) and (Vertex) positions
+	    ((0,0))           ((1, 0))
+	       0------------------2
+	       |(-1, 1)     (1, 1)|
+	       |                  |
+	       |                  |
+	       |       (0.0)      |
+	       |                  |
+	       |                  |
+	       |(-1, -1)   (1, -1)|
+	       1------------------3
+	    ((0, 1))          ((1, 1))
+	*/
     static float3 g_positions[4] =
     {
         float3(-1, 1, 0),   // 0
@@ -76,9 +77,9 @@ struct OutputType
 // the triangle mesh and convert it into a quad
 // creating a quad in a place of a vertex
 // (1 quad instead of 1 triangle)
-                                                    // < Data type > 
-                                                    // - Any data type 
-                                                    // - In most casesa a struct defining data for the next shader
+                                                    //  < Data type > 
+                                                    // -Any data type 
+                                                    // -In most casesa a struct defining data for the next shader
 void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
 {
     OutputType output;
