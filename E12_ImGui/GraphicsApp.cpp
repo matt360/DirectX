@@ -205,7 +205,7 @@ void GraphicsApp::initGeometry()
 }
 
 // create shader handlers
-void GraphicsApp::initShaders(HWND hwnd)
+void GraphicsApp::initShaders(D3D* renderer, HWND hwnd)
 {
 	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
 	specularLightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
@@ -247,7 +247,7 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	initLight();
 	loadTextures();
 	initGeometry();
-	initShaders(hwnd);
+	initShaders(renderer, hwnd);
 	initGuiVariables();
 }
 
@@ -394,15 +394,15 @@ void GraphicsApp::renderTerrainExample()
 	terrainMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Set shader parameters (matrices and texture)
-	//specularLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
+	//terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
 	terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), light_terrain, light_terrain_y, height, frequency);
 
 	// Render object (combination of mesh geometry and shader process
-	//specularLightShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount()); // output data from the shader programme
-	//specularLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount()); // output data from the shader programme
-	//specularLightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount()); // output data from the shader programme
-	//specularLightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
-	//specularLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
+	//terrainShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount()); // output data from the shader programme
+	//terrainShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount()); // output data from the shader programme
+	//terrainShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount()); // output data from the shader programme
+	//terrainShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
+	//terrainShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
 	terrainShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
 
 	// Render GUI

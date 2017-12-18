@@ -34,6 +34,9 @@
     <Filter Include="Resource Files\Geometry Shader">
       <UniqueIdentifier>{e60cea62-93c1-4b9a-9e10-fb5f69f37aa8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Example Classes">
+      <UniqueIdentifier>{c8a16fcf-8fc2-4a91-9d68-67f00562a08c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -57,6 +60,9 @@
     <ClCompile Include="GeometryShader.cpp">
       <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
+    <ClCompile Include="SpecularLightExample.cpp">
+      <Filter>Header Files\Example Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsApp.h">
@@ -76,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="GeometryShader.h">
       <Filter>Header Files\Shader Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecularLightExample.h">
+      <Filter>Header Files\Example Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

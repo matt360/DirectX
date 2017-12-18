@@ -26,10 +26,11 @@ protected:
 private:
 	// CONSTRUCTOR
 	void initVariables();
-	void initShaders(HWND hwnd);
+	//void initShaders(HWND hwnd);
 	void initGeometry();
 	void loadTextures();
 	void initLight();
+	void initShaders(D3D* renderer, HWND hwnd);
 	void initGuiVariables();
 	// meshes
 	TriangleMesh *triangleMesh;
