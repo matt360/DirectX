@@ -3,6 +3,7 @@
 #include "../DXFramework/D3D.h"
 #include "../DXFramework/BaseMesh.h"
 #include "../DXFramework/TextureManager.h"
+#include <functional>
 
 class SpecularLightExample
 {
@@ -23,7 +24,7 @@ public:
 	void initShaders(D3D* renderer, HWND hwnd);
 	void initLight();
 	void renderSpecularLightExample(D3D* renderer, Camera* camera, BaseMesh* sphereMesh, TextureManager* textureMgr);
-	void gui();
+	//void gui();
 	//////////////////////////////////////
 };
 

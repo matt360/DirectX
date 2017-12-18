@@ -244,6 +244,8 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	// Call super init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
+	f_gui = &GraphicsApp::gui;
+
 	initVariables();
 	initLight();
 	loadTextures();
@@ -587,7 +589,7 @@ void GraphicsApp::renderGeometryShaderExample()
 
 bool GraphicsApp::render()
 {
-	if (specularLightExample.specular_light_example) { specularLightExample.renderSpecularLightExample(renderer, camera, sphereMesh, textureMgr); gui(); }
+	if (specularLightExample.specular_light_example) specularLightExample.renderSpecularLightExample(renderer, camera, sphereMesh, textureMgr);
 	else if (tessellation_example) renderTessellationExample();
 	else if (terrain_example) renderTerrainExample();
 	else if (multi_light_example) renderMultiLightExample();
@@ -597,7 +599,7 @@ bool GraphicsApp::render()
 		// Clear the scene. (default blue colour)
 		renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 		// Render GUI
-		gui();
+		f_gui;
 		// Present the rendered scene to the screen.
 		renderer->endScene();
 	}
