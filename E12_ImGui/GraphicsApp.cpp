@@ -280,12 +280,12 @@ void GraphicsApp::renderSpecularLightExample()
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
-	//// Clear the scene. (default blue colour)
+	// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 
 	camera->update();
 
-	/// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	worldMatrix = renderer->getWorldMatrix();
 	// Generate the view matrix based on the camera's position.
 	viewMatrix = camera->getViewMatrix();
@@ -319,7 +319,7 @@ void GraphicsApp::renderTessellationExample()
 
 	camera->update();
 
-	/// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	worldMatrix = renderer->getWorldMatrix();
 	// Generate the view matrix based on the camera's position.
 	viewMatrix = camera->getViewMatrix();
@@ -394,11 +394,11 @@ void GraphicsApp::renderTerrainExample()
 	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
 	terrainMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	//// Set shader parameters (matrices and texture)
+	// Set shader parameters (matrices and texture)
 	//specularLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
 	terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), light_terrain, light_terrain_y, height, frequency);
 
-	//// Render object (combination of mesh geometry and shader process
+	// Render object (combination of mesh geometry and shader process
 	//specularLightShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount()); // output data from the shader programme
 	//specularLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount()); // output data from the shader programme
 	//specularLightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount()); // output data from the shader programme
@@ -409,7 +409,7 @@ void GraphicsApp::renderTerrainExample()
 	// Render GUI
 	gui();
 
-	//// Present the rendered scene to the screen.
+	// Present the rendered scene to the screen.
 	renderer->endScene();
 }
 
@@ -671,12 +671,19 @@ void GraphicsApp::gui()
 		multi_light_example ^= 1;
 		geometry_shader_example = false;
 
+		// set wireframe
 		ml_wireframe = false;
+		// set scale
+		ml_scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
+		// set sphere mesh
+		ml_triangle_mesh = false;
+		ml_sphere_mesh = true;
+		ml_cube_mesh = false;
+		ml_quad_mesh = false;
+		ml_plane_mesh = false;
 		// set the camera and first mesh
 		camera->setPosition(0.0f, 0.0f, -4.75f);
 		camera->setRotation(0.0f, 0.f, 0.f);
-		ml_scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
-		ml_sphere_mesh = true;
 	}
 	// CHOOSE GEOMETRY SHADER EXAMPLE 
 	if (ImGui::Button("Geometry Shader Example"))
@@ -687,12 +694,15 @@ void GraphicsApp::gui()
 		multi_light_example = false;
 		geometry_shader_example ^= 1;
 
+		// set wireframe
+		gs_wireframe = false;
 		// reset geometry shader scale
 		gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// reset geometry shader wireframe mode
 		gs_wireframe = false;
 		// reset geometry shader primitive topology
 		d3d11_primitive_topology_trianglelist = true;
+		d3d11_primitive_topology_pointlist = false;
 		// set cube mesh
 		gs_triangle_mesh = false;
 		gs_sphere_mesh = false;
@@ -700,7 +710,6 @@ void GraphicsApp::gui()
 		gs_quad_mesh = false;
 		gs_plane_mesh = false;
 
-		gs_wireframe = false;
 		// set the camera
 		camera->setPosition(13.0f, 4.0f, -22.0f);
 		camera->setRotation(0.0f, -30.0f, 5.0f);
@@ -838,7 +847,6 @@ void GraphicsApp::gui()
 			ml_cube_mesh = false;
 			ml_quad_mesh = false;
 			//ml_plane_mesh = true;
-			//
 			camera->setPosition(0.0f, 3.0f, 0.0f);
 			ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		}
@@ -856,6 +864,7 @@ void GraphicsApp::gui()
 			gs_wireframe = false;
 			// reset geometry shader primitive topology
 			d3d11_primitive_topology_trianglelist = true;
+			d3d11_primitive_topology_pointlist = false;
 			// set cube mesh
 			gs_triangle_mesh = false;
 			gs_sphere_mesh = false;
@@ -914,9 +923,6 @@ void GraphicsApp::gui()
 			gs_cube_mesh = false;
 			gs_quad_mesh = false;
 			//gs_plane_mesh = true;
-			//
-			//camera->setPosition(0.0f, 3.0f, 0.0f);
-			//gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		}
 		ImGui::End();
 	}

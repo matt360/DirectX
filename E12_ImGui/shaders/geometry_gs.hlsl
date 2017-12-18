@@ -91,7 +91,7 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
     {
         float3 vposition = g_positions[i];
         // place the point in the world
-        vposition = mul(vposition, (float3x3) worldMatrix) + input[0].position;
+        vposition = mul(vposition, (float3x3)worldMatrix) + input[0].position;
         output.position = mul(float4(vposition, 1.0), viewMatrix);
         output.position = mul(output.position, projectionMatrix);
 
@@ -109,14 +109,14 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
     {
         float3 vposition = g_positions[i];
         // place the point in the world
-        vposition = mul(vposition, (float3x3) worldMatrix) + input[0].position + normalize(input[0].normal) * -10.f;
+        vposition = mul(vposition, (float3x3)worldMatrix) + input[0].position + normalize(input[0].normal) * -10.f;
         output.position = mul(float4(vposition, 1.0), viewMatrix);
         output.position = mul(output.position, projectionMatrix);
 
         float2 uv_position = uv_positions[i];
         output.tex = uv_position;
 
-        output.normal = mul(input[0].normal, (float3x3) worldMatrix);
+        output.normal = mul(input[0].normal, (float3x3)worldMatrix);
         output.normal = normalize(output.normal);
         // add the triangle to the rendering list
         triStream.Append(output);
