@@ -1,5 +1,4 @@
-// Lab1.cpp
-// Lab 1 example, simple coloured triangle mesh
+// GraphicsApp.cpp
 #include "GraphicsApp.h"
 
 GraphicsApp::GraphicsApp()

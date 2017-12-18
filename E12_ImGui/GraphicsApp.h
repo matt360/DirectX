@@ -1,4 +1,4 @@
-// Application.h
+// GraphicsApp.h
 #pragma once
 
 // Includes
@@ -31,7 +31,29 @@ private:
 	void loadTextures();
 	void initLight();
 	void initGuiVariables();
+	// meshes
+	TriangleMesh *triangleMesh;
+	SphereMesh *sphereMesh;
+	CubeMesh *cubeMesh;
+	QuadMesh *quadMesh;
+	PlaneMesh *planeMesh;
+	TerrainMesh *terrainMesh;
 	
+	// EXAMPLE CLASS //
+	// Constructor
+	// Deconstructor (call to destroy lights)
+	// bool wireframe;
+	// Light* light;
+	// bool ml_triangle_mesh, ml_sphere_mesh, ml_cube_mesh, ml_quad_mesh, ml_plane_mesh;
+	// float light_y;
+	// bool exampleActive;
+	// virtual void renderExmapleFunction() = 0;
+
+	/// anything that is not avaiable pass to the constructor or a function
+	// SPECIFIC EXAMPLE CLASS : EXAMPLE CLASS
+	// ShaderHandler* shader;
+	// void renderExampleFunction();
+
 	// SPECULAR LIGHT ////////////////////
 	// shader handler
 	SpecularLightShader* specularLightShader;
@@ -48,13 +70,6 @@ private:
 	// shader handler
 	TessellationShader* tessellationShader;
 	bool tessellation_wireframe;
-	// meshes
-	TriangleMesh *triangleMesh;
-	SphereMesh *sphereMesh;
-	CubeMesh *cubeMesh;
-	QuadMesh *quadMesh;
-	PlaneMesh *planeMesh;
-	TerrainMesh *terrainMesh;
 	// render
 	bool tessellation_example;
 	void renderTessellationExample();
