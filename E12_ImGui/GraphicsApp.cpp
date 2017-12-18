@@ -68,11 +68,12 @@ GraphicsApp::~GraphicsApp()
 	}
 
 	// shader handlers
-	if (specularLightShader)
+	/*if (specularLightShader)
 	{
 		delete specularLightShader;
 		specularLightShader = 0;
-	}
+	}*/
+	specularLightExample.~SpecularLightExample();
 
 	if (tessellationShader)
 	{
@@ -208,7 +209,7 @@ void GraphicsApp::initGeometry()
 void GraphicsApp::initShaders(D3D* renderer, HWND hwnd)
 {
 	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
-	specularLightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
+	specularLightExample.specularLightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
 	terrainShader = new TerrainShader(renderer->getDevice(), hwnd);
 	multiLightShader = new MultiLightShader(renderer->getDevice(), hwnd);
 	geometryShader = new GeometryShader(renderer->getDevice(), hwnd);
@@ -248,6 +249,7 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	loadTextures();
 	initGeometry();
 	initShaders(renderer, hwnd);
+	specularLightExample.init(renderer, hwnd);
 	initGuiVariables();
 }
 
@@ -275,39 +277,39 @@ bool GraphicsApp::frame()
 	return true;
 }
 
-void GraphicsApp::renderSpecularLightExample()
-{
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-
-	// Clear the scene. (default blue colour)
-	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-
-	camera->update();
-
-	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	worldMatrix = renderer->getWorldMatrix();
-	// Generate the view matrix based on the camera's position.
-	viewMatrix = camera->getViewMatrix();
-	projectionMatrix = renderer->getProjectionMatrix();
-
-	// wireframe mode
-	renderer->setWireframeMode(specular_light_wireframe);
-
-
-	// Send geometry data (from mesh)
-	//mesh->sendData(renderer->getDeviceContext());
-	sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	// Set shader parameters (matrices and texture)
-	specularLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), specular_light, camera);
-	// Render object (combination of mesh geometry and shader process
-	specularLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-
-
-	// Render GUI
-	gui();
-	// Present the rendered scene to the screen.
-	renderer->endScene();
-}
+//void GraphicsApp::renderSpecularLightExample()
+//{
+//	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+//
+//	// Clear the scene. (default blue colour)
+//	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+//
+//	camera->update();
+//
+//	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+//	worldMatrix = renderer->getWorldMatrix();
+//	// Generate the view matrix based on the camera's position.
+//	viewMatrix = camera->getViewMatrix();
+//	projectionMatrix = renderer->getProjectionMatrix();
+//
+//	// wireframe mode
+//	renderer->setWireframeMode(specular_light_wireframe);
+//
+//
+//	// Send geometry data (from mesh)
+//	//mesh->sendData(renderer->getDeviceContext());
+//	sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+//	// Set shader parameters (matrices and texture)
+//	specularLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), specular_light, camera);
+//	// Render object (combination of mesh geometry and shader process
+//	specularLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+//
+//
+//	// Render GUI
+//	gui();
+//	// Present the rendered scene to the screen.
+//	renderer->endScene();
+//}
 
 void GraphicsApp::renderTessellationExample()
 {
@@ -585,7 +587,7 @@ void GraphicsApp::renderGeometryShaderExample()
 
 bool GraphicsApp::render()
 {
-	if (specular_light_example) renderSpecularLightExample();
+	if (specularLightExample.specular_light_example) { specularLightExample.renderSpecularLightExample(renderer, camera, sphereMesh, textureMgr); gui(); }
 	else if (tessellation_example) renderTessellationExample();
 	else if (terrain_example) renderTerrainExample();
 	else if (multi_light_example) renderMultiLightExample();
@@ -622,20 +624,20 @@ void GraphicsApp::gui()
 	// CHOOSE SPECULAR LIGHT EXAMPLE
 	if (ImGui::Button("Specular Light Example"))
 	{ 
-		specular_light_example ^= 1;
+		specularLightExample.specular_light_example ^= 1;
 		tessellation_example = false;
 		terrain_example = false;
 		multi_light_example = false;
 		geometry_shader_example = false;
 
-		specular_light_wireframe = false;
+		specularLightExample.wireframe = false;
 		// set specular light camera
 		camera->resetCamera();
 	}
 	// CHOOSE TESSELLATION EXAMPLE
 	if (ImGui::Button("Tessellation Example"))
 	{
-		specular_light_example = false;
+		specularLightExample.specular_light_example = false;
 		tessellation_example ^= 1;
 		terrain_example = false;
 		multi_light_example = false;
@@ -649,7 +651,7 @@ void GraphicsApp::gui()
 	// CHOOSE TERRAIN EXAMPLE 
 	if (ImGui::Button("Terrain Example"))
 	{
-		specular_light_example = false;
+		specularLightExample.specular_light_example = false;
 		tessellation_example = false;
 		terrain_example ^= 1;
 		multi_light_example = false;
@@ -664,7 +666,7 @@ void GraphicsApp::gui()
 	// CHOOSE MULTI LIGHT EXAMPLE
 	if (ImGui::Button("Multi Light Example"))
 	{
-		specular_light_example = false;
+		specularLightExample.specular_light_example = false;
 		tessellation_example = false;
 		terrain_example = false;
 		multi_light_example ^= 1;
@@ -687,7 +689,7 @@ void GraphicsApp::gui()
 	// CHOOSE GEOMETRY SHADER EXAMPLE 
 	if (ImGui::Button("Geometry Shader Example"))
 	{
-		specular_light_example = false;
+		specularLightExample.specular_light_example = false;
 		tessellation_example = false;
 		terrain_example = false;
 		multi_light_example = false;
@@ -716,15 +718,15 @@ void GraphicsApp::gui()
 
 	// EXAMPLE WINDOWS //
 	// SPECULAR LIGHT EXAMPLE WINDOW
-	if (specular_light_example)
+	if (specularLightExample.specular_light_example)
 	{
-		ImGui::Begin("Specular Light", &specular_light_example);
+		ImGui::Begin("Specular Light", &specularLightExample.specular_light_example);
 		if (ImGui::Button("Reset Example"))
 		{
 			camera->resetCamera();
-			specular_light_wireframe = false;
+			specularLightExample.wireframe = false;
 		}
-		ImGui::Checkbox("Wireframe", &specular_light_wireframe);
+		ImGui::Checkbox("Wireframe", &specularLightExample.wireframe);
 		ImGui::End();
 	}
 	// TESSELLATION EXAMPLE WINDOW

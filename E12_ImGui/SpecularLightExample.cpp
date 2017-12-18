@@ -10,6 +10,11 @@ SpecularLightExample::SpecularLightExample()
 
 SpecularLightExample::~SpecularLightExample()
 {
+	if (specularLightShader)
+	{
+		delete specularLightShader;
+		specularLightShader = 0;
+	}
 }
 
 void SpecularLightExample::init(D3D* renderer, HWND hwnd)
@@ -64,7 +69,7 @@ void SpecularLightExample::renderSpecularLightExample(D3D* renderer, Camera* cam
 
 
 	// Render GUI
-	gui();
+	//gui();
 	// Present the rendered scene to the screen.
 	renderer->endScene();
 }
