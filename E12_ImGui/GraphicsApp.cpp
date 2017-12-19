@@ -353,19 +353,30 @@ void GraphicsApp::gui()
 		multiLightExample.example ^= 1;
 		geometry_shader_example = false;
 
-		// set wireframe
-		multiLightExample.wireframe = false;
-		// set scale
+		// set multi light camera
+		camera->setPosition(0.0f, 0.0f, -4.75f);
+		camera->setRotation(0.0f, 0.f, 0.f);
+		// scale up sphere mesh
 		multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
-		// set sphere mesh
+		// reset light colours
+		multiLightExample.light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
+		multiLightExample.light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
+		multiLightExample.light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
+		multiLightExample.light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
+		// reset light positions
+		multiLightExample.light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
+		multiLightExample.light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
+		multiLightExample.light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
+		multiLightExample.light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
+		// render only sphere mesh
+		multiLightExample.mesh_choice = MESH::SPHERE;
 		multiLightExample.triangle_mesh = false;
 		multiLightExample.sphere_mesh = true;
 		multiLightExample.cube_mesh = false;
 		multiLightExample.quad_mesh = false;
 		multiLightExample.plane_mesh = false;
-		// set the camera and first mesh
-		camera->setPosition(0.0f, 0.0f, -4.75f);
-		camera->setRotation(0.0f, 0.f, 0.f);
+		// reset wireframe
+		multiLightExample.wireframe = false;
 	}
 	// CHOOSE GEOMETRY SHADER EXAMPLE 
 	if (ImGui::Button("Geometry Shader Example"))
@@ -494,7 +505,7 @@ void GraphicsApp::gui()
 		if (ImGui::Checkbox("Triangle Mesh", &multiLightExample.triangle_mesh))
 		{
 			multiLightExample.mesh_choice = MESH::TRIANGLE;
-			//triangle_mesh = true;
+			multiLightExample.triangle_mesh = true;
 			multiLightExample.sphere_mesh = false;
 			multiLightExample.cube_mesh = false;
 			multiLightExample.quad_mesh = false;
@@ -504,7 +515,7 @@ void GraphicsApp::gui()
 		{
 			multiLightExample.mesh_choice = MESH::SPHERE;
 			multiLightExample.triangle_mesh = false;
-			//sphere_mesh = true;
+			multiLightExample.sphere_mesh = true;
 			multiLightExample.cube_mesh = false;
 			multiLightExample.quad_mesh = false;
 			multiLightExample.plane_mesh = false;
@@ -514,7 +525,7 @@ void GraphicsApp::gui()
 			multiLightExample.mesh_choice = MESH::CUBE;
 			multiLightExample.triangle_mesh = false;
 			multiLightExample.sphere_mesh = false;
-			//cube_mesh = true;
+			multiLightExample.cube_mesh = true;
 			multiLightExample.quad_mesh = false;
 			multiLightExample.plane_mesh = false;
 		}
@@ -524,7 +535,7 @@ void GraphicsApp::gui()
 			multiLightExample.triangle_mesh = false;
 			multiLightExample.sphere_mesh = false;
 			multiLightExample.cube_mesh = false;
-			//quad_mesh = true;
+			multiLightExample.quad_mesh = true;
 			multiLightExample.plane_mesh = false;
 		}
 		if (ImGui::Checkbox("Plane Mesh", &multiLightExample.plane_mesh))
@@ -534,7 +545,7 @@ void GraphicsApp::gui()
 			multiLightExample.sphere_mesh = false;
 			multiLightExample.cube_mesh = false;
 			multiLightExample.quad_mesh = false;
-			//plane_mesh = true;
+			multiLightExample.plane_mesh = true;
 			camera->setPosition(0.0f, 3.0f, 0.0f);
 			multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		}

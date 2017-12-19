@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GeometryExample.cpp" />
     <ClCompile Include="GeometryShader.cpp" />
     <ClCompile Include="GraphicsApp.cpp" />
     <ClCompile Include="MultiLightExample.cpp" />
@@ -168,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Example.h" />
+    <ClInclude Include="GeometryExample.h" />
     <ClInclude Include="GeometryShader.h" />
     <ClInclude Include="GraphicsApp.h" />
     <ClInclude Include="MultiLightExample.h" />

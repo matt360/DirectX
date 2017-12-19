@@ -72,6 +72,9 @@
     <ClCompile Include="MultiLightExample.cpp">
       <Filter>Header Files\Examples</Filter>
     </ClCompile>
+    <ClCompile Include="GeometryExample.cpp">
+      <Filter>Header Files\Examples</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsApp.h">
@@ -105,6 +108,9 @@
       <Filter>Header Files\Examples</Filter>
     </ClInclude>
     <ClInclude Include="MultiLightExample.h">
+      <Filter>Header Files\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryExample.h">
       <Filter>Header Files\Examples</Filter>
     </ClInclude>
   </ItemGroup>
