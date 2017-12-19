@@ -1,12 +1,9 @@
 #include "TerrainExample.h"
 
-
-
 TerrainExample::TerrainExample()
 {
 	shader = nullptr;
 }
-
 
 TerrainExample::~TerrainExample()
 {
@@ -22,8 +19,6 @@ TerrainExample::~TerrainExample()
 		light = 0;
 	}
 }
-
-
 
 void TerrainExample::init(D3D* renderer, HWND hwnd)
 {

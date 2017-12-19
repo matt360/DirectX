@@ -69,6 +69,9 @@
     <ClCompile Include="TessellationExample.cpp">
       <Filter>Header Files\Examples</Filter>
     </ClCompile>
+    <ClCompile Include="MultiLightExample.cpp">
+      <Filter>Header Files\Examples</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsApp.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files\Examples</Filter>
     </ClInclude>
     <ClInclude Include="TessellationExample.h">
+      <Filter>Header Files\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiLightExample.h">
       <Filter>Header Files\Examples</Filter>
     </ClInclude>
   </ItemGroup>

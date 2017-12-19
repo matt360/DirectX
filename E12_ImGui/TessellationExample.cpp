@@ -1,7 +1,5 @@
 #include "TessellationExample.h"
 
-
-
 TessellationExample::TessellationExample()
 {
 	shader = nullptr;

@@ -5,7 +5,6 @@ SpecularLightExample::SpecularLightExample()
 	shader = nullptr;
 }
 
-
 SpecularLightExample::~SpecularLightExample()
 {
 	if (shader)

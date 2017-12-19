@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Example.h"
 #include "TerrainShader.h"
 

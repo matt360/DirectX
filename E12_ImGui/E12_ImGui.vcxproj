@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="GeometryShader.cpp" />
     <ClCompile Include="GraphicsApp.cpp" />
+    <ClCompile Include="MultiLightExample.cpp" />
     <ClCompile Include="SpecularLightExample.cpp" />
     <ClCompile Include="SpecularLightShader.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Example.h" />
     <ClInclude Include="GeometryShader.h" />
     <ClInclude Include="GraphicsApp.h" />
+    <ClInclude Include="MultiLightExample.h" />
     <ClInclude Include="SpecularLightExample.h" />
     <ClInclude Include="SpecularLightShader.h" />
     <ClInclude Include="MultiLightShader.h" />

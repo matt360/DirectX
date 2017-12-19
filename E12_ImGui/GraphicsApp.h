@@ -1,13 +1,11 @@
-// GraphicsApp.h
 #pragma once
-
-// Includes
 #include "../DXFramework/DXF.h"
 #include "MultiLightShader.h"
 #include "GeometryShader.h"
 #include "SpecularLightExample.h"
 #include "TerrainExample.h"
 #include "TessellationExample.h"
+#include "MultiLightExample.h"
 
 class GraphicsApp : public BaseApplication
 {
@@ -53,20 +51,8 @@ private:
 	//////////////////////////////////////
 
 	// MULTI LIGHTS //////////////////////
-	// shader handler
-	MultiLightShader* multiLightShader;
-	bool ml_wireframe;
+	MultiLightExample multiLightExample;
 	bool ml_triangle_mesh, ml_sphere_mesh, ml_cube_mesh, ml_quad_mesh, ml_plane_mesh;
-
-	Light *light0_, *light1_, *light2_, *light3_;
-	ImVec4 light0_col, light1_col, light2_col, light3_col;
-	XMFLOAT3 light0_pos, light1_pos, light2_pos, light3_pos;
-	XMFLOAT3 ml_scale;
-	//SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;
-	float light_y;
-	// render function
-	bool multi_light_example;
-	void renderMultiLightExample();
 	//////////////////////////////////////
 
 	// GEOMATRY SHADER ///////////////////

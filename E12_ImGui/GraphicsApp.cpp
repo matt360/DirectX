@@ -12,13 +12,7 @@ GraphicsApp::GraphicsApp()
 	terrainMesh = nullptr;
 
 	// shader handlers
-	multiLightShader = nullptr;
 	geometryShader = nullptr;
-
-	light0_ = nullptr; 
-	light1_ = nullptr;
-	light2_ = nullptr;
-	light3_ = nullptr;
 }
 
 // Release the Direct3D objects
@@ -68,88 +62,21 @@ GraphicsApp::~GraphicsApp()
 	specularLightExample.~SpecularLightExample();
 	tessellationExample.~TessellationExample();
 	terrainExample.~TerrainExample();
+	multiLightExample.~MultiLightExample();
 
 	if (geometryShader)
 	{
 		delete geometryShader;
 		geometryShader = 0;
 	}
-
-	// multi lights shader handler
-	if (multiLightShader)
-	{
-		delete multiLightShader;
-		multiLightShader = 0;
-	}
-
-	if (light0_)
-	{
-		delete light0_;
-		light0_ = 0;
-	}
-
-	if (light1_)
-	{
-		delete light1_;
-		light1_ = 0;
-	}
-
-	if (light2_)
-	{
-		delete light2_;
-		light2_ = 0;
-	}
-
-	if (light3_)
-	{
-		delete light3_;
-		light3_ = 0;
-	}
 }
 
 void GraphicsApp::initVariables()
 {
-	
 }
 
 void GraphicsApp::initLight()
 {
-	// terrain light example
-	terrainExample.initLight();
-
-	// multiple lights example
-	// Light 0
-	light0_ = new Light;
-	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
-	light0_->setPosition(-3.0f, 0.1f, 3.0f);
-	//light0_->setAmbientColour(0.2f, 0.0f, 0.0f, 1.0f); // red
-	//light0_->setDirection(0.0, 0.0f, 0.0f);
-	//light0_->setSpecularPower(16.f);
-	//light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	// Light 1
-	light1_ = new Light;
-	light1_->setDiffuseColour(0.0f, 1.0f, 0.0f, 1.0f);
-	light1_->setPosition(3.0f, 0.1f, 3.0f);
-	//light1_->setAmbientColour(0.0f, 2.0f, 0.0f, 1.0f); // green
-	//light1_->setDirection(0.0, 0.0f, 0.0f);
-	//light1_->setSpecularPower(16.f);
-	//light1_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	// Light 2
-	light2_ = new Light;
-	light2_->setDiffuseColour(0.0f, 0.0f, 1.0f, 1.0f);
-	light2_->setPosition(-3.0f, 0.1f, -3.0f);
-	//light2_->setAmbientColour(0.0f, 0.0f, 0.2f, 1.0f); // blue
-	//light2_->setDirection(0.0, 0.0f, 0.0f);
-	//light2_->setSpecularPower(16.f);
-	//light2_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	// Light 3
-	light3_ = new Light;
-	light3_->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light3_->setPosition(3.0f, 0.1f, -3.0f);
-	//light3_->setAmbientColour(0.2f, 0.2f, 0.0f, 1.0f); // yellow
-	//light3_->setDirection(0.0, 0.0f, 0.0f);
-	//light3_->setSpecularPower(16.f);
-	//light3_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void GraphicsApp::loadTextures()
@@ -176,25 +103,24 @@ void GraphicsApp::initGeometry()
 // create shader handlers
 void GraphicsApp::initShaders(D3D* renderer, HWND hwnd)
 {
-	multiLightShader = new MultiLightShader(renderer->getDevice(), hwnd);
 	geometryShader = new GeometryShader(renderer->getDevice(), hwnd);
 }
 
 void GraphicsApp::initGuiVariables()
 {
-	// multi light example lights' colours
-	light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
-	light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
-	light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
-	light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
-	// multi light example lights' positions
-	light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
-	light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
-	light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
-	light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
+	//// multi light example lights' colours
+	//light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
+	//light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
+	//light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
+	//light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
+	//// multi light example lights' positions
+	//light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
+	//light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
+	//light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
+	//light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
 
 	// multi light exmaple scale
-	ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	//ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geometry shader exmaple scale 
 	gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
@@ -208,13 +134,14 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
 	initVariables();
-	initLight();
+	//initLight();
 	loadTextures();
 	initGeometry();
 	initShaders(renderer, hwnd);
 	specularLightExample.init(renderer, hwnd);
 	terrainExample.init(renderer, hwnd);
 	tessellationExample.init(renderer, hwnd);
+	multiLightExample.init(renderer, hwnd);
 	initGuiVariables();
 }
 
@@ -286,104 +213,104 @@ bool GraphicsApp::frame()
 //	renderer->endScene();
 //}
 
-void GraphicsApp::renderMultiLightExample()
-{
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-	XMFLOAT4 diffuseColor[4];
-	XMFLOAT3 lightPosition[4];
-
-	// Create the diffuse color array from the four light colors.
-	diffuseColor[0] = XMFLOAT4(light0_col.x, light0_col.y, light0_col.z, light0_col.w);
-	diffuseColor[1] = XMFLOAT4(light1_col.x, light1_col.y, light1_col.z, light1_col.w);
-	diffuseColor[2] = XMFLOAT4(light2_col.x, light2_col.y, light2_col.z, light2_col.w);
-	diffuseColor[3] = XMFLOAT4(light3_col.x, light3_col.y, light3_col.z, light3_col.w);
-
-	// Create the light position array from the four light positions.
-	lightPosition[0] = light0_pos;
-	lightPosition[1] = light1_pos;
-	lightPosition[2] = light2_pos;
-	lightPosition[3] = light3_pos;
-
-	// Clear the scene. (default cornflower blue colour)
-	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-
-	// Generate the view matrix based on the camera's position.
-	camera->update();
-
-	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	if (ml_plane_mesh)
-	{
-		viewMatrix = camera->getViewMatrix();
-		projectionMatrix = renderer->getProjectionMatrix();
-		// translation and rotation
-		worldMatrix = renderer->getWorldMatrix();
-		XMMATRIX matrixTranslation = XMMatrixTranslation(-40.0f, 0.0, -40.0f);
-		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
-		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
-	}
-	else if (ml_sphere_mesh)
-	{
-		viewMatrix = camera->getViewMatrix();
-		projectionMatrix = renderer->getProjectionMatrix();
-		// translation and rotation
-		worldMatrix = renderer->getWorldMatrix();
-		XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
-		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
-	}
-	else
-	{
-		viewMatrix = camera->getViewMatrix();
-		projectionMatrix = renderer->getProjectionMatrix();
-		// translation and rotation
-		worldMatrix = renderer->getWorldMatrix();
-		XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
-		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
-	}
-	// scaling
-	XMMATRIX matrixScaling = XMMatrixScaling(ml_scale.x, ml_scale.y, ml_scale.z);
-	worldMatrix *= matrixScaling;
-
-	// wireframe mode
-	renderer->setWireframeMode(ml_wireframe);
-
-	// Send geometry data (from mesh)
-	if (ml_triangle_mesh) triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	if (ml_sphere_mesh)   sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	if (ml_cube_mesh)     cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	if (ml_quad_mesh)     quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	if (ml_plane_mesh)    planeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	// Set shader parameters (matrices and texture)
-	//multiLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
-	multiLightShader->setShaderParameters
-	(
-		renderer->getDeviceContext(),
-		worldMatrix,
-		viewMatrix,
-		projectionMatrix,
-		textureMgr->getTexture("checkerboard"), // for the default textrue pass an empty string as a name
-		diffuseColor,
-		lightPosition
-	);
-
-	// Render object (combination of mesh geometry and shader process
-	if (ml_triangle_mesh) multiLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	if (ml_sphere_mesh)   multiLightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-	if (ml_cube_mesh)     multiLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
-	if (ml_quad_mesh)     multiLightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-	if (ml_plane_mesh)    multiLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
-
-	// Render GUI
-	gui();
-
-	// Present the rendered scene to the screen.
-	renderer->endScene();
-}
+//void GraphicsApp::renderMultiLightExample()
+//{
+//	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+//	XMFLOAT4 diffuseColor[4];
+//	XMFLOAT3 lightPosition[4];
+//
+//	// Create the diffuse color array from the four light colors.
+//	diffuseColor[0] = XMFLOAT4(light0_col.x, light0_col.y, light0_col.z, light0_col.w);
+//	diffuseColor[1] = XMFLOAT4(light1_col.x, light1_col.y, light1_col.z, light1_col.w);
+//	diffuseColor[2] = XMFLOAT4(light2_col.x, light2_col.y, light2_col.z, light2_col.w);
+//	diffuseColor[3] = XMFLOAT4(light3_col.x, light3_col.y, light3_col.z, light3_col.w);
+//
+//	// Create the light position array from the four light positions.
+//	lightPosition[0] = light0_pos;
+//	lightPosition[1] = light1_pos;
+//	lightPosition[2] = light2_pos;
+//	lightPosition[3] = light3_pos;
+//
+//	// Clear the scene. (default cornflower blue colour)
+//	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+//
+//	// Generate the view matrix based on the camera's position.
+//	camera->update();
+//
+//	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+//	if (ml_plane_mesh)
+//	{
+//		viewMatrix = camera->getViewMatrix();
+//		projectionMatrix = renderer->getProjectionMatrix();
+//		// translation and rotation
+//		worldMatrix = renderer->getWorldMatrix();
+//		XMMATRIX matrixTranslation = XMMatrixTranslation(-40.0f, 0.0, -40.0f);
+//		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+//		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
+//		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+//	}
+//	else if (ml_sphere_mesh)
+//	{
+//		viewMatrix = camera->getViewMatrix();
+//		projectionMatrix = renderer->getProjectionMatrix();
+//		// translation and rotation
+//		worldMatrix = renderer->getWorldMatrix();
+//		XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+//		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+//		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
+//		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+//	}
+//	else
+//	{
+//		viewMatrix = camera->getViewMatrix();
+//		projectionMatrix = renderer->getProjectionMatrix();
+//		// translation and rotation
+//		worldMatrix = renderer->getWorldMatrix();
+//		XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+//		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+//		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
+//		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+//	}
+//	// scaling
+//	XMMATRIX matrixScaling = XMMatrixScaling(ml_scale.x, ml_scale.y, ml_scale.z);
+//	worldMatrix *= matrixScaling;
+//
+//	// wireframe mode
+//	renderer->setWireframeMode(ml_wireframe);
+//
+//	// Send geometry data (from mesh)
+//	if (ml_triangle_mesh) triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+//	if (ml_sphere_mesh)   sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+//	if (ml_cube_mesh)     cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+//	if (ml_quad_mesh)     quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+//	if (ml_plane_mesh)    planeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+//
+//	// Set shader parameters (matrices and texture)
+//	//multiLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
+//	multiLightShader->setShaderParameters
+//	(
+//		renderer->getDeviceContext(),
+//		worldMatrix,
+//		viewMatrix,
+//		projectionMatrix,
+//		textureMgr->getTexture("checkerboard"), // for the default textrue pass an empty string as a name
+//		diffuseColor,
+//		lightPosition
+//	);
+//
+//	// Render object (combination of mesh geometry and shader process
+//	if (ml_triangle_mesh) multiLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+//	if (ml_sphere_mesh)   multiLightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+//	if (ml_cube_mesh)     multiLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+//	if (ml_quad_mesh)     multiLightShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+//	if (ml_plane_mesh)    multiLightShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+//
+//	// Render GUI
+//	gui();
+//
+//	// Present the rendered scene to the screen.
+//	renderer->endScene();
+//}
 
 void GraphicsApp::renderGeometryShaderExample()
 {
@@ -480,8 +407,8 @@ bool GraphicsApp::render()
 		// Render GUI
 		gui();
 	}
-	else if (multi_light_example) {
-		renderMultiLightExample();
+	else if (multiLightExample.example) {
+		multiLightExample.render(renderer, camera, sphereMesh, textureMgr);
 		// Render GUI
 		gui();
 	}
@@ -524,7 +451,7 @@ void GraphicsApp::gui()
 		specularLightExample.example ^= 1;
 		tessellationExample.example = false;
 		terrainExample.example = false;
-		multi_light_example = false;
+		multiLightExample.example = false;
 		geometry_shader_example = false;
 
 		specularLightExample.wireframe = false;
@@ -537,7 +464,7 @@ void GraphicsApp::gui()
 		specularLightExample.example = false;
 		tessellationExample.example ^= 1;
 		terrainExample.example = false;
-		multi_light_example = false;
+		multiLightExample.example = false;
 		geometry_shader_example = false;
 
 		tessellationExample.wireframe = false;
@@ -551,7 +478,7 @@ void GraphicsApp::gui()
 		specularLightExample.example = false;
 		tessellationExample.example = false;
 		terrainExample.example ^= 1;
-		multi_light_example = false;
+		multiLightExample.example = false;
 		geometry_shader_example = false;
 
 		// set terrain camera
@@ -566,13 +493,13 @@ void GraphicsApp::gui()
 		specularLightExample.example = false;
 		tessellationExample.example = false;
 		terrainExample.example = false;
-		multi_light_example ^= 1;
+		multiLightExample.example ^= 1;
 		geometry_shader_example = false;
 
 		// set wireframe
-		ml_wireframe = false;
+		multiLightExample.wireframe = false;
 		// set scale
-		ml_scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
+		multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
 		// set sphere mesh
 		ml_triangle_mesh = false;
 		ml_sphere_mesh = true;
@@ -589,7 +516,7 @@ void GraphicsApp::gui()
 		specularLightExample.example = false;
 		tessellationExample.example = false;
 		terrainExample.example = false;
-		multi_light_example = false;
+		multiLightExample.example = false;
 		geometry_shader_example ^= 1;
 
 		// set wireframe
@@ -662,26 +589,26 @@ void GraphicsApp::gui()
 		ImGui::End();
 	}
 	// MULTI LIGHT EXAMPLE WINDOW
-	if (multi_light_example)
+	if (multiLightExample.example)
 	{
-		ImGui::Begin("Multi Light Example", &multi_light_example);
+		ImGui::Begin("Multi Light Example", &multiLightExample.example);
 		if (ImGui::Button("Reset Example"))
 		{
 			// set multi light camera
 			camera->setPosition(0.0f, 0.0f, -4.75f);
 			camera->setRotation(0.0f, 0.f, 0.f);
 			// scale up sphere mesh
-			ml_scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
+			multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
 			// reset light colours
-			light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
-			light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
-			light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
-			light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
+			multiLightExample.light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
+			multiLightExample.light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
+			multiLightExample.light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
+			multiLightExample.light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
 			// reset light positions
-			light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
-			light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
-			light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
-			light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
+			multiLightExample.light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
+			multiLightExample.light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
+			multiLightExample.light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
+			multiLightExample.light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
 			// render only sphere mesh
 			ml_triangle_mesh = false;
 			ml_sphere_mesh = true;
@@ -689,22 +616,22 @@ void GraphicsApp::gui()
 			ml_quad_mesh = false;
 			ml_plane_mesh = false;
 			// reset wireframe
-			ml_wireframe = false;
+			multiLightExample.wireframe = false;
 		}
-		ImGui::Checkbox("Wireframe", &ml_wireframe);
+		ImGui::Checkbox("Wireframe", &multiLightExample.wireframe);
 		// change lights' colour
-		ImGui::ColorEdit3("Light 0 Col", (float*)&light0_col);
-		ImGui::ColorEdit3("Light 1 Col", (float*)&light1_col);
-		ImGui::ColorEdit3("Light 2 Col", (float*)&light2_col);
-		ImGui::ColorEdit3("Light 3 Col", (float*)&light3_col);
+		ImGui::ColorEdit3("Light 0 Col", (float*)&multiLightExample.light0_col);
+		ImGui::ColorEdit3("Light 1 Col", (float*)&multiLightExample.light1_col);
+		ImGui::ColorEdit3("Light 2 Col", (float*)&multiLightExample.light2_col);
+		ImGui::ColorEdit3("Light 3 Col", (float*)&multiLightExample.light3_col);
 		// change lights' position
-		ImGui::SliderFloat3("Light 0 Pos", (float*)&light0_pos, -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 1 Pos", (float*)&light1_pos, -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 2 Pos", (float*)&light2_pos, -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 3 Pos", (float*)&light3_pos, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 0 Pos", (float*)&multiLightExample.light0_pos, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 1 Pos", (float*)&multiLightExample.light1_pos, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 2 Pos", (float*)&multiLightExample.light2_pos, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 3 Pos", (float*)&multiLightExample.light3_pos, -10.0f, 10.0f);
 		// reset scale
-		ImGui::SliderFloat3("Scale", (float*)&ml_scale, -20.0f, 20.0f);
-		if (ImGui::Button("Reset Scale")) ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		ImGui::SliderFloat3("Scale", (float*)&multiLightExample.scale, -20.0f, 20.0f);
+		if (ImGui::Button("Reset Scale")) multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
 		if (ImGui::Checkbox("Triangle Mesh", &ml_triangle_mesh))
 		{
@@ -746,7 +673,7 @@ void GraphicsApp::gui()
 			ml_quad_mesh = false;
 			//ml_plane_mesh = true;
 			camera->setPosition(0.0f, 3.0f, 0.0f);
-			ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+			multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		}
 		ImGui::End();
 	}
