@@ -19,7 +19,6 @@ public:
 
 	MESH mesh_choice = MESH::SPHERE;
 	bool mesh_check_box;
-	BaseMesh* mesh;
 	
 	Light *light0_, *light1_, *light2_, *light3_;
 	ImVec4 light0_col, light1_col, light2_col, light3_col;
