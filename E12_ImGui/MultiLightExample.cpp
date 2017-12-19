@@ -103,7 +103,7 @@ void MultiLightExample::initLight()
 	light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
 }
 
-void MultiLightExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, TextureManager* textureMgr)
+void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 	XMFLOAT4 diffuseColor[4];
@@ -122,7 +122,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, Te
 	lightPosition[3] = light3_pos;
 
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	if (mesh_choice == MESH::PLANE) // plane
+	if (plane_mesh) // plane
 	{
 		viewMatrix = camera->getViewMatrix();
 		projectionMatrix = renderer->getProjectionMatrix();
@@ -133,7 +133,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, Te
 		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	}
-	else if (mesh_choice == MESH::SPHERE) // sphere
+	else if (sphere_mesh) // sphere
 	{
 		viewMatrix = camera->getViewMatrix();
 		projectionMatrix = renderer->getProjectionMatrix();

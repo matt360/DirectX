@@ -52,7 +52,6 @@ private:
 
 	// MULTI LIGHTS //////////////////////
 	MultiLightExample multiLightExample;
-	bool ml_triangle_mesh, ml_sphere_mesh, ml_cube_mesh, ml_quad_mesh, ml_plane_mesh;
 	//////////////////////////////////////
 
 	// GEOMATRY SHADER ///////////////////

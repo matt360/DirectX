@@ -237,60 +237,49 @@ bool GraphicsApp::render()
 
 	if (specularLightExample.example) {
 		specularLightExample.render(renderer, camera, sphereMesh, textureMgr);
-		// Render GUI
-		gui();
-		
 	}
 	else if (tessellationExample.example) {
 		tessellationExample.render(renderer, camera, terrainMesh, textureMgr);
-		// Render GUI
-		gui();
 	}
 	else if (terrainExample.example) {
 		terrainExample.render(renderer, camera, terrainMesh, textureMgr);
-		// Render GUI
-		gui();
 	}
 	else if (multiLightExample.example) {
 		BaseMesh* mesh = nullptr;
 		switch (multiLightExample.mesh_choice)
 		{
 			case MESH::TRIANGLE :
-				mesh = triangleMesh;
-				break;
+				multiLightExample.mesh = triangleMesh;
+			break;
 
-			case MESH::SPHERE:
-				mesh = sphereMesh;
-				break;
+			case MESH::SPHERE :
+				multiLightExample.mesh = sphereMesh;
+			break;
 
-			case MESH::CUBE:
-				mesh = cubeMesh;
-				break;
+			case MESH::CUBE :
+				multiLightExample.mesh = cubeMesh;
+			break;
 
-			case MESH::QUAD:
-				mesh = quadMesh;
-				break;
+			case MESH::QUAD : 
+				multiLightExample.mesh = quadMesh;
+			break;
 
-			case MESH::PLANE:
-				mesh = planeMesh;
-				break;
+			case MESH::PLANE :
+				multiLightExample.mesh = planeMesh;
+			break;
+
+			default:
+				multiLightExample.mesh = sphereMesh;
+			break;
 		}
-
-		multiLightExample.render(renderer, camera, mesh, textureMgr);
-		// Render GUI
-		gui();
+		multiLightExample.render(renderer, camera, textureMgr);
 	}
 	else if (geometry_shader_example) {
 		renderGeometryShaderExample();
-		// Render GUI
-		gui();
 	}
-	else
-	{
-		// Render GUI
-		gui();
-	}
-
+	
+	// Render GUI
+	gui();
 	// Present the rendered scene to the screen.
 	renderer->endScene();
 
@@ -369,11 +358,11 @@ void GraphicsApp::gui()
 		// set scale
 		multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
 		// set sphere mesh
-		ml_triangle_mesh = false;
-		ml_sphere_mesh = true;
-		ml_cube_mesh = false;
-		ml_quad_mesh = false;
-		ml_plane_mesh = false;
+		multiLightExample.triangle_mesh = false;
+		multiLightExample.sphere_mesh = true;
+		multiLightExample.cube_mesh = false;
+		multiLightExample.quad_mesh = false;
+		multiLightExample.plane_mesh = false;
 		// set the camera and first mesh
 		camera->setPosition(0.0f, 0.0f, -4.75f);
 		camera->setRotation(0.0f, 0.f, 0.f);
@@ -479,11 +468,11 @@ void GraphicsApp::gui()
 			multiLightExample.light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
 			// render only sphere mesh
 			multiLightExample.mesh_choice = MESH::SPHERE;
-			ml_triangle_mesh = false;
-			ml_sphere_mesh = true;
-			ml_cube_mesh = false;
-			ml_quad_mesh = false;
-			ml_plane_mesh = false;
+			multiLightExample.triangle_mesh = false;
+			multiLightExample.sphere_mesh = true;
+			multiLightExample.cube_mesh = false;
+			multiLightExample.quad_mesh = false;
+			multiLightExample.plane_mesh = false;
 			// reset wireframe
 			multiLightExample.wireframe = false;
 		}
@@ -502,50 +491,50 @@ void GraphicsApp::gui()
 		ImGui::SliderFloat3("Scale", (float*)&multiLightExample.scale, -20.0f, 20.0f);
 		if (ImGui::Button("Reset Scale")) multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
-		if (ImGui::Checkbox("Triangle Mesh", &ml_triangle_mesh))
+		if (ImGui::Checkbox("Triangle Mesh", &multiLightExample.triangle_mesh))
 		{
 			multiLightExample.mesh_choice = MESH::TRIANGLE;
-			//ml_triangle_mesh = true;
-			ml_sphere_mesh = false;
-			ml_cube_mesh = false;
-			ml_quad_mesh = false;
-			ml_plane_mesh = false;
+			//triangle_mesh = true;
+			multiLightExample.sphere_mesh = false;
+			multiLightExample.cube_mesh = false;
+			multiLightExample.quad_mesh = false;
+			multiLightExample.plane_mesh = false;
 		}
-		if (ImGui::Checkbox("Sphere Mesh", &ml_sphere_mesh))
+		if (ImGui::Checkbox("Sphere Mesh", &multiLightExample.sphere_mesh))
 		{
 			multiLightExample.mesh_choice = MESH::SPHERE;
-			ml_triangle_mesh = false;
-			//ml_sphere_mesh = true;
-			ml_cube_mesh = false;
-			ml_quad_mesh = false;
-			ml_plane_mesh = false;
+			multiLightExample.triangle_mesh = false;
+			//sphere_mesh = true;
+			multiLightExample.cube_mesh = false;
+			multiLightExample.quad_mesh = false;
+			multiLightExample.plane_mesh = false;
 		}
-		if (ImGui::Checkbox("Cube Mesh", &ml_cube_mesh))
+		if (ImGui::Checkbox("Cube Mesh", &multiLightExample.cube_mesh))
 		{
 			multiLightExample.mesh_choice = MESH::CUBE;
-			ml_triangle_mesh = false;
-			ml_sphere_mesh = false;
-			//ml_cube_mesh = true;
-			ml_quad_mesh = false;
-			ml_plane_mesh = false;
+			multiLightExample.triangle_mesh = false;
+			multiLightExample.sphere_mesh = false;
+			//cube_mesh = true;
+			multiLightExample.quad_mesh = false;
+			multiLightExample.plane_mesh = false;
 		}
-		if (ImGui::Checkbox("Quad Mesh", &ml_quad_mesh))
+		if (ImGui::Checkbox("Quad Mesh", &multiLightExample.quad_mesh))
 		{
 			multiLightExample.mesh_choice = MESH::QUAD;
-			ml_triangle_mesh = false;
-			ml_sphere_mesh = false;
-			ml_cube_mesh = false;
-			//ml_quad_mesh = true;
-			ml_plane_mesh = false;
+			multiLightExample.triangle_mesh = false;
+			multiLightExample.sphere_mesh = false;
+			multiLightExample.cube_mesh = false;
+			//quad_mesh = true;
+			multiLightExample.plane_mesh = false;
 		}
-		if (ImGui::Checkbox("Plane Mesh", &ml_plane_mesh))
+		if (ImGui::Checkbox("Plane Mesh", &multiLightExample.plane_mesh))
 		{
 			multiLightExample.mesh_choice = MESH::PLANE;
-			ml_triangle_mesh = false;
-			ml_sphere_mesh = false;
-			ml_cube_mesh = false;
-			ml_quad_mesh = false;
-			//ml_plane_mesh = true;
+			multiLightExample.triangle_mesh = false;
+			multiLightExample.sphere_mesh = false;
+			multiLightExample.cube_mesh = false;
+			multiLightExample.quad_mesh = false;
+			//plane_mesh = true;
 			camera->setPosition(0.0f, 3.0f, 0.0f);
 			multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		}
