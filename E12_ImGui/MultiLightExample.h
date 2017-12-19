@@ -9,8 +9,8 @@ public:
 	MultiLightExample();
 	~MultiLightExample();
 
-	void init(D3D * renderer, HWND hwnd);
-	void initShader(D3D * renderer, HWND hwnd);
+	void init(D3D* renderer, HWND hwnd);
+	void initShader(D3D* renderer, HWND hwnd);
 	void initLight();
 	void render(D3D* renderer, Camera* camera, TextureManager* textureMgr);
 

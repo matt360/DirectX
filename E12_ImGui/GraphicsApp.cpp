@@ -10,9 +10,6 @@ GraphicsApp::GraphicsApp()
 	quadMesh = nullptr;
 	planeMesh = nullptr;
 	terrainMesh = nullptr;
-
-	// shader handlers
-	geometryShader = nullptr;
 }
 
 // Release the Direct3D objects
@@ -63,20 +60,7 @@ GraphicsApp::~GraphicsApp()
 	tessellationExample.~TessellationExample();
 	terrainExample.~TerrainExample();
 	multiLightExample.~MultiLightExample();
-
-	if (geometryShader)
-	{
-		delete geometryShader;
-		geometryShader = 0;
-	}
-}
-
-void GraphicsApp::initVariables()
-{
-}
-
-void GraphicsApp::initLight()
-{
+	geometryExample.~GeometryExample();
 }
 
 void GraphicsApp::loadTextures()
@@ -100,36 +84,18 @@ void GraphicsApp::initGeometry()
 	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
 }
 
-// create shader handlers
-void GraphicsApp::initShaders(D3D* renderer, HWND hwnd)
-{
-	geometryShader = new GeometryShader(renderer->getDevice(), hwnd);
-}
-
-void GraphicsApp::initGuiVariables()
-{
-	// geometry shader exmaple scale 
-	gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-
-	// geomatry shader topology handler (set to triangle list by default)
-	d3d11_primitive_topology_trianglelist = true;
-}
-
 void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
 {
 	// Call super init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
-	initVariables();
-	//initLight();
 	loadTextures();
 	initGeometry();
-	initShaders(renderer, hwnd);
 	specularLightExample.init(renderer, hwnd);
 	terrainExample.init(renderer, hwnd);
 	tessellationExample.init(renderer, hwnd);
 	multiLightExample.init(renderer, hwnd);
-	initGuiVariables();
+	geometryExample.init(renderer, hwnd);
 }
 
 bool GraphicsApp::frame()
@@ -154,78 +120,6 @@ bool GraphicsApp::frame()
 	}
 
 	return true;
-}
-
-void GraphicsApp::renderGeometryShaderExample()
-{
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-
-	// Clear the scene. (default blue colour)
-	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-
-	// Generate the view matrix based on the camera's position.
-	camera->update();
-
-	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	worldMatrix = renderer->getWorldMatrix();
-
-	XMMATRIX matrix1Translation = DirectX::XMMatrixTranslation(2.0f, 0.0f, 0.0f);
-	//XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(light_y);
-	XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(0.0f);
-	// orbit
-	//worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
-	// translate and rotate
-	worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
-
-	// scaling
-	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(gs_scale.x, gs_scale.y, gs_scale.z);
-	worldMatrix *= matrix1Scaling;
-
-	viewMatrix = camera->getViewMatrix();
-
-	projectionMatrix = renderer->getProjectionMatrix();
-
-	// wireframe mode
-	renderer->setWireframeMode(gs_wireframe);
-
-	/*
-	// ONE TRIANGLE - D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
-	triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	// THREE TRIANGLES - D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST
-	triangleMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
-	// *NOTE* ecause we're offsetting from the normals there's going to be SIX cubes around the original cube
-	cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	*/
-
-	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
-	//d3d11_primitive_topology_trianglelist ? d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
-	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
-
-	// Send geometry data (from mesh)
-	if (gs_triangle_mesh) triangleMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
-	if (gs_sphere_mesh)   sphereMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
-	if (gs_cube_mesh)     cubeMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
-	if (gs_quad_mesh)     quadMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
-	if (gs_plane_mesh)    planeMesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
-
-	// Set shader parameters (matrices and texture)
-	geometryShader->setShaderParameters(renderer->getDeviceContext(),
-		worldMatrix, viewMatrix, projectionMatrix,
-		textureMgr->getTexture("checkerboard"),
-		textureMgr->getTexture("bunny"));
-
-	// Render object (combination of mesh geometry and shader process
-	if (gs_triangle_mesh) geometryShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount());
-	if (gs_sphere_mesh)   geometryShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	if (gs_cube_mesh)     geometryShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-	if (gs_quad_mesh)     geometryShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-	if (gs_plane_mesh)    geometryShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
-
-	// Render GUI
-	gui();
-	// Present the rendered scene to the screen.
-	renderer->endScene();
 }
 
 bool GraphicsApp::render()
@@ -274,8 +168,36 @@ bool GraphicsApp::render()
 		}
 		multiLightExample.render(renderer, camera, textureMgr);
 	}
-	else if (geometry_shader_example) {
-		renderGeometryShaderExample();
+	else if (geometryExample.example) {
+		BaseMesh* mesh = nullptr;
+		switch (geometryExample.mesh_choice)
+		{
+		case MESH::TRIANGLE:
+			geometryExample.mesh = triangleMesh;
+			break;
+
+		case MESH::SPHERE:
+			geometryExample.mesh = sphereMesh;
+			break;
+
+		case MESH::CUBE:
+			geometryExample.mesh = cubeMesh;
+			break;
+
+		case MESH::QUAD:
+			geometryExample.mesh = quadMesh;
+			break;
+
+		case MESH::PLANE:
+			geometryExample.mesh = planeMesh;
+			break;
+
+		default:
+			geometryExample.mesh = sphereMesh;
+			break;
+		}
+
+		geometryExample.render(renderer, camera, textureMgr);
 	}
 	
 	// Render GUI
@@ -309,7 +231,7 @@ void GraphicsApp::gui()
 		tessellationExample.example = false;
 		terrainExample.example = false;
 		multiLightExample.example = false;
-		geometry_shader_example = false;
+		geometryExample.example = false;
 
 		specularLightExample.wireframe = false;
 		// set specular light camera
@@ -322,7 +244,7 @@ void GraphicsApp::gui()
 		tessellationExample.example ^= 1;
 		terrainExample.example = false;
 		multiLightExample.example = false;
-		geometry_shader_example = false;
+		geometryExample.example = false;
 
 		tessellationExample.wireframe = false;
 		// set tessellation camera
@@ -336,7 +258,7 @@ void GraphicsApp::gui()
 		tessellationExample.example = false;
 		terrainExample.example ^= 1;
 		multiLightExample.example = false;
-		geometry_shader_example = false;
+		geometryExample.example = false;
 
 		// set terrain camera
 		camera->setPosition(0.0f, 2.0f, -10.0f);
@@ -351,7 +273,7 @@ void GraphicsApp::gui()
 		tessellationExample.example = false;
 		terrainExample.example = false;
 		multiLightExample.example ^= 1;
-		geometry_shader_example = false;
+		geometryExample.example = false;
 
 		// set multi light camera
 		camera->setPosition(0.0f, 0.0f, -4.75f);
@@ -385,23 +307,22 @@ void GraphicsApp::gui()
 		tessellationExample.example = false;
 		terrainExample.example = false;
 		multiLightExample.example = false;
-		geometry_shader_example ^= 1;
+		geometryExample.example ^= 1;
 
 		// set wireframe
-		gs_wireframe = false;
+		geometryExample.wireframe = false;
 		// reset geometry shader scale
-		gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-		// reset geometry shader wireframe mode
-		gs_wireframe = false;
+		geometryExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// reset geometry shader primitive topology
-		d3d11_primitive_topology_trianglelist = true;
-		d3d11_primitive_topology_pointlist = false;
+		geometryExample.d3d11_primitive_topology_trianglelist = true;
+		geometryExample.d3d11_primitive_topology_pointlist = false;
 		// set cube mesh
-		gs_triangle_mesh = false;
-		gs_sphere_mesh = false;
-		gs_cube_mesh = true;
-		gs_quad_mesh = false;
-		gs_plane_mesh = false;
+		geometryExample.mesh_choice = MESH::CUBE;
+		geometryExample.triangle_mesh = false;
+		geometryExample.sphere_mesh = false;
+		geometryExample.cube_mesh = true;
+		geometryExample.quad_mesh = false;
+		geometryExample.plane_mesh = false;
 
 		// set the camera
 		camera->setPosition(13.0f, 4.0f, -22.0f);
@@ -504,6 +425,9 @@ void GraphicsApp::gui()
 		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
 		if (ImGui::Checkbox("Triangle Mesh", &multiLightExample.triangle_mesh))
 		{
+			// set multi light camera
+			camera->setPosition(0.0f, 0.0f, -4.75f);
+
 			multiLightExample.mesh_choice = MESH::TRIANGLE;
 			multiLightExample.triangle_mesh = true;
 			multiLightExample.sphere_mesh = false;
@@ -513,6 +437,9 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Sphere Mesh", &multiLightExample.sphere_mesh))
 		{
+			// set multi light camera
+			camera->setPosition(0.0f, 0.0f, -4.75f);
+
 			multiLightExample.mesh_choice = MESH::SPHERE;
 			multiLightExample.triangle_mesh = false;
 			multiLightExample.sphere_mesh = true;
@@ -522,6 +449,9 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Cube Mesh", &multiLightExample.cube_mesh))
 		{
+			// set multi light camera
+			camera->setPosition(0.0f, 0.0f, -4.75f);
+
 			multiLightExample.mesh_choice = MESH::CUBE;
 			multiLightExample.triangle_mesh = false;
 			multiLightExample.sphere_mesh = false;
@@ -531,6 +461,9 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Quad Mesh", &multiLightExample.quad_mesh))
 		{
+			// set multi light camera
+			camera->setPosition(0.0f, 0.0f, -4.75f);
+
 			multiLightExample.mesh_choice = MESH::QUAD;
 			multiLightExample.triangle_mesh = false;
 			multiLightExample.sphere_mesh = false;
@@ -540,88 +473,95 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Plane Mesh", &multiLightExample.plane_mesh))
 		{
+			camera->setPosition(0.0f, 3.0f, 0.0f);
+			multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+
 			multiLightExample.mesh_choice = MESH::PLANE;
 			multiLightExample.triangle_mesh = false;
 			multiLightExample.sphere_mesh = false;
 			multiLightExample.cube_mesh = false;
 			multiLightExample.quad_mesh = false;
 			multiLightExample.plane_mesh = true;
-			camera->setPosition(0.0f, 3.0f, 0.0f);
-			multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		}
 		ImGui::End();
 	}
 	// GEOMETRY SHADER EXAMPLE WINDOW
-	if (geometry_shader_example)
+	if (geometryExample.example)
 	{
-		ImGui::Begin("Geometry Shader Example", &geometry_shader_example);
+		ImGui::Begin("Geometry Shader Example", &geometryExample.example);
 		if (ImGui::Button("Reset Example"))
 		{
+			geometryExample.mesh_choice = MESH::CUBE;
 			// reset geometry shader scale
-			gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+			geometryExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 			// reset geometry shader wireframe mode
-			gs_wireframe = false;
+			geometryExample.wireframe = false;
 			// reset geometry shader primitive topology
-			d3d11_primitive_topology_trianglelist = true;
-			d3d11_primitive_topology_pointlist = false;
+			geometryExample.d3d11_primitive_topology_trianglelist = true;
+			geometryExample.d3d11_primitive_topology_pointlist = false;
 			// set cube mesh
-			gs_triangle_mesh = false;
-			gs_sphere_mesh = false;
-			gs_cube_mesh = true;
-			gs_quad_mesh = false;
-			gs_plane_mesh = false;
+			geometryExample.triangle_mesh = false;
+			geometryExample.sphere_mesh = false;
+			geometryExample.cube_mesh = true;
+			geometryExample.quad_mesh = false;
+			geometryExample.plane_mesh = false;
 			// set the camera
 			camera->setPosition(13.0f, 4.0f, -22.0f);
 			camera->setRotation(0.0f, -35.0f, 0.0f);
 		}
-		ImGui::Checkbox("Wireframe", &gs_wireframe);
-		ImGui::SliderFloat3("Scale", (float*)&gs_scale, -10.0f, 10.0f);
-		if (ImGui::Button("Reset Scale")) gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
-			d3d11_primitive_topology_pointlist = false;
-		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
-			d3d11_primitive_topology_trianglelist = false;
+		ImGui::Checkbox("Wireframe", &geometryExample.wireframe);
+		ImGui::SliderFloat3("Scale", (float*)&geometryExample.scale, -10.0f, 10.0f);
+		if (ImGui::Button("Reset Scale")) geometryExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		if (ImGui::Checkbox("Primitive Topology Trianglelist", &geometryExample.d3d11_primitive_topology_trianglelist))
+			geometryExample.d3d11_primitive_topology_pointlist = false;
+		if (ImGui::Checkbox("Primitive Topology Pointlist", &geometryExample.d3d11_primitive_topology_pointlist))
+			geometryExample.d3d11_primitive_topology_trianglelist = false;
 
 		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
-		if (ImGui::Checkbox("Triangle Mesh", &gs_triangle_mesh))
+		if (ImGui::Checkbox("Triangle Mesh", &geometryExample.triangle_mesh))
 		{
-			//gs_triangle_mesh = true;
-			gs_sphere_mesh = false;
-			gs_cube_mesh = false;
-			gs_quad_mesh = false;
-			gs_plane_mesh = false;
+			geometryExample.mesh_choice = MESH::TRIANGLE;
+			geometryExample.triangle_mesh = true;
+			geometryExample.sphere_mesh = false;
+			geometryExample.cube_mesh = false;
+			geometryExample.quad_mesh = false;
+			geometryExample.plane_mesh = false;
 		}
-		if (ImGui::Checkbox("Sphere Mesh", &gs_sphere_mesh))
+		if (ImGui::Checkbox("Sphere Mesh", &geometryExample.sphere_mesh))
 		{
-			gs_triangle_mesh = false;
-			//gs_sphere_mesh = true;
-			gs_cube_mesh = false;
-			gs_quad_mesh = false;
-			gs_plane_mesh = false;
+			geometryExample.mesh_choice = MESH::SPHERE;
+			geometryExample.triangle_mesh = false;
+			geometryExample.sphere_mesh = true;
+			geometryExample.cube_mesh = false;
+			geometryExample.quad_mesh = false;
+			geometryExample.plane_mesh = false;
 		}
-		if (ImGui::Checkbox("Cube Mesh", &gs_cube_mesh))
+		if (ImGui::Checkbox("Cube Mesh", &geometryExample.cube_mesh))
 		{
-			gs_triangle_mesh = false;
-			gs_sphere_mesh = false;
-			//gs_cube_mesh = true;
-			gs_quad_mesh = false;
-			gs_plane_mesh = false;
+			geometryExample.mesh_choice = MESH::CUBE;
+			geometryExample.triangle_mesh = false;
+			geometryExample.sphere_mesh = false;
+			geometryExample.cube_mesh = true;
+			geometryExample.quad_mesh = false;
+			geometryExample.plane_mesh = false;
 		}
-		if (ImGui::Checkbox("Quad Mesh", &gs_quad_mesh))
+		if (ImGui::Checkbox("Quad Mesh", &geometryExample.quad_mesh))
 		{
-			gs_triangle_mesh = false;
-			gs_sphere_mesh = false;
-			gs_cube_mesh = false;
-			//gs_quad_mesh = true;
-			gs_plane_mesh = false;
+			geometryExample.mesh_choice = MESH::QUAD;
+			geometryExample.triangle_mesh = false;
+			geometryExample.sphere_mesh = false;
+			geometryExample.cube_mesh = false;
+			geometryExample.quad_mesh = true;
+			geometryExample.plane_mesh = false;
 		}
-		if (ImGui::Checkbox("Plane Mesh", &gs_plane_mesh))
+		if (ImGui::Checkbox("Plane Mesh", &geometryExample.plane_mesh))
 		{
-			gs_triangle_mesh = false;
-			gs_sphere_mesh = false;
-			gs_cube_mesh = false;
-			gs_quad_mesh = false;
-			//gs_plane_mesh = true;
+			geometryExample.mesh_choice = MESH::PLANE;
+			geometryExample.triangle_mesh = false;
+			geometryExample.sphere_mesh = false;
+			geometryExample.cube_mesh = false;
+			geometryExample.quad_mesh = false;
+			geometryExample.plane_mesh = true;
 		}
 		ImGui::End();
 	}

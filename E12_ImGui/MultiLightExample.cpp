@@ -18,6 +18,12 @@ MultiLightExample::~MultiLightExample()
 		shader = 0;
 	}
 
+	if (mesh)
+	{
+		delete mesh;
+		mesh = 0;
+	}
+
 	if (light0_)
 	{
 		delete light0_;

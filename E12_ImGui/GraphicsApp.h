@@ -1,11 +1,10 @@
 #pragma once
 #include "../DXFramework/DXF.h"
-#include "MultiLightShader.h"
-#include "GeometryShader.h"
 #include "SpecularLightExample.h"
 #include "TerrainExample.h"
 #include "TessellationExample.h"
 #include "MultiLightExample.h"
+#include "GeometryExample.h"
 
 class GraphicsApp : public BaseApplication
 {
@@ -23,13 +22,9 @@ protected:
 
 private:
 	// CONSTRUCTOR
-	void initVariables();
-	//void initShaders(HWND hwnd);
 	void initGeometry();
 	void loadTextures();
-	void initLight();
-	void initShaders(D3D* renderer, HWND hwnd);
-	void initGuiVariables();
+
 	// meshes
 	TriangleMesh *triangleMesh;
 	SphereMesh *sphereMesh;
@@ -38,33 +33,17 @@ private:
 	PlaneMesh *planeMesh;
 	TerrainMesh *terrainMesh;
 
-	// SPECULAR LIGHT EXAMPLE ////////////////////
+	// SPECULAR LIGHT EXAMPLE
 	SpecularLightExample specularLightExample;
-	//////////////////////////////////////////////
-
-	// TESSELLATION //////////////////////
+	// TESSELLATION EXAMPLE
 	TessellationExample tessellationExample;
-	//////////////////////////////////////
-
-	// TERRAIN ///////////////////////////
+	// TERRAIN EXAMPLE
 	TerrainExample terrainExample;
-	//////////////////////////////////////
-
-	// MULTI LIGHTS //////////////////////
+	// MULTI LIGHTS EXAMPLE
 	MultiLightExample multiLightExample;
-	//////////////////////////////////////
+	// GEOMATRY SHADER EXAMPLE
+	GeometryExample geometryExample;
 
-	// GEOMATRY SHADER ///////////////////
-	// shader handler
-	GeometryShader* geometryShader;
-	bool gs_wireframe;
-	bool gs_triangle_mesh, gs_sphere_mesh, gs_cube_mesh, gs_quad_mesh, gs_plane_mesh;
-	bool d3d11_primitive_topology_trianglelist, d3d11_primitive_topology_pointlist;
-	// render
-	bool geometry_shader_example;
-	void renderGeometryShaderExample();
-	XMFLOAT3 gs_scale;
-	//////////////////////////////////////
 	// math
 	float clamp(float n, float lower, float upper);
 };
