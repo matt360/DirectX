@@ -196,8 +196,6 @@ void GraphicsApp::initGeometry()
 void GraphicsApp::initShaders(D3D* renderer, HWND hwnd)
 {
 	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
-	specularLightExample.specularLightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
-	//terrainShader = new TerrainShader(renderer->getDevice(), hwnd);
 	multiLightShader = new MultiLightShader(renderer->getDevice(), hwnd);
 	geometryShader = new GeometryShader(renderer->getDevice(), hwnd);
 }
@@ -217,8 +215,6 @@ void GraphicsApp::initGuiVariables()
 
 	// multi light exmaple scale
 	ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-	// terrain exmaple scale
-	/*tr_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);*/
 	// geometry shader exmaple scale 
 	gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
@@ -308,65 +304,6 @@ void GraphicsApp::renderTessellationExample()
 	// Present the rendered scene to the screen.
 	renderer->endScene();
 }
-
-//void GraphicsApp::renderTerrainExample()
-//{
-//	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-//
-//	// Clear the scene. (default cornflower blue colour)
-//	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-//
-//	// Generate the view matrix based on the camera's position.
-//	camera->update();
-//
-//	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-//	viewMatrix = camera->getViewMatrix();
-//
-//	projectionMatrix = renderer->getProjectionMatrix();
-//
-//	// translation and rotation
-//	worldMatrix = renderer->getWorldMatrix();
-//	XMMATRIX matrixTranslation = XMMatrixTranslation(-20.0f, 0.0, 0.0f);
-//	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(180.0f));
-//	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
-//	// scaling
-//	XMMATRIX matrixScaling = XMMatrixScaling(tr_scale.x, tr_scale.y, tr_scale.z);
-//	worldMatrix *= matrixScaling;
-//
-//	// wave's:
-//	float height = 1.0f;
-//	float frequency = 1.0f;
-//
-//	// wireframe mode
-//	renderer->setWireframeMode(terrain_wireframe);
-//
-//	//m_Light->setPosition(0.0f, sinf(light_y * 3.0f), 0.0f);
-//	// Send geometry data (from mesh)
-//	//triangleMesh->sendData(renderer->getDeviceContext());
-//	//sphereMesh->sendData(renderer->getDeviceContext());
-//	//cubeMesh->sendData(renderer->getDeviceContext());
-//	//quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
-//	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
-//	terrainMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-//
-//	// Set shader parameters (matrices and texture)
-//	//terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
-//	terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), light_terrain, light_terrain_y, height, frequency);
-//
-//	// Render object (combination of mesh geometry and shader process
-//	//terrainShader->render(renderer->getDeviceContext(), triangleMesh->getIndexCount()); // output data from the shader programme
-//	//terrainShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount()); // output data from the shader programme
-//	//terrainShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount()); // output data from the shader programme
-//	//terrainShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
-//	//terrainShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
-//	terrainShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
-//
-//	// Render GUI
-//	gui();
-//
-//	// Present the rendered scene to the screen.
-//	renderer->endScene();
-//}
 
 void GraphicsApp::renderMultiLightExample()
 {
