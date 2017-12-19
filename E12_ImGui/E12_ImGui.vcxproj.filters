@@ -37,6 +37,9 @@
     <Filter Include="Header Files\Examples">
       <UniqueIdentifier>{c8a16fcf-8fc2-4a91-9d68-67f00562a08c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Example">
+      <UniqueIdentifier>{ecb50c36-6b28-45e8-ad68-65fe388b806c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -60,20 +63,20 @@
     <ClCompile Include="GeometryShader.cpp">
       <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="SpecularLightExample.cpp">
-      <Filter>Header Files\Examples</Filter>
-    </ClCompile>
-    <ClCompile Include="TerrainExample.cpp">
-      <Filter>Header Files\Examples</Filter>
-    </ClCompile>
-    <ClCompile Include="TessellationExample.cpp">
-      <Filter>Header Files\Examples</Filter>
+    <ClCompile Include="GeometryExample.cpp">
+      <Filter>Source Files\Example</Filter>
     </ClCompile>
     <ClCompile Include="MultiLightExample.cpp">
-      <Filter>Header Files\Examples</Filter>
+      <Filter>Source Files\Example</Filter>
     </ClCompile>
-    <ClCompile Include="GeometryExample.cpp">
-      <Filter>Header Files\Examples</Filter>
+    <ClCompile Include="SpecularLightExample.cpp">
+      <Filter>Source Files\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainExample.cpp">
+      <Filter>Source Files\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="TessellationExample.cpp">
+      <Filter>Source Files\Example</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
