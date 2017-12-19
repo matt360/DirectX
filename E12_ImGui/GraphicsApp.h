@@ -41,25 +41,10 @@ private:
 	QuadMesh *quadMesh;
 	PlaneMesh *planeMesh;
 	TerrainMesh *terrainMesh;
-	
-	// EXAMPLE CLASS //
-	// Constructor
-	// Deconstructor (call to destroy lights)
-	// bool wireframe;
-	// Light* light;
-	// bool ml_triangle_mesh, ml_sphere_mesh, ml_cube_mesh, ml_quad_mesh, ml_plane_mesh;
-	// float light_y;
-	// bool exampleActive;
-	// virtual void renderExmapleFunction() = 0;
-
-	/// anything that is not avaiable pass to the constructor or a function
-	// SPECIFIC EXAMPLE CLASS : EXAMPLE CLASS
-	// ShaderHandler* shader;
-	// void renderExampleFunction();
 
 	// SPECULAR LIGHT EXAMPLE ////////////////////
 	SpecularLightExample specularLightExample;
-	//////////////////////////////////////
+	//////////////////////////////////////////////
 
 	// TESSELLATION //////////////////////
 	// shader handler

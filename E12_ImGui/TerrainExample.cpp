@@ -49,17 +49,9 @@ void TerrainExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, Textu
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
-	// Clear the scene. (default cornflower blue colour)
-	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-
-	// Generate the view matrix based on the camera's position.
-	camera->update();
-
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	viewMatrix = camera->getViewMatrix();
-
 	projectionMatrix = renderer->getProjectionMatrix();
-
 	// translation and rotation
 	worldMatrix = renderer->getWorldMatrix();
 	XMMATRIX matrixTranslation = XMMatrixTranslation(-20.0f, 0.0, 0.0f);
