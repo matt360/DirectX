@@ -23,7 +23,6 @@ public:
 
 protected:
 	bool render();
-	std::function<void(GraphicsApp&)> f_gui;
 	void gui();
 
 private:

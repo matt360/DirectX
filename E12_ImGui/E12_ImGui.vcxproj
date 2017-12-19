@@ -154,7 +154,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Example.cpp" />
     <ClCompile Include="GeometryShader.cpp" />
     <ClCompile Include="GraphicsApp.cpp" />
     <ClCompile Include="SpecularLightExample.cpp" />

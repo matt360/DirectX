@@ -1,7 +1,5 @@
 #include "SpecularLightExample.h"
 
-
-
 SpecularLightExample::SpecularLightExample()
 {
 	specularLightShader = nullptr;
@@ -20,11 +18,11 @@ SpecularLightExample::~SpecularLightExample()
 void SpecularLightExample::init(D3D* renderer, HWND hwnd)
 {
 	initLight();
-	initShaders(renderer, hwnd);
+	initShader(renderer, hwnd);
 }
 
 // create shader handlers
-void SpecularLightExample::initShaders(D3D* renderer, HWND hwnd)
+void SpecularLightExample::initShader(D3D* renderer, HWND hwnd)
 {
 	specularLightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
 }
@@ -32,15 +30,15 @@ void SpecularLightExample::initShaders(D3D* renderer, HWND hwnd)
 void SpecularLightExample::initLight()
 {
 	// specular light example
-	specular_light = new Light;
-	specular_light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
-	specular_light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	specular_light->setDirection(0.5, -0.5f, 0.0f);
-	specular_light->setSpecularPower(16.f);
-	specular_light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light = new Light;
+	light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
+	light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light->setDirection(0.5, -0.5f, 0.0f);
+	light->setSpecularPower(16.f);
+	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
-void SpecularLightExample::renderSpecularLightExample(D3D* renderer, Camera* camera, BaseMesh* mesh, TextureManager* textureMgr)
+void SpecularLightExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, TextureManager* textureMgr)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
@@ -56,7 +54,7 @@ void SpecularLightExample::renderSpecularLightExample(D3D* renderer, Camera* cam
 	// Send geometry data (from mesh)
 	mesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	// Set shader parameters (matrices and texture)
-	specularLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), specular_light, camera);
+	specularLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light, camera);
 	// Render object (combination of mesh geometry and shader process
 	specularLightShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }

@@ -1,11 +1,9 @@
 #pragma once
-#include "SpecularLightShader.h"
-#include "../DXFramework/D3D.h"
-#include "../DXFramework/BaseMesh.h"
-#include "../DXFramework/TextureManager.h"
-#include <functional>
 
-class SpecularLightExample
+#include "Example.h"
+#include "SpecularLightShader.h"
+
+class SpecularLightExample : public Example
 {
 public:
 	SpecularLightExample();
@@ -15,14 +13,12 @@ public:
 	
 	// shader handler
 	SpecularLightShader* specularLightShader;
-	bool wireframe;
-	bool specular_light_example;
 	// mesh
-	// specular_light
-	Light* specular_light;
+	// light
+	Light* light;
 	// render
-	void initShaders(D3D* renderer, HWND hwnd);
+	void initShader(D3D * renderer, HWND hwnd);
 	void initLight();
-	void renderSpecularLightExample(D3D* renderer, Camera* camera, BaseMesh* sphereMesh, TextureManager* textureMgr);
+	void render(D3D* renderer, Camera* camera, BaseMesh* sphereMesh, TextureManager* textureMgr);
 };
 

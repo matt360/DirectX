@@ -231,8 +231,6 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	// Call super init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
 
-	f_gui = &GraphicsApp::gui;
-
 	initVariables();
 	initLight();
 	loadTextures();
@@ -548,8 +546,8 @@ bool GraphicsApp::render()
 
 	camera->update();
 
-	if (specularLightExample.specular_light_example) {
-		specularLightExample.renderSpecularLightExample(renderer, camera, sphereMesh, textureMgr);
+	if (specularLightExample.example) {
+		specularLightExample.render(renderer, camera, sphereMesh, textureMgr);
 		// Render GUI
 		gui();
 		// Present the rendered scene to the screen.
@@ -598,7 +596,7 @@ void GraphicsApp::gui()
 	// CHOOSE SPECULAR LIGHT EXAMPLE
 	if (ImGui::Button("Specular Light Example"))
 	{ 
-		specularLightExample.specular_light_example ^= 1;
+		specularLightExample.example ^= 1;
 		tessellation_example = false;
 		terrainExample.example = false;
 		multi_light_example = false;
@@ -611,7 +609,7 @@ void GraphicsApp::gui()
 	// CHOOSE TESSELLATION EXAMPLE
 	if (ImGui::Button("Tessellation Example"))
 	{
-		specularLightExample.specular_light_example = false;
+		specularLightExample.example = false;
 		tessellation_example ^= 1;
 		terrainExample.example = false;
 		multi_light_example = false;
@@ -625,7 +623,7 @@ void GraphicsApp::gui()
 	// CHOOSE TERRAIN EXAMPLE 
 	if (ImGui::Button("Terrain Example"))
 	{
-		specularLightExample.specular_light_example = false;
+		specularLightExample.example = false;
 		tessellation_example = false;
 		terrainExample.example ^= 1;
 		multi_light_example = false;
@@ -640,7 +638,7 @@ void GraphicsApp::gui()
 	// CHOOSE MULTI LIGHT EXAMPLE
 	if (ImGui::Button("Multi Light Example"))
 	{
-		specularLightExample.specular_light_example = false;
+		specularLightExample.example = false;
 		tessellation_example = false;
 		terrainExample.example = false;
 		multi_light_example ^= 1;
@@ -663,7 +661,7 @@ void GraphicsApp::gui()
 	// CHOOSE GEOMETRY SHADER EXAMPLE 
 	if (ImGui::Button("Geometry Shader Example"))
 	{
-		specularLightExample.specular_light_example = false;
+		specularLightExample.example = false;
 		tessellation_example = false;
 		terrainExample.example = false;
 		multi_light_example = false;
@@ -692,9 +690,9 @@ void GraphicsApp::gui()
 
 	// EXAMPLE WINDOWS //
 	// SPECULAR LIGHT EXAMPLE WINDOW
-	if (specularLightExample.specular_light_example)
+	if (specularLightExample.example)
 	{
-		ImGui::Begin("Specular Light", &specularLightExample.specular_light_example);
+		ImGui::Begin("Specular Light", &specularLightExample.example);
 		if (ImGui::Button("Reset Example"))
 		{
 			camera->resetCamera();
