@@ -14,7 +14,7 @@ public:
 	void render(D3D* renderer, Camera* camera, TextureManager* textureMgr);
 
 	// shader handler
-	MESH mesh_choice;
+	MESH mesh_choice = MESH::CUBE;
 	GeometryShader* shader;
 	BaseMesh* mesh;
 	bool triangle_mesh, sphere_mesh, cube_mesh, quad_mesh, plane_mesh;

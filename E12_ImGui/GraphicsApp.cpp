@@ -122,6 +122,36 @@ bool GraphicsApp::frame()
 	return true;
 }
 
+void GraphicsApp::chooseMesh(MESH mesh_choice, BaseMesh* mesh)
+{
+	switch (mesh_choice)
+	{
+	case MESH::TRIANGLE:
+		mesh = triangleMesh;
+		break;
+
+	case MESH::SPHERE:
+		mesh = sphereMesh;
+		break;
+
+	case MESH::CUBE:
+		mesh = cubeMesh;
+		break;
+
+	case MESH::QUAD:
+		mesh = quadMesh;
+		break;
+
+	case MESH::PLANE:
+		mesh = planeMesh;
+		break;
+
+	default:
+		mesh = sphereMesh;
+		break;
+	}
+}
+
 bool GraphicsApp::render()
 {
 	// Clear the scene. (default blue colour)
@@ -139,7 +169,6 @@ bool GraphicsApp::render()
 		terrainExample.render(renderer, camera, terrainMesh, textureMgr);
 	}
 	else if (multiLightExample.example) {
-		BaseMesh* mesh = nullptr;
 		switch (multiLightExample.mesh_choice)
 		{
 			case MESH::TRIANGLE :
@@ -162,37 +191,37 @@ bool GraphicsApp::render()
 				multiLightExample.mesh = planeMesh;
 			break;
 
-			default:
+			default : 
 				multiLightExample.mesh = sphereMesh;
 			break;
 		}
+
 		multiLightExample.render(renderer, camera, textureMgr);
 	}
 	else if (geometryExample.example) {
-		BaseMesh* mesh = nullptr;
 		switch (geometryExample.mesh_choice)
 		{
-		case MESH::TRIANGLE:
+		case MESH::TRIANGLE :
 			geometryExample.mesh = triangleMesh;
 			break;
 
-		case MESH::SPHERE:
+		case MESH::SPHERE :
 			geometryExample.mesh = sphereMesh;
 			break;
 
-		case MESH::CUBE:
+		case MESH::CUBE :
 			geometryExample.mesh = cubeMesh;
 			break;
 
-		case MESH::QUAD:
+		case MESH::QUAD :
 			geometryExample.mesh = quadMesh;
 			break;
 
-		case MESH::PLANE:
+		case MESH::PLANE :
 			geometryExample.mesh = planeMesh;
 			break;
 
-		default:
+		default :
 			geometryExample.mesh = sphereMesh;
 			break;
 		}

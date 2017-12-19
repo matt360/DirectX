@@ -44,6 +44,9 @@ private:
 	// GEOMATRY SHADER EXAMPLE
 	GeometryExample geometryExample;
 
+	// choose mesh
+	void chooseMesh(MESH mesh_choice, BaseMesh* mesh);
+
 	// math
 	float clamp(float n, float lower, float upper);
 };

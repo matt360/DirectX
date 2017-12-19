@@ -19,7 +19,6 @@ public:
 
 	MESH mesh_choice = MESH::SPHERE;
 	BaseMesh* mesh;
-	bool mesh_check_box;
 	bool triangle_mesh, sphere_mesh, cube_mesh, quad_mesh, plane_mesh;
 	
 	Light *light0_, *light1_, *light2_, *light3_;
