@@ -122,7 +122,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, Te
 	lightPosition[3] = light3_pos;
 
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	if (0) // plane
+	if (mesh_choice == MESH::PLANE) // plane
 	{
 		viewMatrix = camera->getViewMatrix();
 		projectionMatrix = renderer->getProjectionMatrix();
@@ -133,7 +133,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, Te
 		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	}
-	else if (1) // sphere
+	else if (mesh_choice == MESH::SPHERE) // sphere
 	{
 		viewMatrix = camera->getViewMatrix();
 		projectionMatrix = renderer->getProjectionMatrix();

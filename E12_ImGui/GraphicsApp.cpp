@@ -408,7 +408,31 @@ bool GraphicsApp::render()
 		gui();
 	}
 	else if (multiLightExample.example) {
-		multiLightExample.render(renderer, camera, sphereMesh, textureMgr);
+		BaseMesh* mesh = nullptr;
+		switch (multiLightExample.mesh_choice)
+		{
+			case MESH::TRIANGLE :
+				mesh = triangleMesh;
+				break;
+
+			case MESH::SPHERE:
+				mesh = sphereMesh;
+				break;
+
+			case MESH::CUBE:
+				mesh = cubeMesh;
+				break;
+
+			case MESH::QUAD:
+				mesh = quadMesh;
+				break;
+
+			case MESH::PLANE:
+				mesh = planeMesh;
+				break;
+		}
+
+		multiLightExample.render(renderer, camera, mesh, textureMgr);
 		// Render GUI
 		gui();
 	}
@@ -610,11 +634,12 @@ void GraphicsApp::gui()
 			multiLightExample.light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
 			multiLightExample.light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
 			// render only sphere mesh
-			ml_triangle_mesh = false;
+			multiLightExample.mesh_choice = MESH::SPHERE;
+			/*ml_triangle_mesh = false;
 			ml_sphere_mesh = true;
 			ml_cube_mesh = false;
 			ml_quad_mesh = false;
-			ml_plane_mesh = false;
+			ml_plane_mesh = false;*/
 			// reset wireframe
 			multiLightExample.wireframe = false;
 		}
@@ -635,6 +660,7 @@ void GraphicsApp::gui()
 		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
 		if (ImGui::Checkbox("Triangle Mesh", &ml_triangle_mesh))
 		{
+			multiLightExample.mesh_choice = MESH::TRIANGLE;
 			//ml_triangle_mesh = true;
 			ml_sphere_mesh = false;
 			ml_cube_mesh = false;
@@ -643,6 +669,7 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Sphere Mesh", &ml_sphere_mesh))
 		{
+			multiLightExample.mesh_choice = MESH::SPHERE;
 			ml_triangle_mesh = false;
 			//ml_sphere_mesh = true;
 			ml_cube_mesh = false;
@@ -651,6 +678,7 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Cube Mesh", &ml_cube_mesh))
 		{
+			multiLightExample.mesh_choice = MESH::CUBE;
 			ml_triangle_mesh = false;
 			ml_sphere_mesh = false;
 			//ml_cube_mesh = true;
@@ -659,6 +687,7 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Quad Mesh", &ml_quad_mesh))
 		{
+			multiLightExample.mesh_choice = MESH::QUAD;
 			ml_triangle_mesh = false;
 			ml_sphere_mesh = false;
 			ml_cube_mesh = false;
@@ -667,6 +696,7 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Plane Mesh", &ml_plane_mesh))
 		{
+			multiLightExample.mesh_choice = MESH::PLANE;
 			ml_triangle_mesh = false;
 			ml_sphere_mesh = false;
 			ml_cube_mesh = false;

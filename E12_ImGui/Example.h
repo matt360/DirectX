@@ -5,11 +5,20 @@
 #include "../DXFramework/Camera.h"
 #include "../DXFramework/TextureManager.h"
 
+enum class MESH { 
+	TRIANGLE,
+	SPHERE,
+	CUBE,
+	QUAD,
+	PLANE 
+};
+
 class Example
 {
 public:
 	Example() {}
 	~Example() {}
+
 
 	virtual void initShader(D3D * renderer, HWND hwnd) = 0;
 	
