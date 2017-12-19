@@ -156,7 +156,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, Te
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	}
 	// scaling
-	XMMATRIX matrixScaling = XMMatrixScaling(ml_scale.x, ml_scale.y, ml_scale.z);
+	XMMATRIX matrixScaling = XMMatrixScaling(scale.x, scale.y, scale.z);
 	worldMatrix *= matrixScaling;
 
 	// wireframe mode

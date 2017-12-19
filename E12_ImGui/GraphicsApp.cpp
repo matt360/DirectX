@@ -108,19 +108,6 @@ void GraphicsApp::initShaders(D3D* renderer, HWND hwnd)
 
 void GraphicsApp::initGuiVariables()
 {
-	//// multi light example lights' colours
-	//light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
-	//light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
-	//light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
-	//light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
-	//// multi light example lights' positions
-	//light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
-	//light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
-	//light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
-	//light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
-
-	// multi light exmaple scale
-	//ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geometry shader exmaple scale 
 	gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
@@ -168,50 +155,6 @@ bool GraphicsApp::frame()
 
 	return true;
 }
-
-//void GraphicsApp::renderTessellationExample()
-//{
-//	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-//
-//	// Clear the scene. (default blue colour)
-//	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-//
-//	camera->update();
-//
-//	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-//	worldMatrix = renderer->getWorldMatrix();
-//	// Generate the view matrix based on the camera's position.
-//	viewMatrix = camera->getViewMatrix();
-//	projectionMatrix = renderer->getProjectionMatrix();
-//
-//	// wireframe mode
-//	renderer->setWireframeMode(tessellation_wireframe);
-//
-//
-//	// Send geometry data (from mesh)
-//	terrainMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-//	//sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-//	//cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-//	//quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-//	//planeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-//
-//	// Set shader parameters (matrices and texture)
-//	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
-//		textureMgr->getTexture("brick"), camera);
-//
-//	// Render object (combination of mesh geometry and shader process
-//	tessellationShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
-//	//tessellationShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-//	//tessellationShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-//	//tessellationShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-//	//tessellationShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
-//
-//
-//	// Render GUI
-//	gui();
-//	// Present the rendered scene to the screen.
-//	renderer->endScene();
-//}
 
 //void GraphicsApp::renderMultiLightExample()
 //{
