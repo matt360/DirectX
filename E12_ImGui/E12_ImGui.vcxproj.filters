@@ -34,7 +34,7 @@
     <Filter Include="Resource Files\Geometry Shader">
       <UniqueIdentifier>{e60cea62-93c1-4b9a-9e10-fb5f69f37aa8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Example Classes">
+    <Filter Include="Header Files\Examples">
       <UniqueIdentifier>{c8a16fcf-8fc2-4a91-9d68-67f00562a08c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -61,7 +61,13 @@
       <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
     <ClCompile Include="SpecularLightExample.cpp">
-      <Filter>Header Files\Example Classes</Filter>
+      <Filter>Header Files\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainExample.cpp">
+      <Filter>Header Files\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="Example.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +90,13 @@
       <Filter>Header Files\Shader Handlers</Filter>
     </ClInclude>
     <ClInclude Include="SpecularLightExample.h">
-      <Filter>Header Files\Example Classes</Filter>
+      <Filter>Header Files\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainExample.h">
+      <Filter>Header Files\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="Example.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

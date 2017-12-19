@@ -154,21 +154,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Example.cpp" />
     <ClCompile Include="GeometryShader.cpp" />
     <ClCompile Include="GraphicsApp.cpp" />
     <ClCompile Include="SpecularLightExample.cpp" />
     <ClCompile Include="SpecularLightShader.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MultiLightShader.cpp" />
+    <ClCompile Include="TerrainExample.cpp" />
     <ClCompile Include="TerrainShader.cpp" />
     <ClCompile Include="TessellationShader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Example.h" />
     <ClInclude Include="GeometryShader.h" />
     <ClInclude Include="GraphicsApp.h" />
     <ClInclude Include="SpecularLightExample.h" />
     <ClInclude Include="SpecularLightShader.h" />
     <ClInclude Include="MultiLightShader.h" />
+    <ClInclude Include="TerrainExample.h" />
     <ClInclude Include="TerrainShader.h" />
     <ClInclude Include="TessellationShader.h" />
   </ItemGroup>

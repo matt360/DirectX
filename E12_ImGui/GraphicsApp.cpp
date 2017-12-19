@@ -14,7 +14,7 @@ GraphicsApp::GraphicsApp()
 	// shader handlers
 	//specularLightShader = nullptr;
 	tessellationShader = nullptr;
-	terrainShader = nullptr;
+	//terrainShader = nullptr;
 	multiLightShader = nullptr;
 	geometryShader = nullptr;
 
@@ -81,11 +81,12 @@ GraphicsApp::~GraphicsApp()
 		tessellationShader = 0;
 	}
 
-	if (terrainShader)
+	/*if (terrainShader)
 	{
 		delete terrainShader;
 		terrainShader = 0;
-	}
+	}*/
+	terrainExample.~TerrainExample();
 
 	if (geometryShader)
 	{
@@ -127,27 +128,13 @@ GraphicsApp::~GraphicsApp()
 
 void GraphicsApp::initVariables()
 {
-	light_terrain_y = 0.0f;
+	
 }
 
 void GraphicsApp::initLight()
 {
-	//// specular light example
-	//specular_light = new Light;
-	//specular_light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
-	//specular_light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	//specular_light->setDirection(0.5, -0.5f, 0.0f);
-	//specular_light->setSpecularPower(16.f);
-	//specular_light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-
 	// terrain light example
-	light_terrain = new Light;
-	light_terrain->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
-	light_terrain->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light_terrain->setDirection(0.0, 0.0f, 0.0f);
-	light_terrain->setSpecularPower(16.f);
-	light_terrain->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light_terrain->setPosition(0.0f, 0.1f, 0.0f);
+	terrainExample.initLight();
 
 	// multiple lights example
 	// Light 0
@@ -210,7 +197,7 @@ void GraphicsApp::initShaders(D3D* renderer, HWND hwnd)
 {
 	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
 	specularLightExample.specularLightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
-	terrainShader = new TerrainShader(renderer->getDevice(), hwnd);
+	//terrainShader = new TerrainShader(renderer->getDevice(), hwnd);
 	multiLightShader = new MultiLightShader(renderer->getDevice(), hwnd);
 	geometryShader = new GeometryShader(renderer->getDevice(), hwnd);
 }
@@ -231,7 +218,7 @@ void GraphicsApp::initGuiVariables()
 	// multi light exmaple scale
 	ml_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// terrain exmaple scale
-	tr_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	/*tr_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);*/
 	// geometry shader exmaple scale 
 	gs_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
@@ -278,40 +265,6 @@ bool GraphicsApp::frame()
 
 	return true;
 }
-
-//void GraphicsApp::renderSpecularLightExample()
-//{
-//	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-//
-//	// Clear the scene. (default blue colour)
-//	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-//
-//	camera->update();
-//
-//	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-//	worldMatrix = renderer->getWorldMatrix();
-//	// Generate the view matrix based on the camera's position.
-//	viewMatrix = camera->getViewMatrix();
-//	projectionMatrix = renderer->getProjectionMatrix();
-//
-//	// wireframe mode
-//	renderer->setWireframeMode(specular_light_wireframe);
-//
-//
-//	// Send geometry data (from mesh)
-//	//mesh->sendData(renderer->getDeviceContext());
-//	sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-//	// Set shader parameters (matrices and texture)
-//	specularLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), specular_light, camera);
-//	// Render object (combination of mesh geometry and shader process
-//	specularLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-//
-//
-//	// Render GUI
-//	gui();
-//	// Present the rendered scene to the screen.
-//	renderer->endScene();
-//}
 
 void GraphicsApp::renderTessellationExample()
 {
@@ -589,6 +542,11 @@ void GraphicsApp::renderGeometryShaderExample()
 
 bool GraphicsApp::render()
 {
+	// Clear the scene. (default blue colour)
+	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+
+	camera->update();
+
 	if (specularLightExample.specular_light_example) {
 		specularLightExample.renderSpecularLightExample(renderer, camera, sphereMesh, textureMgr);
 		// Render GUI

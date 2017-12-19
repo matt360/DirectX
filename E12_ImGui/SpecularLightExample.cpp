@@ -40,14 +40,9 @@ void SpecularLightExample::initLight()
 	specular_light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
-void SpecularLightExample::renderSpecularLightExample(D3D* renderer, Camera* camera, BaseMesh* sphereMesh, TextureManager* textureMgr)
+void SpecularLightExample::renderSpecularLightExample(D3D* renderer, Camera* camera, BaseMesh* mesh, TextureManager* textureMgr)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-
-	// Clear the scene. (default blue colour)
-	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-
-	camera->update();
 
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	worldMatrix = renderer->getWorldMatrix();
@@ -58,18 +53,10 @@ void SpecularLightExample::renderSpecularLightExample(D3D* renderer, Camera* cam
 	// wireframe mode
 	renderer->setWireframeMode(wireframe);
 
-
 	// Send geometry data (from mesh)
-	//mesh->sendData(renderer->getDeviceContext());
-	sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	mesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	// Set shader parameters (matrices and texture)
 	specularLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), specular_light, camera);
 	// Render object (combination of mesh geometry and shader process
-	specularLightShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-
-
-	// Render GUI
-	//gui();
-	// Present the rendered scene to the screen.
-	//renderer->endScene();
+	specularLightShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }

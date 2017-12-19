@@ -12,7 +12,7 @@ public:
 	~SpecularLightExample();
 
 	void init(D3D * renderer, HWND hwnd);
-	// SPECULAR LIGHT ////////////////////
+	
 	// shader handler
 	SpecularLightShader* specularLightShader;
 	bool wireframe;
@@ -24,7 +24,5 @@ public:
 	void initShaders(D3D* renderer, HWND hwnd);
 	void initLight();
 	void renderSpecularLightExample(D3D* renderer, Camera* camera, BaseMesh* sphereMesh, TextureManager* textureMgr);
-	//void gui();
-	//////////////////////////////////////
 };
 
