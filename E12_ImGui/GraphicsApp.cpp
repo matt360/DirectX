@@ -239,6 +239,7 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	initGeometry();
 	initShaders(renderer, hwnd);
 	specularLightExample.init(renderer, hwnd);
+	terrainExample.init(renderer, hwnd);
 	initGuiVariables();
 }
 
@@ -555,9 +556,8 @@ bool GraphicsApp::render()
 		renderer->endScene();
 	}
 	else if (tessellation_example) renderTessellationExample();
-	else if (terrain_example) {
-		renderTerrainExample();
-		terr
+	else if (terrainExample.example) {
+		terrainExample.render(renderer, camera, terrainMesh, textureMgr);
 
 		// Render GUI
 		gui();
@@ -600,7 +600,7 @@ void GraphicsApp::gui()
 	{ 
 		specularLightExample.specular_light_example ^= 1;
 		tessellation_example = false;
-		terrain_example = false;
+		terrainExample.example = false;
 		multi_light_example = false;
 		geometry_shader_example = false;
 
@@ -613,7 +613,7 @@ void GraphicsApp::gui()
 	{
 		specularLightExample.specular_light_example = false;
 		tessellation_example ^= 1;
-		terrain_example = false;
+		terrainExample.example = false;
 		multi_light_example = false;
 		geometry_shader_example = false;
 
@@ -627,7 +627,7 @@ void GraphicsApp::gui()
 	{
 		specularLightExample.specular_light_example = false;
 		tessellation_example = false;
-		terrain_example ^= 1;
+		terrainExample.example ^= 1;
 		multi_light_example = false;
 		geometry_shader_example = false;
 
@@ -635,14 +635,14 @@ void GraphicsApp::gui()
 		camera->setPosition(0.0f, 2.0f, -10.0f);
 		camera->setRotation(0.0f, -200.0f, 0.0f);
 		// reset terrain wireframe mode
-		terrain_wireframe = false;
+		terrainExample.wireframe = false;
 	}
 	// CHOOSE MULTI LIGHT EXAMPLE
 	if (ImGui::Button("Multi Light Example"))
 	{
 		specularLightExample.specular_light_example = false;
 		tessellation_example = false;
-		terrain_example = false;
+		terrainExample.example = false;
 		multi_light_example ^= 1;
 		geometry_shader_example = false;
 
@@ -665,7 +665,7 @@ void GraphicsApp::gui()
 	{
 		specularLightExample.specular_light_example = false;
 		tessellation_example = false;
-		terrain_example = false;
+		terrainExample.example = false;
 		multi_light_example = false;
 		geometry_shader_example ^= 1;
 
@@ -718,24 +718,24 @@ void GraphicsApp::gui()
 		ImGui::End();
 	}
 	// TERRAIN EXAMPLE WINDOW
-	if (terrain_example)
+	if (terrainExample.example)
 	{
-		ImGui::Begin("Terrain", &terrain_example);
+		ImGui::Begin("Terrain", &terrainExample.example);
 		if (ImGui::Button("Reset Example"))
 		{
 			// set terrain camera
 			camera->setPosition(0.0f, 2.0f, -10.0f);
 			camera->setRotation(0.0f, -200.0f, 0.0f);
 			// reset terrain scale
-			tr_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+			terrainExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 			// reset terrain wireframe mode
-			terrain_wireframe = false;
+			terrainExample.wireframe = false;
 		}
-		ImGui::Checkbox("Wireframe", &terrain_wireframe);
-		ImGui::SliderFloat("Scale X", (float*)&tr_scale.x, -15.0f, 15.0f);
-		ImGui::SliderFloat("Scale Y", (float*)&tr_scale.y, -15.0f, 15.0f);
-		ImGui::SliderFloat("Scale Z", (float*)&tr_scale.z, -15.0f, 15.0f);
-		if (ImGui::Button("Reset Scale")) tr_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		ImGui::Checkbox("Wireframe", &terrainExample.wireframe);
+		ImGui::SliderFloat("Scale X", (float*)&terrainExample.scale.x, -15.0f, 15.0f);
+		ImGui::SliderFloat("Scale Y", (float*)&terrainExample.scale.y, -15.0f, 15.0f);
+		ImGui::SliderFloat("Scale Z", (float*)&terrainExample.scale.z, -15.0f, 15.0f);
+		if (ImGui::Button("Reset Scale")) terrainExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		ImGui::End();
 	}
 	// MULTI LIGHT EXAMPLE WINDOW
