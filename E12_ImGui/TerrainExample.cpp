@@ -15,6 +15,12 @@ TerrainExample::~TerrainExample()
 		delete shader;
 		shader = 0;
 	}
+
+	if (light)
+	{
+		delete light;
+		light = 0;
+	}
 }
 
 
@@ -70,11 +76,6 @@ void TerrainExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, Textu
 
 	light->setPosition(0.0f, sinf(over_time * 3.0f), 0.0f);
 	// Send geometry data (from mesh)
-	//triangleMesh->sendData(renderer->getDeviceContext());
-	//sphereMesh->sendData(renderer->getDeviceContext());
-	//cubeMesh->sendData(renderer->getDeviceContext());
-	//quadMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
-	//planeMesh->sendData(renderer->getDeviceContext()); // set input data in the shader programme
 	mesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Set shader parameters (matrices and texture)
@@ -83,9 +84,4 @@ void TerrainExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, Textu
 
 	// Render object (combination of mesh geometry and shader process
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount()); // output data from the shader programme
-	//terrainShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount()); // output data from the shader programme
-	//terrainShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount()); // output data from the shader programme
-	//terrainShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount()); // output data from the shader programme
-	//terrainShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount()); // output data from the shader programme
-	//terrainShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
 }

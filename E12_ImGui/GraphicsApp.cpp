@@ -12,9 +12,6 @@ GraphicsApp::GraphicsApp()
 	terrainMesh = nullptr;
 
 	// shader handlers
-	//specularLightShader = nullptr;
-	tessellationShader = nullptr;
-	//terrainShader = nullptr;
 	multiLightShader = nullptr;
 	geometryShader = nullptr;
 
@@ -67,25 +64,9 @@ GraphicsApp::~GraphicsApp()
 		terrainMesh = 0;
 	}
 
-	// shader handlers
-	/*if (specularLightShader)
-	{
-		delete specularLightShader;
-		specularLightShader = 0;
-	}*/
+	// examples
 	specularLightExample.~SpecularLightExample();
-
-	if (tessellationShader)
-	{
-		delete tessellationShader;
-		tessellationShader = 0;
-	}
-
-	/*if (terrainShader)
-	{
-		delete terrainShader;
-		terrainShader = 0;
-	}*/
+	tessellationExample.~TessellationExample();
 	terrainExample.~TerrainExample();
 
 	if (geometryShader)
@@ -195,7 +176,6 @@ void GraphicsApp::initGeometry()
 // create shader handlers
 void GraphicsApp::initShaders(D3D* renderer, HWND hwnd)
 {
-	tessellationShader = new TessellationShader(renderer->getDevice(), hwnd);
 	multiLightShader = new MultiLightShader(renderer->getDevice(), hwnd);
 	geometryShader = new GeometryShader(renderer->getDevice(), hwnd);
 }
@@ -234,6 +214,7 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	initShaders(renderer, hwnd);
 	specularLightExample.init(renderer, hwnd);
 	terrainExample.init(renderer, hwnd);
+	tessellationExample.init(renderer, hwnd);
 	initGuiVariables();
 }
 
@@ -261,49 +242,49 @@ bool GraphicsApp::frame()
 	return true;
 }
 
-void GraphicsApp::renderTessellationExample()
-{
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-
-	// Clear the scene. (default blue colour)
-	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-
-	camera->update();
-
-	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	worldMatrix = renderer->getWorldMatrix();
-	// Generate the view matrix based on the camera's position.
-	viewMatrix = camera->getViewMatrix();
-	projectionMatrix = renderer->getProjectionMatrix();
-
-	// wireframe mode
-	renderer->setWireframeMode(tessellation_wireframe);
-
-
-	// Send geometry data (from mesh)
-	terrainMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-	//sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-	//cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-	//quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-	//planeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-
-	// Set shader parameters (matrices and texture)
-	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
-		textureMgr->getTexture("brick"), camera);
-
-	// Render object (combination of mesh geometry and shader process
-	tessellationShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
-	//tessellationShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
-	//tessellationShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-	//tessellationShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
-	//tessellationShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
-
-
-	// Render GUI
-	gui();
-	// Present the rendered scene to the screen.
-	renderer->endScene();
-}
+//void GraphicsApp::renderTessellationExample()
+//{
+//	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+//
+//	// Clear the scene. (default blue colour)
+//	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+//
+//	camera->update();
+//
+//	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+//	worldMatrix = renderer->getWorldMatrix();
+//	// Generate the view matrix based on the camera's position.
+//	viewMatrix = camera->getViewMatrix();
+//	projectionMatrix = renderer->getProjectionMatrix();
+//
+//	// wireframe mode
+//	renderer->setWireframeMode(tessellation_wireframe);
+//
+//
+//	// Send geometry data (from mesh)
+//	terrainMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+//	//sphereMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+//	//cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+//	//quadMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+//	//planeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+//
+//	// Set shader parameters (matrices and texture)
+//	tessellationShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
+//		textureMgr->getTexture("brick"), camera);
+//
+//	// Render object (combination of mesh geometry and shader process
+//	tessellationShader->render(renderer->getDeviceContext(), terrainMesh->getIndexCount());
+//	//tessellationShader->render(renderer->getDeviceContext(), sphereMesh->getIndexCount());
+//	//tessellationShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
+//	//tessellationShader->render(renderer->getDeviceContext(), quadMesh->getIndexCount());
+//	//tessellationShader->render(renderer->getDeviceContext(), planeMesh->getIndexCount());
+//
+//
+//	// Render GUI
+//	gui();
+//	// Present the rendered scene to the screen.
+//	renderer->endScene();
+//}
 
 void GraphicsApp::renderMultiLightExample()
 {
@@ -487,29 +468,36 @@ bool GraphicsApp::render()
 		specularLightExample.render(renderer, camera, sphereMesh, textureMgr);
 		// Render GUI
 		gui();
-		// Present the rendered scene to the screen.
-		renderer->endScene();
+		
 	}
-	else if (tessellation_example) renderTessellationExample();
+	else if (tessellationExample.example) {
+		tessellationExample.render(renderer, camera, terrainMesh, textureMgr);
+		// Render GUI
+		gui();
+	}
 	else if (terrainExample.example) {
 		terrainExample.render(renderer, camera, terrainMesh, textureMgr);
-
 		// Render GUI
 		gui();
-		// Present the rendered scene to the screen.
-		renderer->endScene();
 	}
-	else if (multi_light_example) renderMultiLightExample();
-	else if (geometry_shader_example) renderGeometryShaderExample();
+	else if (multi_light_example) {
+		renderMultiLightExample();
+		// Render GUI
+		gui();
+	}
+	else if (geometry_shader_example) {
+		renderGeometryShaderExample();
+		// Render GUI
+		gui();
+	}
 	else
 	{
-		// Clear the scene. (default blue colour)
-		renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 		// Render GUI
 		gui();
-		// Present the rendered scene to the screen.
-		renderer->endScene();
 	}
+
+	// Present the rendered scene to the screen.
+	renderer->endScene();
 
 	return true;
 }
@@ -534,7 +522,7 @@ void GraphicsApp::gui()
 	if (ImGui::Button("Specular Light Example"))
 	{ 
 		specularLightExample.example ^= 1;
-		tessellation_example = false;
+		tessellationExample.example = false;
 		terrainExample.example = false;
 		multi_light_example = false;
 		geometry_shader_example = false;
@@ -547,12 +535,12 @@ void GraphicsApp::gui()
 	if (ImGui::Button("Tessellation Example"))
 	{
 		specularLightExample.example = false;
-		tessellation_example ^= 1;
+		tessellationExample.example ^= 1;
 		terrainExample.example = false;
 		multi_light_example = false;
 		geometry_shader_example = false;
 
-		tessellation_wireframe = false;
+		tessellationExample.wireframe = false;
 		// set tessellation camera
 		camera->setPosition(0.0f, 4.75f, -10.0f);
 		camera->setRotation(0.0f, 30.0f, 0.0f);
@@ -561,7 +549,7 @@ void GraphicsApp::gui()
 	if (ImGui::Button("Terrain Example"))
 	{
 		specularLightExample.example = false;
-		tessellation_example = false;
+		tessellationExample.example = false;
 		terrainExample.example ^= 1;
 		multi_light_example = false;
 		geometry_shader_example = false;
@@ -576,7 +564,7 @@ void GraphicsApp::gui()
 	if (ImGui::Button("Multi Light Example"))
 	{
 		specularLightExample.example = false;
-		tessellation_example = false;
+		tessellationExample.example = false;
 		terrainExample.example = false;
 		multi_light_example ^= 1;
 		geometry_shader_example = false;
@@ -599,7 +587,7 @@ void GraphicsApp::gui()
 	if (ImGui::Button("Geometry Shader Example"))
 	{
 		specularLightExample.example = false;
-		tessellation_example = false;
+		tessellationExample.example = false;
 		terrainExample.example = false;
 		multi_light_example = false;
 		geometry_shader_example ^= 1;
@@ -639,17 +627,17 @@ void GraphicsApp::gui()
 		ImGui::End();
 	}
 	// TESSELLATION EXAMPLE WINDOW
-	if (tessellation_example)
+	if (tessellationExample.example)
 	{
-		ImGui::Begin("Tessellation", &tessellation_example);
+		ImGui::Begin("Tessellation", &tessellationExample.example);
 		if (ImGui::Button("Reset Example"))
 		{
 			// set tessellation camera
 			camera->setPosition(0.0f, 4.75f, -10.0f);
 			camera->setRotation(0.0f, 30.0f, 0.0f);
-			tessellation_wireframe = false;
+			tessellationExample.wireframe = false;
 		}
-		ImGui::Checkbox("Wireframe", &tessellation_wireframe);
+		ImGui::Checkbox("Wireframe", &tessellationExample.wireframe);
 		ImGui::End();
 	}
 	// TERRAIN EXAMPLE WINDOW

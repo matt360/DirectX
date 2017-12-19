@@ -162,6 +162,7 @@
     <ClCompile Include="MultiLightShader.cpp" />
     <ClCompile Include="TerrainExample.cpp" />
     <ClCompile Include="TerrainShader.cpp" />
+    <ClCompile Include="TessellationExample.cpp" />
     <ClCompile Include="TessellationShader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +174,7 @@
     <ClInclude Include="MultiLightShader.h" />
     <ClInclude Include="TerrainExample.h" />
     <ClInclude Include="TerrainShader.h" />
+    <ClInclude Include="TessellationExample.h" />
     <ClInclude Include="TessellationShader.h" />
   </ItemGroup>
   <ItemGroup>

@@ -2,16 +2,22 @@
 
 SpecularLightExample::SpecularLightExample()
 {
-	specularLightShader = nullptr;
+	shader = nullptr;
 }
 
 
 SpecularLightExample::~SpecularLightExample()
 {
-	if (specularLightShader)
+	if (shader)
 	{
-		delete specularLightShader;
-		specularLightShader = 0;
+		delete shader;
+		shader = 0;
+	}
+
+	if (light)
+	{
+		delete light;
+		light = 0;
 	}
 }
 
@@ -24,7 +30,7 @@ void SpecularLightExample::init(D3D* renderer, HWND hwnd)
 // create shader handlers
 void SpecularLightExample::initShader(D3D* renderer, HWND hwnd)
 {
-	specularLightShader = new SpecularLightShader(renderer->getDevice(), hwnd);
+	shader = new SpecularLightShader(renderer->getDevice(), hwnd);
 }
 
 void SpecularLightExample::initLight()
@@ -54,7 +60,7 @@ void SpecularLightExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh,
 	// Send geometry data (from mesh)
 	mesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	// Set shader parameters (matrices and texture)
-	specularLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light, camera);
+	shader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light, camera);
 	// Render object (combination of mesh geometry and shader process
-	specularLightShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }

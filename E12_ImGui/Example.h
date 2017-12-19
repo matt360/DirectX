@@ -13,7 +13,9 @@ public:
 
 	virtual void initShader(D3D * renderer, HWND hwnd) = 0;
 	
+	float over_time;
 	bool wireframe;
 	bool example;
+	XMFLOAT3 scale;
 };
 

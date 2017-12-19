@@ -1,22 +1,19 @@
 #pragma once
-
 #include "Example.h"
-#include "TerrainShader.h"
+#include "TessellationShader.h"
 
-class TerrainExample : public Example
+class TessellationExample : public Example
 {
 public:
-	TerrainExample();
-	~TerrainExample();
+	TessellationExample();
+	~TessellationExample();
 
 	void init(D3D * renderer, HWND hwnd);
 	void initShader(D3D * renderer, HWND hwnd);
-	void initLight();
+	//void initLight();
 	void render(D3D* renderer, Camera* camera, BaseMesh* mesh, TextureManager* textureMgr);
 
 	// shader handler
-	TerrainShader* shader;
-	// light
-	Light* light;
+	TessellationShader* shader;
 };
 

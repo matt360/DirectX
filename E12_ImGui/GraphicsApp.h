@@ -3,13 +3,11 @@
 
 // Includes
 #include "../DXFramework/DXF.h"
-#include "TessellationShader.h"
-#include "SpecularLightShader.h"
-#include "TerrainShader.h"
 #include "MultiLightShader.h"
 #include "GeometryShader.h"
 #include "SpecularLightExample.h"
 #include "TerrainExample.h"
+#include "TessellationExample.h"
 
 class GraphicsApp : public BaseApplication
 {
@@ -47,12 +45,7 @@ private:
 	//////////////////////////////////////////////
 
 	// TESSELLATION //////////////////////
-	// shader handler
-	TessellationShader* tessellationShader;
-	bool tessellation_wireframe;
-	// render
-	bool tessellation_example;
-	void renderTessellationExample();
+	TessellationExample tessellationExample;
 	//////////////////////////////////////
 
 	// TERRAIN ///////////////////////////

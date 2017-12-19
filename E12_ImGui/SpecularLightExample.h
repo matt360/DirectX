@@ -10,15 +10,13 @@ public:
 	~SpecularLightExample();
 
 	void init(D3D * renderer, HWND hwnd);
-	
-	// shader handler
-	SpecularLightShader* specularLightShader;
-	// mesh
-	// light
-	Light* light;
-	// render
 	void initShader(D3D * renderer, HWND hwnd);
 	void initLight();
 	void render(D3D* renderer, Camera* camera, BaseMesh* sphereMesh, TextureManager* textureMgr);
+	
+	// shader handler
+	SpecularLightShader* shader;
+	// light
+	Light* light;
 };
 
