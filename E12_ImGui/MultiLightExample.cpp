@@ -51,10 +51,9 @@ MultiLightExample::~MultiLightExample()
 
 void MultiLightExample::init(D3D* renderer, HWND hwnd)
 {
-	initLight();
 	initShader(renderer, hwnd);
-	over_time = 0.0f;
-	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	initVariables();
+	initLight();
 }
 
 void MultiLightExample::initShader(D3D* renderer, HWND hwnd)
@@ -64,6 +63,8 @@ void MultiLightExample::initShader(D3D* renderer, HWND hwnd)
 
 void MultiLightExample::initVariables()
 {
+	over_time = 0.0f;
+	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist = true;
 	d3d11_primitive_topology_pointlist = false;

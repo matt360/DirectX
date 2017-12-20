@@ -17,11 +17,21 @@ TessellationExample::~TessellationExample()
 void TessellationExample::init(D3D * renderer, HWND hwnd)
 {
 	initShader(renderer, hwnd);
+	initVariables();
 }
 
 void TessellationExample::initShader(D3D * renderer, HWND hwnd)
 {
 	shader = new TessellationShader(renderer->getDevice(), hwnd);
+}
+
+void TessellationExample::initVariables()
+{
+	over_time = 0.0f;
+	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// geomatry shader topology handler (set to triangle list by default)
+	d3d11_primitive_topology_trianglelist = true;
+	d3d11_primitive_topology_pointlist = false;
 }
 
 void TessellationExample::render(D3D * renderer, Camera * camera, BaseMesh * mesh, TextureManager * textureMgr)

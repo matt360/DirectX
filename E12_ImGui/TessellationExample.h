@@ -10,8 +10,8 @@ public:
 
 	void init(D3D * renderer, HWND hwnd);
 	void initShader(D3D * renderer, HWND hwnd);
+	void initVariables();
 	//void initLight();
-	//void initVariables();
 	void render(D3D* renderer, Camera* camera, BaseMesh* mesh, TextureManager* textureMgr);
 
 	// shader handler

@@ -22,9 +22,9 @@ SpecularLightExample::~SpecularLightExample()
 
 void SpecularLightExample::init(D3D* renderer, HWND hwnd)
 {
-	initLight();
-	initVariables();
 	initShader(renderer, hwnd);
+	initVariables();
+	initLight();
 }
 
 // create shader handlers
@@ -35,6 +35,8 @@ void SpecularLightExample::initShader(D3D* renderer, HWND hwnd)
 
 void SpecularLightExample::initVariables()
 {
+	over_time = 0.0f;
+	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist = true;
 	d3d11_primitive_topology_pointlist = false;

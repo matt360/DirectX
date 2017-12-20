@@ -24,7 +24,6 @@ void GeometryExample::init(D3D * renderer, HWND hwnd)
 {
 	initShader(renderer, hwnd);
 	initVariables();
-	//initLight();
 }
 
 void GeometryExample::initShader(D3D * renderer, HWND hwnd)
@@ -34,15 +33,12 @@ void GeometryExample::initShader(D3D * renderer, HWND hwnd)
 
 void GeometryExample::initVariables()
 {
+	over_time = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist = true;
 	d3d11_primitive_topology_pointlist = false;
 }
-
-//void GeometryExample::initLight()
-//{
-//}
 
 void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * textureMgr)
 {
