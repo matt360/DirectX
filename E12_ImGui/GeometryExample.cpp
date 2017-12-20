@@ -22,17 +22,22 @@ GeometryExample::~GeometryExample()
 
 void GeometryExample::init(D3D * renderer, HWND hwnd)
 {
-	//initLight();
 	initShader(renderer, hwnd);
-	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-	// geomatry shader topology handler (set to triangle list by default)
-	d3d11_primitive_topology_trianglelist = true;
-	d3d11_primitive_topology_pointlist = false;
+	initVariables();
+	//initLight();
 }
 
 void GeometryExample::initShader(D3D * renderer, HWND hwnd)
 {
 	shader = new GeometryShader(renderer->getDevice(), hwnd);
+}
+
+void GeometryExample::initVariables()
+{
+	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// geomatry shader topology handler (set to triangle list by default)
+	d3d11_primitive_topology_trianglelist = true;
+	d3d11_primitive_topology_pointlist = false;
 }
 
 //void GeometryExample::initLight()
@@ -75,7 +80,6 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 	*/
 
 	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
-	//d3d11_primitive_topology_trianglelist ? d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 

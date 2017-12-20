@@ -22,16 +22,16 @@ TerrainExample::~TerrainExample()
 
 void TerrainExample::init(D3D* renderer, HWND hwnd)
 {
+	initVariables();
 	initLight();
 	initShader(renderer, hwnd);
-	over_time = 0.0f;
-	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	
 }
 
-// create shader handlers
-void TerrainExample::initShader(D3D* renderer, HWND hwnd)
+void TerrainExample::initVariables()
 {
-	shader = new TerrainShader(renderer->getDevice(), hwnd);
+	over_time = 0.0f;
+	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 }
 
 void TerrainExample::initLight()
@@ -45,6 +45,13 @@ void TerrainExample::initLight()
 	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	light->setPosition(0.0f, 0.1f, 0.0f);
 }
+
+// create shader handlers
+void TerrainExample::initShader(D3D* renderer, HWND hwnd)
+{
+	shader = new TerrainShader(renderer->getDevice(), hwnd);
+}
+
 
 void TerrainExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, TextureManager* textureMgr)
 {

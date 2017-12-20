@@ -16,10 +16,7 @@ TessellationExample::~TessellationExample()
 
 void TessellationExample::init(D3D * renderer, HWND hwnd)
 {
-	//initLight();
 	initShader(renderer, hwnd);
-	//over_time = 0.0f;
-	//scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 }
 
 void TessellationExample::initShader(D3D * renderer, HWND hwnd)

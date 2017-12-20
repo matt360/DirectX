@@ -62,6 +62,13 @@ void MultiLightExample::initShader(D3D* renderer, HWND hwnd)
 	shader = new MultiLightShader(renderer->getDevice(), hwnd);
 }
 
+void MultiLightExample::initVariables()
+{
+	// geomatry shader topology handler (set to triangle list by default)
+	d3d11_primitive_topology_trianglelist = true;
+	d3d11_primitive_topology_pointlist = false;
+}
+
 void MultiLightExample::initLight()
 {
 	// Light 0
