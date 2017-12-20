@@ -5,7 +5,8 @@
 #include "../DXFramework/Camera.h"
 #include "../DXFramework/TextureManager.h"
 
-enum class MESH { 
+// current example mesh choice 
+enum class MESH_CHOICE { 
 	TRIANGLE,
 	SPHERE,
 	CUBE,
@@ -21,10 +22,15 @@ public:
 
 	virtual void initShader(D3D * renderer, HWND hwnd) = 0;
 	
+	// used for moving vertices over time
 	float over_time;
+	// toggle wireframe mode on/off
 	bool wireframe;
+	// toggle example on/off
 	bool example;
+	// toggle geometry meshes on/off
 	bool triangle_mesh, sphere_mesh, cube_mesh, quad_mesh, plane_mesh;
+	// scale mesh in example
 	XMFLOAT3 scale;
 };
 

@@ -1,10 +1,10 @@
 #pragma once
 #include "../DXFramework/DXF.h"
+#include "GeometryExample.h"
+#include "MultiLightExample.h"
 #include "SpecularLightExample.h"
 #include "TerrainExample.h"
 #include "TessellationExample.h"
-#include "MultiLightExample.h"
-#include "GeometryExample.h"
 
 class GraphicsApp : public BaseApplication
 {
@@ -25,7 +25,11 @@ private:
 	void initGeometry();
 	void loadTextures();
 
-	// meshes
+	// FUNCTIONS
+	float clamp(float n, float lower, float upper);
+	BaseMesh* chooseMesh(const MESH_CHOICE& mesh_choice);
+
+	// MESHES
 	TriangleMesh *triangleMesh;
 	SphereMesh *sphereMesh;
 	CubeMesh *cubeMesh;
@@ -33,20 +37,10 @@ private:
 	PlaneMesh *planeMesh;
 	TerrainMesh *terrainMesh;
 
-	// SPECULAR LIGHT EXAMPLE
+	// EXAMPLES
 	SpecularLightExample specularLightExample;
-	// TESSELLATION EXAMPLE
 	TessellationExample tessellationExample;
-	// TERRAIN EXAMPLE
 	TerrainExample terrainExample;
-	// MULTI LIGHTS EXAMPLE
 	MultiLightExample multiLightExample;
-	// GEOMATRY SHADER EXAMPLE
 	GeometryExample geometryExample;
-
-	// choose mesh
-	BaseMesh* chooseMesh(const MESH& mesh_choice);
-
-	// math
-	float clamp(float n, float lower, float upper);
 };

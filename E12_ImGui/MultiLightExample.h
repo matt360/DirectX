@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Example.h"
 #include "MultiLightShader.h"
 
@@ -17,7 +16,7 @@ public:
 	// shader handler
 	MultiLightShader* shader;
 
-	MESH mesh_choice = MESH::SPHERE;
+	MESH_CHOICE mesh_choice = MESH_CHOICE::SPHERE;
 	BaseMesh* mesh;
 	
 	Light *light0_, *light1_, *light2_, *light3_;

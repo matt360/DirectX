@@ -122,28 +122,28 @@ bool GraphicsApp::frame()
 	return true;
 }
 
-BaseMesh* GraphicsApp::chooseMesh(const MESH& mesh_choice)
+BaseMesh* GraphicsApp::chooseMesh(const MESH_CHOICE& mesh_choice)
 {
 	BaseMesh* temp_mesh;
 	switch (mesh_choice)
 	{
-	case MESH::TRIANGLE :
+	case MESH_CHOICE::TRIANGLE :
 		temp_mesh = triangleMesh;
 		break;
 
-	case MESH::SPHERE :
+	case MESH_CHOICE::SPHERE :
 		temp_mesh = sphereMesh;
 		break;
 
-	case MESH::CUBE :
+	case MESH_CHOICE::CUBE :
 		temp_mesh = cubeMesh;
 		break;
 
-	case MESH::QUAD :
+	case MESH_CHOICE::QUAD :
 		temp_mesh = quadMesh;
 		break;
 
-	case MESH::PLANE :
+	case MESH_CHOICE::PLANE :
 		temp_mesh = planeMesh;
 		break;
 
@@ -271,7 +271,7 @@ void GraphicsApp::gui()
 		multiLightExample.light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
 		multiLightExample.light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
 		// render only sphere mesh
-		multiLightExample.mesh_choice = MESH::SPHERE;
+		multiLightExample.mesh_choice = MESH_CHOICE::SPHERE;
 		multiLightExample.triangle_mesh = false;
 		multiLightExample.sphere_mesh = true;
 		multiLightExample.cube_mesh = false;
@@ -297,7 +297,7 @@ void GraphicsApp::gui()
 		geometryExample.d3d11_primitive_topology_trianglelist = true;
 		geometryExample.d3d11_primitive_topology_pointlist = false;
 		// set cube mesh
-		geometryExample.mesh_choice = MESH::CUBE;
+		geometryExample.mesh_choice = MESH_CHOICE::CUBE;
 		geometryExample.triangle_mesh = false;
 		geometryExample.sphere_mesh = false;
 		geometryExample.cube_mesh = true;
@@ -379,7 +379,7 @@ void GraphicsApp::gui()
 			multiLightExample.light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
 			multiLightExample.light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
 			// render only sphere mesh
-			multiLightExample.mesh_choice = MESH::SPHERE;
+			multiLightExample.mesh_choice = MESH_CHOICE::SPHERE;
 			multiLightExample.triangle_mesh = false;
 			multiLightExample.sphere_mesh = true;
 			multiLightExample.cube_mesh = false;
@@ -408,7 +408,7 @@ void GraphicsApp::gui()
 			// set multi light camera
 			camera->setPosition(0.0f, 0.0f, -4.75f);
 
-			multiLightExample.mesh_choice = MESH::TRIANGLE;
+			multiLightExample.mesh_choice = MESH_CHOICE::TRIANGLE;
 			multiLightExample.triangle_mesh = true;
 			multiLightExample.sphere_mesh = false;
 			multiLightExample.cube_mesh = false;
@@ -420,7 +420,7 @@ void GraphicsApp::gui()
 			// set multi light camera
 			camera->setPosition(0.0f, 0.0f, -4.75f);
 
-			multiLightExample.mesh_choice = MESH::SPHERE;
+			multiLightExample.mesh_choice = MESH_CHOICE::SPHERE;
 			multiLightExample.triangle_mesh = false;
 			multiLightExample.sphere_mesh = true;
 			multiLightExample.cube_mesh = false;
@@ -432,7 +432,7 @@ void GraphicsApp::gui()
 			// set multi light camera
 			camera->setPosition(0.0f, 0.0f, -4.75f);
 
-			multiLightExample.mesh_choice = MESH::CUBE;
+			multiLightExample.mesh_choice = MESH_CHOICE::CUBE;
 			multiLightExample.triangle_mesh = false;
 			multiLightExample.sphere_mesh = false;
 			multiLightExample.cube_mesh = true;
@@ -444,7 +444,7 @@ void GraphicsApp::gui()
 			// set multi light camera
 			camera->setPosition(0.0f, 0.0f, -4.75f);
 
-			multiLightExample.mesh_choice = MESH::QUAD;
+			multiLightExample.mesh_choice = MESH_CHOICE::QUAD;
 			multiLightExample.triangle_mesh = false;
 			multiLightExample.sphere_mesh = false;
 			multiLightExample.cube_mesh = false;
@@ -456,7 +456,7 @@ void GraphicsApp::gui()
 			camera->setPosition(0.0f, 3.0f, 0.0f);
 			multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
-			multiLightExample.mesh_choice = MESH::PLANE;
+			multiLightExample.mesh_choice = MESH_CHOICE::PLANE;
 			multiLightExample.triangle_mesh = false;
 			multiLightExample.sphere_mesh = false;
 			multiLightExample.cube_mesh = false;
@@ -471,7 +471,7 @@ void GraphicsApp::gui()
 		ImGui::Begin("Geometry Shader Example", &geometryExample.example);
 		if (ImGui::Button("Reset Example"))
 		{
-			geometryExample.mesh_choice = MESH::CUBE;
+			geometryExample.mesh_choice = MESH_CHOICE::CUBE;
 			// reset geometry shader scale
 			geometryExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 			// reset geometry shader wireframe mode
@@ -500,7 +500,7 @@ void GraphicsApp::gui()
 		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
 		if (ImGui::Checkbox("Triangle Mesh", &geometryExample.triangle_mesh))
 		{
-			geometryExample.mesh_choice = MESH::TRIANGLE;
+			geometryExample.mesh_choice = MESH_CHOICE::TRIANGLE;
 			geometryExample.triangle_mesh = true;
 			geometryExample.sphere_mesh = false;
 			geometryExample.cube_mesh = false;
@@ -509,7 +509,7 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Sphere Mesh", &geometryExample.sphere_mesh))
 		{
-			geometryExample.mesh_choice = MESH::SPHERE;
+			geometryExample.mesh_choice = MESH_CHOICE::SPHERE;
 			geometryExample.triangle_mesh = false;
 			geometryExample.sphere_mesh = true;
 			geometryExample.cube_mesh = false;
@@ -518,7 +518,7 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Cube Mesh", &geometryExample.cube_mesh))
 		{
-			geometryExample.mesh_choice = MESH::CUBE;
+			geometryExample.mesh_choice = MESH_CHOICE::CUBE;
 			geometryExample.triangle_mesh = false;
 			geometryExample.sphere_mesh = false;
 			geometryExample.cube_mesh = true;
@@ -527,7 +527,7 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Quad Mesh", &geometryExample.quad_mesh))
 		{
-			geometryExample.mesh_choice = MESH::QUAD;
+			geometryExample.mesh_choice = MESH_CHOICE::QUAD;
 			geometryExample.triangle_mesh = false;
 			geometryExample.sphere_mesh = false;
 			geometryExample.cube_mesh = false;
@@ -536,7 +536,7 @@ void GraphicsApp::gui()
 		}
 		if (ImGui::Checkbox("Plane Mesh", &geometryExample.plane_mesh))
 		{
-			geometryExample.mesh_choice = MESH::PLANE;
+			geometryExample.mesh_choice = MESH_CHOICE::PLANE;
 			geometryExample.triangle_mesh = false;
 			geometryExample.sphere_mesh = false;
 			geometryExample.cube_mesh = false;
