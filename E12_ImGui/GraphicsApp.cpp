@@ -376,13 +376,13 @@ void GraphicsApp::gui()
 		ImGui::SliderFloat("Scale X", (float*)&terrainExample.scale.x, -15.0f, 15.0f);
 		ImGui::SliderFloat("Scale Y", (float*)&terrainExample.scale.y, -15.0f, 15.0f);
 		ImGui::SliderFloat("Scale Z", (float*)&terrainExample.scale.z, -15.0f, 15.0f);
+		// reset scale
+		if (ImGui::Button("Reset Scale")) terrainExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// toggle topology
 		if (ImGui::Checkbox("Primitive Topology Trianglelist", &terrainExample.d3d11_primitive_topology_trianglelist))
 			terrainExample.d3d11_primitive_topology_pointlist = false;
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &terrainExample.d3d11_primitive_topology_pointlist))
 			terrainExample.d3d11_primitive_topology_trianglelist = false;
-		// reset scale
-		if (ImGui::Button("Reset Scale")) terrainExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		ImGui::End();
 	}
 	// MULTI LIGHT EXAMPLE WINDOW
@@ -432,13 +432,13 @@ void GraphicsApp::gui()
 		ImGui::SliderFloat3("Light 3 Pos", (float*)&multiLightExample.light3_pos, -10.0f, 10.0f);
 		// scale
 		ImGui::SliderFloat3("Scale", (float*)&multiLightExample.scale, -20.0f, 20.0f);
+		// reset scale
+		if (ImGui::Button("Reset Scale")) multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// toggle topology
 		if (ImGui::Checkbox("Primitive Topology Trianglelist", &multiLightExample.d3d11_primitive_topology_trianglelist))
 			multiLightExample.d3d11_primitive_topology_pointlist = false;
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &multiLightExample.d3d11_primitive_topology_pointlist))
 			multiLightExample.d3d11_primitive_topology_trianglelist = false;
-		// reset scale
-		if (ImGui::Button("Reset Scale")) multiLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
 		if (ImGui::Checkbox("Triangle Mesh", &multiLightExample.triangle_mesh))
 		{
