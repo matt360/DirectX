@@ -122,34 +122,37 @@ bool GraphicsApp::frame()
 	return true;
 }
 
-void GraphicsApp::chooseMesh(MESH mesh_choice, BaseMesh* mesh)
+BaseMesh* GraphicsApp::chooseMesh(const MESH& mesh_choice)
 {
+	BaseMesh* temp_mesh;
 	switch (mesh_choice)
 	{
-	case MESH::TRIANGLE:
-		mesh = triangleMesh;
+	case MESH::TRIANGLE :
+		temp_mesh = triangleMesh;
 		break;
 
-	case MESH::SPHERE:
-		mesh = sphereMesh;
+	case MESH::SPHERE :
+		temp_mesh = sphereMesh;
 		break;
 
-	case MESH::CUBE:
-		mesh = cubeMesh;
+	case MESH::CUBE :
+		temp_mesh = cubeMesh;
 		break;
 
-	case MESH::QUAD:
-		mesh = quadMesh;
+	case MESH::QUAD :
+		temp_mesh = quadMesh;
 		break;
 
-	case MESH::PLANE:
-		mesh = planeMesh;
+	case MESH::PLANE :
+		temp_mesh = planeMesh;
 		break;
 
 	default:
-		mesh = sphereMesh;
+		temp_mesh = triangleMesh;
 		break;
 	}
+
+	return temp_mesh;
 }
 
 bool GraphicsApp::render()
@@ -169,63 +172,11 @@ bool GraphicsApp::render()
 		terrainExample.render(renderer, camera, terrainMesh, textureMgr);
 	}
 	else if (multiLightExample.example) {
-		switch (multiLightExample.mesh_choice)
-		{
-			case MESH::TRIANGLE :
-				multiLightExample.mesh = triangleMesh;
-			break;
-
-			case MESH::SPHERE :
-				multiLightExample.mesh = sphereMesh;
-			break;
-
-			case MESH::CUBE :
-				multiLightExample.mesh = cubeMesh;
-			break;
-
-			case MESH::QUAD : 
-				multiLightExample.mesh = quadMesh;
-			break;
-
-			case MESH::PLANE :
-				multiLightExample.mesh = planeMesh;
-			break;
-
-			default : 
-				multiLightExample.mesh = sphereMesh;
-			break;
-		}
-
+		multiLightExample.mesh = chooseMesh(multiLightExample.mesh_choice);
 		multiLightExample.render(renderer, camera, textureMgr);
 	}
 	else if (geometryExample.example) {
-		switch (geometryExample.mesh_choice)
-		{
-		case MESH::TRIANGLE :
-			geometryExample.mesh = triangleMesh;
-			break;
-
-		case MESH::SPHERE :
-			geometryExample.mesh = sphereMesh;
-			break;
-
-		case MESH::CUBE :
-			geometryExample.mesh = cubeMesh;
-			break;
-
-		case MESH::QUAD :
-			geometryExample.mesh = quadMesh;
-			break;
-
-		case MESH::PLANE :
-			geometryExample.mesh = planeMesh;
-			break;
-
-		default :
-			geometryExample.mesh = sphereMesh;
-			break;
-		}
-
+		geometryExample.mesh = chooseMesh(geometryExample.mesh_choice);
 		geometryExample.render(renderer, camera, textureMgr);
 	}
 	

@@ -45,7 +45,7 @@ private:
 	GeometryExample geometryExample;
 
 	// choose mesh
-	void chooseMesh(MESH mesh_choice, BaseMesh* mesh);
+	BaseMesh* chooseMesh(const MESH& mesh_choice);
 
 	// math
 	float clamp(float n, float lower, float upper);
