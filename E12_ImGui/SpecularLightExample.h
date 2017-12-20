@@ -13,7 +13,7 @@ public:
 	void initVariables();
 	void initLight();
 	void render(D3D* renderer, Camera* camera, BaseMesh* sphereMesh, TextureManager* textureMgr);
-	void gui();
+	void gui(Camera* camera);
 	
 	// shader handler
 	SpecularLightShader* shader;

@@ -310,7 +310,8 @@ void GraphicsApp::gui()
 	}
 
 	// EXAMPLE WINDOWS //
-	//// SPECULAR LIGHT EXAMPLE WINDOW
+	// SPECULAR LIGHT EXAMPLE WINDOW
+	specularLightExample.gui(camera);
 	//if (specularLightExample.example)
 	//{
 	//	ImGui::Begin("Specular Light", &specularLightExample.example);
@@ -323,8 +324,8 @@ void GraphicsApp::gui()
 	//		// reset wireframe
 	//		specularLightExample.wireframe = false;
 	//		// reset geometry shader primitive topology
-	//		geometryExample.d3d11_primitive_topology_trianglelist = true;
-	//		geometryExample.d3d11_primitive_topology_pointlist = false;
+	//		specularLightExample.d3d11_primitive_topology_trianglelist = true;
+	//		specularLightExample.d3d11_primitive_topology_pointlist = false;
 	//	}
 	//	ImGui::Checkbox("Wireframe", &specularLightExample.wireframe);
 	//	// scale
@@ -384,8 +385,8 @@ void GraphicsApp::gui()
 			// reset terrain wireframe mode
 			terrainExample.wireframe = false;
 			// reset geometry shader primitive topology
-			geometryExample.d3d11_primitive_topology_trianglelist = true;
-			geometryExample.d3d11_primitive_topology_pointlist = false;
+			terrainExample.d3d11_primitive_topology_trianglelist = true;
+			terrainExample.d3d11_primitive_topology_pointlist = false;
 		}
 		// wireframe
 		ImGui::Checkbox("Wireframe", &terrainExample.wireframe);
@@ -433,8 +434,8 @@ void GraphicsApp::gui()
 			// reset wireframe
 			multiLightExample.wireframe = false;
 			// reset geometry shader primitive topology
-			geometryExample.d3d11_primitive_topology_trianglelist = true;
-			geometryExample.d3d11_primitive_topology_pointlist = false;
+			multiLightExample.d3d11_primitive_topology_trianglelist = true;
+			multiLightExample.d3d11_primitive_topology_pointlist = false;
 		}
 		ImGui::Checkbox("Wireframe", &multiLightExample.wireframe);
 		// change lights' colour
