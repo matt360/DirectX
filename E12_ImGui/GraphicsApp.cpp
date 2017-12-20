@@ -68,7 +68,6 @@ void GraphicsApp::loadTextures()
 	// load textures
 	textureMgr->loadTexture("brick", L"../res/brick1.dds");
 	textureMgr->loadTexture("bunny", L"../res/bunny.png");
-	textureMgr->loadTexture("default", L"../res/DefaultDiffuse.png");
 	textureMgr->loadTexture("height", L"../res/height.png");
 	textureMgr->loadTexture("checkerboard", L"../res/checkerboard.png");
 }
@@ -120,39 +119,6 @@ bool GraphicsApp::frame()
 	}
 
 	return true;
-}
-
-BaseMesh* GraphicsApp::chooseMesh(const MESH_CHOICE& mesh_choice)
-{
-	BaseMesh* temp_mesh;
-	switch (mesh_choice)
-	{
-	case MESH_CHOICE::TRIANGLE :
-		temp_mesh = triangleMesh;
-		break;
-
-	case MESH_CHOICE::SPHERE :
-		temp_mesh = sphereMesh;
-		break;
-
-	case MESH_CHOICE::CUBE :
-		temp_mesh = cubeMesh;
-		break;
-
-	case MESH_CHOICE::QUAD :
-		temp_mesh = quadMesh;
-		break;
-
-	case MESH_CHOICE::PLANE :
-		temp_mesh = planeMesh;
-		break;
-
-	default:
-		temp_mesh = triangleMesh;
-		break;
-	}
-
-	return temp_mesh;
 }
 
 bool GraphicsApp::render()
@@ -318,6 +284,39 @@ void GraphicsApp::gui()
 
 	// Render UI
 	ImGui::Render();
+}
+
+BaseMesh* GraphicsApp::chooseMesh(const MESH_CHOICE& mesh_choice)
+{
+	BaseMesh* temp_mesh;
+	switch (mesh_choice)
+	{
+	case MESH_CHOICE::TRIANGLE:
+		temp_mesh = triangleMesh;
+		break;
+
+	case MESH_CHOICE::SPHERE:
+		temp_mesh = sphereMesh;
+		break;
+
+	case MESH_CHOICE::CUBE:
+		temp_mesh = cubeMesh;
+		break;
+
+	case MESH_CHOICE::QUAD:
+		temp_mesh = quadMesh;
+		break;
+
+	case MESH_CHOICE::PLANE:
+		temp_mesh = planeMesh;
+		break;
+
+	default:
+		temp_mesh = triangleMesh;
+		break;
+	}
+
+	return temp_mesh;
 }
 
 float GraphicsApp::clamp(float n, float lower, float upper)
