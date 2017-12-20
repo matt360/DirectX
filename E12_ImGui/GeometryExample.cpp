@@ -45,8 +45,8 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	// WORLD MATRIX
 	worldMatrix = renderer->getWorldMatrix();
-
 	XMMATRIX matrix1Translation = DirectX::XMMatrixTranslation(2.0f, 0.0f, 0.0f);
 	//XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(light_y);
 	XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(0.0f);
@@ -54,13 +54,12 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 	//worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
 	// translate and rotate
 	worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
-
 	// scaling
 	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
 	worldMatrix *= matrix1Scaling;
-
+	// VIEW MATRIX
 	viewMatrix = camera->getViewMatrix();
-
+	// PROJECTION MATRIX
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// wireframe mode
