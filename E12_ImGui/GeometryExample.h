@@ -13,6 +13,7 @@ public:
 	void initVariables();
 	//void initLight();
 	void render(D3D* renderer, Camera* camera, TextureManager* textureMgr);
+	void gui(Camera* camera);
 
 	// shader handler
 	MESH_CHOICE mesh_choice = MESH_CHOICE::CUBE;

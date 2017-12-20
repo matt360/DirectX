@@ -91,3 +91,86 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 	// Render object (combination of mesh geometry and shader process
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
+
+void GeometryExample::gui(Camera * camera)
+{
+	if (example)
+	{
+		ImGui::Begin("Geometry Shader Example", &example);
+		if (ImGui::Button("Reset Example"))
+		{
+			mesh_choice = MESH_CHOICE::CUBE;
+			// reset geometry shader scale
+			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+			// reset geometry shader wireframe mode
+			wireframe = false;
+			// reset geometry shader primitive topology
+			d3d11_primitive_topology_trianglelist = true;
+			d3d11_primitive_topology_pointlist = false;
+			// set cube mesh
+			triangle_mesh = false;
+			sphere_mesh = false;
+			cube_mesh = true;
+			quad_mesh = false;
+			plane_mesh = false;
+			// set the camera
+			camera->setPosition(13.0f, 4.0f, -22.0f);
+			camera->setRotation(0.0f, -35.0f, 0.0f);
+		}
+		ImGui::Checkbox("Wireframe", &wireframe);
+		ImGui::SliderFloat3("Scale", (float*)&scale, -10.0f, 10.0f);
+		if (ImGui::Button("Reset Scale")) scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
+			d3d11_primitive_topology_pointlist = false;
+		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
+			d3d11_primitive_topology_trianglelist = false;
+
+		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
+		if (ImGui::Checkbox("Triangle Mesh", &triangle_mesh))
+		{
+			mesh_choice = MESH_CHOICE::TRIANGLE;
+			triangle_mesh = true;
+			sphere_mesh = false;
+			cube_mesh = false;
+			quad_mesh = false;
+			plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Sphere Mesh", &sphere_mesh))
+		{
+			mesh_choice = MESH_CHOICE::SPHERE;
+			triangle_mesh = false;
+			sphere_mesh = true;
+			cube_mesh = false;
+			quad_mesh = false;
+			plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Cube Mesh", &cube_mesh))
+		{
+			mesh_choice = MESH_CHOICE::CUBE;
+			triangle_mesh = false;
+			sphere_mesh = false;
+			cube_mesh = true;
+			quad_mesh = false;
+			plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Quad Mesh", &quad_mesh))
+		{
+			mesh_choice = MESH_CHOICE::QUAD;
+			triangle_mesh = false;
+			sphere_mesh = false;
+			cube_mesh = false;
+			quad_mesh = true;
+			plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Plane Mesh", &plane_mesh))
+		{
+			mesh_choice = MESH_CHOICE::PLANE;
+			triangle_mesh = false;
+			sphere_mesh = false;
+			cube_mesh = false;
+			quad_mesh = false;
+			plane_mesh = true;
+		}
+		ImGui::End();
+	}
+}
