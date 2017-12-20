@@ -309,16 +309,11 @@ void GraphicsApp::gui()
 		camera->setRotation(0.0f, -30.0f, 5.0f);
 	}
 
-	// EXAMPLE WINDOWS //
-	// SPECULAR LIGHT EXAMPLE WINDOW
+	// EXAMPLES GUI
 	specularLightExample.gui(camera);
-	// TESSELLATION EXAMPLE WINDOW
 	tessellationExample.gui(camera);
-	// TERRAIN EXAMPLE WINDOW
 	terrainExample.gui(camera);
-	// MULTI LIGHT EXAMPLE WINDOW
 	multiLightExample.gui(camera);
-	// GEOMETRY SHADER EXAMPLE WINDOW
 	geometryExample.gui(camera);
 
 	// Render UI
