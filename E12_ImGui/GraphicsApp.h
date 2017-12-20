@@ -21,13 +21,9 @@ protected:
 	void gui();
 
 private:
-	// CONSTRUCTOR
+	// CONSTRUCTOR FUNCTIONS
 	void initGeometry();
 	void loadTextures();
-
-	// FUNCTIONS
-	float clamp(float n, float lower, float upper);
-	BaseMesh* chooseMesh(const MESH_CHOICE& mesh_choice);
 
 	// MESHES
 	TriangleMesh *triangleMesh;
@@ -43,4 +39,8 @@ private:
 	TerrainExample terrainExample;
 	MultiLightExample multiLightExample;
 	GeometryExample geometryExample;
+
+	// FUNCTIONS
+	BaseMesh* chooseMesh(const MESH_CHOICE& mesh_choice);
+	float clamp(float n, float lower, float upper);
 };
