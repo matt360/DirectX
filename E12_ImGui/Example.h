@@ -22,7 +22,7 @@ public:
 	virtual ~Example() {}
 
 	virtual void initShader(D3D * renderer, HWND hwnd) = 0;
-	//virtual void render(renderer, camera, textureMgr) = 0;
+	virtual void render(D3D* renderer, Camera* camera, TextureManager* textureMgr) = 0;
 	// Mesh choice
 	MESH_CHOICE mesh_choice;
 	// Mesh

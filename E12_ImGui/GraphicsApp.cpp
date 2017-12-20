@@ -148,6 +148,39 @@ bool GraphicsApp::render()
 		geometryExample.mesh = chooseMesh(geometryExample.mesh_choice);
 		geometryExample.render(renderer, camera, textureMgr);
 	}
+
+	// choose example
+	/*chooseExample(ENUM_EXAMPLE enum_example);
+
+	switch (ENUM_EXAMLPE)
+	{
+	case SPEC:
+		example = specularLightExample;
+		break;
+
+	case TESS:
+		example = tessellationExample;
+		break;
+
+	case TERRAIN:
+		example = terrainExample;
+		break;
+
+	case MULTLIGHT:
+		example = multiLightExample;
+		break;
+
+	case GS:
+		example = geometryExample;
+		break;
+
+	default:
+		example = specularLightExample;
+		break;
+	}*/
+	// render example
+	example->mesh = chooseMesh(example->mesh_choice);
+	example->render(renderer, camera, textureMgr);
 	
 	// Render GUI
 	gui();
@@ -176,6 +209,8 @@ void GraphicsApp::gui()
 	// CHOOSE SPECULAR LIGHT EXAMPLE
 	if (ImGui::Button("Specular Light Example"))
 	{ 
+		// set choice
+		example_choice = EXAMPLE_CHOICE::SPECULAR_LIGHT;
 		specularLightExample.example ^= 1;
 		tessellationExample.example = false;
 		terrainExample.example = false;
@@ -190,6 +225,8 @@ void GraphicsApp::gui()
 	// CHOOSE TESSELLATION EXAMPLE
 	if (ImGui::Button("Tessellation Example"))
 	{
+		// set choice
+		example_choice = EXAMPLE_CHOICE::TESSELLATION;
 		specularLightExample.example = false;
 		tessellationExample.example ^= 1;
 		terrainExample.example = false;
@@ -205,6 +242,8 @@ void GraphicsApp::gui()
 	// CHOOSE TERRAIN EXAMPLE 
 	if (ImGui::Button("Terrain Example"))
 	{
+		// set choice
+		example_choice = EXAMPLE_CHOICE::TERRAIN;
 		specularLightExample.example = false;
 		tessellationExample.example = false;
 		terrainExample.example ^= 1;
@@ -221,6 +260,8 @@ void GraphicsApp::gui()
 	// CHOOSE MULTI LIGHT EXAMPLE
 	if (ImGui::Button("Multi Light Example"))
 	{
+		// set choice
+		example_choice = EXAMPLE_CHOICE::MULTILIGHT;
 		specularLightExample.example = false;
 		tessellationExample.example = false;
 		terrainExample.example = false;
@@ -255,6 +296,8 @@ void GraphicsApp::gui()
 	// CHOOSE GEOMETRY SHADER EXAMPLE 
 	if (ImGui::Button("Geometry Shader Example"))
 	{
+		// set choice
+		example_choice = EXAMPLE_CHOICE::GEOMETRY;
 		specularLightExample.example = false;
 		tessellationExample.example = false;
 		terrainExample.example = false;

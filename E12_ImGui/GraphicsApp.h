@@ -6,6 +6,14 @@
 #include "TerrainExample.h"
 #include "TessellationExample.h"
 
+enum class EXAMPLE_CHOICE {
+	SPECULAR_LIGHT,
+	TESSELLATION,
+	TERRAIN,
+	MULTILIGHT,
+	GEOMETRY
+};
+
 class GraphicsApp : public BaseApplication
 {
 public:
@@ -39,6 +47,8 @@ private:
 	TerrainExample terrainExample;
 	MultiLightExample multiLightExample;
 	GeometryExample geometryExample;
+	Example* example;
+	EXAMPLE_CHOICE example_choice;
 
 	// FUNCTIONS
 	BaseMesh* chooseMesh(const MESH_CHOICE& mesh_choice);
