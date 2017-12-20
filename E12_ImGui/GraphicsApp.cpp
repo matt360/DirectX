@@ -316,13 +316,21 @@ void GraphicsApp::gui()
 		ImGui::Begin("Specular Light", &specularLightExample.example);
 		if (ImGui::Button("Reset Example"))
 		{
+			// reset camera
 			camera->resetCamera();
+			// reset scale
+			specularLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+			// reset wireframe
 			specularLightExample.wireframe = false;
 			// reset geometry shader primitive topology
 			geometryExample.d3d11_primitive_topology_trianglelist = true;
 			geometryExample.d3d11_primitive_topology_pointlist = false;
 		}
 		ImGui::Checkbox("Wireframe", &specularLightExample.wireframe);
+		// scale
+		ImGui::SliderFloat3("Scale", (float*)&specularLightExample.scale, -25.0f, 25.0f);
+		// reset scale
+		if (ImGui::Button("Reset Scale")) specularLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// toggle topology
 		if (ImGui::Checkbox("Primitive Topology Trianglelist", &specularLightExample.d3d11_primitive_topology_trianglelist))
 			specularLightExample.d3d11_primitive_topology_pointlist = false;
@@ -352,6 +360,7 @@ void GraphicsApp::gui()
 		// scale
 		ImGui::SliderFloat("Scale X", (float*)&tessellationExample.scale.x, -15.0f, 15.0f);
 		ImGui::SliderFloat("Scale Z", (float*)&tessellationExample.scale.z, -15.0f, 15.0f);
+		ImGui::SliderFloat3("Scale", (float*)&tessellationExample.scale, -15.0f, 15.0f);
 		// reset scale
 		if (ImGui::Button("Reset Scale")) tessellationExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// toggle topology
