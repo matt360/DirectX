@@ -30,6 +30,8 @@ public:
 	bool example;
 	// toggle geometry meshes on/off
 	bool triangle_mesh, sphere_mesh, cube_mesh, quad_mesh, plane_mesh;
+	// toggle primitive topology list
+	bool d3d11_primitive_topology_trianglelist, d3d11_primitive_topology_pointlist;
 	// scale mesh in example
 	XMFLOAT3 scale;
 };

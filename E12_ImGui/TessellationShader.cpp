@@ -44,7 +44,7 @@ TessellationShader::~TessellationShader()
 void TessellationShader::initShader(WCHAR* vsFilename,  WCHAR* psFilename)
 {
 	D3D11_BUFFER_DESC matrixBufferDesc;
-	D3D11_BUFFER_DESC tessellationBufferDesc;
+	//D3D11_BUFFER_DESC tessellationBufferDesc;
 	D3D11_BUFFER_DESC cameraBufferDesc;
 
 	D3D11_SAMPLER_DESC samplerDesc;
