@@ -28,12 +28,19 @@ public:
 	// Mesh
 	BaseMesh* mesh;
 	inline void setMesh(BaseMesh* set_mesh) { mesh = set_mesh; }
+	inline BaseMesh* getMesh() { return mesh; }
+	inline BaseMesh& getAddress() { return *mesh; }
 	// used for moving vertices over time
 	float over_time;
+	inline float getOverTime() { return over_time; }
 	// toggle wireframe mode on/off
 	bool wireframe;
+	inline void setWireframe(bool status) { wireframe = status; }
+	inline bool getWireframe() { return wireframe; }
 	// toggle example on/off
 	bool example;
+	inline void setExample(bool status) { example = status; }
+	inline bool getExample() { return example; }
 	// toggle geometry meshes on/off
 	bool triangle_mesh, sphere_mesh, cube_mesh, quad_mesh, plane_mesh;
 	// toggle primitive topology list
