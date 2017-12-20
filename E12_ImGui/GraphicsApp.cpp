@@ -312,65 +312,8 @@ void GraphicsApp::gui()
 	// EXAMPLE WINDOWS //
 	// SPECULAR LIGHT EXAMPLE WINDOW
 	specularLightExample.gui(camera);
-	//if (specularLightExample.example)
-	//{
-	//	ImGui::Begin("Specular Light", &specularLightExample.example);
-	//	if (ImGui::Button("Reset Example"))
-	//	{
-	//		// reset camera
-	//		camera->resetCamera();
-	//		// reset scale
-	//		specularLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-	//		// reset wireframe
-	//		specularLightExample.wireframe = false;
-	//		// reset geometry shader primitive topology
-	//		specularLightExample.d3d11_primitive_topology_trianglelist = true;
-	//		specularLightExample.d3d11_primitive_topology_pointlist = false;
-	//	}
-	//	ImGui::Checkbox("Wireframe", &specularLightExample.wireframe);
-	//	// scale
-	//	ImGui::SliderFloat3("Scale", (float*)&specularLightExample.scale, -25.0f, 25.0f);
-	//	// reset scale
-	//	if (ImGui::Button("Reset Scale")) specularLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-	//	// toggle topology
-	//	if (ImGui::Checkbox("Primitive Topology Trianglelist", &specularLightExample.d3d11_primitive_topology_trianglelist))
-	//		specularLightExample.d3d11_primitive_topology_pointlist = false;
-	//	if (ImGui::Checkbox("Primitive Topology Pointlist", &specularLightExample.d3d11_primitive_topology_pointlist))
-	//		specularLightExample.d3d11_primitive_topology_trianglelist = false;
-	//	ImGui::End();
-	//}
 	// TESSELLATION EXAMPLE WINDOW
-	if (tessellationExample.example)
-	{
-		ImGui::Begin("Tessellation", &tessellationExample.example);
-		if (ImGui::Button("Reset Example"))
-		{
-			// set tessellation camera
-			camera->setPosition(0.0f, 4.75f, -10.0f);
-			camera->setRotation(0.0f, 30.0f, 0.0f);
-			// reset terrain scale
-			tessellationExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-			// reset wireframe
-			tessellationExample.wireframe = false;
-			// reset geometry shader primitive topology
-			tessellationExample.d3d11_primitive_topology_trianglelist = true;
-			tessellationExample.d3d11_primitive_topology_pointlist = false;
-		}
-		// wireframe
-		ImGui::Checkbox("Wireframe", &tessellationExample.wireframe);
-		// scale
-		ImGui::SliderFloat("Scale X", (float*)&tessellationExample.scale.x, -15.0f, 15.0f);
-		ImGui::SliderFloat("Scale Z", (float*)&tessellationExample.scale.z, -15.0f, 15.0f);
-		ImGui::SliderFloat3("Scale", (float*)&tessellationExample.scale, -15.0f, 15.0f);
-		// reset scale
-		if (ImGui::Button("Reset Scale")) tessellationExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-		// toggle topology
-		/*if (ImGui::Checkbox("Primitive Topology Trianglelist", &tessellationExample.d3d11_primitive_topology_trianglelist))
-			tessellationExample.d3d11_primitive_topology_pointlist = false;
-		if (ImGui::Checkbox("Primitive Topology Pointlist", &tessellationExample.d3d11_primitive_topology_pointlist))
-			tessellationExample.d3d11_primitive_topology_trianglelist = false;*/
-		ImGui::End();
-	}
+	tessellationExample.gui(camera);
 	// TERRAIN EXAMPLE WINDOW
 	if (terrainExample.example)
 	{

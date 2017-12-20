@@ -74,3 +74,38 @@ void TessellationExample::render(D3D * renderer, Camera * camera, BaseMesh * mes
 	// Render object (combination of mesh geometry and shader process
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
+
+void TessellationExample::gui(Camera * camera)
+{
+	if (example)
+	{
+		ImGui::Begin("Tessellation", &example);
+		if (ImGui::Button("Reset Example"))
+		{
+			// set tessellation camera
+			camera->setPosition(0.0f, 4.75f, -10.0f);
+			camera->setRotation(0.0f, 30.0f, 0.0f);
+			// reset terrain scale
+			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+			// reset wireframe
+			wireframe = false;
+			// reset geometry shader primitive topology
+			d3d11_primitive_topology_trianglelist = true;
+			d3d11_primitive_topology_pointlist = false;
+		}
+		// wireframe
+		ImGui::Checkbox("Wireframe", &wireframe);
+		// scale
+		ImGui::SliderFloat("Scale X", (float*)&scale.x, -15.0f, 15.0f);
+		ImGui::SliderFloat("Scale Z", (float*)&scale.z, -15.0f, 15.0f);
+		ImGui::SliderFloat3("Scale", (float*)&scale, -15.0f, 15.0f);
+		// reset scale
+		if (ImGui::Button("Reset Scale")) scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		// toggle topology
+		/*if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
+		d3d11_primitive_topology_pointlist = false;
+		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
+		d3d11_primitive_topology_trianglelist = false;*/
+		ImGui::End();
+	}
+}
