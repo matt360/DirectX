@@ -97,6 +97,7 @@ void GraphicsApp::initExamples()
 	tessellationExample = new TessellationExample;
 	multiLightExample = new MultiLightExample;
 	geometryExample = new GeometryExample;
+	specularLightExample->mesh_choice = MESH_CHOICE::SPHERE;
 }
 
 void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -178,7 +179,7 @@ void GraphicsApp::gui()
 		camera->resetCamera();
 	}
 	// CHOOSE SPECULAR LIGHT EXAMPLE
-	if (ImGui::Button("Specular Light Example"))
+	else if (ImGui::Button("Specular Light Example"))
 	{ 
 		// set choice
 		example_choice = EXAMPLE_CHOICE::SPECULAR_LIGHT;
@@ -194,7 +195,7 @@ void GraphicsApp::gui()
 		camera->resetCamera();
 	}
 	// CHOOSE TESSELLATION EXAMPLE
-	if (ImGui::Button("Tessellation Example"))
+	else if (ImGui::Button("Tessellation Example"))
 	{
 		// set choice
 		example_choice = EXAMPLE_CHOICE::TESSELLATION;
@@ -211,7 +212,7 @@ void GraphicsApp::gui()
 		camera->setRotation(0.0f, 30.0f, 0.0f);
 	}
 	// CHOOSE TERRAIN EXAMPLE 
-	if (ImGui::Button("Terrain Example"))
+	else if (ImGui::Button("Terrain Example"))
 	{
 		// set choice
 		example_choice = EXAMPLE_CHOICE::TERRAIN;
@@ -229,7 +230,7 @@ void GraphicsApp::gui()
 		terrainExample->wireframe = false;
 	}
 	// CHOOSE MULTI LIGHT EXAMPLE
-	if (ImGui::Button("Multi Light Example"))
+	else if (ImGui::Button("Multi Light Example"))
 	{
 		// set choice
 		example_choice = EXAMPLE_CHOICE::MULTILIGHT;
@@ -265,7 +266,7 @@ void GraphicsApp::gui()
 		multiLightExample->wireframe = false;
 	}
 	// CHOOSE GEOMETRY SHADER EXAMPLE 
-	if (ImGui::Button("Geometry Shader Example"))
+	else if (ImGui::Button("Geometry Shader Example"))
 	{
 		// set choice
 		example_choice = EXAMPLE_CHOICE::GEOMETRY;
