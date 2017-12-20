@@ -150,7 +150,7 @@ bool GraphicsApp::render()
 	chooseExample(example_choice);
 
 	// render example
-	example->mesh = chooseMesh(example->mesh_choice);
+	example->setMesh(chooseMesh(example->mesh_choice));
 	example->render(renderer, camera, textureMgr);
 	
 	// Render GUI
