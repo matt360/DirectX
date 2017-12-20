@@ -90,3 +90,35 @@ void SpecularLightExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh,
 	// Render object (combination of mesh geometry and shader process
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
+
+void SpecularLightExample::gui()
+{
+	// SPECULAR LIGHT EXAMPLE WINDOW
+	if (specularLightExample.example)
+	{
+		ImGui::Begin("Specular Light", &specularLightExample.example);
+		if (ImGui::Button("Reset Example"))
+		{
+			// reset camera
+			camera->resetCamera();
+			// reset scale
+			specularLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+			// reset wireframe
+			specularLightExample.wireframe = false;
+			// reset geometry shader primitive topology
+			geometryExample.d3d11_primitive_topology_trianglelist = true;
+			geometryExample.d3d11_primitive_topology_pointlist = false;
+		}
+		ImGui::Checkbox("Wireframe", &specularLightExample.wireframe);
+		// scale
+		ImGui::SliderFloat3("Scale", (float*)&specularLightExample.scale, -25.0f, 25.0f);
+		// reset scale
+		if (ImGui::Button("Reset Scale")) specularLightExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		// toggle topology
+		if (ImGui::Checkbox("Primitive Topology Trianglelist", &specularLightExample.d3d11_primitive_topology_trianglelist))
+			specularLightExample.d3d11_primitive_topology_pointlist = false;
+		if (ImGui::Checkbox("Primitive Topology Pointlist", &specularLightExample.d3d11_primitive_topology_pointlist))
+			specularLightExample.d3d11_primitive_topology_trianglelist = false;
+		ImGui::End();
+	}
+}
