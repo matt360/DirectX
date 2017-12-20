@@ -289,8 +289,6 @@ void GraphicsApp::gui()
 		multiLightExample.example = false;
 		geometryExample.example ^= 1;
 
-		// set wireframe
-		geometryExample.wireframe = false;
 		// reset geometry shader scale
 		geometryExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// reset geometry shader primitive topology
@@ -303,6 +301,8 @@ void GraphicsApp::gui()
 		geometryExample.cube_mesh = true;
 		geometryExample.quad_mesh = false;
 		geometryExample.plane_mesh = false;
+		// set wireframe
+		geometryExample.wireframe = false;
 
 		// set the camera
 		camera->setPosition(13.0f, 4.0f, -22.0f);
@@ -318,6 +318,9 @@ void GraphicsApp::gui()
 		{
 			camera->resetCamera();
 			specularLightExample.wireframe = false;
+			// reset geometry shader primitive topology
+			geometryExample.d3d11_primitive_topology_trianglelist = true;
+			geometryExample.d3d11_primitive_topology_pointlist = false;
 		}
 		ImGui::Checkbox("Wireframe", &specularLightExample.wireframe);
 		ImGui::End();
@@ -332,6 +335,9 @@ void GraphicsApp::gui()
 			camera->setPosition(0.0f, 4.75f, -10.0f);
 			camera->setRotation(0.0f, 30.0f, 0.0f);
 			tessellationExample.wireframe = false;
+			// reset geometry shader primitive topology
+			geometryExample.d3d11_primitive_topology_trianglelist = true;
+			geometryExample.d3d11_primitive_topology_pointlist = false;
 		}
 		ImGui::Checkbox("Wireframe", &tessellationExample.wireframe);
 		ImGui::End();
@@ -349,6 +355,9 @@ void GraphicsApp::gui()
 			terrainExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 			// reset terrain wireframe mode
 			terrainExample.wireframe = false;
+			// reset geometry shader primitive topology
+			geometryExample.d3d11_primitive_topology_trianglelist = true;
+			geometryExample.d3d11_primitive_topology_pointlist = false;
 		}
 		ImGui::Checkbox("Wireframe", &terrainExample.wireframe);
 		ImGui::SliderFloat("Scale X", (float*)&terrainExample.scale.x, -15.0f, 15.0f);
@@ -387,6 +396,9 @@ void GraphicsApp::gui()
 			multiLightExample.plane_mesh = false;
 			// reset wireframe
 			multiLightExample.wireframe = false;
+			// reset geometry shader primitive topology
+			geometryExample.d3d11_primitive_topology_trianglelist = true;
+			geometryExample.d3d11_primitive_topology_pointlist = false;
 		}
 		ImGui::Checkbox("Wireframe", &multiLightExample.wireframe);
 		// change lights' colour
