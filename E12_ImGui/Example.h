@@ -19,10 +19,10 @@ class Example
 {
 public:
 	Example() {}
-	~Example() {}
+	virtual ~Example() {}
 
 	virtual void initShader(D3D * renderer, HWND hwnd) = 0;
-	
+	//virtual void render(renderer, camera, textureMgr) = 0;
 	// Mesh choice
 	MESH_CHOICE mesh_choice;
 	// Mesh
