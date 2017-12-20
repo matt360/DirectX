@@ -146,56 +146,9 @@ bool GraphicsApp::render()
 
 	camera->update();
 
-	/*if (specularLightExample->example) {
-		specularLightExample->mesh = chooseMesh(specularLightExample->mesh_choice);
-		specularLightExample->render(renderer, camera, textureMgr);
-	}
-	else if (tessellationExample.example) {
-		tessellationExample.mesh = chooseMesh(tessellationExample.mesh_choice);
-		tessellationExample.render(renderer, camera, textureMgr);
-	}
-	else if (terrainExample.example) {
-		terrainExample.mesh = chooseMesh(terrainExample.mesh_choice);
-		terrainExample.render(renderer, camera, textureMgr);
-	}
-	else if (multiLightExample.example) {
-		multiLightExample.mesh = chooseMesh(multiLightExample.mesh_choice);
-		multiLightExample.render(renderer, camera, textureMgr);
-	}
-	else if (geometryExample.example) {
-		geometryExample.mesh = chooseMesh(geometryExample.mesh_choice);
-		geometryExample.render(renderer, camera, textureMgr);
-	}
-*/
 	// choose example
-	//chooseExample(ENUM_EXAMPLE enum_example);
+	chooseExample(example_choice);
 
-	switch (example_choice)
-	{
-		case EXAMPLE_CHOICE::SPECULAR_LIGHT:
-			example = specularLightExample;
-			break;
-
-		case EXAMPLE_CHOICE::TESSELLATION:
-			example = tessellationExample;
-			break;
-
-		case EXAMPLE_CHOICE::TERRAIN:
-			example = terrainExample;
-			break;
-
-		case EXAMPLE_CHOICE::MULTILIGHT:
-			example = multiLightExample;
-			break;
-
-		case EXAMPLE_CHOICE::GEOMETRY:
-			example = geometryExample;
-			break;
-
-		default:
-			example = specularLightExample;
-			break;
-	}
 	// render example
 	example->mesh = chooseMesh(example->mesh_choice);
 	example->render(renderer, camera, textureMgr);
@@ -351,6 +304,36 @@ void GraphicsApp::gui()
 
 	// Render UI
 	ImGui::Render();
+}
+
+void GraphicsApp::chooseExample(const EXAMPLE_CHOICE & example_choice)
+{
+	switch (example_choice)
+	{
+	case EXAMPLE_CHOICE::SPECULAR_LIGHT:
+		example = specularLightExample;
+		break;
+
+	case EXAMPLE_CHOICE::TESSELLATION:
+		example = tessellationExample;
+		break;
+
+	case EXAMPLE_CHOICE::TERRAIN:
+		example = terrainExample;
+		break;
+
+	case EXAMPLE_CHOICE::MULTILIGHT:
+		example = multiLightExample;
+		break;
+
+	case EXAMPLE_CHOICE::GEOMETRY:
+		example = geometryExample;
+		break;
+
+	default:
+		example = specularLightExample;
+		break;
+	}
 }
 
 BaseMesh* GraphicsApp::chooseMesh(const MESH_CHOICE& mesh_choice)
