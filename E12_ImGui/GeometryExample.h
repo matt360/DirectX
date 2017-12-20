@@ -17,7 +17,6 @@ public:
 	MESH mesh_choice = MESH::CUBE;
 	GeometryShader* shader;
 	BaseMesh* mesh;
-	bool triangle_mesh, sphere_mesh, cube_mesh, quad_mesh, plane_mesh;
 	bool d3d11_primitive_topology_trianglelist, d3d11_primitive_topology_pointlist;
 };
 

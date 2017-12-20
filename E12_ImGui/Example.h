@@ -19,12 +19,12 @@ public:
 	Example() {}
 	~Example() {}
 
-
 	virtual void initShader(D3D * renderer, HWND hwnd) = 0;
 	
 	float over_time;
 	bool wireframe;
 	bool example;
+	bool triangle_mesh, sphere_mesh, cube_mesh, quad_mesh, plane_mesh;
 	XMFLOAT3 scale;
 };
 
