@@ -18,9 +18,6 @@ public:
 	// shader handler
 	MultiLightShader* shader;
 
-	MESH_CHOICE mesh_choice = MESH_CHOICE::SPHERE;
-	BaseMesh* mesh;
-	
 	Light *light0_, *light1_, *light2_, *light3_;
 	ImVec4 light0_col, light1_col, light2_col, light3_col;
 	XMFLOAT3 light0_pos, light1_pos, light2_pos, light3_pos;

@@ -11,7 +11,8 @@ enum class MESH_CHOICE {
 	SPHERE,
 	CUBE,
 	QUAD,
-	PLANE 
+	PLANE,
+	TERRAIN
 };
 
 class Example
@@ -22,6 +23,11 @@ public:
 
 	virtual void initShader(D3D * renderer, HWND hwnd) = 0;
 	
+	// Mesh choice
+	MESH_CHOICE mesh_choice;
+	// Mesh
+	BaseMesh* mesh;
+	inline void setMesh(BaseMesh* set_mesh) { mesh = set_mesh; }
 	// used for moving vertices over time
 	float over_time;
 	// toggle wireframe mode on/off

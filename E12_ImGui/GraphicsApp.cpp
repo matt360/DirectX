@@ -129,13 +129,16 @@ bool GraphicsApp::render()
 	camera->update();
 
 	if (specularLightExample.example) {
-		specularLightExample.render(renderer, camera, sphereMesh, textureMgr);
+		specularLightExample.mesh = chooseMesh(specularLightExample.mesh_choice);
+		specularLightExample.render(renderer, camera, textureMgr);
 	}
 	else if (tessellationExample.example) {
-		tessellationExample.render(renderer, camera, terrainMesh, textureMgr);
+		tessellationExample.mesh = chooseMesh(tessellationExample.mesh_choice);
+		tessellationExample.render(renderer, camera, textureMgr);
 	}
 	else if (terrainExample.example) {
-		terrainExample.render(renderer, camera, terrainMesh, textureMgr);
+		terrainExample.mesh = chooseMesh(terrainExample.mesh_choice);
+		terrainExample.render(renderer, camera, textureMgr);
 	}
 	else if (multiLightExample.example) {
 		multiLightExample.mesh = chooseMesh(multiLightExample.mesh_choice);
@@ -179,6 +182,7 @@ void GraphicsApp::gui()
 		multiLightExample.example = false;
 		geometryExample.example = false;
 
+		specularLightExample.mesh_choice = MESH_CHOICE::SPHERE;
 		specularLightExample.wireframe = false;
 		// set specular light camera
 		camera->resetCamera();
@@ -192,6 +196,7 @@ void GraphicsApp::gui()
 		multiLightExample.example = false;
 		geometryExample.example = false;
 
+		tessellationExample.mesh_choice = MESH_CHOICE::TERRAIN;
 		tessellationExample.wireframe = false;
 		// set tessellation camera
 		camera->setPosition(0.0f, 4.75f, -10.0f);
@@ -206,6 +211,7 @@ void GraphicsApp::gui()
 		multiLightExample.example = false;
 		geometryExample.example = false;
 
+		terrainExample.mesh_choice = MESH_CHOICE::TERRAIN;
 		// set terrain camera
 		camera->setPosition(0.0f, 2.0f, -10.0f);
 		camera->setRotation(0.0f, -200.0f, 0.0f);
@@ -309,6 +315,10 @@ BaseMesh* GraphicsApp::chooseMesh(const MESH_CHOICE& mesh_choice)
 
 	case MESH_CHOICE::PLANE:
 		temp_mesh = planeMesh;
+		break;
+
+	case MESH_CHOICE::TERRAIN:
+		temp_mesh = terrainMesh;
 		break;
 
 	default:

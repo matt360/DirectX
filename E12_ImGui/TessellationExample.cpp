@@ -27,6 +27,7 @@ void TessellationExample::initShader(D3D * renderer, HWND hwnd)
 
 void TessellationExample::initVariables()
 {
+	MESH_CHOICE mesh_choice = MESH_CHOICE::TERRAIN;
 	over_time = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
@@ -34,7 +35,7 @@ void TessellationExample::initVariables()
 	d3d11_primitive_topology_pointlist = false;
 }
 
-void TessellationExample::render(D3D * renderer, Camera * camera, BaseMesh * mesh, TextureManager * textureMgr)
+void TessellationExample::render(D3D * renderer, Camera * camera, TextureManager * textureMgr)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 

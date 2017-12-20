@@ -16,7 +16,6 @@ public:
 	void gui(Camera* camera);
 
 	// shader handler
-	MESH_CHOICE mesh_choice = MESH_CHOICE::CUBE;
 	GeometryShader* shader;
 	BaseMesh* mesh;
 };

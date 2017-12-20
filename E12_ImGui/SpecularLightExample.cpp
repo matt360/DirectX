@@ -35,6 +35,7 @@ void SpecularLightExample::initShader(D3D* renderer, HWND hwnd)
 
 void SpecularLightExample::initVariables()
 {
+	MESH_CHOICE mesh_choice = MESH_CHOICE::SPHERE;
 	over_time = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
@@ -53,7 +54,7 @@ void SpecularLightExample::initLight()
 	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
-void SpecularLightExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, TextureManager* textureMgr)
+void SpecularLightExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
