@@ -94,3 +94,38 @@ void TerrainExample::render(D3D* renderer, Camera* camera, BaseMesh* mesh, Textu
 	// Render object (combination of mesh geometry and shader process
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount()); // output data from the shader programme
 }
+
+void TerrainExample::gui(Camera * camera)
+{
+	if (example)
+	{
+		ImGui::Begin("Terrain", &example);
+		if (ImGui::Button("Reset Example"))
+		{
+			// set terrain camera
+			camera->setPosition(0.0f, 2.0f, -10.0f);
+			camera->setRotation(0.0f, -200.0f, 0.0f);
+			// reset terrain scale
+			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+			// reset terrain wireframe mode
+			wireframe = false;
+			// reset geometry shader primitive topology
+			d3d11_primitive_topology_trianglelist = true;
+			d3d11_primitive_topology_pointlist = false;
+		}
+		// wireframe
+		ImGui::Checkbox("Wireframe", &wireframe);
+		// scale
+		ImGui::SliderFloat("Scale X", (float*)&scale.x, -15.0f, 15.0f);
+		ImGui::SliderFloat("Scale Y", (float*)&scale.y, -15.0f, 15.0f);
+		ImGui::SliderFloat("Scale Z", (float*)&scale.z, -15.0f, 15.0f);
+		// reset scale
+		if (ImGui::Button("Reset Scale")) scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		// toggle topology
+		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
+			d3d11_primitive_topology_pointlist = false;
+		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
+			d3d11_primitive_topology_trianglelist = false;
+		ImGui::End();
+	}
+}

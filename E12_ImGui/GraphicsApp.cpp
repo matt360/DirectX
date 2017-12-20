@@ -315,37 +315,7 @@ void GraphicsApp::gui()
 	// TESSELLATION EXAMPLE WINDOW
 	tessellationExample.gui(camera);
 	// TERRAIN EXAMPLE WINDOW
-	if (terrainExample.example)
-	{
-		ImGui::Begin("Terrain", &terrainExample.example);
-		if (ImGui::Button("Reset Example"))
-		{
-			// set terrain camera
-			camera->setPosition(0.0f, 2.0f, -10.0f);
-			camera->setRotation(0.0f, -200.0f, 0.0f);
-			// reset terrain scale
-			terrainExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-			// reset terrain wireframe mode
-			terrainExample.wireframe = false;
-			// reset geometry shader primitive topology
-			terrainExample.d3d11_primitive_topology_trianglelist = true;
-			terrainExample.d3d11_primitive_topology_pointlist = false;
-		}
-		// wireframe
-		ImGui::Checkbox("Wireframe", &terrainExample.wireframe);
-		// scale
-		ImGui::SliderFloat("Scale X", (float*)&terrainExample.scale.x, -15.0f, 15.0f);
-		ImGui::SliderFloat("Scale Y", (float*)&terrainExample.scale.y, -15.0f, 15.0f);
-		ImGui::SliderFloat("Scale Z", (float*)&terrainExample.scale.z, -15.0f, 15.0f);
-		// reset scale
-		if (ImGui::Button("Reset Scale")) terrainExample.scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-		// toggle topology
-		if (ImGui::Checkbox("Primitive Topology Trianglelist", &terrainExample.d3d11_primitive_topology_trianglelist))
-			terrainExample.d3d11_primitive_topology_pointlist = false;
-		if (ImGui::Checkbox("Primitive Topology Pointlist", &terrainExample.d3d11_primitive_topology_pointlist))
-			terrainExample.d3d11_primitive_topology_trianglelist = false;
-		ImGui::End();
-	}
+	terrainExample.gui(camera);
 	// MULTI LIGHT EXAMPLE WINDOW
 	if (multiLightExample.example)
 	{
