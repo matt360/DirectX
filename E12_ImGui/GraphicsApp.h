@@ -31,6 +31,7 @@ protected:
 private:
 	// CONSTRUCTOR FUNCTIONS
 	void initGeometry();
+	void initExamples();
 	void loadTextures();
 
 	// MESHES
@@ -42,11 +43,11 @@ private:
 	TerrainMesh *terrainMesh;
 
 	// EXAMPLES
-	SpecularLightExample specularLightExample;
-	TessellationExample tessellationExample;
-	TerrainExample terrainExample;
-	MultiLightExample multiLightExample;
-	GeometryExample geometryExample;
+	SpecularLightExample* specularLightExample;
+	TessellationExample* tessellationExample;
+	TerrainExample* terrainExample;
+	MultiLightExample* multiLightExample;
+	GeometryExample* geometryExample;
 	Example* example;
 	EXAMPLE_CHOICE example_choice;
 

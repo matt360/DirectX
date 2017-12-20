@@ -17,6 +17,5 @@ public:
 
 	// shader handler
 	GeometryShader* shader;
-	BaseMesh* mesh;
 };
 
