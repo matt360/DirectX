@@ -47,6 +47,10 @@ void TessellationExample::render(D3D * renderer, Camera * camera, BaseMesh * mes
 	// wireframe mode
 	renderer->setWireframeMode(wireframe);
 
+	// Set primitive topology
+	/*D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
+	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST;
+	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_1_CONTROL_POINT_PATCHLIST;*/
 
 	// Send geometry data (from mesh)
 	mesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);

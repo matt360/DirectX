@@ -75,6 +75,7 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 	cubeMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	*/
 
+	// Set primitive topology
 	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
 	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;

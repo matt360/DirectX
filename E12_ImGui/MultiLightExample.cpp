@@ -176,8 +176,13 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 	// wireframe mode
 	renderer->setWireframeMode(wireframe);
 
+	// Set primitive topology
+	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
+	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
+
 	// Send geometry data (from mesh)
-	mesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	mesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 
 	// Set shader parameters (matrices and texture)
 	//multiLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);

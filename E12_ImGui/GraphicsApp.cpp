@@ -347,10 +347,10 @@ void GraphicsApp::gui()
 		// wireframe
 		ImGui::Checkbox("Wireframe", &tessellationExample.wireframe);
 		// toggle topology
-		if (ImGui::Checkbox("Primitive Topology Trianglelist", &tessellationExample.d3d11_primitive_topology_trianglelist))
+		/*if (ImGui::Checkbox("Primitive Topology Trianglelist", &tessellationExample.d3d11_primitive_topology_trianglelist))
 			tessellationExample.d3d11_primitive_topology_pointlist = false;
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &tessellationExample.d3d11_primitive_topology_pointlist))
-			tessellationExample.d3d11_primitive_topology_trianglelist = false;
+			tessellationExample.d3d11_primitive_topology_trianglelist = false;*/
 		ImGui::End();
 	}
 	// TERRAIN EXAMPLE WINDOW
