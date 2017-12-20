@@ -201,4 +201,124 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
 
+void MultiLightExample::gui(Camera * camera)
+{
+	if (example)
+	{
+		ImGui::Begin("Multi Light Example", &example);
+		if (ImGui::Button("Reset Example"))
+		{
+			// set multi light camera
+			camera->setPosition(0.0f, 0.0f, -4.75f);
+			camera->setRotation(0.0f, 0.f, 0.f);
+			// scale up sphere mesh
+			scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
+			// reset light colours
+			light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
+			light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
+			light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
+			light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
+			// reset light positions
+			light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
+			light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
+			light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
+			light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
+			// render only sphere mesh
+			mesh_choice = MESH_CHOICE::SPHERE;
+			triangle_mesh = false;
+			sphere_mesh = true;
+			cube_mesh = false;
+			quad_mesh = false;
+			plane_mesh = false;
+			// reset wireframe
+			wireframe = false;
+			// reset geometry shader primitive topology
+			d3d11_primitive_topology_trianglelist = true;
+			d3d11_primitive_topology_pointlist = false;
+		}
+		ImGui::Checkbox("Wireframe", &wireframe);
+		// change lights' colour
+		ImGui::ColorEdit3("Light 0 Col", (float*)&light0_col);
+		ImGui::ColorEdit3("Light 1 Col", (float*)&light1_col);
+		ImGui::ColorEdit3("Light 2 Col", (float*)&light2_col);
+		ImGui::ColorEdit3("Light 3 Col", (float*)&light3_col);
+		// change lights' position
+		ImGui::SliderFloat3("Light 0 Pos", (float*)&light0_pos, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 1 Pos", (float*)&light1_pos, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 2 Pos", (float*)&light2_pos, -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 3 Pos", (float*)&light3_pos, -10.0f, 10.0f);
+		// scale
+		ImGui::SliderFloat3("Scale", (float*)&scale, -20.0f, 20.0f);
+		// reset scale
+		if (ImGui::Button("Reset Scale")) scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		// toggle topology
+		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
+			d3d11_primitive_topology_pointlist = false;
+		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
+			d3d11_primitive_topology_trianglelist = false;
+		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
+		if (ImGui::Checkbox("Triangle Mesh", &triangle_mesh))
+		{
+			// set multi light camera
+			camera->setPosition(0.0f, 0.0f, -4.75f);
+
+			mesh_choice = MESH_CHOICE::TRIANGLE;
+			triangle_mesh = true;
+			sphere_mesh = false;
+			cube_mesh = false;
+			quad_mesh = false;
+			plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Sphere Mesh", &sphere_mesh))
+		{
+			// set multi light camera
+			camera->setPosition(0.0f, 0.0f, -4.75f);
+
+			mesh_choice = MESH_CHOICE::SPHERE;
+			triangle_mesh = false;
+			sphere_mesh = true;
+			cube_mesh = false;
+			quad_mesh = false;
+			plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Cube Mesh", &cube_mesh))
+		{
+			// set multi light camera
+			camera->setPosition(0.0f, 0.0f, -4.75f);
+
+			mesh_choice = MESH_CHOICE::CUBE;
+			triangle_mesh = false;
+			sphere_mesh = false;
+			cube_mesh = true;
+			quad_mesh = false;
+			plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Quad Mesh", &quad_mesh))
+		{
+			// set multi light camera
+			camera->setPosition(0.0f, 0.0f, -4.75f);
+
+			mesh_choice = MESH_CHOICE::QUAD;
+			triangle_mesh = false;
+			sphere_mesh = false;
+			cube_mesh = false;
+			quad_mesh = true;
+			plane_mesh = false;
+		}
+		if (ImGui::Checkbox("Plane Mesh", &plane_mesh))
+		{
+			camera->setPosition(0.0f, 3.0f, 0.0f);
+			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+
+			mesh_choice = MESH_CHOICE::PLANE;
+			triangle_mesh = false;
+			sphere_mesh = false;
+			cube_mesh = false;
+			quad_mesh = false;
+			plane_mesh = true;
+		}
+		ImGui::End();
+	}
+}
+
 
