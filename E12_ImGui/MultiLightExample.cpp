@@ -81,11 +81,7 @@ void MultiLightExample::initVariables()
 void MultiLightExample::initLight()
 {
 	// lights' positions
-	lights_.at(0)->setPosition(-3.0f, 0.1f, 3.0f);
-	lights_.at(1)->setPosition(3.0f, 0.1f, 3.0f);
-	lights_.at(2)->setPosition(-3.0f, 0.1f, -3.0f);
-	lights_.at(3)->setPosition(3.0f, 0.1f, -3.0f);
-	
+	// TODO integrate light_positions with light
 	for (int i = 0; i < number_of_lights_; ++i)
 	{
 		if (i % 4 == 0)
@@ -246,10 +242,10 @@ void MultiLightExample::resetExample(Camera* camera)
 	light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
 	light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
 	// reset light positions
-	light_positions_.at(0)->operator=(XMFLOAT4(-3.0f, 0.1f, 3.0f, 1.0f));
+	/*light_positions_.at(0)->operator=(XMFLOAT4(-3.0f, 0.1f, 3.0f, 1.0f));
 	light_positions_.at(1)->operator=(XMFLOAT4(3.0f, 0.1f, 3.0f, 1.0f));
 	light_positions_.at(2)->operator=(XMFLOAT4(-3.0f, 0.1f, -3.0f, 1.0f));
-	light_positions_.at(3)->operator=(XMFLOAT4(3.0f, 0.1f, -3.0f, 1.0f));
+	light_positions_.at(3)->operator=(XMFLOAT4(3.0f, 0.1f, -3.0f, 1.0f));*/
 	// render only sphere mesh
 	mesh_choice = MESH_CHOICE::SPHERE;
 	triangle_mesh = false;
