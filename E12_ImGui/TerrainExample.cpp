@@ -103,16 +103,7 @@ void TerrainExample::gui(Camera* camera)
 		ImGui::Begin("Terrain", &example);
 		if (ImGui::Button("Reset Example"))
 		{
-			// set terrain camera
-			camera->setPosition(0.0f, 2.0f, -10.0f);
-			camera->setRotation(0.0f, -200.0f, 0.0f);
-			// reset terrain scale
-			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-			// reset terrain wireframe mode
-			wireframe = false;
-			// reset geometry shader primitive topology
-			d3d11_primitive_topology_trianglelist = true;
-			d3d11_primitive_topology_pointlist = false;
+			resetExample(camera);
 		}
 		// wireframe
 		ImGui::Checkbox("Wireframe", &wireframe);
@@ -129,4 +120,19 @@ void TerrainExample::gui(Camera* camera)
 			d3d11_primitive_topology_trianglelist = false;
 		ImGui::End();
 	}
+}
+
+void TerrainExample::resetExample(Camera * camera)
+{
+	mesh_choice = MESH_CHOICE::TERRAIN;
+	// set terrain camera
+	camera->setPosition(0.0f, 2.0f, -10.0f);
+	camera->setRotation(0.0f, -200.0f, 0.0f);
+	// reset terrain scale
+	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// reset terrain wireframe mode
+	wireframe = false;
+	// reset geometry shader primitive topology
+	d3d11_primitive_topology_trianglelist = true;
+	d3d11_primitive_topology_pointlist = false;
 }

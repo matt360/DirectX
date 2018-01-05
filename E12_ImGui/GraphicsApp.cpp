@@ -222,12 +222,7 @@ void GraphicsApp::gui()
 		multiLightExample->example = false;
 		geometryExample->example = false;
 
-		terrainExample->mesh_choice = MESH_CHOICE::TERRAIN;
-		// set terrain camera
-		camera->setPosition(0.0f, 2.0f, -10.0f);
-		camera->setRotation(0.0f, -200.0f, 0.0f);
-		// reset terrain wireframe mode
-		terrainExample->wireframe = false;
+		terrainExample->resetExample(camera);
 	}
 	// CHOOSE MULTI LIGHT EXAMPLE
 	else if (ImGui::Button("Multi Light Example"))
