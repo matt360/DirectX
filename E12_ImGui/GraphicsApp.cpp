@@ -103,6 +103,7 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 {
 	// Call super init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
+	// set default example to render
 	example_choice = EXAMPLE_CHOICE::SPECULAR_LIGHT;
 
 	loadTextures();
@@ -280,7 +281,7 @@ void GraphicsApp::gui()
 
 		// reset geometry shader scale
 		geometryExample->scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-		// reset geometry shader primitive topology
+		// TODO (delete) reset geometry shader primitive topology
 		//geometryExample->d3d11_primitive_topology_trianglelist = true;
 		//geometryExample->d3d11_primitive_topology_pointlist = false;
 		// set cube mesh
