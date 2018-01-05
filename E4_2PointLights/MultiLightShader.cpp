@@ -12,17 +12,17 @@ MultiLightShader::MultiLightShader(ID3D11Device* device, HWND hwnd) : BaseShader
 MultiLightShader::~MultiLightShader()
 {
 	// Release the sampler state.
-	if (sampleState)
+	if (m_sampleState)
 	{
-		sampleState->Release();
-		sampleState = 0;
+		m_sampleState->Release();
+		m_sampleState = 0;
 	}
 
 	// Release the matrix constant buffer.
-	if (matrixBuffer)
+	if (m_matrixBuffer)
 	{
-		matrixBuffer->Release();
-		matrixBuffer = 0;
+		m_matrixBuffer->Release();
+		m_matrixBuffer = 0;
 	}
 
 	// Release the layout.
@@ -32,10 +32,10 @@ MultiLightShader::~MultiLightShader()
 		layout_ = 0;
 	}
 
-	if (cameraBuffer)
+	if (m_cameraBuffer)
 	{
-		cameraBuffer->Release();
-		cameraBuffer = 0;
+		m_cameraBuffer->Release();
+		m_cameraBuffer = 0;
 	}
 
 	// Release the light color constant buffer.
@@ -109,7 +109,7 @@ void MultiLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
                            // resource       resouce  a pointer to a pointer to the appropriate resource
 	                       // description,   creation 
 	                       //                method,
-	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer);
+	renderer->CreateBuffer(&matrixBufferDesc, NULL, &m_matrixBuffer);
 
 	// Create a texture sampler state description.
 	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -127,7 +127,7 @@ void MultiLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
 	// Create the texture sampler state.
-	renderer->CreateSamplerState(&samplerDesc, &sampleState);
+	renderer->CreateSamplerState(&samplerDesc, &m_sampleState);
 
 
 	// Camera buffer
@@ -138,7 +138,7 @@ void MultiLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	cameraBufferDesc.MiscFlags = 0;
 	cameraBufferDesc.StructureByteStride = 0;
 
-	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
+	renderer->CreateBuffer(&cameraBufferDesc, NULL, &m_cameraBuffer);
 
 
 	// Setup light position buffer
@@ -293,7 +293,7 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, c
 	tproj = XMMatrixTranspose(projectionMatrix);
 	
 	// Lock the constant buffer so it can be written to.
-	result = deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	result = deviceContext->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
 	// Copy the matrices into the constant buffer.
@@ -301,11 +301,11 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, c
 	dataPtr->view = tview;                  // viewMatrix
 	dataPtr->projection = tproj;            // projectionMatrix
 	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer, 0);
+	deviceContext->Unmap(m_matrixBuffer, 0);
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
 	
 	//Additional
 
@@ -402,7 +402,7 @@ void MultiLightShader::render(ID3D11DeviceContext* deviceContext, int indexCount
 {
 	// Set the sampler state in the pixel shader.
 	//deviceContext->VSSetSamplers(0, 1, &sampleState);
-	deviceContext->PSSetSamplers(0, 1, &sampleState);
+	deviceContext->PSSetSamplers(0, 1, &m_sampleState);
 
 	// Base render function.
 	BaseShader::render(deviceContext, indexCount);
