@@ -59,13 +59,13 @@ void Example::set_mesh_choice(const MESH_CHOICE msh_ch)
 		break;
 
 	// triangle mesh_choice by default
-	/*default:
+	default:
 		mesh_choice = MESH_CHOICE::TRIANGLE;
 		triangle_mesh = true;
 		sphere_mesh = false;
 		cube_mesh = false;
 		quad_mesh = false;
 		plane_mesh = false;
-		break;*/
+		break;
 	}
 }
