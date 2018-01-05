@@ -60,7 +60,7 @@ OutputType main(InputType input)
     worldPosition = mul(input.position, worldMatrix);
 
     // Determine the light positions based on the position of the lights and the position of the vertex in the world.
-    output.lightPos1.xyz = lightPosition[0].xyz - worldPosition.xyz;
+    output.xyz = lightPosition[0].xyz - worldPosition.xyz;
     output.lightPos2.xyz = lightPosition[1].xyz - worldPosition.xyz;
     output.lightPos3.xyz = lightPosition[2].xyz - worldPosition.xyz;
     output.lightPos4.xyz = lightPosition[3].xyz - worldPosition.xyz;

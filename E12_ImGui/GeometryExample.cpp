@@ -110,7 +110,7 @@ void GeometryExample::gui(Camera * camera)
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
 			d3d11_primitive_topology_trianglelist = false;
 
-		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
+		// what mesh to render
 		if (ImGui::Checkbox("Triangle Mesh", &triangle_mesh))
 		{
 			set_mesh_choice(MESH_CHOICE::TRIANGLE);
@@ -131,6 +131,7 @@ void GeometryExample::gui(Camera * camera)
 		{
 			set_mesh_choice(MESH_CHOICE::PLANE);
 		}
+
 		ImGui::End();
 	}
 }

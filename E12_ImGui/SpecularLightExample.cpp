@@ -99,6 +99,7 @@ void SpecularLightExample::gui(Camera* camera)
 	if (example)
 	{
 		ImGui::Begin("Specular Light", &example);
+
 		if (ImGui::Button("Reset Example"))
 		{
 			resetExample(camera);
@@ -113,6 +114,7 @@ void SpecularLightExample::gui(Camera* camera)
 			d3d11_primitive_topology_pointlist = false;
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
 			d3d11_primitive_topology_trianglelist = false;
+
 		ImGui::End();
 	}
 }
