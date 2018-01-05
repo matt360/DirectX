@@ -5,17 +5,20 @@ MultiLightExample::MultiLightExample()
 	shader = nullptr;
 
 	number_of_lights_ = 4;
+
 	lights_.reserve(number_of_lights_);
 	for (int i = 0; i < number_of_lights_; ++i)
 	{
 		lights_.push_back(new Light);
 	}
 
+	light_positions_.reserve(number_of_lights_);
 	for (int i = 0; i < number_of_lights_; ++i)
 	{
 		light_positions_.push_back(new XMFLOAT3);
 	}
 
+	light_colours_.reserve(number_of_lights_);
 	for (int i = 0; i < number_of_lights_; ++i)
 	{
 		light_colours_.push_back(new XMFLOAT4);
