@@ -192,10 +192,7 @@ void GraphicsApp::gui()
 		multiLightExample->example = false;
 		geometryExample->example = false;
 
-		specularLightExample->mesh_choice = MESH_CHOICE::SPHERE;
-		specularLightExample->wireframe = false;
-		// set specular light camera
-		camera->resetCamera();
+		specularLightExample->resetExample(camera);
 	}
 	// CHOOSE TESSELLATION EXAMPLE
 	else if (ImGui::Button("Tessellation Example"))

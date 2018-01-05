@@ -101,15 +101,7 @@ void SpecularLightExample::gui(Camera* camera)
 		ImGui::Begin("Specular Light", &example);
 		if (ImGui::Button("Reset Example"))
 		{
-			// reset camera
-			camera->resetCamera();
-			// reset scale
-			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-			// reset wireframe
-			wireframe = false;
-			// reset geometry shader primitive topology
-			d3d11_primitive_topology_trianglelist = true;
-			d3d11_primitive_topology_pointlist = false;
+			resetExample(camera);
 		}
 		ImGui::Checkbox("Wireframe", &wireframe);
 		// scale
@@ -123,4 +115,17 @@ void SpecularLightExample::gui(Camera* camera)
 			d3d11_primitive_topology_trianglelist = false;
 		ImGui::End();
 	}
+}
+
+void SpecularLightExample::resetExample(Camera * camera)
+{
+	// reset camera
+	camera->resetCamera();
+	// reset scale
+	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// reset wireframe
+	wireframe = false;
+	// reset geometry shader primitive topology
+	d3d11_primitive_topology_trianglelist = true;
+	d3d11_primitive_topology_pointlist = false;
 }
