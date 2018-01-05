@@ -129,7 +129,6 @@ void MultiLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	// Create the texture sampler state.
 	renderer->CreateSamplerState(&samplerDesc, &sampleState);
 
-
 	// Camera buffer
 	cameraBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 	cameraBufferDesc.ByteWidth = sizeof(CameraBufferType);
@@ -137,9 +136,7 @@ void MultiLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	cameraBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	cameraBufferDesc.MiscFlags = 0;
 	cameraBufferDesc.StructureByteStride = 0;
-
 	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
-
 
 	// Setup light position buffer
 	// Setup the description of the light dynamic constant buffer that is in the pixel shader.
@@ -150,7 +147,6 @@ void MultiLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	lightPositionBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	lightPositionBufferDesc.MiscFlags = 0;
 	lightPositionBufferDesc.StructureByteStride = 0;
-
 	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
 	renderer->CreateBuffer(&lightPositionBufferDesc, NULL, &m_lightColorBuffer);
 
@@ -161,7 +157,6 @@ void MultiLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	lightColorBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	lightColorBufferDesc.MiscFlags = 0;
 	lightColorBufferDesc.StructureByteStride = 0;
-
 	// Create the constant buffer pointer so we can access the pixel shader constant buffer from within this class.
 	renderer->CreateBuffer(&lightColorBufferDesc, NULL, &m_lightPositionBuffer);
 }
@@ -198,7 +193,7 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, c
 	// Now set the constant buffer in the vertex shader with the updated values.
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
 	
-	//Additional
+	// ADDITIONAL
 
 	// Lock the light position constant buffer so it can be written to.
 	result = deviceContext->Map(m_lightPositionBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
