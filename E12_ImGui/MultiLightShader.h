@@ -40,7 +40,8 @@ public:
 	// When the pipeline or a resource is being manipulated,
 	// the 'device context' is used.
 	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &world, const XMMATRIX &view, const XMMATRIX &projection, 
-		ID3D11ShaderResourceView* texture, XMFLOAT4 diffuseColor[],
+		ID3D11ShaderResourceView* texture, 
+		const std::vector<XMFLOAT4*>& lightColour,
 		const std::vector<XMFLOAT3*>& lightPosition);
 	void render(ID3D11DeviceContext* deviceContext, int vertexCount);
 

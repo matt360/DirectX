@@ -129,20 +129,20 @@ void MultiLightExample::initLight()
 void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-	XMFLOAT4 diffuseColor[4];
+	/*XMFLOAT4 diffuseColor[4];
 	XMFLOAT3 lightPosition[4];
-
+*/
 	// Create the diffuse color array from the four light colors.
-	diffuseColor[0] = (*light_colours_.at(0));
+	/*diffuseColor[0] = (*light_colours_.at(0));
 	diffuseColor[1] = (*light_colours_.at(1));
 	diffuseColor[2] = (*light_colours_.at(2));
-	diffuseColor[3] = (*light_colours_.at(3));
+	diffuseColor[3] = (*light_colours_.at(3));*/
 
 	// Create the light position array from the four light positions.
-	lightPosition[0] = (*light_positions_.at(0));
+	/*lightPosition[0] = (*light_positions_.at(0));
 	lightPosition[1] = (*light_positions_.at(1));
 	lightPosition[2] = (*light_positions_.at(2));
-	lightPosition[3] = (*light_positions_.at(3));
+	lightPosition[3] = (*light_positions_.at(3));*/
 
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	if (plane_mesh) // plane
@@ -199,7 +199,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 		viewMatrix,
 		projectionMatrix,
 		textureMgr->getTexture("checkerboard"), // for the default textrue pass an empty string as a name
-		diffuseColor,
+		light_colours_,
 		light_positions_
 	);
 
