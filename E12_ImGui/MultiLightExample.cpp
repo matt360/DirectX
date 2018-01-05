@@ -86,6 +86,18 @@ void MultiLightExample::initLight()
 	lights_.at(2)->setPosition(-3.0f, 0.1f, -3.0f);
 	lights_.at(3)->setPosition(3.0f, 0.1f, -3.0f);
 	
+	for (int i = 0; i < number_of_lights_; ++i)
+	{
+		if (i % 4 == 0)
+			lights_.at(i)->setPosition(-3.0f, 0.1f, 3.0f);
+		else if (i % 3 == 0)
+			lights_.at(i)->setPosition(3.0f, 0.1f, 3.0f);
+		else if (i % 2 == 0)
+			lights_.at(i)->setPosition(-3.0f, 0.1f, -3.0f);
+		else
+			lights_.at(i)->setPosition(3.0f, 0.1f, -3.0f);
+	}
+
 	// multi light example lights' colours
 	light_colours_.at(0)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
 	light_colours_.at(1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
