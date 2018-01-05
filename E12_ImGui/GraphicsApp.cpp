@@ -97,13 +97,13 @@ void GraphicsApp::initExamples()
 	tessellationExample = new TessellationExample;
 	multiLightExample = new MultiLightExample;
 	geometryExample = new GeometryExample;
-	specularLightExample->mesh_choice = MESH_CHOICE::SPHERE;
 }
 
 void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
 {
 	// Call super init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
+	example_choice = EXAMPLE_CHOICE::SPECULAR_LIGHT;
 
 	loadTextures();
 	initGeometry();
@@ -145,6 +145,7 @@ bool GraphicsApp::render()
 	// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
 
+	// update camera
 	camera->update();
 
 	// choose example
@@ -156,6 +157,7 @@ bool GraphicsApp::render()
 	
 	// Render GUI
 	gui();
+
 	// Present the rendered scene to the screen.
 	renderer->endScene();
 
@@ -296,7 +298,7 @@ void GraphicsApp::gui()
 		camera->setRotation(0.0f, -30.0f, 5.0f);
 	}
 
-	// EXAMPLES GUI
+	// EXAMPLES' GUI
 	specularLightExample->gui(camera);
 	tessellationExample->gui(camera);
 	terrainExample->gui(camera);
@@ -307,7 +309,7 @@ void GraphicsApp::gui()
 	ImGui::Render();
 }
 
-void GraphicsApp::chooseExample(const EXAMPLE_CHOICE & example_choice)
+void GraphicsApp::chooseExample(const EXAMPLE_CHOICE& example_choice_)
 {
 	switch (example_choice)
 	{

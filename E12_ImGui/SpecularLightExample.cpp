@@ -2,6 +2,7 @@
 
 SpecularLightExample::SpecularLightExample()
 {
+
 	shader = nullptr;
 }
 
@@ -35,7 +36,7 @@ void SpecularLightExample::initShader(D3D* renderer, HWND hwnd)
 
 void SpecularLightExample::initVariables()
 {
-	MESH_CHOICE mesh_choice = MESH_CHOICE::SPHERE;
+	mesh_choice = MESH_CHOICE::SPHERE;
 	over_time = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
