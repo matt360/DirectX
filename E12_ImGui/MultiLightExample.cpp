@@ -10,6 +10,11 @@ MultiLightExample::MultiLightExample()
 	{
 		lights_.push_back(new Light);
 	}
+
+	for (int i = 0; i < number_of_lights_; ++i)
+	{
+		light_positions_.push_back(new XMFLOAT3);
+	}
 }
 
 MultiLightExample::~MultiLightExample()
@@ -30,6 +35,12 @@ MultiLightExample::~MultiLightExample()
 	{
 		delete light;
 		light = nullptr;
+	}
+
+	for (XMFLOAT3* light_position : light_positions_)
+	{
+		delete light_position;
+		light_position = nullptr;
 	}
 }
 
@@ -95,10 +106,10 @@ void MultiLightExample::initLight()
 	light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
 	light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
 	// multi light example lights' positions
-	light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
-	light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
-	light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
-	light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
+	light_positions_.at(0)->operator=(XMFLOAT3(-3.0f, 0.1f, 3.0f));
+	light_positions_.at(1)->operator=(XMFLOAT3(3.0f, 0.1f, 3.0f));
+	light_positions_.at(2)->operator=(XMFLOAT3(-3.0f, 0.1f, -3.0f));
+	light_positions_.at(3)->operator=(XMFLOAT3(3.0f, 0.1f, -3.0f));
 }
 
 void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
@@ -114,10 +125,10 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 	diffuseColor[3] = XMFLOAT4(light3_col.x, light3_col.y, light3_col.z, light3_col.w);
 
 	// Create the light position array from the four light positions.
-	lightPosition[0] = light0_pos;
-	lightPosition[1] = light1_pos;
-	lightPosition[2] = light2_pos;
-	lightPosition[3] = light3_pos;
+	lightPosition[0] = (*light_positions_.at(0));
+	lightPosition[1] = (*light_positions_.at(1));
+	lightPosition[2] = (*light_positions_.at(2));
+	lightPosition[3] = (*light_positions_.at(3));
 
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	if (plane_mesh) // plane
@@ -127,7 +138,6 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 		// translation and rotation
 		worldMatrix = renderer->getWorldMatrix();
 		XMMATRIX matrixTranslation = XMMatrixTranslation(-40.0f, 0.0, -40.0f);
-		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
 		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	}
@@ -138,7 +148,6 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 		// translation and rotation
 		worldMatrix = renderer->getWorldMatrix();
 		XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
 		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	}
@@ -149,7 +158,6 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 		// translation and rotation
 		worldMatrix = renderer->getWorldMatrix();
 		XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-		//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
 		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	}
@@ -203,10 +211,10 @@ void MultiLightExample::gui(Camera * camera)
 			light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
 			light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
 			// reset light positions
-			light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
-			light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
-			light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
-			light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
+			light_positions_.at(0)->operator=(XMFLOAT3(-3.0f, 0.1f, 3.0f));
+			light_positions_.at(1)->operator=(XMFLOAT3(3.0f, 0.1f, 3.0f));
+			light_positions_.at(2)->operator=(XMFLOAT3(-3.0f, 0.1f, -3.0f));
+			light_positions_.at(3)->operator=(XMFLOAT3(3.0f, 0.1f, -3.0f));
 			// render only sphere mesh
 			mesh_choice = MESH_CHOICE::SPHERE;
 			triangle_mesh = false;
@@ -226,11 +234,11 @@ void MultiLightExample::gui(Camera * camera)
 		ImGui::ColorEdit3("Light 1 Col", (float*)&light1_col);
 		ImGui::ColorEdit3("Light 2 Col", (float*)&light2_col);
 		ImGui::ColorEdit3("Light 3 Col", (float*)&light3_col);
-		// change lights' position
-		ImGui::SliderFloat3("Light 0 Pos", (float*)&light0_pos, -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 1 Pos", (float*)&light1_pos, -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 2 Pos", (float*)&light2_pos, -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 3 Pos", (float*)&light3_pos, -10.0f, 10.0f);
+		// change lights' position TODO check
+		ImGui::SliderFloat3("Light 0 Pos", (float*)light_positions_.at(0), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 1 Pos", (float*)light_positions_.at(1), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 2 Pos", (float*)light_positions_.at(2), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 3 Pos", (float*)light_positions_.at(3), -10.0f, 10.0f);
 		// scale
 		ImGui::SliderFloat3("Scale", (float*)&scale, -20.0f, 20.0f);
 		// reset scale

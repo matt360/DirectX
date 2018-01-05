@@ -254,10 +254,10 @@ void GraphicsApp::gui()
 		multiLightExample->light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
 		multiLightExample->light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
 		// reset light positions
-		multiLightExample->light0_pos = XMFLOAT3(-3.0f, 0.1f, 3.0f);
-		multiLightExample->light1_pos = XMFLOAT3(3.0f, 0.1f, 3.0f);
-		multiLightExample->light2_pos = XMFLOAT3(-3.0f, 0.1f, -3.0f);
-		multiLightExample->light3_pos = XMFLOAT3(3.0f, 0.1f, -3.0f);
+		multiLightExample->light_positions_.at(0)->operator=(XMFLOAT3(-3.0f, 0.1f, 3.0f));
+		multiLightExample->light_positions_.at(1)->operator=(XMFLOAT3(3.0f, 0.1f, 3.0f));
+		multiLightExample->light_positions_.at(2)->operator=(XMFLOAT3(-3.0f, 0.1f, -3.0f));
+		multiLightExample->light_positions_.at(3)->operator=(XMFLOAT3(3.0f, 0.1f, -3.0f));
 		// render only sphere mesh
 		multiLightExample->mesh_choice = MESH_CHOICE::SPHERE;
 		multiLightExample->triangle_mesh = false;
