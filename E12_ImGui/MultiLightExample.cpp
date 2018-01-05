@@ -186,7 +186,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 		projectionMatrix,
 		textureMgr->getTexture("checkerboard"), // for the default textrue pass an empty string as a name
 		diffuseColor,
-		lightPosition
+		light_positions_
 	);
 
 	// Render object (combination of mesh geometry and shader process

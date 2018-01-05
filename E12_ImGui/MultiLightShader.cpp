@@ -160,7 +160,7 @@ void MultiLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 
 void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX& worldMatrix, const XMMATRIX& viewMatrix, const XMMATRIX& projectionMatrix, ID3D11ShaderResourceView* texture,
 	XMFLOAT4 diffuseColor[], 
-	XMFLOAT3 lightPosition[])
+	const std::vector<XMFLOAT3*>& lightPosition)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -197,10 +197,10 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, c
 	// Get a pointer to the data in the constant buffer.
 	dataPtr2 = (LightPositionBufferType*)mappedResource.pData;
 	// Copy the light position variables into the constant buffer.
-	dataPtr2->lightPosition[0] = lightPosition[0];
-	dataPtr2->lightPosition[1] = lightPosition[1];
-	dataPtr2->lightPosition[2] = lightPosition[2];
-	dataPtr2->lightPosition[3] = lightPosition[3];
+	dataPtr2->lightPosition[0] = *lightPosition.at(0);
+	dataPtr2->lightPosition[1] = *lightPosition.at(1);
+	dataPtr2->lightPosition[2] = *lightPosition.at(2);
+	dataPtr2->lightPosition[3] = *lightPosition.at(3);
 	// Unlock the constant buffer.
 	deviceContext->Unmap(m_lightPositionBuffer, 0);
 	// Set the position of the constant buffer in the vertex shader.
