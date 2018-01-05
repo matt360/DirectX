@@ -4,10 +4,16 @@ MultiLightExample::MultiLightExample()
 {
 	shader = nullptr;
 
-	light0_ = nullptr;
+	/*light0_ = nullptr;
 	light1_ = nullptr;
 	light2_ = nullptr;
-	light3_ = nullptr;
+	light3_ = nullptr;*/
+	number_of_lights_ = 4;
+	lights_.reserve(number_of_lights_);
+	for (int i = 0; i < number_of_lights_; ++i)
+	{
+		lights_.push_back(new Light);
+	}
 }
 
 MultiLightExample::~MultiLightExample()
@@ -24,7 +30,12 @@ MultiLightExample::~MultiLightExample()
 		mesh = 0;
 	}
 
-	if (light0_)
+	for (Light* light : lights_)
+	{
+		delete light;
+		light = nullptr;
+	}
+	/*if (light0_)
 	{
 		delete light0_;
 		light0_ = 0;
@@ -46,7 +57,7 @@ MultiLightExample::~MultiLightExample()
 	{
 		delete light3_;
 		light3_ = 0;
-	}
+	}*/
 }
 
 void MultiLightExample::init(D3D* renderer, HWND hwnd)
@@ -74,33 +85,33 @@ void MultiLightExample::initVariables()
 void MultiLightExample::initLight()
 {
 	// Light 0
-	light0_ = new Light;
-	light0_->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
-	light0_->setPosition(-3.0f, 0.1f, 3.0f);
+	//lights_.at(0) = new Light;
+	lights_.at(0)->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
+	lights_.at(0)->setPosition(-3.0f, 0.1f, 3.0f);
 	//light0_->setAmbientColour(0.2f, 0.0f, 0.0f, 1.0f); // red
 	//light0_->setDirection(0.0, 0.0f, 0.0f);
 	//light0_->setSpecularPower(16.f);
 	//light0_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	// Light 1
-	light1_ = new Light;
-	light1_->setDiffuseColour(0.0f, 1.0f, 0.0f, 1.0f);
-	light1_->setPosition(3.0f, 0.1f, 3.0f);
+	//light1_ = new Light;
+	lights_.at(1)->setDiffuseColour(0.0f, 1.0f, 0.0f, 1.0f);
+	lights_.at(1)->setPosition(3.0f, 0.1f, 3.0f);
 	//light1_->setAmbientColour(0.0f, 2.0f, 0.0f, 1.0f); // green
 	//light1_->setDirection(0.0, 0.0f, 0.0f);
 	//light1_->setSpecularPower(16.f);
 	//light1_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	// Light 2
-	light2_ = new Light;
-	light2_->setDiffuseColour(0.0f, 0.0f, 1.0f, 1.0f);
-	light2_->setPosition(-3.0f, 0.1f, -3.0f);
+	//light2_ = new Light;
+	lights_.at(2)->setDiffuseColour(0.0f, 0.0f, 1.0f, 1.0f);
+	lights_.at(2)->setPosition(-3.0f, 0.1f, -3.0f);
 	//light2_->setAmbientColour(0.0f, 0.0f, 0.2f, 1.0f); // blue
 	//light2_->setDirection(0.0, 0.0f, 0.0f);
 	//light2_->setSpecularPower(16.f);
 	//light2_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	// Light 3
-	light3_ = new Light;
-	light3_->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light3_->setPosition(3.0f, 0.1f, -3.0f);
+	//light3_ = new Light;
+	lights_.at(3)->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	lights_.at(3)->setPosition(3.0f, 0.1f, -3.0f);
 	//light3_->setAmbientColour(0.2f, 0.2f, 0.0f, 1.0f); // yellow
 	//light3_->setDirection(0.0, 0.0f, 0.0f);
 	//light3_->setSpecularPower(16.f);
