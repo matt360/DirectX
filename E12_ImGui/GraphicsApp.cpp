@@ -186,11 +186,11 @@ void GraphicsApp::gui()
 	{ 
 		// set choice
 		example_choice = EXAMPLE_CHOICE::SPECULAR_LIGHT;
-		specularLightExample->example ^= 1;
-		tessellationExample->example = false;
-		terrainExample->example = false;
-		multiLightExample->example = false;
-		geometryExample->example = false;
+		chooseExample(specularLightExample->example,
+		tessellationExample->example,
+		terrainExample->example,
+		multiLightExample->example,
+		geometryExample->example);
 
 		specularLightExample->resetExample(camera);
 	}
@@ -286,6 +286,15 @@ void GraphicsApp::chooseExample()
 		example = specularLightExample;
 		break;
 	}
+}
+
+void GraphicsApp::chooseExample(bool activeEg, bool inactiveEg1, bool inactiveEg2, bool inactiveEg3, bool inactiveEg4)
+{
+	activeEg = !activeEg;
+	inactiveEg1 = false;
+	inactiveEg2 = false;
+	inactiveEg3 = false;
+	inactiveEg4 = false;
 }
 
 BaseMesh* GraphicsApp::chooseMesh(const MESH_CHOICE& mesh_choice)
