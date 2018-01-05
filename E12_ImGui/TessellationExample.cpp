@@ -83,16 +83,7 @@ void TessellationExample::gui(Camera * camera)
 		ImGui::Begin("Tessellation", &example);
 		if (ImGui::Button("Reset Example"))
 		{
-			// set tessellation camera
-			camera->setPosition(0.0f, 4.75f, -10.0f);
-			camera->setRotation(0.0f, 30.0f, 0.0f);
-			// reset terrain scale
-			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-			// reset wireframe
-			wireframe = false;
-			// reset geometry shader primitive topology
-			d3d11_primitive_topology_trianglelist = true;
-			d3d11_primitive_topology_pointlist = false;
+			resetExample(camera);
 		}
 		// wireframe
 		ImGui::Checkbox("Wireframe", &wireframe);
@@ -109,4 +100,19 @@ void TessellationExample::gui(Camera * camera)
 		d3d11_primitive_topology_trianglelist = false;*/
 		ImGui::End();
 	}
+}
+
+void TessellationExample::resetExample(Camera * camera)
+{
+	mesh_choice = MESH_CHOICE::TERRAIN;
+	// set tessellation camera
+	camera->setPosition(0.0f, 4.75f, -10.0f);
+	camera->setRotation(0.0f, 30.0f, 0.0f);
+	// reset terrain scale
+	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// reset wireframe
+	wireframe = false;
+	// reset geometry shader primitive topology
+	d3d11_primitive_topology_trianglelist = true;
+	d3d11_primitive_topology_pointlist = false;
 }

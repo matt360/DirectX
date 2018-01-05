@@ -205,11 +205,7 @@ void GraphicsApp::gui()
 		multiLightExample->example = false;
 		geometryExample->example = false;
 
-		tessellationExample->mesh_choice = MESH_CHOICE::TERRAIN;
-		tessellationExample->wireframe = false;
-		// set tessellation camera
-		camera->setPosition(0.0f, 4.75f, -10.0f);
-		camera->setRotation(0.0f, 30.0f, 0.0f);
+		tessellationExample->resetExample(camera);
 	}
 	// CHOOSE TERRAIN EXAMPLE 
 	else if (ImGui::Button("Terrain Example"))
