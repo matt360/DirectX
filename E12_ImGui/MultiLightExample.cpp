@@ -228,24 +228,14 @@ void MultiLightExample::gui(Camera* camera)
 			// set multi light camera
 			camera->setPosition(0.0f, 0.0f, -4.75f);
 
-			mesh_choice = MESH_CHOICE::TRIANGLE;
-			triangle_mesh = true;
-			sphere_mesh = false;
-			cube_mesh = false;
-			quad_mesh = false;
-			plane_mesh = false;
+			set_mesh_choice(MESH_CHOICE::TRIANGLE);
 		}
 		if (ImGui::Checkbox("Sphere Mesh", &sphere_mesh))
 		{
 			// set multi light camera
 			camera->setPosition(0.0f, 0.0f, -4.75f);
 
-			mesh_choice = MESH_CHOICE::SPHERE;
-			triangle_mesh = false;
-			sphere_mesh = true;
-			cube_mesh = false;
-			quad_mesh = false;
-			plane_mesh = false;
+			set_mesh_choice(MESH_CHOICE::SPHERE);
 		}
 		if (ImGui::Checkbox("Cube Mesh", &cube_mesh))
 		{
@@ -264,12 +254,7 @@ void MultiLightExample::gui(Camera* camera)
 			// set multi light camera
 			camera->setPosition(0.0f, 0.0f, -4.75f);
 
-			mesh_choice = MESH_CHOICE::QUAD;
-			triangle_mesh = false;
-			sphere_mesh = false;
-			cube_mesh = false;
-			quad_mesh = true;
-			plane_mesh = false;
+			set_mesh_choice(MESH_CHOICE::QUAD);
 		}
 		if (ImGui::Checkbox("Plane Mesh", &plane_mesh))
 		{
@@ -277,12 +262,7 @@ void MultiLightExample::gui(Camera* camera)
 			camera->setRotation(0.0f, 70.0f, 15.0f);
 			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
-			mesh_choice = MESH_CHOICE::PLANE;
-			triangle_mesh = false;
-			sphere_mesh = false;
-			cube_mesh = false;
-			quad_mesh = false;
-			plane_mesh = true;
+			set_mesh_choice(MESH_CHOICE::PLANE);
 		}
 		ImGui::End();
 	}

@@ -18,8 +18,8 @@ enum class MESH_CHOICE {
 class Example
 {
 public:
-	Example() {}
-	virtual ~Example() {}
+	Example();
+	virtual ~Example();
 
 	virtual void initShader(D3D * renderer, HWND hwnd) = 0;
 	virtual void render(D3D* renderer, Camera* camera, TextureManager* textureMgr) = 0;
@@ -28,7 +28,8 @@ public:
 	// Mesh
 	BaseMesh* mesh;
 	inline void setMesh(BaseMesh* set_mesh) { mesh = set_mesh; }
-	//inline BaseMesh* getMesh() { return mesh; }
+	inline BaseMesh* getMesh() { return mesh; }
+	void set_mesh_choice(const MESH_CHOICE msh_ch);
 	//inline BaseMesh& getAddress() { return *mesh; }
 	// used for moving vertices over time
 	float over_time;
