@@ -1,6 +1,6 @@
-// Defines
 // PIXEL SHADER
 
+// Defines
 #define NUM_LIGHTS 4
 
 // Globals
@@ -22,7 +22,6 @@ struct PixelInputType
     float3 lightPos2 : TEXCOORD2;
     float3 lightPos3 : TEXCOORD3;
     float3 lightPos4 : TEXCOORD4;
-    //int num_of_lights : TEXCOORD5;
 };
 
 // Pixel Shader

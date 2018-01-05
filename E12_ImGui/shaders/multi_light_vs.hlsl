@@ -33,7 +33,6 @@ struct PixelInputType
     float3 lightPos2 : TEXCOORD2;  // put lightPos2 into TEXCOORD1 
     float3 lightPos3 : TEXCOORD3;  // put lightPos3 into TEXCOORD1 
     float3 lightPos4 : TEXCOORD4;  // put lightPos4 into TEXCOORD1
-    //int num_of_lights : TEXCOORD5;
 };
 
 // Vertex Shader
@@ -73,8 +72,6 @@ PixelInputType main(VertexInputType input)
     output.lightPos2 = normalize(output.lightPos2);
     output.lightPos3 = normalize(output.lightPos3);
     output.lightPos4 = normalize(output.lightPos4);
-
-    //output.num_of_lights = 4;
 
     return output;
 }
