@@ -256,24 +256,7 @@ void GraphicsApp::gui()
 		multiLightExample->example = false;
 		geometryExample->example ^= 1;
 
-		// reset geometry shader scale
-		geometryExample->scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-		// TODO (delete) reset geometry shader primitive topology
-		//geometryExample->d3d11_primitive_topology_trianglelist = true;
-		//geometryExample->d3d11_primitive_topology_pointlist = false;
-		// set cube mesh
-		geometryExample->mesh_choice = MESH_CHOICE::CUBE;
-		geometryExample->triangle_mesh = false;
-		geometryExample->sphere_mesh = false;
-		geometryExample->cube_mesh = true;
-		geometryExample->quad_mesh = false;
-		geometryExample->plane_mesh = false;
-		// set wireframe
-		geometryExample->wireframe = false;
-
-		// set the camera
-		camera->setPosition(13.0f, 4.0f, -22.0f);
-		camera->setRotation(0.0f, -30.0f, 5.0f);
+		geometryExample->resetExample(camera);
 	}
 
 	// EXAMPLES' GUI

@@ -100,23 +100,7 @@ void GeometryExample::gui(Camera * camera)
 		ImGui::Begin("Geometry Shader Example", &example);
 		if (ImGui::Button("Reset Example"))
 		{
-			mesh_choice = MESH_CHOICE::CUBE;
-			// reset geometry shader scale
-			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-			// reset geometry shader wireframe mode
-			wireframe = false;
-			// reset geometry shader primitive topology
-			d3d11_primitive_topology_trianglelist = true;
-			d3d11_primitive_topology_pointlist = false;
-			// set cube mesh
-			triangle_mesh = false;
-			sphere_mesh = false;
-			cube_mesh = true;
-			quad_mesh = false;
-			plane_mesh = false;
-			// set the camera
-			camera->setPosition(13.0f, 4.0f, -22.0f);
-			camera->setRotation(0.0f, -35.0f, 0.0f);
+			resetExample(camera);
 		}
 		ImGui::Checkbox("Wireframe", &wireframe);
 		ImGui::SliderFloat3("Scale", (float*)&scale, -10.0f, 10.0f);
@@ -174,4 +158,25 @@ void GeometryExample::gui(Camera * camera)
 		}
 		ImGui::End();
 	}
+}
+
+void GeometryExample::resetExample(Camera * camera)
+{
+	mesh_choice = MESH_CHOICE::CUBE;
+	// reset geometry shader scale
+	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// reset geometry shader wireframe mode
+	wireframe = false;
+	// reset geometry shader primitive topology
+	d3d11_primitive_topology_trianglelist = true;
+	d3d11_primitive_topology_pointlist = false;
+	// set cube mesh
+	triangle_mesh = false;
+	sphere_mesh = false;
+	cube_mesh = true;
+	quad_mesh = false;
+	plane_mesh = false;
+	// set the camera
+	camera->setPosition(13.0f, 4.0f, -22.0f);
+	camera->setRotation(0.0f, -35.0f, 0.0f);
 }
