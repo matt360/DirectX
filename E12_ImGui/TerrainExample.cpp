@@ -96,7 +96,7 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount()); // output data from the shader programme
 }
 
-void TerrainExample::gui(Camera * camera)
+void TerrainExample::gui(Camera* camera)
 {
 	if (example)
 	{
