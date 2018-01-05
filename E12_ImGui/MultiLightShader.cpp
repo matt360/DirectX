@@ -158,7 +158,11 @@ void MultiLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	renderer->CreateBuffer(&lightColorBufferDesc, NULL, &m_lightPositionBuffer);
 }
 
-void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX& worldMatrix, const XMMATRIX& viewMatrix, const XMMATRIX& projectionMatrix, ID3D11ShaderResourceView* texture,
+void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, 
+	const XMMATRIX& worldMatrix, 
+	const XMMATRIX& viewMatrix, 
+	const XMMATRIX& projectionMatrix, 
+	ID3D11ShaderResourceView* texture,
 	const std::vector<XMFLOAT4*>& lightColour,
 	const std::vector<XMFLOAT3*>& lightPosition)
 {
@@ -188,7 +192,7 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, c
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
+	deviceContext->VSSetConstantBuffers(0, 1, &m_matrixBuffer);
 
 	// Lock the light position constant buffer so it can be written to.
 	result = deviceContext->Map(m_lightPositionBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
