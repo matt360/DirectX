@@ -1,5 +1,8 @@
+// GEOMETRY SHADER
+
 // Example geometry shader
 // Receives a point and outputs a triangle
+
 //Texture2D tex0 : register(t0);
 //SamplerState Sampler0 : register(s0);
 

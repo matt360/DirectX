@@ -1,4 +1,6 @@
 // Defines
+// PIXEL SHADER
+
 #define NUM_LIGHTS 4
 
 // Globals

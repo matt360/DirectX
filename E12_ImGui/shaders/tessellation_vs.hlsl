@@ -1,3 +1,5 @@
+// VERTEX SHADER
+
 // Tessellation vertex shader.
 // Doesn't do much, could manipulate the control points
 // Pass forward data, strip out some values not required for example.

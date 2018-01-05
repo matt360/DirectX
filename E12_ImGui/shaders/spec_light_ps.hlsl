@@ -1,5 +1,4 @@
-// Light pixel shader
-// Calculate diffuse lighting for a single directional light (also texturing)
+// PIXEL SHADER
 
 Texture2D shaderTexture : register(t0);
 SamplerState SampleType : register(s0);

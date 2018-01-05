@@ -1,3 +1,5 @@
+// PIXEL SHADER
+
 Texture2D tex0 : register(t0);
 Texture2D tex1 : register(t1);
 

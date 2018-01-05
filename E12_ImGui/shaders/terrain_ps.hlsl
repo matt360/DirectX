@@ -1,6 +1,6 @@
-// Light pixel shader
-// Calculate diffuse lighting for a single directional light (also texturing)
+// PIXEL SHADER
 
+// TODO delete
 // Pixel shaders are small programs that are written for doing the coloring of the polygons that we draw. 
 // They are run by the GPU for every visible pixel that will be drawn to the screen.
 // Coloring, texturing, lighting, and most other effects you plan to do to your polygon faces are handled by the pixel shader program.

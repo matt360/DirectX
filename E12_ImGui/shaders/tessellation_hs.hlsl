@@ -1,3 +1,5 @@
+// HULL SHADER
+
 // Tessellation Hull Shader
 // Prepares control points for tessellation
 // http://richardssoftware.net/Home/Post/28

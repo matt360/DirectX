@@ -1,3 +1,5 @@
+// VERTEX SHADER
+
 struct InputType
 {
     float4 position : POSITION;
