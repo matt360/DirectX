@@ -52,7 +52,7 @@ private:
 	EXAMPLE_CHOICE example_choice;
 
 	// FUNCTIONS
-	void chooseExample(const EXAMPLE_CHOICE& example_choice);
+	void chooseExample();
 	BaseMesh* chooseMesh(const MESH_CHOICE& mesh_choice);
 	float clamp(float n, float lower, float upper);
 };

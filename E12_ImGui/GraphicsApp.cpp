@@ -149,7 +149,7 @@ bool GraphicsApp::render()
 	camera->update();
 
 	// choose example
-	chooseExample(example_choice);
+	chooseExample();
 
 	// render example
 	example->setMesh(chooseMesh(example->mesh_choice));
@@ -309,7 +309,7 @@ void GraphicsApp::gui()
 	ImGui::Render();
 }
 
-void GraphicsApp::chooseExample(const EXAMPLE_CHOICE& example_choice_)
+void GraphicsApp::chooseExample()
 {
 	switch (example_choice)
 	{
