@@ -15,7 +15,7 @@ MultiLightExample::MultiLightExample()
 	light_positions_.reserve(number_of_lights_);
 	for (int i = 0; i < number_of_lights_; ++i)
 	{
-		light_positions_.push_back(new XMFLOAT3);
+		light_positions_.push_back(new XMFLOAT4);
 	}
 
 	light_colours_.reserve(number_of_lights_);
@@ -45,7 +45,7 @@ MultiLightExample::~MultiLightExample()
 		light = nullptr;
 	}
 
-	for (XMFLOAT3* light_position : light_positions_)
+	for (XMFLOAT4* light_position : light_positions_)
 	{
 		delete light_position;
 		light_position = nullptr;
@@ -120,10 +120,10 @@ void MultiLightExample::initLight()
 	light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
 	light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 	// multi light example lights' positions
-	light_positions_.at(0)->operator=(XMFLOAT3(-3.0f, 0.1f, 3.0f));
-	light_positions_.at(1)->operator=(XMFLOAT3(3.0f, 0.1f, 3.0f));
-	light_positions_.at(2)->operator=(XMFLOAT3(-3.0f, 0.1f, -3.0f));
-	light_positions_.at(3)->operator=(XMFLOAT3(3.0f, 0.1f, -3.0f));
+	light_positions_.at(0)->operator=(XMFLOAT4(-3.0f, 0.1f, 3.0f, 1.0f));
+	light_positions_.at(1)->operator=(XMFLOAT4(3.0f, 0.1f, 3.0f, 1.0f));
+	light_positions_.at(2)->operator=(XMFLOAT4(-3.0f, 0.1f, -3.0f, 1.0f));
+	light_positions_.at(3)->operator=(XMFLOAT4(3.0f, 0.1f, -3.0f, 1.0f));
 }
 
 void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
@@ -225,10 +225,10 @@ void MultiLightExample::gui(Camera * camera)
 			light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
 			light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 			// reset light positions
-			light_positions_.at(0)->operator=(XMFLOAT3(-3.0f, 0.1f, 3.0f));
-			light_positions_.at(1)->operator=(XMFLOAT3(3.0f, 0.1f, 3.0f));
-			light_positions_.at(2)->operator=(XMFLOAT3(-3.0f, 0.1f, -3.0f));
-			light_positions_.at(3)->operator=(XMFLOAT3(3.0f, 0.1f, -3.0f));
+			light_positions_.at(0)->operator=(XMFLOAT4(-3.0f, 0.1f, 3.0f, 1.0f));
+			light_positions_.at(1)->operator=(XMFLOAT4(3.0f, 0.1f, 3.0f, 1.0f));
+			light_positions_.at(2)->operator=(XMFLOAT4(-3.0f, 0.1f, -3.0f, 1.0f));
+			light_positions_.at(3)->operator=(XMFLOAT4(3.0f, 0.1f, -3.0f, 1.0f));
 			// render only sphere mesh
 			mesh_choice = MESH_CHOICE::SPHERE;
 			triangle_mesh = false;

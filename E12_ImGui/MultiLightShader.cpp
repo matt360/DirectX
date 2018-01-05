@@ -164,7 +164,7 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext,
 	const XMMATRIX& projectionMatrix, 
 	ID3D11ShaderResourceView* texture,
 	const std::vector<XMFLOAT4*>& lightColour,
-	const std::vector<XMFLOAT3*>& lightPosition)
+	const std::vector<XMFLOAT4*>& lightPosition)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;

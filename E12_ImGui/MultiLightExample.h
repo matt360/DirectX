@@ -21,7 +21,7 @@ public:
 	unsigned number_of_lights_;
 	vector<Light*> lights_;
 	vector<XMFLOAT4*> light_colours_;
-	vector<XMFLOAT3*> light_positions_;
+	vector<XMFLOAT4*> light_positions_;
 	//SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;
 };
 
