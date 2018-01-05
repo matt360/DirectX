@@ -235,9 +235,7 @@ void MultiLightExample::gui(Camera * camera)
 		ImGui::ColorEdit3("Light 2 Col", (float*)&light2_col);
 		ImGui::ColorEdit3("Light 3 Col", (float*)&light3_col);
 		// change lights' position TODO check
-		ImGui::SliderFloat("Light 0 Pos X", (float*)&(light_positions_.at(0)->x), -10.0f, 10.0f);
-		ImGui::SliderFloat("Light 0 Pos Y", (float*)&(light_positions_.at(0)->y), -10.0f, 10.0f);
-		ImGui::SliderFloat("Light 0 Pos Z", (float*)&(light_positions_.at(0)->z), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 0 Pos", (float*)light_positions_.at(0), -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 1 Pos", (float*)light_positions_.at(1), -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 2 Pos", (float*)light_positions_.at(2), -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 3 Pos", (float*)light_positions_.at(3), -10.0f, 10.0f);
