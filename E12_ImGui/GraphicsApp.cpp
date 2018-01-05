@@ -249,10 +249,10 @@ void GraphicsApp::gui()
 		// scale up sphere mesh
 		multiLightExample->scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
 		// reset light colours
-		multiLightExample->light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
-		multiLightExample->light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
-		multiLightExample->light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
-		multiLightExample->light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
+		multiLightExample->light_colours_.at(0)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+		multiLightExample->light_colours_.at(1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
+		multiLightExample->light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
+		multiLightExample->light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 		// reset light positions
 		multiLightExample->light_positions_.at(0)->operator=(XMFLOAT3(-3.0f, 0.1f, 3.0f));
 		multiLightExample->light_positions_.at(1)->operator=(XMFLOAT3(3.0f, 0.1f, 3.0f));

@@ -15,6 +15,11 @@ MultiLightExample::MultiLightExample()
 	{
 		light_positions_.push_back(new XMFLOAT3);
 	}
+
+	for (int i = 0; i < number_of_lights_; ++i)
+	{
+		light_colours_.push_back(new XMFLOAT4);
+	}
 }
 
 MultiLightExample::~MultiLightExample()
@@ -41,6 +46,12 @@ MultiLightExample::~MultiLightExample()
 	{
 		delete light_position;
 		light_position = nullptr;
+	}
+
+	for (XMFLOAT4* light_colour : light_colours_)
+	{
+		delete light_colour;
+		light_colour = nullptr;
 	}
 }
 
@@ -101,10 +112,10 @@ void MultiLightExample::initLight()
 	//lights_.at(3)->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// multi light example lights' colours
-	light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
-	light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
-	light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
-	light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
+	light_colours_.at(0)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+	light_colours_.at(1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
+	light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
+	light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 	// multi light example lights' positions
 	light_positions_.at(0)->operator=(XMFLOAT3(-3.0f, 0.1f, 3.0f));
 	light_positions_.at(1)->operator=(XMFLOAT3(3.0f, 0.1f, 3.0f));
@@ -119,10 +130,10 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 	XMFLOAT3 lightPosition[4];
 
 	// Create the diffuse color array from the four light colors.
-	diffuseColor[0] = XMFLOAT4(light0_col.x, light0_col.y, light0_col.z, light0_col.w);
-	diffuseColor[1] = XMFLOAT4(light1_col.x, light1_col.y, light1_col.z, light1_col.w);
-	diffuseColor[2] = XMFLOAT4(light2_col.x, light2_col.y, light2_col.z, light2_col.w);
-	diffuseColor[3] = XMFLOAT4(light3_col.x, light3_col.y, light3_col.z, light3_col.w);
+	diffuseColor[0] = (*light_colours_.at(0));
+	diffuseColor[1] = (*light_colours_.at(1));
+	diffuseColor[2] = (*light_colours_.at(2));
+	diffuseColor[3] = (*light_colours_.at(3));
 
 	// Create the light position array from the four light positions.
 	lightPosition[0] = (*light_positions_.at(0));
@@ -206,10 +217,10 @@ void MultiLightExample::gui(Camera * camera)
 			// scale up sphere mesh
 			scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
 			// reset light colours
-			light0_col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
-			light1_col = ImColor(0.0f, 1.0f, 0.0f, 1.0f);
-			light2_col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
-			light3_col = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
+			light_colours_.at(0)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+			light_colours_.at(1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
+			light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
+			light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 			// reset light positions
 			light_positions_.at(0)->operator=(XMFLOAT3(-3.0f, 0.1f, 3.0f));
 			light_positions_.at(1)->operator=(XMFLOAT3(3.0f, 0.1f, 3.0f));
@@ -230,10 +241,10 @@ void MultiLightExample::gui(Camera * camera)
 		}
 		ImGui::Checkbox("Wireframe", &wireframe);
 		// change lights' colour
-		ImGui::ColorEdit3("Light 0 Col", (float*)&light0_col);
-		ImGui::ColorEdit3("Light 1 Col", (float*)&light1_col);
-		ImGui::ColorEdit3("Light 2 Col", (float*)&light2_col);
-		ImGui::ColorEdit3("Light 3 Col", (float*)&light3_col);
+		ImGui::ColorEdit4("Light 0 Col", (float*)light_colours_.at(0));
+		ImGui::ColorEdit4("Light 1 Col", (float*)light_colours_.at(1));
+		ImGui::ColorEdit4("Light 2 Col", (float*)light_colours_.at(2));
+		ImGui::ColorEdit4("Light 3 Col", (float*)light_colours_.at(3));
 		// change lights' position TODO check
 		ImGui::SliderFloat3("Light 0 Pos", (float*)light_positions_.at(0), -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 1 Pos", (float*)light_positions_.at(1), -10.0f, 10.0f);

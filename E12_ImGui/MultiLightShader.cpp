@@ -189,8 +189,6 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, c
 	bufferNumber = 0;
 	// Now set the constant buffer in the vertex shader with the updated values.
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
-	
-	// ADDITIONAL
 
 	// Lock the light position constant buffer so it can be written to.
 	result = deviceContext->Map(m_lightPositionBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
@@ -207,9 +205,7 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, c
 	bufferNumber = 1;
 	// Finally set the constant buffer in the vertex shader with the updated values.
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_lightPositionBuffer);
-	// Set shader texture resource in the pixel shader.
-	deviceContext->PSSetShaderResources(0, 1, &texture);
-
+	
 	// Lock the light color constant buffer so it can be written to.
 	result = deviceContext->Map(m_lightColorBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	// Get a pointer to the data in the constant buffer.
@@ -223,9 +219,11 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, c
 	deviceContext->Unmap(m_lightColorBuffer, 0);
 	// Set the position of the constant buffer in the pixel shader.
 	bufferNumber = 0;
-
-	// Finally set the constant buffer in the pixel shader with the updated values.
+	// Set the constant buffer in the pixel shader with the updated values.
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &m_lightColorBuffer);
+
+	// Set shader texture resource in the pixel shader.
+	deviceContext->PSSetShaderResources(0, 1, &texture);
 }
 
 void MultiLightShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
