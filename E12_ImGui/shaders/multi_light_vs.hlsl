@@ -1,7 +1,7 @@
+// VERTEX SHADER
+
 // Defines
 #define NUM_LIGHTS 4
-
-// VERTEX SHADER
 
 // Globals
 cbuffer MatrixBuffer
@@ -17,28 +17,29 @@ cbuffer LightPositionBuffer
 };
 
 // Typedefs
-struct InputType
+struct VertexInputType
 {
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
 };
 
-struct OutputType
+struct PixelInputType
 {
-    float4 position : SV_POSITION;
-    float2 tex : TEXCOORD0;
-    float3 normal : NORMAL;
-    float3 lightPos1 : TEXCOORD1;
-    float3 lightPos2 : TEXCOORD2;
-    float3 lightPos3 : TEXCOORD3;
-    float3 lightPos4 : TEXCOORD4;
+    float4 position : SV_POSITION; // put position into SV_POSITION
+    float2 tex : TEXCOORD0;        // put tex into TEXCOORD0 which is a place in the memory (TODO check this)
+    float3 normal : NORMAL;        // put norml into NORMAL
+    float3 lightPos1 : TEXCOORD1;  // put lightPos1 into TEXCOORD1 
+    float3 lightPos2 : TEXCOORD2;  // put lightPos2 into TEXCOORD1 
+    float3 lightPos3 : TEXCOORD3;  // put lightPos3 into TEXCOORD1 
+    float3 lightPos4 : TEXCOORD4;  // put lightPos4 into TEXCOORD1
+    //int num_of_lights : TEXCOORD5;
 };
 
 // Vertex Shader
-OutputType main(InputType input)
+PixelInputType main(VertexInputType input)
 {
-    OutputType output;
+    PixelInputType output;
     float4 worldPosition;
 
 	// Change the position vector to be 4 units for proper matrix calculations.
@@ -72,6 +73,8 @@ OutputType main(InputType input)
     output.lightPos2 = normalize(output.lightPos2);
     output.lightPos3 = normalize(output.lightPos3);
     output.lightPos4 = normalize(output.lightPos4);
+
+    //output.num_of_lights = 4;
 
     return output;
 }

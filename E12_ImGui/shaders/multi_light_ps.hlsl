@@ -13,7 +13,7 @@ cbuffer LightColorBuffer
 };
 
 // Typedefs
-struct InputType
+struct PixelInputType
 {
     float4 position : SV_POSITION;
     float2 tex : TEXCOORD0;
@@ -22,10 +22,11 @@ struct InputType
     float3 lightPos2 : TEXCOORD2;
     float3 lightPos3 : TEXCOORD3;
     float3 lightPos4 : TEXCOORD4;
+    //int num_of_lights : TEXCOORD5;
 };
 
 // Pixel Shader
-float4 main(InputType input) : SV_TARGET
+float4 main(PixelInputType input) : SV_TARGET
 {
     float4 textureColor;
     float lightIntensity1, lightIntensity2, lightIntensity3, lightIntensity4;
