@@ -2,6 +2,8 @@
 #include "Example.h"
 #include "MultiLightShader.h"
 
+const unsigned number_of_lights_ = 4;
+
 class MultiLightExample : public Example
 {
 public:
@@ -19,7 +21,6 @@ public:
 	// shader handler
 	MultiLightShader* shader;
 
-	unsigned number_of_lights_;
 	vector<Light*> lights_;
 	vector<XMFLOAT4*> light_colours_;
 	vector<XMFLOAT4*> light_positions_;
