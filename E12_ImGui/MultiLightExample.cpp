@@ -273,7 +273,8 @@ void MultiLightExample::gui(Camera* camera)
 		}
 		if (ImGui::Checkbox("Plane Mesh", &plane_mesh))
 		{
-			camera->setPosition(0.0f, 3.0f, 0.0f);
+			camera->setPosition(-8.75f, 3.0f, -3.5f);
+			camera->setRotation(0.0f, 70.0f, 15.0f);
 			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
 			mesh_choice = MESH_CHOICE::PLANE;

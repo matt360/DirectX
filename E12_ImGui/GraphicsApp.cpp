@@ -108,6 +108,7 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	initGeometry();
 	initExamples();
 
+	// initialize examples
 	specularLightExample->init(renderer, hwnd);
 	terrainExample->init(renderer, hwnd);
 	tessellationExample->init(renderer, hwnd);
