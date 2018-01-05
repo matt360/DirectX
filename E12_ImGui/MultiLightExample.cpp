@@ -80,38 +80,12 @@ void MultiLightExample::initVariables()
 
 void MultiLightExample::initLight()
 {
-	// Light 0
-	//lights_.at(0)->setDiffuseColour(1.0f, 0.0f, 0.0f, 1.0f);
+	// lights' positions
 	lights_.at(0)->setPosition(-3.0f, 0.1f, 3.0f);
-	//lights_.at(0)->setAmbientColour(0.2f, 0.0f, 0.0f, 1.0f); // red
-	//lights_.at(0)->setDirection(0.0, 0.0f, 0.0f);
-	//lights_.at(0)->setSpecularPower(16.f);
-	//lights_.at(0)->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-
-	// Light 1
-	//lights_.at(1)->setDiffuseColour(0.0f, 1.0f, 0.0f, 1.0f);
 	lights_.at(1)->setPosition(3.0f, 0.1f, 3.0f);
-	//lights_.at(1)->setAmbientColour(0.0f, 2.0f, 0.0f, 1.0f); // green
-	//lights_.at(1)->setDirection(0.0, 0.0f, 0.0f);
-	//lights_.at(1)->setSpecularPower(16.f);
-	//lights_.at(1)->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-
-	// Light 2
-	//lights_.at(2)->setDiffuseColour(0.0f, 0.0f, 1.0f, 1.0f);
 	lights_.at(2)->setPosition(-3.0f, 0.1f, -3.0f);
-	//lights_.at(2)->setAmbientColour(0.0f, 0.0f, 0.2f, 1.0f); // blue
-	//lights_.at(2)->setDirection(0.0, 0.0f, 0.0f);
-	//lights_.at(2)->setSpecularPower(16.f);
-	//lights_.at(2)->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-
-	// Light 3
-	//lights_.at(3)->setDiffuseColour(1.0f, 1.0f, 0.0f, 1.0f);
 	lights_.at(3)->setPosition(3.0f, 0.1f, -3.0f);
-	//lights_.at(3)->setAmbientColour(0.2f, 0.2f, 0.0f, 1.0f); // yellow
-	//lights_.at(3)->setDirection(0.0, 0.0f, 0.0f);
-	//lights_.at(3)->setSpecularPower(16.f);
-	//lights_.at(3)->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-
+	
 	// multi light example lights' colours
 	light_colours_.at(0)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
 	light_colours_.at(1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
