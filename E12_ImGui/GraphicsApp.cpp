@@ -243,30 +243,7 @@ void GraphicsApp::gui()
 		multiLightExample->example ^= 1;
 		geometryExample->example = false;
 
-		// set multi light camera
-		camera->setPosition(0.0f, 0.0f, -4.75f);
-		camera->setRotation(0.0f, 0.f, 0.f);
-		// scale up sphere mesh
-		multiLightExample->scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
-		// reset light colours
-		multiLightExample->light_colours_.at(0)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
-		multiLightExample->light_colours_.at(1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
-		multiLightExample->light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
-		multiLightExample->light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
-		// reset light positions
-		multiLightExample->light_positions_.at(0)->operator=(XMFLOAT4(-3.0f, 0.1f, 3.0f, 1.0f));
-		multiLightExample->light_positions_.at(1)->operator=(XMFLOAT4(3.0f, 0.1f, 3.0f, 1.0f));
-		multiLightExample->light_positions_.at(2)->operator=(XMFLOAT4(-3.0f, 0.1f, -3.0f, 1.0f));
-		multiLightExample->light_positions_.at(3)->operator=(XMFLOAT4(3.0f, 0.1f, -3.0f, 1.0f));
-		// render only sphere mesh
-		multiLightExample->mesh_choice = MESH_CHOICE::SPHERE;
-		multiLightExample->triangle_mesh = false;
-		multiLightExample->sphere_mesh = true;
-		multiLightExample->cube_mesh = false;
-		multiLightExample->quad_mesh = false;
-		multiLightExample->plane_mesh = false;
-		// reset wireframe
-		multiLightExample->wireframe = false;
+		multiLightExample->resetExample(camera);
 	}
 	// CHOOSE GEOMETRY SHADER EXAMPLE 
 	else if (ImGui::Button("Geometry Shader Example"))

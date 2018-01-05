@@ -118,7 +118,7 @@ void MultiLightExample::initLight()
 	light_colours_.at(0)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
 	light_colours_.at(1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
 	light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
-	light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+	light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
 	// multi light example lights' positions
 	light_positions_.at(0)->operator=(XMFLOAT4(-3.0f, 0.1f, 3.0f, 1.0f));
 	light_positions_.at(1)->operator=(XMFLOAT4(3.0f, 0.1f, 3.0f, 1.0f));
@@ -129,21 +129,7 @@ void MultiLightExample::initLight()
 void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-	/*XMFLOAT4 diffuseColor[4];
-	XMFLOAT3 lightPosition[4];
-*/
-	// Create the diffuse color array from the four light colors.
-	/*diffuseColor[0] = (*light_colours_.at(0));
-	diffuseColor[1] = (*light_colours_.at(1));
-	diffuseColor[2] = (*light_colours_.at(2));
-	diffuseColor[3] = (*light_colours_.at(3));*/
-
-	// Create the light position array from the four light positions.
-	/*lightPosition[0] = (*light_positions_.at(0));
-	lightPosition[1] = (*light_positions_.at(1));
-	lightPosition[2] = (*light_positions_.at(2));
-	lightPosition[3] = (*light_positions_.at(3));*/
-
+	
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	if (plane_mesh) // plane
 	{
@@ -207,40 +193,14 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
 
-void MultiLightExample::gui(Camera * camera)
+void MultiLightExample::gui(Camera* camera)
 {
 	if (example)
 	{
 		ImGui::Begin("Multi Light Example", &example);
 		if (ImGui::Button("Reset Example"))
 		{
-			// set multi light camera
-			camera->setPosition(0.0f, 0.0f, -4.75f);
-			camera->setRotation(0.0f, 0.f, 0.f);
-			// scale up sphere mesh
-			scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
-			// reset light colours
-			light_colours_.at(0)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
-			light_colours_.at(1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
-			light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
-			light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
-			// reset light positions
-			light_positions_.at(0)->operator=(XMFLOAT4(-3.0f, 0.1f, 3.0f, 1.0f));
-			light_positions_.at(1)->operator=(XMFLOAT4(3.0f, 0.1f, 3.0f, 1.0f));
-			light_positions_.at(2)->operator=(XMFLOAT4(-3.0f, 0.1f, -3.0f, 1.0f));
-			light_positions_.at(3)->operator=(XMFLOAT4(3.0f, 0.1f, -3.0f, 1.0f));
-			// render only sphere mesh
-			mesh_choice = MESH_CHOICE::SPHERE;
-			triangle_mesh = false;
-			sphere_mesh = true;
-			cube_mesh = false;
-			quad_mesh = false;
-			plane_mesh = false;
-			// reset wireframe
-			wireframe = false;
-			// reset geometry shader primitive topology
-			d3d11_primitive_topology_trianglelist = true;
-			d3d11_primitive_topology_pointlist = false;
+			resetExample(camera);
 		}
 		ImGui::Checkbox("Wireframe", &wireframe);
 		// change lights' colour
@@ -326,5 +286,38 @@ void MultiLightExample::gui(Camera * camera)
 		ImGui::End();
 	}
 }
+
+void MultiLightExample::resetExample(Camera* camera)
+{
+	// set multi light camera
+	camera->setPosition(0.0f, 0.0f, -4.75f);
+	camera->setRotation(0.0f, 0.f, 0.f);
+	// scale up sphere mesh
+	scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
+	// reset light colours
+	light_colours_.at(0)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+	light_colours_.at(1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
+	light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
+	light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
+	// reset light positions
+	light_positions_.at(0)->operator=(XMFLOAT4(-3.0f, 0.1f, 3.0f, 1.0f));
+	light_positions_.at(1)->operator=(XMFLOAT4(3.0f, 0.1f, 3.0f, 1.0f));
+	light_positions_.at(2)->operator=(XMFLOAT4(-3.0f, 0.1f, -3.0f, 1.0f));
+	light_positions_.at(3)->operator=(XMFLOAT4(3.0f, 0.1f, -3.0f, 1.0f));
+	// render only sphere mesh
+	mesh_choice = MESH_CHOICE::SPHERE;
+	triangle_mesh = false;
+	sphere_mesh = true;
+	cube_mesh = false;
+	quad_mesh = false;
+	plane_mesh = false;
+	// reset wireframe
+	wireframe = false;
+	// reset geometry shader primitive topology
+	d3d11_primitive_topology_trianglelist = true;
+	d3d11_primitive_topology_pointlist = false;
+}
+
+
 
 

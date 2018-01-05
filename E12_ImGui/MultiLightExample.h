@@ -14,6 +14,7 @@ public:
 	void initLight();
 	void render(D3D* renderer, Camera* camera, TextureManager* textureMgr);
 	void gui(Camera* camera);
+	void resetExample(Camera* camera);
 
 	// shader handler
 	MultiLightShader* shader;
