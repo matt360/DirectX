@@ -141,16 +141,6 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	}
-	else if (sphere_mesh) // sphere
-	{
-		viewMatrix = camera->getViewMatrix();
-		projectionMatrix = renderer->getProjectionMatrix();
-		// translation and rotation
-		worldMatrix = renderer->getWorldMatrix();
-		XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-		XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(0.0f));
-		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
-	}
 	else
 	{
 		viewMatrix = camera->getViewMatrix();
@@ -222,38 +212,25 @@ void MultiLightExample::gui(Camera* camera)
 			d3d11_primitive_topology_pointlist = false;
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
 			d3d11_primitive_topology_trianglelist = false;
-		// what mesh to render (the highest one checked will be rendered (room for improvemnet: use menu box instead)
+		// what mesh to render
 		if (ImGui::Checkbox("Triangle Mesh", &triangle_mesh))
 		{
-			// set multi light camera
-			camera->setPosition(0.0f, 0.0f, -4.75f);
-
+			resetExample(camera);
 			set_mesh_choice(MESH_CHOICE::TRIANGLE);
 		}
 		if (ImGui::Checkbox("Sphere Mesh", &sphere_mesh))
 		{
-			// set multi light camera
-			camera->setPosition(0.0f, 0.0f, -4.75f);
-
+			resetExample(camera);
 			set_mesh_choice(MESH_CHOICE::SPHERE);
 		}
 		if (ImGui::Checkbox("Cube Mesh", &cube_mesh))
 		{
-			// set multi light camera
-			camera->setPosition(0.0f, 0.0f, -4.75f);
-
-			mesh_choice = MESH_CHOICE::CUBE;
-			triangle_mesh = false;
-			sphere_mesh = false;
-			cube_mesh = true;
-			quad_mesh = false;
-			plane_mesh = false;
+			resetExample(camera);
+			set_mesh_choice(MESH_CHOICE::CUBE);
 		}
 		if (ImGui::Checkbox("Quad Mesh", &quad_mesh))
 		{
-			// set multi light camera
-			camera->setPosition(0.0f, 0.0f, -4.75f);
-
+			resetExample(camera);
 			set_mesh_choice(MESH_CHOICE::QUAD);
 		}
 		if (ImGui::Checkbox("Plane Mesh", &plane_mesh))
