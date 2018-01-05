@@ -21,7 +21,7 @@ private:
 		float padding;
 	};
 
-	struct LightColorBufferType
+	struct LightColourBufferType
 	{
 		XMFLOAT4 diffuseColor[NUM_LIGHTS];
 	};

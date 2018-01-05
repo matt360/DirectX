@@ -145,7 +145,7 @@ void MultiLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	// Setup the description of the light dynamic constant buffer that is in the pixel shader.
 	// Note that ByteWidth always needs to be a multiple of 16 if using D3D11_BIND_CONSTANT_BUFFER or CreateBuffer will fail.
 	lightPositionBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-	lightPositionBufferDesc.ByteWidth = sizeof(LightColorBufferType);
+	lightPositionBufferDesc.ByteWidth = sizeof(LightColourBufferType);
 	lightPositionBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	lightPositionBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	lightPositionBufferDesc.MiscFlags = 0;
@@ -283,7 +283,7 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, c
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	MatrixBufferType* dataPtr;
 	LightPositionBufferType* dataPtr2;
-	LightColorBufferType* dataPtr3;
+	LightColourBufferType* dataPtr3;
 	unsigned int bufferNumber;
 	XMMATRIX tworld, tview, tproj;
 	
@@ -330,7 +330,7 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, c
 	// Lock the light color constant buffer so it can be written to.
 	result = deviceContext->Map(m_lightColorBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	// Get a pointer to the data in the constant buffer.
-	dataPtr3 = (LightColorBufferType*)mappedResource.pData;
+	dataPtr3 = (LightColourBufferType*)mappedResource.pData;
 	// Copy the light color variables into the constant buffer.
 	dataPtr3->diffuseColor[0] = diffuseColor[0];
 	dataPtr3->diffuseColor[1] = diffuseColor[1];
