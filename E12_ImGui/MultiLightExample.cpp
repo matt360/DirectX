@@ -226,23 +226,23 @@ void MultiLightExample::resetExample(Camera* camera)
 	camera->setRotation(0.0f, 0.f, 0.f);
 	// scale up sphere mesh
 	scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
-	// multi light example lights' colours
+	// reset light lights' colours
 	for (int i = 0; i < number_of_lights_; i += 4)
 	{
-		light_colours_.at(i)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+		light_colours_.at(i    )->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
 		light_colours_.at(i + 1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
 		light_colours_.at(i + 2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
 		light_colours_.at(i + 3)->operator=(XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
 	}
 
-	// multi light example lights' positions
+	// reset lights' positions
 	for (int i = 0; i < number_of_lights_; i += 4)
 	{
 		float temp_pos = (float)i;
-		light_positions_.at(i)->operator=(XMFLOAT4(temp_pos + -3.0f, 0.1f, temp_pos + 3.0f, 1.0f));
-		light_positions_.at(i + 1)->operator=(XMFLOAT4(temp_pos + 3.0f, 0.1f, temp_pos + 3.0f, 1.0f));
+		light_positions_.at(i    )->operator=(XMFLOAT4(temp_pos + -3.0f, 0.1f, temp_pos +  3.0f, 1.0f));
+		light_positions_.at(i + 1)->operator=(XMFLOAT4(temp_pos +  3.0f, 0.1f, temp_pos +  3.0f, 1.0f));
 		light_positions_.at(i + 2)->operator=(XMFLOAT4(temp_pos + -3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
-		light_positions_.at(i + 3)->operator=(XMFLOAT4(temp_pos + 3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
+		light_positions_.at(i + 3)->operator=(XMFLOAT4(temp_pos +  3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
 	}
 	// render only sphere mesh
 	mesh_choice = MESH_CHOICE::SPHERE;
