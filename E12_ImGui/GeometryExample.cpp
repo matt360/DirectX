@@ -136,9 +136,10 @@ void GeometryExample::gui(Camera * camera)
 	}
 }
 
-void GeometryExample::resetExample(Camera * camera)
+void GeometryExample::resetExample(Camera* camera)
 {
-	mesh_choice = MESH_CHOICE::CUBE;
+	// set cube mesh
+	set_mesh_choice(MESH_CHOICE::CUBE);
 	// reset geometry shader scale
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// reset geometry shader wireframe mode
@@ -146,13 +147,7 @@ void GeometryExample::resetExample(Camera * camera)
 	// reset geometry shader primitive topology
 	d3d11_primitive_topology_trianglelist = true;
 	d3d11_primitive_topology_pointlist = false;
-	// set cube mesh
-	triangle_mesh = false;
-	sphere_mesh = false;
-	cube_mesh = true;
-	quad_mesh = false;
-	plane_mesh = false;
 	// set the camera
 	camera->setPosition(13.0f, 4.0f, -22.0f);
-	camera->setRotation(0.0f, -35.0f, 0.0f);
+	camera->setRotation(0.0f, -30.0f, 7.0f);
 }
