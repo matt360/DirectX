@@ -199,7 +199,7 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext,
 	// Get a pointer to the data in the constant buffer.
 	lightPositionBufferTypeDataPtr = (LightPositionBufferType*)mappedResource.pData;
 	// Copy the light position variables into the constant buffer.
-	for (int i = 0; i < NUM_LIGHTS; ++i)
+	for (int i = 0; i < number_of_lights_; ++i)
 	{
 		lightPositionBufferTypeDataPtr->lightPosition[i] = *lightPosition.at(i);
 	}
@@ -215,7 +215,7 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext,
 	// Get a pointer to the data in the constant buffer.
 	lightColourBufferTypeDataPtr = (LightColourBufferType*)mappedResource.pData;
 	// Copy the light color variables into the constant buffer.
-	for (int i = 0; i < NUM_LIGHTS; ++i)
+	for (int i = 0; i < number_of_lights_; ++i)
 	{
 		lightColourBufferTypeDataPtr->diffuseColor[i] = (*lightColour.at(i));
 	}

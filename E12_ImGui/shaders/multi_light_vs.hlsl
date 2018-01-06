@@ -29,7 +29,7 @@ struct PixelInputType
     float4 position : SV_POSITION; // put position into SV_POSITION
     float2 tex : TEXCOORD0;        // put tex into TEXCOORD0 which is a place in the memory (TODO check this)
     float3 normal : NORMAL;        // put norml into NORMAL
-    float3 lightPositions[8] : TEXCOORD1;
+    float3 lightPositions[NUM_LIGHTS] : TEXCOORD1;
 };
 
 // Vertex Shader

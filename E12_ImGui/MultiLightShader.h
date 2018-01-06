@@ -10,7 +10,7 @@
 using namespace std;
 using namespace DirectX;
 
-const int NUM_LIGHTS = 8;
+const unsigned NUM_LIGHTS = 8;
 
 class MultiLightShader : public BaseShader
 {
@@ -44,6 +44,8 @@ public:
 		const std::vector<XMFLOAT4*>& lightColour,
 		const std::vector<XMFLOAT4*>& lightPosition);
 	void render(ID3D11DeviceContext* deviceContext, int vertexCount);
+
+	const unsigned number_of_lights_ = NUM_LIGHTS;
 
 private:
 	void initShader(WCHAR*, WCHAR*);
