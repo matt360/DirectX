@@ -37,6 +37,7 @@ struct PixelInputType
 	float3 lightPos6 : TEXCOORD6;  // put lightPos6 into TEXCOORD6 
 	float3 lightPos7 : TEXCOORD7;  // put lightPos7 into TEXCOORD7 
 	float3 lightPos8 : TEXCOORD8;  // put lightPos8 into TEXCOORD8
+    float3 lightPositions[8] : TEXCOORD9;
 };
 
 // Vertex Shader
@@ -66,27 +67,33 @@ PixelInputType main(VertexInputType input)
     worldPosition = mul(input.position, worldMatrix);
 
     // Determine the light positions based on the position of the lights and the position of the vertex in the world.
-    //for (int i = 0; i < NUM_LIGHTS; ++i)
-    //{
-        output.lightPos1.xyz = lightPosition[0].xyz - worldPosition.xyz;
-        output.lightPos2.xyz = lightPosition[1].xyz - worldPosition.xyz;
-        output.lightPos3.xyz = lightPosition[2].xyz - worldPosition.xyz;
-        output.lightPos4.xyz = lightPosition[3].xyz - worldPosition.xyz;
-    output.lightPos5.xyz = lightPosition[4].xyz - worldPosition.xyz;
-    output.lightPos6.xyz = lightPosition[5].xyz - worldPosition.xyz;
-    output.lightPos7.xyz = lightPosition[6].xyz - worldPosition.xyz;
-    output.lightPos8.xyz = lightPosition[7].xyz - worldPosition.xyz;
-    //}
+    for (int i = 0; i < NUM_LIGHTS; ++i)
+    {
+        output.lightPositions[i].xyz = lightPosition[i].xyz - worldPosition.xyz;
+    }
+    //output.lightPos1.xyz = lightPosition[0].xyz - worldPosition.xyz;
+    //output.lightPos2.xyz = lightPosition[1].xyz - worldPosition.xyz;
+    //output.lightPos3.xyz = lightPosition[2].xyz - worldPosition.xyz;
+    //output.lightPos4.xyz = lightPosition[3].xyz - worldPosition.xyz;
+    //output.lightPos5.xyz = lightPosition[4].xyz - worldPosition.xyz;
+    //output.lightPos6.xyz = lightPosition[5].xyz - worldPosition.xyz;
+    //output.lightPos7.xyz = lightPosition[6].xyz - worldPosition.xyz;
+    //output.lightPos8.xyz = lightPosition[7].xyz - worldPosition.xyz;
 
     // Normalize the light position vectors.
-    output.lightPos1 = normalize(output.lightPos1);
-    output.lightPos2 = normalize(output.lightPos2);
-    output.lightPos3 = normalize(output.lightPos3);
-    output.lightPos4 = normalize(output.lightPos4);
-    output.lightPos5 = normalize(output.lightPos5);
-    output.lightPos6 = normalize(output.lightPos6);
-    output.lightPos7 = normalize(output.lightPos7);
-    output.lightPos8 = normalize(output.lightPos8);
+    for (i = 0; i < NUM_LIGHTS; ++i)
+    {
+        output.lightPositions[i].xyz = normalize(output.lightPositions[i]);
+    }
+
+    //output.lightPos1 = normalize(output.lightPos1);
+    //output.lightPos2 = normalize(output.lightPos2);
+    //output.lightPos3 = normalize(output.lightPos3);
+    //output.lightPos4 = normalize(output.lightPos4);
+    //output.lightPos5 = normalize(output.lightPos5);
+    //output.lightPos6 = normalize(output.lightPos6);
+    //output.lightPos7 = normalize(output.lightPos7);
+    //output.lightPos8 = normalize(output.lightPos8);
 
     return output;
  }

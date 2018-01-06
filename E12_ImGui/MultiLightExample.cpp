@@ -92,11 +92,11 @@ void MultiLightExample::initLight()
 	// multi light example lights' positions
 	for (int i = 0; i < number_of_lights_; i += 4)
 	{
-		float temp_pos = (float)i;
-		light_positions_.at(i    )->operator=(XMFLOAT4(temp_pos + -3.0f, 0.1f, temp_pos +  3.0f, 1.0f));
-		light_positions_.at(i + 1)->operator=(XMFLOAT4(temp_pos +  3.0f, 0.1f, temp_pos +  3.0f, 1.0f));
-		light_positions_.at(i + 2)->operator=(XMFLOAT4(temp_pos + -3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
-		light_positions_.at(i + 3)->operator=(XMFLOAT4(temp_pos +  3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
+		float temp_pos = (float)i * 2.0f;
+		light_positions_.at(i    )->operator=(XMFLOAT4(-3.0f, 0.1f, temp_pos +  3.0f, 1.0f));
+		light_positions_.at(i + 1)->operator=(XMFLOAT4( 3.0f, 0.1f, temp_pos +  3.0f, 1.0f));
+		light_positions_.at(i + 2)->operator=(XMFLOAT4(-3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
+		light_positions_.at(i + 3)->operator=(XMFLOAT4( 3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
 	}
 }
 
@@ -235,23 +235,7 @@ void MultiLightExample::resetExample(Camera* camera)
 	// scale up sphere mesh
 	scale = XMFLOAT3(1.0f, 1.0f, 40.0f);
 	// reset light lights' colours
-	for (int i = 0; i < number_of_lights_; i += 4)
-	{
-		light_colours_.at(i    )->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
-		light_colours_.at(i + 1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
-		light_colours_.at(i + 2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
-		light_colours_.at(i + 3)->operator=(XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
-	}
-
-	// reset lights' positions
-	for (int i = 0; i < number_of_lights_; i += 4)
-	{
-		float temp_pos = (float)i;
-		light_positions_.at(i    )->operator=(XMFLOAT4(temp_pos + -3.0f, 0.1f, temp_pos +  3.0f, 1.0f));
-		light_positions_.at(i + 1)->operator=(XMFLOAT4(temp_pos +  3.0f, 0.1f, temp_pos +  3.0f, 1.0f));
-		light_positions_.at(i + 2)->operator=(XMFLOAT4(temp_pos + -3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
-		light_positions_.at(i + 3)->operator=(XMFLOAT4(temp_pos +  3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
-	}
+	initLight();
 	// render only sphere mesh
 	mesh_choice = MESH_CHOICE::SPHERE;
 	triangle_mesh = false;
