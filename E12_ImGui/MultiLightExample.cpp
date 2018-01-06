@@ -52,7 +52,7 @@ void MultiLightExample::initShader(D3D* renderer, HWND hwnd)
 
 void MultiLightExample::initVariables()
 {
-	MESH_CHOICE mesh_choice = MESH_CHOICE::SPHERE;
+	MESH_CHOICE mesh_choice = MESH_CHOICE::PLANE;
 	over_time = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
@@ -168,23 +168,39 @@ void MultiLightExample::gui(Camera* camera)
 		}
 		ImGui::Checkbox("Wireframe", &wireframe);
 		// change lights' colour
-		ImGui::ColorEdit4("Light 0 Col", (float*)light_colours_.at(0));
-		ImGui::ColorEdit4("Light 1 Col", (float*)light_colours_.at(1));
-		ImGui::ColorEdit4("Light 2 Col", (float*)light_colours_.at(2));
-		ImGui::ColorEdit4("Light 3 Col", (float*)light_colours_.at(3));
-		ImGui::ColorEdit4("Light 4 Col", (float*)light_colours_.at(4));
-		ImGui::ColorEdit4("Light 5 Col", (float*)light_colours_.at(5));
-		ImGui::ColorEdit4("Light 6 Col", (float*)light_colours_.at(6));
-		ImGui::ColorEdit4("Light 7 Col", (float*)light_colours_.at(7));
-		// change lights' position TODO check
-		ImGui::SliderFloat3("Light 0 Pos", (float*)light_positions_.at(0), -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 1 Pos", (float*)light_positions_.at(1), -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 2 Pos", (float*)light_positions_.at(2), -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 3 Pos", (float*)light_positions_.at(3), -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 4 Pos", (float*)light_positions_.at(4), -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 5 Pos", (float*)light_positions_.at(5), -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 6 Pos", (float*)light_positions_.at(6), -10.0f, 10.0f);
-		ImGui::SliderFloat3("Light 7 Pos", (float*)light_positions_.at(7), -10.0f, 10.0f);
+		ImGui::ColorEdit4("Light 0 Col",  (float*)light_colours_.at(0));
+		ImGui::ColorEdit4("Light 1 Col",  (float*)light_colours_.at(1));
+		ImGui::ColorEdit4("Light 2 Col",  (float*)light_colours_.at(2));
+		ImGui::ColorEdit4("Light 3 Col",  (float*)light_colours_.at(3));
+		ImGui::ColorEdit4("Light 4 Col",  (float*)light_colours_.at(4));
+		ImGui::ColorEdit4("Light 5 Col",  (float*)light_colours_.at(5));
+		ImGui::ColorEdit4("Light 6 Col",  (float*)light_colours_.at(6));
+		ImGui::ColorEdit4("Light 7 Col",  (float*)light_colours_.at(7));
+		ImGui::ColorEdit4("Light 8 Col",  (float*)light_colours_.at(8));
+		ImGui::ColorEdit4("Light 9 Col",  (float*)light_colours_.at(9));
+		ImGui::ColorEdit4("Light 10 Col", (float*)light_colours_.at(10));
+		ImGui::ColorEdit4("Light 11 Col", (float*)light_colours_.at(11));
+		ImGui::ColorEdit4("Light 12 Col", (float*)light_colours_.at(12));
+		ImGui::ColorEdit4("Light 13 Col", (float*)light_colours_.at(13));
+		ImGui::ColorEdit4("Light 14 Col", (float*)light_colours_.at(14));
+		ImGui::ColorEdit4("Light 15 Col", (float*)light_colours_.at(15));
+		// change lights' position
+		ImGui::SliderFloat3("Light 0 Pos",  (float*)light_positions_.at(0), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 1 Pos",  (float*)light_positions_.at(1), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 2 Pos",  (float*)light_positions_.at(2), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 3 Pos",  (float*)light_positions_.at(3), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 4 Pos",  (float*)light_positions_.at(4), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 5 Pos",  (float*)light_positions_.at(5), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 6 Pos",  (float*)light_positions_.at(6), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 7 Pos",  (float*)light_positions_.at(7), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 8 Pos",  (float*)light_positions_.at(8), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 9 Pos",  (float*)light_positions_.at(9), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 10 Pos", (float*)light_positions_.at(10), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 11 Pos", (float*)light_positions_.at(11), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 12 Pos", (float*)light_positions_.at(12), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 13 Pos", (float*)light_positions_.at(13), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 14 Pos", (float*)light_positions_.at(14), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 15 Pos", (float*)light_positions_.at(15), -10.0f, 10.0f);
 		// scale
 		ImGui::SliderFloat3("Scale", (float*)&scale, -40.0f, 40.0f);
 		// reset scale
@@ -202,7 +218,12 @@ void MultiLightExample::gui(Camera* camera)
 		}
 		if (ImGui::Checkbox("Sphere Mesh", &sphere_mesh))
 		{
-			resetExample(camera);
+			// set multi light camera
+			camera->setPosition(0.0f, 0.0f, -4.75f);
+			camera->setRotation(0.0f, 0.f, 0.f);
+			// scale up sphere mesh
+			scale = XMFLOAT3(1.0f, 1.0f, 40.0f);
+
 			set_mesh_choice(MESH_CHOICE::SPHERE);
 		}
 		if (ImGui::Checkbox("Cube Mesh", &cube_mesh))
@@ -217,8 +238,8 @@ void MultiLightExample::gui(Camera* camera)
 		}
 		if (ImGui::Checkbox("Plane Mesh", &plane_mesh))
 		{
-			camera->setPosition(-8.75f, 3.0f, -3.5f);
-			camera->setRotation(0.0f, 70.0f, 15.0f);
+			camera->setPosition(-13.5f, 5.75f, -5.0f);
+			camera->setRotation(0.0f, 50.0f, 15.0f);
 			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
 			set_mesh_choice(MESH_CHOICE::PLANE);
@@ -230,19 +251,14 @@ void MultiLightExample::gui(Camera* camera)
 void MultiLightExample::resetExample(Camera* camera)
 {
 	// set multi light camera
-	camera->setPosition(0.0f, 0.0f, -4.75f);
-	camera->setRotation(0.0f, 0.f, 0.f);
+	camera->setPosition(-13.5f, 5.75f, -5.0f);
+	camera->setRotation(0.0f, 50.0f, 15.0f);
 	// scale up sphere mesh
-	scale = XMFLOAT3(1.0f, 1.0f, 40.0f);
+	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// reset light lights' colours
 	initLight();
 	// render only sphere mesh
-	mesh_choice = MESH_CHOICE::SPHERE;
-	triangle_mesh = false;
-	sphere_mesh = true;
-	cube_mesh = false;
-	quad_mesh = false;
-	plane_mesh = false;
+	set_mesh_choice(MESH_CHOICE::PLANE);
 	// reset wireframe
 	wireframe = false;
 	// reset geometry shader primitive topology

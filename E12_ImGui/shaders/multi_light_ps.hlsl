@@ -1,7 +1,7 @@
 // PIXEL SHADER
 
 // Defines
-#define NUM_LIGHTS 8
+#define NUM_LIGHTS 16
 
 // Globals
 Texture2D shaderTexture;
@@ -25,9 +25,9 @@ struct PixelInputType
 float4 main(PixelInputType input) : SV_TARGET
 {
     float4 textureColor;
-    float lightIntensity[8];
+    float lightIntensity[NUM_LIGHTS];
     float4 color,
-    colors[8], 
+    colors[NUM_LIGHTS],
     add_colours = 0;
 
 	// Calculate the different amounts of light on this pixel based on the positions of the lights.

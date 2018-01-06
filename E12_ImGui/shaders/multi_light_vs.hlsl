@@ -1,7 +1,7 @@
 // VERTEX SHADER
 
 // Defines
-#define NUM_LIGHTS 8
+#define NUM_LIGHTS 16
 
 // Globals
 cbuffer MatrixBuffer

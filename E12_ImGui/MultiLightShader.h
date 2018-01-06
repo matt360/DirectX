@@ -10,7 +10,7 @@
 using namespace std;
 using namespace DirectX;
 
-const unsigned NUM_LIGHTS = 8;
+const unsigned NUM_LIGHTS = 16;
 
 class MultiLightShader : public BaseShader
 {
