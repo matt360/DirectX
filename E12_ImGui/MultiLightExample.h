@@ -2,7 +2,7 @@
 #include "Example.h"
 #include "MultiLightShader.h"
 
-const unsigned number_of_lights_ = 4;
+const unsigned number_of_lights_ = 8;
 
 class MultiLightExample : public Example
 {
