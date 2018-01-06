@@ -200,7 +200,9 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext,
 	lightPositionBufferTypeDataPtr = (LightPositionBufferType*)mappedResource.pData;
 	// Copy the light position variables into the constant buffer.
 	for (int i = 0; i < NUM_LIGHTS; ++i)
+	{
 		lightPositionBufferTypeDataPtr->lightPosition[i] = *lightPosition.at(i);
+	}
 	// Unlock the constant buffer.
 	deviceContext->Unmap(m_lightPositionBuffer, 0);
 	// Set the position of the constant buffer in the vertex shader.
@@ -214,7 +216,9 @@ void MultiLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext,
 	lightColourBufferTypeDataPtr = (LightColourBufferType*)mappedResource.pData;
 	// Copy the light color variables into the constant buffer.
 	for (int i = 0; i < NUM_LIGHTS; ++i)
+	{
 		lightColourBufferTypeDataPtr->diffuseColor[i] = (*lightColour.at(i));
+	}
 	// Unlock the constant buffer.
 	deviceContext->Unmap(m_lightColorBuffer, 0);
 	// Set the position of the constant buffer in the pixel shader.
