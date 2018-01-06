@@ -80,34 +80,24 @@ void MultiLightExample::initVariables()
 
 void MultiLightExample::initLight()
 {
-	// lights' positions
-	// TODO integrate light_positions with light
-	for (int i = 0; i < number_of_lights_; ++i)
+	// multi light example lights' colours
+	for (int i = 0; i < number_of_lights_; i += 4)
 	{
-		if (i % 4 == 0)
-			lights_.at(i)->setPosition(i - 3.0f, 0.1f, i + 3.0f);
-			//lights_.at(i)->setPosition(-3.0f, 0.1f, 3.0f);
-		else if (i % 3 == 0)
-			lights_.at(i)->setPosition(i + 3.0f, 0.1f, i + 3.0f);
-			//lights_.at(i)->setPosition(3.0f, 0.1f, 3.0f);
-		else if (i % 2 == 0)
-			lights_.at(i)->setPosition(i - 3.0f, 0.1f, i - 3.0f);
-			//lights_.at(i)->setPosition(-3.0f, 0.1f, -3.0f);
-		else
-			lights_.at(i)->setPosition(i + 3.0f, 0.1f, i - 3.0f);
-			//lights_.at(i)->setPosition(3.0f, 0.1f, -3.0f);
+		light_colours_.at(i    )->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+		light_colours_.at(i + 1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
+		light_colours_.at(i + 2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
+		light_colours_.at(i + 3)->operator=(XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
 	}
 
-	// multi light example lights' colours
-	light_colours_.at(0)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
-	light_colours_.at(1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
-	light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
-	light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
 	// multi light example lights' positions
-	light_positions_.at(0)->operator=(XMFLOAT4(-3.0f, 0.1f, 3.0f, 1.0f));
-	light_positions_.at(1)->operator=(XMFLOAT4(3.0f, 0.1f, 3.0f, 1.0f));
-	light_positions_.at(2)->operator=(XMFLOAT4(-3.0f, 0.1f, -3.0f, 1.0f));
-	light_positions_.at(3)->operator=(XMFLOAT4(3.0f, 0.1f, -3.0f, 1.0f));
+	for (int i = 0; i < number_of_lights_; i += 4)
+	{
+		float temp_pos = (float)i;
+		light_positions_.at(i    )->operator=(XMFLOAT4(temp_pos + -3.0f, 0.1f, temp_pos +  3.0f, 1.0f));
+		light_positions_.at(i + 1)->operator=(XMFLOAT4(temp_pos +  3.0f, 0.1f, temp_pos +  3.0f, 1.0f));
+		light_positions_.at(i + 2)->operator=(XMFLOAT4(temp_pos + -3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
+		light_positions_.at(i + 3)->operator=(XMFLOAT4(temp_pos +  3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
+	}
 }
 
 void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
@@ -236,16 +226,24 @@ void MultiLightExample::resetExample(Camera* camera)
 	camera->setRotation(0.0f, 0.f, 0.f);
 	// scale up sphere mesh
 	scale = XMFLOAT3(1.0f, 1.0f, 20.0f);
-	// reset light colours
-	light_colours_.at(0)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
-	light_colours_.at(1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
-	light_colours_.at(2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
-	light_colours_.at(3)->operator=(XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
-	// reset light positions
-	/*light_positions_.at(0)->operator=(XMFLOAT4(-3.0f, 0.1f, 3.0f, 1.0f));
-	light_positions_.at(1)->operator=(XMFLOAT4(3.0f, 0.1f, 3.0f, 1.0f));
-	light_positions_.at(2)->operator=(XMFLOAT4(-3.0f, 0.1f, -3.0f, 1.0f));
-	light_positions_.at(3)->operator=(XMFLOAT4(3.0f, 0.1f, -3.0f, 1.0f));*/
+	// multi light example lights' colours
+	for (int i = 0; i < number_of_lights_; i += 4)
+	{
+		light_colours_.at(i)->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+		light_colours_.at(i + 1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
+		light_colours_.at(i + 2)->operator=(XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
+		light_colours_.at(i + 3)->operator=(XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
+	}
+
+	// multi light example lights' positions
+	for (int i = 0; i < number_of_lights_; i += 4)
+	{
+		float temp_pos = (float)i;
+		light_positions_.at(i)->operator=(XMFLOAT4(temp_pos + -3.0f, 0.1f, temp_pos + 3.0f, 1.0f));
+		light_positions_.at(i + 1)->operator=(XMFLOAT4(temp_pos + 3.0f, 0.1f, temp_pos + 3.0f, 1.0f));
+		light_positions_.at(i + 2)->operator=(XMFLOAT4(temp_pos + -3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
+		light_positions_.at(i + 3)->operator=(XMFLOAT4(temp_pos + 3.0f, 0.1f, temp_pos + -3.0f, 1.0f));
+	}
 	// render only sphere mesh
 	mesh_choice = MESH_CHOICE::SPHERE;
 	triangle_mesh = false;
