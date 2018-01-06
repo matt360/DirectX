@@ -168,18 +168,23 @@ void MultiLightExample::gui(Camera* camera)
 		}
 		ImGui::Checkbox("Wireframe", &wireframe);
 		// change lights' colour
-		for (int i = 0; i < number_of_lights_; ++i)
-		{
-			ImGui::ColorEdit4("Light Col", (float*)light_colours_.at(i));
-			/*ImGui::ColorEdit4("Light Col", (float*)light_colours_.at(1));
-			ImGui::ColorEdit4("Light Col", (float*)light_colours_.at(2));
-			ImGui::ColorEdit4("Light Col", (float*)light_colours_.at(3));*/
-		}
+		ImGui::ColorEdit4("Light 0 Col", (float*)light_colours_.at(0));
+		ImGui::ColorEdit4("Light 1 Col", (float*)light_colours_.at(1));
+		ImGui::ColorEdit4("Light 2 Col", (float*)light_colours_.at(2));
+		ImGui::ColorEdit4("Light 3 Col", (float*)light_colours_.at(3));
+		ImGui::ColorEdit4("Light 4 Col", (float*)light_colours_.at(4));
+		ImGui::ColorEdit4("Light 5 Col", (float*)light_colours_.at(5));
+		ImGui::ColorEdit4("Light 6 Col", (float*)light_colours_.at(6));
+		ImGui::ColorEdit4("Light 7 Col", (float*)light_colours_.at(7));
 		// change lights' position TODO check
 		ImGui::SliderFloat3("Light 0 Pos", (float*)light_positions_.at(0), -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 1 Pos", (float*)light_positions_.at(1), -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 2 Pos", (float*)light_positions_.at(2), -10.0f, 10.0f);
 		ImGui::SliderFloat3("Light 3 Pos", (float*)light_positions_.at(3), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 4 Pos", (float*)light_positions_.at(4), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 5 Pos", (float*)light_positions_.at(5), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 6 Pos", (float*)light_positions_.at(6), -10.0f, 10.0f);
+		ImGui::SliderFloat3("Light 7 Pos", (float*)light_positions_.at(7), -10.0f, 10.0f);
 		// scale
 		ImGui::SliderFloat3("Scale", (float*)&scale, -40.0f, 40.0f);
 		// reset scale
