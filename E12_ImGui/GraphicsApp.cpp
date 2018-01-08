@@ -4,14 +4,14 @@
 GraphicsApp::GraphicsApp()
 {
 	// geometry meshes
-	triangleMesh = nullptr;
-	sphereMesh = nullptr;
-	cubeMesh = nullptr;
-	quadMesh = nullptr;
-	planeMesh = nullptr;
-	terrainMesh = nullptr;
+	triangleMesh_ = nullptr;
+	sphereMesh_ = nullptr;
+	cubeMesh_ = nullptr;
+	quadMesh_ = nullptr;
+	planeMesh_ = nullptr;
+	terrainMesh_ = nullptr;
 
-	specularLightExample = nullptr;
+	specularLightExample_ = nullptr;
 	tessellationExample = nullptr;
 	terrainExample = nullptr;
 	multiLightExample = nullptr;
@@ -26,44 +26,44 @@ GraphicsApp::~GraphicsApp()
 	BaseApplication::~BaseApplication();
 	
 	// meshes
-	if (triangleMesh)
+	if (triangleMesh_)
 	{
-		delete triangleMesh;
-		triangleMesh = 0;
+		delete triangleMesh_;
+		triangleMesh_ = 0;
 	}
 
-	if (sphereMesh)
+	if (sphereMesh_)
 	{
-		delete sphereMesh;
-		sphereMesh = 0;
+		delete sphereMesh_;
+		sphereMesh_ = 0;
 	}
 
-	if (cubeMesh)
+	if (cubeMesh_)
 	{
-		delete cubeMesh;
-		cubeMesh = 0;
+		delete cubeMesh_;
+		cubeMesh_ = 0;
 	}
 
-	if (quadMesh)
+	if (quadMesh_)
 	{
-		delete quadMesh;
-		quadMesh = 0;
+		delete quadMesh_;
+		quadMesh_ = 0;
 	}
 
-	if (planeMesh)
+	if (planeMesh_)
 	{
-		delete planeMesh;
-		planeMesh = 0;
+		delete planeMesh_;
+		planeMesh_ = 0;
 	}
 
-	if (terrainMesh)
+	if (terrainMesh_)
 	{
-		delete terrainMesh;
-		terrainMesh = 0;
+		delete terrainMesh_;
+		terrainMesh_ = 0;
 	}
 
 	// examples
-	specularLightExample->~SpecularLightExample();
+	specularLightExample_->~SpecularLightExample();
 	tessellationExample->~TessellationExample();
 	terrainExample->~TerrainExample();
 	multiLightExample->~MultiLightExample();
@@ -82,17 +82,17 @@ void GraphicsApp::loadTextures()
 // Create mesh objects
 void GraphicsApp::initGeometry()
 {
-	triangleMesh = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
-	sphereMesh = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
-	cubeMesh = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
-	quadMesh = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
-	planeMesh = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
-	terrainMesh = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
+	triangleMesh_ = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
+	sphereMesh_ = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
+	cubeMesh_ = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
+	quadMesh_ = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
+	planeMesh_ = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
+	terrainMesh_ = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
 }
 
 void GraphicsApp::initExamples()
 {
-	specularLightExample = new SpecularLightExample;
+	specularLightExample_ = new SpecularLightExample;
 	terrainExample = new TerrainExample;
 	tessellationExample = new TessellationExample;
 	multiLightExample = new MultiLightExample;
@@ -109,7 +109,7 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	initExamples();
 
 	// initialize examples
-	specularLightExample->init(renderer, hwnd);
+	specularLightExample_->init(renderer, hwnd);
 	terrainExample->init(renderer, hwnd);
 	tessellationExample->init(renderer, hwnd);
 	multiLightExample->init(renderer, hwnd);
@@ -208,7 +208,7 @@ void GraphicsApp::gui()
 	}
 
 	// EXAMPLES' GUI
-	specularLightExample->gui(camera);
+	specularLightExample_->gui(camera);
 	tessellationExample->gui(camera);
 	terrainExample->gui(camera);
 	multiLightExample->gui(camera);
@@ -232,18 +232,18 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 	switch (eg)
 	{
 	case EXAMPLE_CHOICE::SPECULAR_LIGHT:
-		example = specularLightExample;
+		example = specularLightExample_;
 		example_choice = EXAMPLE_CHOICE::SPECULAR_LIGHT;
-		setActiveExample(specularLightExample->example, tessellationExample->example, terrainExample->example,
+		setActiveExample(specularLightExample_->example, tessellationExample->example, terrainExample->example,
 			multiLightExample->example, geometryExample->example);
 
-		specularLightExample->resetExample(camera);
+		specularLightExample_->resetExample(camera);
 		break;
 
 	case EXAMPLE_CHOICE::TESSELLATION:
 		example = tessellationExample;
 		example_choice = EXAMPLE_CHOICE::TESSELLATION;
-		setActiveExample(tessellationExample->example, specularLightExample->example, terrainExample->example,
+		setActiveExample(tessellationExample->example, specularLightExample_->example, terrainExample->example,
 			multiLightExample->example, geometryExample->example);
 
 		tessellationExample->resetExample(camera);
@@ -253,7 +253,7 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 		example = terrainExample;
 		// set choice
 		example_choice = EXAMPLE_CHOICE::TERRAIN;
-		setActiveExample(terrainExample->example, specularLightExample->example, tessellationExample->example,
+		setActiveExample(terrainExample->example, specularLightExample_->example, tessellationExample->example,
 			multiLightExample->example, geometryExample->example);
 
 		terrainExample->resetExample(camera);
@@ -263,7 +263,7 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 		example = multiLightExample;
 		// set choice
 		example_choice = EXAMPLE_CHOICE::MULTILIGHT;
-		setActiveExample(multiLightExample->example, specularLightExample->example, tessellationExample->example,
+		setActiveExample(multiLightExample->example, specularLightExample_->example, tessellationExample->example,
 			terrainExample->example, geometryExample->example);
 
 		multiLightExample->resetExample(camera);
@@ -273,19 +273,19 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 		example = geometryExample;
 		// set choice
 		example_choice = EXAMPLE_CHOICE::GEOMETRY;
-		setActiveExample(geometryExample->example, specularLightExample->example, tessellationExample->example,
+		setActiveExample(geometryExample->example, specularLightExample_->example, tessellationExample->example,
 			terrainExample->example, multiLightExample->example);
 
 		geometryExample->resetExample(camera);
 		break;
 
 	default:
-		example = specularLightExample;
+		example = specularLightExample_;
 		example_choice = EXAMPLE_CHOICE::SPECULAR_LIGHT;
-		setActiveExample(specularLightExample->example, tessellationExample->example, terrainExample->example,
+		setActiveExample(specularLightExample_->example, tessellationExample->example, terrainExample->example,
 			multiLightExample->example, geometryExample->example);
 
-		specularLightExample->resetExample(camera);
+		specularLightExample_->resetExample(camera);
 		break;
 	}
 }
@@ -296,31 +296,31 @@ BaseMesh* GraphicsApp::chooseMesh(const MESH_CHOICE& mesh_choice)
 	switch (mesh_choice)
 	{
 	case MESH_CHOICE::TRIANGLE:
-		temp_mesh = triangleMesh;
+		temp_mesh = triangleMesh_;
 		break;
 
 	case MESH_CHOICE::SPHERE:
-		temp_mesh = sphereMesh;
+		temp_mesh = sphereMesh_;
 		break;
 
 	case MESH_CHOICE::CUBE:
-		temp_mesh = cubeMesh;
+		temp_mesh = cubeMesh_;
 		break;
 
 	case MESH_CHOICE::QUAD:
-		temp_mesh = quadMesh;
+		temp_mesh = quadMesh_;
 		break;
 
 	case MESH_CHOICE::PLANE:
-		temp_mesh = planeMesh;
+		temp_mesh = planeMesh_;
 		break;
 
 	case MESH_CHOICE::TERRAIN:
-		temp_mesh = terrainMesh;
+		temp_mesh = terrainMesh_;
 		break;
 
 	default:
-		temp_mesh = triangleMesh;
+		temp_mesh = triangleMesh_;
 		break;
 	}
 

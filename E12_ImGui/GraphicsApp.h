@@ -35,15 +35,15 @@ private:
 	void loadTextures();
 
 	// MESHES
-	TriangleMesh *triangleMesh;
-	SphereMesh *sphereMesh;
-	CubeMesh *cubeMesh;
-	QuadMesh *quadMesh;
-	PlaneMesh *planeMesh;
-	TerrainMesh *terrainMesh;
+	TriangleMesh *triangleMesh_;
+	SphereMesh *sphereMesh_;
+	CubeMesh *cubeMesh_;
+	QuadMesh *quadMesh_;
+	PlaneMesh *planeMesh_;
+	TerrainMesh *terrainMesh_;
 
 	// EXAMPLES
-	SpecularLightExample* specularLightExample;
+	SpecularLightExample* specularLightExample_;
 	TessellationExample* tessellationExample;
 	TerrainExample* terrainExample;
 	MultiLightExample* multiLightExample;
