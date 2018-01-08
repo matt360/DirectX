@@ -1797,8 +1797,8 @@ void ImGui::ShowStyleEditor(ImGuiStyle* ref)
             ImGui::TreePop();
         }
         static float window_scale = 1.0f;
-        ImGui::DragFloat("this window scale", &window_scale, 0.005f, 0.3f, 2.0f, "%.1f");              // scale only this window
-        ImGui::DragFloat("global scale", &ImGui::GetIO().FontGlobalScale, 0.005f, 0.3f, 2.0f, "%.1f"); // scale everything
+        ImGui::DragFloat("this window scale", &window_scale, 0.005f, 0.3f, 2.0f, "%.1f");              // scale_ only this window
+        ImGui::DragFloat("global scale", &ImGui::GetIO().FontGlobalScale, 0.005f, 0.3f, 2.0f, "%.1f"); // scale_ everything
         ImGui::PopItemWidth();
         ImGui::SetWindowFontScale(window_scale);
         ImGui::TreePop();

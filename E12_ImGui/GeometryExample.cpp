@@ -34,10 +34,10 @@ void GeometryExample::initShader(D3D * renderer, HWND hwnd)
 void GeometryExample::initVariables()
 {
 	over_time_ = 0.0f;
-	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
-	d3d11_primitive_topology_trianglelist = true;
-	d3d11_primitive_topology_pointlist = false;
+	d3d11_primitive_topology_trianglelist_ = true;
+	d3d11_primitive_topology_pointlist_ = false;
 }
 
 void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * textureMgr)
@@ -55,7 +55,7 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 	// translate and rotate
 	worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
 	// scaling
-	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
+	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(scale_.x, scale_.y, scale_.z);
 	worldMatrix *= matrix1Scaling;
 	// VIEW MATRIX
 	viewMatrix = camera->getViewMatrix();
@@ -76,7 +76,7 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 
 	// Set primitive topology
 	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
-	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	if (d3d11_primitive_topology_trianglelist_) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 
 	// Send geometry data (from mesh)
@@ -104,31 +104,31 @@ void GeometryExample::gui(Camera * camera)
 			resetExample(camera);
 		}
 		ImGui::Checkbox("Wireframe", &wireframe_);
-		ImGui::SliderFloat3("Scale", (float*)&scale, -10.0f, 10.0f);
-		if (ImGui::Button("Reset Scale")) scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
-			d3d11_primitive_topology_pointlist = false;
-		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
-			d3d11_primitive_topology_trianglelist = false;
+		ImGui::SliderFloat3("Scale", (float*)&scale_, -10.0f, 10.0f);
+		if (ImGui::Button("Reset Scale")) scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist_))
+			d3d11_primitive_topology_pointlist_ = false;
+		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist_))
+			d3d11_primitive_topology_trianglelist_ = false;
 
 		// what mesh to render
-		if (ImGui::Checkbox("Triangle Mesh", &triangle_mesh))
+		if (ImGui::Checkbox("Triangle Mesh", &triangle_mesh_))
 		{
 			set_mesh_choice(MESH_CHOICE::TRIANGLE);
 		}
-		if (ImGui::Checkbox("Sphere Mesh", &sphere_mesh))
+		if (ImGui::Checkbox("Sphere Mesh", &sphere_mesh_))
 		{
 			set_mesh_choice(MESH_CHOICE::SPHERE);
 		}
-		if (ImGui::Checkbox("Cube Mesh", &cube_mesh))
+		if (ImGui::Checkbox("Cube Mesh", &cube_mesh_))
 		{
 			set_mesh_choice(MESH_CHOICE::CUBE);
 		}
-		if (ImGui::Checkbox("Quad Mesh", &quad_mesh))
+		if (ImGui::Checkbox("Quad Mesh", &quad_mesh_))
 		{
 			set_mesh_choice(MESH_CHOICE::QUAD);
 		}
-		if (ImGui::Checkbox("Plane Mesh", &plane_mesh))
+		if (ImGui::Checkbox("Plane Mesh", &plane_mesh_))
 		{
 			set_mesh_choice(MESH_CHOICE::PLANE);
 		}
@@ -141,13 +141,13 @@ void GeometryExample::resetExample(Camera* camera)
 {
 	// set cube mesh
 	set_mesh_choice(MESH_CHOICE::CUBE);
-	// reset geometry shader scale
-	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// reset geometry shader scale_
+	scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// reset geometry shader wireframe mode
 	wireframe_ = false;
 	// reset geometry shader primitive topology
-	d3d11_primitive_topology_trianglelist = true;
-	d3d11_primitive_topology_pointlist = false;
+	d3d11_primitive_topology_trianglelist_ = true;
+	d3d11_primitive_topology_pointlist_ = false;
 	// set the camera
 	camera->setPosition(13.0f, 4.0f, -22.0f);
 	camera->setRotation(0.0f, -30.0f, 7.0f);

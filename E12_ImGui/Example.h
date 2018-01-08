@@ -44,10 +44,10 @@ public:
 	//inline void setExample(bool status) { example = status; }
 	//inline bool getExample() { return example; }
 	// toggle geometry meshes on/off
-	bool triangle_mesh, sphere_mesh, cube_mesh, quad_mesh, plane_mesh;
+	bool triangle_mesh_, sphere_mesh_, cube_mesh_, quad_mesh_, plane_mesh_;
 	// toggle primitive topology list
-	bool d3d11_primitive_topology_trianglelist, d3d11_primitive_topology_pointlist;
-	// scale mesh in example
-	XMFLOAT3 scale;
+	bool d3d11_primitive_topology_trianglelist_, d3d11_primitive_topology_pointlist_;
+	// scale_ mesh in example
+	XMFLOAT3 scale_;
 };
 

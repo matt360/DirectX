@@ -998,7 +998,7 @@ void ImDrawData::DeIndexAllBuffers()
     }
 }
 
-// Helper to scale the ClipRect field of each ImDrawCmd. Use if your final output buffer is at a different scale than ImGui expects, or if there is a difference between your window resolution and framebuffer resolution.
+// Helper to scale_ the ClipRect field of each ImDrawCmd. Use if your final output buffer is at a different scale_ than ImGui expects, or if there is a difference between your window resolution and framebuffer resolution.
 void ImDrawData::ScaleClipRects(const ImVec2& scale)
 {
     for (int i = 0; i < CmdListsCount; i++)

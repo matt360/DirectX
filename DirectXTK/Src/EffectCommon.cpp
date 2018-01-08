@@ -80,7 +80,7 @@ void XM_CALLCONV EffectFog::SetConstants(int& dirtyFlags, FXMMATRIX worldView, X
             else
             {
                 // We want to transform vertex positions into view space, take the resulting
-                // Z value, then scale and offset according to the fog start/end distances.
+                // Z value, then scale_ and offset according to the fog start/end distances.
                 // Because we only care about the Z component, the shader can do all this
                 // with a single dot product, using only the Z row of the world+view matrix.
         

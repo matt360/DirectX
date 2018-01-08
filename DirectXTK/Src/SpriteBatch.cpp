@@ -1072,7 +1072,7 @@ void XM_CALLCONV SpriteBatch::Draw(ID3D11ShaderResourceView* texture,
     SpriteEffects effects,
     float layerDepth)
 {
-    XMVECTOR destination = XMVectorPermute<0, 1, 4, 4>(XMLoadFloat2(&position), XMLoadFloat(&scale)); // x, y, scale, scale
+    XMVECTOR destination = XMVectorPermute<0, 1, 4, 4>(XMLoadFloat2(&position), XMLoadFloat(&scale)); // x, y, scale_, scale_
     
     XMVECTOR originRotationDepth = XMVectorSet(origin.x, origin.y, rotation, layerDepth);
 
@@ -1091,7 +1091,7 @@ void XM_CALLCONV SpriteBatch::Draw(ID3D11ShaderResourceView* texture,
     SpriteEffects effects,
     float layerDepth)
 {
-    XMVECTOR destination = XMVectorPermute<0, 1, 4, 5>(XMLoadFloat2(&position), XMLoadFloat2(&scale)); // x, y, scale.x, scale.y
+    XMVECTOR destination = XMVectorPermute<0, 1, 4, 5>(XMLoadFloat2(&position), XMLoadFloat2(&scale)); // x, y, scale_.x, scale_.y
     
     XMVECTOR originRotationDepth = XMVectorSet(origin.x, origin.y, rotation, layerDepth);
     
@@ -1119,7 +1119,7 @@ void XM_CALLCONV SpriteBatch::Draw(ID3D11ShaderResourceView* texture,
     SpriteEffects effects,
     float layerDepth)
 {
-    XMVECTOR destination = XMVectorPermute<0, 1, 4, 4>(position, XMLoadFloat(&scale)); // x, y, scale, scale
+    XMVECTOR destination = XMVectorPermute<0, 1, 4, 4>(position, XMLoadFloat(&scale)); // x, y, scale_, scale_
 
     XMVECTOR rotationDepth = XMVectorMergeXY(XMVectorReplicate(rotation), XMVectorReplicate(layerDepth));
 
@@ -1140,7 +1140,7 @@ void XM_CALLCONV SpriteBatch::Draw(ID3D11ShaderResourceView* texture,
     SpriteEffects effects,
     float layerDepth)
 {
-    XMVECTOR destination = XMVectorPermute<0, 1, 4, 5>(position, scale); // x, y, scale.x, scale.y
+    XMVECTOR destination = XMVectorPermute<0, 1, 4, 5>(position, scale); // x, y, scale_.x, scale_.y
     
     XMVECTOR rotationDepth = XMVectorMergeXY(XMVectorReplicate(rotation), XMVectorReplicate(layerDepth));
 

@@ -165,8 +165,8 @@
 //         there are 96 pixels per inch, thus making 'inch' measurements have
 //         nothing to do with inches, and thus effectively defining a point to
 //         be 1.333 pixels. Additionally, the TrueType font data provides
-//         an explicit scale factor to scale a given font's glyphs to points,
-//         but the author has observed that this scale factor is often wrong
+//         an explicit scale_ factor to scale_ a given font's glyphs to points,
+//         but the author has observed that this scale_ factor is often wrong
 //         for non-commercial fonts, thus making fonts scaled in points
 //         according to the TrueType spec incoherently sized in practice.
 //
@@ -670,15 +670,15 @@ STBTT_DEF int stbtt_FindGlyphIndex(const stbtt_fontinfo *info, int unicode_codep
 //
 
 STBTT_DEF float stbtt_ScaleForPixelHeight(const stbtt_fontinfo *info, float pixels);
-// computes a scale factor to produce a font whose "height" is 'pixels' tall.
+// computes a scale_ factor to produce a font whose "height" is 'pixels' tall.
 // Height is measured as the distance from the highest ascender to the lowest
 // descender; in other words, it's equivalent to calling stbtt_GetFontVMetrics
 // and computing:
-//       scale = pixels / (ascent - descent)
+//       scale_ = pixels / (ascent - descent)
 // so if you prefer to measure height by the ascent only, use a similar calculation.
 
 STBTT_DEF float stbtt_ScaleForMappingEmToPixels(const stbtt_fontinfo *info, float pixels);
-// computes a scale factor to produce a font whose EM size is mapped to
+// computes a scale_ factor to produce a font whose EM size is mapped to
 // 'pixels' tall. This is probably what traditional APIs compute, but
 // I'm not positive.
 
@@ -688,7 +688,7 @@ STBTT_DEF void stbtt_GetFontVMetrics(const stbtt_fontinfo *info, int *ascent, in
 // lineGap is the spacing between one row's descent and the next row's ascent...
 // so you should advance the vertical position by "*ascent - *descent + *lineGap"
 //   these are expressed in unscaled coordinates, so you must multiply by
-//   the scale factor for a given size
+//   the scale_ factor for a given size
 
 STBTT_DEF void stbtt_GetFontBoundingBox(const stbtt_fontinfo *info, int *x0, int *y0, int *x1, int *y1);
 // the bounding box around all possible characters
@@ -762,7 +762,7 @@ STBTT_DEF void stbtt_FreeBitmap(unsigned char *bitmap, void *userdata);
 
 STBTT_DEF unsigned char *stbtt_GetCodepointBitmap(const stbtt_fontinfo *info, float scale_x, float scale_y, int codepoint, int *width, int *height, int *xoff, int *yoff);
 // allocates a large-enough single-channel 8bpp bitmap and renders the
-// specified character/glyph at the specified scale into it, with
+// specified character/glyph at the specified scale_ into it, with
 // antialiasing. 0 is no coverage (transparent), 255 is fully covered (opaque).
 // *width & *height are filled out with the width & height of the bitmap,
 // which is stored left-to-right, top-to-bottom.
@@ -786,7 +786,7 @@ STBTT_DEF void stbtt_MakeCodepointBitmapSubpixel(const stbtt_fontinfo *info, uns
 STBTT_DEF void stbtt_GetCodepointBitmapBox(const stbtt_fontinfo *font, int codepoint, float scale_x, float scale_y, int *ix0, int *iy0, int *ix1, int *iy1);
 // get the bbox of the bitmap centered around the glyph origin; so the
 // bitmap width is ix1-ix0, height is iy1-iy0, and location to place
-// the bitmap top left is (leftSideBearing*scale,iy0).
+// the bitmap top left is (leftSideBearing*scale_,iy0).
 // (Note that the bitmap uses y-increases-down, but the shape uses
 // y-increases-up, so CodepointBitmapBox and CodepointBox are inverted.)
 
@@ -816,7 +816,7 @@ STBTT_DEF void stbtt_Rasterize(stbtt__bitmap *result,        // 1-channel bitmap
                                float flatness_in_pixels,     // allowable error of curve in pixels
                                stbtt_vertex *vertices,       // array of vertices defining shape
                                int num_verts,                // number of vertices in above array
-                               float scale_x, float scale_y, // scale applied to input vertices
+                               float scale_x, float scale_y, // scale_ applied to input vertices
                                float shift_x, float shift_y, // translation applied to input vertices
                                int x_off, int y_off,         // another translation applied to input
                                int invert,                   // if non-zero, vertically flip shape

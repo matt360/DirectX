@@ -53,10 +53,10 @@ void MultiLightExample::initShader(D3D* renderer, HWND hwnd)
 void MultiLightExample::initVariables()
 {
 	over_time_ = 0.0f;
-	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
-	d3d11_primitive_topology_trianglelist = true;
-	d3d11_primitive_topology_pointlist = false;
+	d3d11_primitive_topology_trianglelist_ = true;
+	d3d11_primitive_topology_pointlist_ = false;
 
 	lights_.reserve(shader_->number_of_lights_);
 	for (int i = 0; i < shader_->number_of_lights_; ++i)
@@ -104,7 +104,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 	
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	if (plane_mesh) // plane
+	if (plane_mesh_) // plane
 	{
 		viewMatrix = camera->getViewMatrix();
 		projectionMatrix = renderer->getProjectionMatrix();
@@ -125,7 +125,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 		worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	}
 	// scaling
-	XMMATRIX matrixScaling = XMMatrixScaling(scale.x, scale.y, scale.z);
+	XMMATRIX matrixScaling = XMMatrixScaling(scale_.x, scale_.y, scale_.z);
 	worldMatrix *= matrixScaling;
 
 	// wireframe mode
@@ -133,7 +133,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 
 	// Set primitive topology
 	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
-	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	if (d3d11_primitive_topology_trianglelist_) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 
 	// Send geometry data (from mesh)
@@ -203,46 +203,46 @@ void MultiLightExample::gui(Camera* camera)
 		ImGui::SliderFloat3("Light 13 Pos", (float*)light_positions_.at(13), -pos_clamp, pos_clamp);
 		ImGui::SliderFloat3("Light 14 Pos", (float*)light_positions_.at(14), -pos_clamp, pos_clamp);
 		ImGui::SliderFloat3("Light 15 Pos", (float*)light_positions_.at(15), -pos_clamp, pos_clamp);
-		// scale
-		ImGui::SliderFloat3("Scale", (float*)&scale, -40.0f, 40.0f);
-		// reset scale
-		if (ImGui::Button("Reset Scale")) scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		// scale_
+		ImGui::SliderFloat3("Scale", (float*)&scale_, -40.0f, 40.0f);
+		// reset scale_
+		if (ImGui::Button("Reset Scale")) scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// toggle topology
-		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
-			d3d11_primitive_topology_pointlist = false;
-		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
-			d3d11_primitive_topology_trianglelist = false;
+		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist_))
+			d3d11_primitive_topology_pointlist_ = false;
+		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist_))
+			d3d11_primitive_topology_trianglelist_ = false;
 		// what mesh to render
-		if (ImGui::Checkbox("Triangle Mesh", &triangle_mesh))
+		if (ImGui::Checkbox("Triangle Mesh", &triangle_mesh_))
 		{
 			resetExample(camera);
 			set_mesh_choice(MESH_CHOICE::TRIANGLE);
 		}
-		if (ImGui::Checkbox("Sphere Mesh", &sphere_mesh))
+		if (ImGui::Checkbox("Sphere Mesh", &sphere_mesh_))
 		{
 			// set multi light camera
 			camera->setPosition(0.0f, 0.0f, -4.75f);
 			camera->setRotation(0.0f, 0.f, 0.f);
-			// scale up sphere mesh
-			scale = XMFLOAT3(1.0f, 1.0f, 40.0f);
+			// scale_ up sphere mesh
+			scale_ = XMFLOAT3(1.0f, 1.0f, 40.0f);
 
 			set_mesh_choice(MESH_CHOICE::SPHERE);
 		}
-		if (ImGui::Checkbox("Cube Mesh", &cube_mesh))
+		if (ImGui::Checkbox("Cube Mesh", &cube_mesh_))
 		{
 			resetExample(camera);
 			set_mesh_choice(MESH_CHOICE::CUBE);
 		}
-		if (ImGui::Checkbox("Quad Mesh", &quad_mesh))
+		if (ImGui::Checkbox("Quad Mesh", &quad_mesh_))
 		{
 			resetExample(camera);
 			set_mesh_choice(MESH_CHOICE::QUAD);
 		}
-		if (ImGui::Checkbox("Plane Mesh", &plane_mesh))
+		if (ImGui::Checkbox("Plane Mesh", &plane_mesh_))
 		{
 			camera->setPosition(-13.5f, 5.75f, -5.0f);
 			camera->setRotation(0.0f, 50.0f, 15.0f);
-			scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+			scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
 			set_mesh_choice(MESH_CHOICE::PLANE);
 		}
@@ -255,8 +255,8 @@ void MultiLightExample::resetExample(Camera* camera)
 	// set multi light camera
 	camera->setPosition(-13.5f, 5.75f, -5.0f);
 	camera->setRotation(0.0f, 50.0f, 15.0f);
-	// scale up sphere mesh
-	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// scale_ up sphere mesh
+	scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// reset light lights' colours
 	initLight();
 	// render only sphere mesh
@@ -264,8 +264,8 @@ void MultiLightExample::resetExample(Camera* camera)
 	// reset wireframe
 	wireframe_ = false;
 	// reset geometry shader primitive topology
-	d3d11_primitive_topology_trianglelist = true;
-	d3d11_primitive_topology_pointlist = false;
+	d3d11_primitive_topology_trianglelist_ = true;
+	d3d11_primitive_topology_pointlist_ = false;
 }
 
 

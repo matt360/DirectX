@@ -548,7 +548,7 @@
  - drag'n drop, dragging helpers (carry dragging info, visualize drag source before clicking, drop target, etc.) (#143, #479)
  - plot: PlotLines() should use the polygon-stroke facilities (currently issues with averaging normals)
  - plot: make it easier for user to draw extra stuff into the graph (e.g: draw basis, highlight certain points, 2d plots, multiple plots)
- - plot: "smooth" automatic scale over time, user give an input 0.0(full user scale) 1.0(full derived from value)
+ - plot: "smooth" automatic scale_ over time, user give an input 0.0(full user scale_) 1.0(full derived from value)
  - plot: add a helper e.g. Plot(char* label, float value, float time_span=2.0f) that stores values and Plot them for you - probably another function name. and/or automatically allow to plot ANY displayed value (more reliance on stable ID)
  - slider: allow using the [-]/[+] buttons used by InputFloat()/InputInt()
  - slider: initial absolute click is imprecise. change to relative movement slider (same as scrollbar).
@@ -571,7 +571,7 @@
  - style: color-box not always square?
  - style: a concept of "compact style" that the end-user can easily rely on (e.g. PushStyleCompact()?) that maps to other settings? avoid implementing duplicate helpers such as SmallCheckbox(), etc.
  - style: try to make PushStyleVar() more robust to incorrect parameters (to be more friendly to edit & continues situation).
- - style: global scale setting.
+ - style: global scale_ setting.
  - style: WindowPadding needs to be EVEN needs the 0.5 multiplier probably have a subtle effect on clip rectangle
  - text: simple markup language for color change?
  - font: dynamic font atlas to avoid baking huge ranges into bitmap and make scaling easier.
@@ -6482,7 +6482,7 @@ bool ImGui::SliderBehavior(const ImRect& frame_bb, ImGuiID id, float* v, float v
             float new_value;
             if (is_non_linear)
             {
-                // Account for logarithmic scale on both sides of the zero
+                // Account for logarithmic scale_ on both sides of the zero
                 if (normalized_pos < linear_zero_pos)
                 {
                     // Negative: rescale to the negative range before powering
@@ -7090,7 +7090,7 @@ void ImGui::PlotEx(ImGuiPlotType plot_type, const char* label, float (*values_ge
     if (!ItemAdd(total_bb, NULL))
         return;
 
-    // Determine scale from values if not specified
+    // Determine scale_ from values if not specified
     if (scale_min == FLT_MAX || scale_max == FLT_MAX)
     {
         float v_min = FLT_MAX;

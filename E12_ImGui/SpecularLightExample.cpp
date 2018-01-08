@@ -38,10 +38,10 @@ void SpecularLightExample::initVariables()
 {
 	mesh_choice_ = MESH_CHOICE::SPHERE;
 	over_time_ = 0.0f;
-	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
-	d3d11_primitive_topology_trianglelist = true;
-	d3d11_primitive_topology_pointlist = false;
+	d3d11_primitive_topology_trianglelist_ = true;
+	d3d11_primitive_topology_pointlist_ = false;
 }
 
 void SpecularLightExample::initLight()
@@ -70,7 +70,7 @@ void SpecularLightExample::render(D3D* renderer, Camera* camera, TextureManager*
 	// translate and rotate
 	worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
 	// scaling
-	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
+	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(scale_.x, scale_.y, scale_.z);
 	worldMatrix *= matrix1Scaling;
 	// VIEW MATRIX
 	viewMatrix = camera->getViewMatrix();
@@ -82,7 +82,7 @@ void SpecularLightExample::render(D3D* renderer, Camera* camera, TextureManager*
 
 	// Set primitive topology
 	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
-	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	if (d3d11_primitive_topology_trianglelist_) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 
 	// Send geometry data (from mesh)
@@ -106,15 +106,15 @@ void SpecularLightExample::gui(Camera* camera)
 			resetExample(camera);
 		}
 		ImGui::Checkbox("Wireframe", &wireframe_);
-		// scale
-		ImGui::SliderFloat3("Scale", (float*)&scale, -25.0f, 25.0f);
-		// reset scale
-		if (ImGui::Button("Reset Scale")) scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		// scale_
+		ImGui::SliderFloat3("Scale", (float*)&scale_, -25.0f, 25.0f);
+		// reset scale_
+		if (ImGui::Button("Reset Scale")) scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		// toggle topology
-		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
-			d3d11_primitive_topology_pointlist = false;
-		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist))
-			d3d11_primitive_topology_trianglelist = false;
+		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist_))
+			d3d11_primitive_topology_pointlist_ = false;
+		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist_))
+			d3d11_primitive_topology_trianglelist_ = false;
 
 		ImGui::End();
 	}
@@ -124,11 +124,11 @@ void SpecularLightExample::resetExample(Camera * camera)
 {
 	// reset camera
 	camera->resetCamera();
-	// reset scale
-	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// reset scale_
+	scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// reset wireframe
 	wireframe_ = false;
 	// reset geometry shader primitive topology
-	d3d11_primitive_topology_trianglelist = true;
-	d3d11_primitive_topology_pointlist = false;
+	d3d11_primitive_topology_trianglelist_ = true;
+	d3d11_primitive_topology_pointlist_ = false;
 }
