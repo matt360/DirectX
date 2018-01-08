@@ -96,8 +96,10 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount()); // output data from the shader programme
 }
 
+// Terrain Example GUI window
 void TerrainExample::gui(Camera* camera)
 {
+	// render only if the example is active
 	if (example)
 	{
 		ImGui::Begin("Terrain", &example);

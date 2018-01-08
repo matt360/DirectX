@@ -157,8 +157,10 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
 
+// Multi Light Example GUI window
 void MultiLightExample::gui(Camera* camera)
 {
+	// render only if the example is active
 	if (example)
 	{
 		ImGui::Begin("Multi Light Example", &example);

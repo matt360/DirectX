@@ -93,9 +93,10 @@ void SpecularLightExample::render(D3D* renderer, Camera* camera, TextureManager*
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
 
+// Specular Light Example GUI window
 void SpecularLightExample::gui(Camera* camera)
 {
-	// SPECULAR LIGHT EXAMPLE WINDOW
+	// render only if the example is active
 	if (example)
 	{
 		ImGui::Begin("Specular Light", &example);

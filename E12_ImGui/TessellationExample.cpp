@@ -76,8 +76,10 @@ void TessellationExample::render(D3D * renderer, Camera * camera, TextureManager
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
 
+// Tessellation Example GUI window
 void TessellationExample::gui(Camera * camera)
 {
+	// render only if the example is active
 	if (example)
 	{
 		ImGui::Begin("Tessellation", &example);

@@ -93,8 +93,10 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
 
+// Geometry Example GUI window
 void GeometryExample::gui(Camera * camera)
 {
+	// render only if the example is active
 	if (example)
 	{
 		ImGui::Begin("Geometry Shader Example", &example);
