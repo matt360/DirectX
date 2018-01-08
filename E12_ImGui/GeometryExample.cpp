@@ -13,10 +13,10 @@ GeometryExample::~GeometryExample()
 		shader_ = 0;
 	}
 
-	if (mesh)
+	if (mesh_)
 	{
-		delete mesh;
-		mesh = 0;
+		delete mesh_;
+		mesh_ = 0;
 	}
 }
 
@@ -80,7 +80,7 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 
 	// Send geometry data (from mesh)
-	mesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	mesh_->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 
 	// Set shader parameters (matrices and texture)
 	shader_->setShaderParameters(renderer->getDeviceContext(),
@@ -89,7 +89,7 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 		textureMgr->getTexture("bunny"));
 
 	// Render object (combination of mesh geometry and shader process
-	shader_->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	shader_->render(renderer->getDeviceContext(), mesh_->getIndexCount());
 }
 
 // Geometry Example GUI window

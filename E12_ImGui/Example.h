@@ -27,8 +27,8 @@ public:
 	MESH_CHOICE mesh_choice_;
 	inline MESH_CHOICE& getMeshChoice() { return mesh_choice_; }
 	// Mesh
-	BaseMesh* mesh;
-	inline void setMesh(BaseMesh* set_mesh) { mesh = set_mesh; }
+	BaseMesh* mesh_;
+	inline void setMesh(BaseMesh* set_mesh) { mesh_ = set_mesh; }
 	void set_mesh_choice(const MESH_CHOICE msh_ch);
 	//inline BaseMesh* getMesh() { return mesh; }
 	//inline BaseMesh& getAddress() { return *mesh; }

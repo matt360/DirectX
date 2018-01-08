@@ -85,14 +85,14 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 
 	light->setPosition(0.0f, sinf(over_time_ * 3.0f), 0.0f);
 	// Send geometry data (from mesh)
-	mesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	mesh_->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 
 	// Set shader parameters (matrices and texture)
 	//terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
 	shader_->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), light, over_time_, height, frequency);
 
 	// Render object (combination of mesh geometry and shader process
-	shader_->render(renderer->getDeviceContext(), mesh->getIndexCount()); // output data from the shader programme
+	shader_->render(renderer->getDeviceContext(), mesh_->getIndexCount()); // output data from the shader programme
 }
 
 // Terrain Example GUI window

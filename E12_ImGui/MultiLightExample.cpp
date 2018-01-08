@@ -13,10 +13,10 @@ MultiLightExample::~MultiLightExample()
 		shader_ = 0;
 	}
 
-	if (mesh)
+	if (mesh_)
 	{
-		delete mesh;
-		mesh = 0;
+		delete mesh_;
+		mesh_ = 0;
 	}
 
 	for (Light* light : lights_)
@@ -137,7 +137,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 
 	// Send geometry data (from mesh)
-	mesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	mesh_->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 
 	// Set shader parameters (matrices and texture)
 	//multiLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
@@ -153,7 +153,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 	);
 
 	// Render object (combination of mesh geometry and shader process
-	shader_->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	shader_->render(renderer->getDeviceContext(), mesh_->getIndexCount());
 }
 
 // Multi Light Example GUI window

@@ -86,11 +86,11 @@ void SpecularLightExample::render(D3D* renderer, Camera* camera, TextureManager*
 	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 
 	// Send geometry data (from mesh)
-	mesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
+	mesh_->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 	// Set shader parameters (matrices and texture)
 	shader_->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light_, camera);
 	// Render object (combination of mesh geometry and shader process
-	shader_->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	shader_->render(renderer->getDeviceContext(), mesh_->getIndexCount());
 }
 
 // Specular Light Example GUI window
