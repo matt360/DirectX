@@ -54,7 +54,7 @@ private:
 	// FUNCTIONS
 	void chooseExample();
 	void chooseExample(bool& activeEg, bool& inactiveEg1, bool& inactiveEg2, bool& inactiveEg3, bool& inactiveEg4);
-	void renderExample(const EXAMPLE_CHOICE ex_choice, Example* eg, Camera* camera);
+	void renderExample(const EXAMPLE_CHOICE& ex_choice, Example* eg, Camera* camera);
 	BaseMesh* chooseMesh(const MESH_CHOICE& mesh_choice);
 	float clamp(float n, float lower, float upper);
 };

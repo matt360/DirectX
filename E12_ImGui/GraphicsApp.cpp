@@ -188,23 +188,13 @@ void GraphicsApp::gui()
 	// CHOOSE SPECULAR LIGHT EXAMPLE
 	else if (ImGui::Button("Specular Light Example"))
 	{ 
-		//// set choice
-		//example_choice = EXAMPLE_CHOICE::SPECULAR_LIGHT;
-		//chooseExample(specularLightExample->example, tessellationExample->example, terrainExample->example, 
-		//	multiLightExample->example, geometryExample->example);
-
-		//specularLightExample->resetExample(camera);
 		renderExample(EXAMPLE_CHOICE::SPECULAR_LIGHT, specularLightExample, camera);
 	}
 	// CHOOSE TESSELLATION EXAMPLE
 	else if (ImGui::Button("Tessellation Example"))
 	{
-		// set choice
-		example_choice = EXAMPLE_CHOICE::TESSELLATION;
-		chooseExample(tessellationExample->example, specularLightExample->example, terrainExample->example,
-			multiLightExample->example, geometryExample->example);
-
-		tessellationExample->resetExample(camera);
+		
+		renderExample(EXAMPLE_CHOICE::TESSELLATION, tessellationExample, camera);
 	}
 	// CHOOSE TERRAIN EXAMPLE 
 	else if (ImGui::Button("Terrain Example"))
@@ -287,7 +277,7 @@ void GraphicsApp::chooseExample(bool& activeEg, bool& inactiveEg1, bool& inactiv
 	inactiveEg4 = false;
 }
 
-void GraphicsApp::renderExample(const EXAMPLE_CHOICE ex_choice, Example* eg, Camera* camera)
+void GraphicsApp::renderExample(const EXAMPLE_CHOICE& ex_choice, Example* eg, Camera* camera)
 {
 	// set the example choice
 	example_choice = ex_choice;
