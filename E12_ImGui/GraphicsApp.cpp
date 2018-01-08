@@ -188,12 +188,13 @@ void GraphicsApp::gui()
 	// CHOOSE SPECULAR LIGHT EXAMPLE
 	else if (ImGui::Button("Specular Light Example"))
 	{ 
-		// set choice
-		example_choice = EXAMPLE_CHOICE::SPECULAR_LIGHT;
-		chooseExample(specularLightExample->example, tessellationExample->example, terrainExample->example, 
-			multiLightExample->example, geometryExample->example);
+		//// set choice
+		//example_choice = EXAMPLE_CHOICE::SPECULAR_LIGHT;
+		//chooseExample(specularLightExample->example, tessellationExample->example, terrainExample->example, 
+		//	multiLightExample->example, geometryExample->example);
 
-		specularLightExample->resetExample(camera);
+		//specularLightExample->resetExample(camera);
+		renderExample(EXAMPLE_CHOICE::SPECULAR_LIGHT, specularLightExample, camera);
 	}
 	// CHOOSE TESSELLATION EXAMPLE
 	else if (ImGui::Button("Tessellation Example"))
@@ -284,6 +285,16 @@ void GraphicsApp::chooseExample(bool& activeEg, bool& inactiveEg1, bool& inactiv
 	inactiveEg2 = false;
 	inactiveEg3 = false;
 	inactiveEg4 = false;
+}
+
+void GraphicsApp::renderExample(const EXAMPLE_CHOICE ex_choice, Example* eg, Camera* camera)
+{
+	// set choice
+	example_choice = ex_choice;
+	chooseExample(eg->example, tessellationExample->example, terrainExample->example,
+		multiLightExample->example, geometryExample->example);
+
+	eg->resetExample(camera);
 }
 
 BaseMesh* GraphicsApp::chooseMesh(const MESH_CHOICE& mesh_choice)
