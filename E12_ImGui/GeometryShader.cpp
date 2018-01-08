@@ -11,17 +11,17 @@ GeometryShader::GeometryShader(ID3D11Device* device, HWND hwnd) : BaseShader(dev
 GeometryShader::~GeometryShader()
 {
 	// Release the sampler state.
-	if (sampleState)
+	if (sampleState_)
 	{
-		sampleState->Release();
-		sampleState = 0;
+		sampleState_->Release();
+		sampleState_ = 0;
 	}
 
 	// Release the matrix constant buffer.
-	if (matrixBuffer)
+	if (matrixBuffer_)
 	{
-		matrixBuffer->Release();
-		matrixBuffer = 0;
+		matrixBuffer_->Release();
+		matrixBuffer_ = 0;
 	}
 
 	// Release the layout.
@@ -54,7 +54,7 @@ void GeometryShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	matrixBufferDesc.StructureByteStride = 0;
 
 	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
-	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer);
+	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer_);
 
 	// Create a texture sampler state description.
 	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -72,7 +72,7 @@ void GeometryShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
 	// Create the texture sampler state.
-	renderer->CreateSamplerState(&samplerDesc, &sampleState);
+	renderer->CreateSamplerState(&samplerDesc, &sampleState_);
 }
 
 void GeometryShader::initShader(WCHAR* vsFilename, WCHAR* gsFilename, WCHAR* psFilename)
@@ -100,7 +100,7 @@ void GeometryShader::setShaderParameters(ID3D11DeviceContext* deviceContext, con
 	tproj = XMMatrixTranspose(projectionMatrix);
 
 	// Lock the constant buffer so it can be written to.
-	result = deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	result = deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
@@ -111,13 +111,13 @@ void GeometryShader::setShaderParameters(ID3D11DeviceContext* deviceContext, con
 	dataPtr->projection = tproj;
 
 	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer, 0);
+	deviceContext->Unmap(matrixBuffer_, 0);
 
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 
 	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->GSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+	deviceContext->GSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 	// Set shader texture resource in the pixel shader.
 	deviceContext->PSSetShaderResources(0, 1, &texture);
 }
@@ -137,7 +137,7 @@ void GeometryShader::setShaderParameters(ID3D11DeviceContext* deviceContext, con
 	tproj = XMMatrixTranspose(projectionMatrix);
 
 	// Lock the constant buffer so it can be written to.
-	result = deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	result = deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
@@ -148,13 +148,13 @@ void GeometryShader::setShaderParameters(ID3D11DeviceContext* deviceContext, con
 	dataPtr->projection = tproj;
 
 	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer, 0);
+	deviceContext->Unmap(matrixBuffer_, 0);
 
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 
 	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->GSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+	deviceContext->GSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 	// Set shader texture resource in the pixel shader.
 	deviceContext->PSSetShaderResources(0, 1, &texture_0);
 	deviceContext->PSSetShaderResources(1, 1, &texture_1);
@@ -163,7 +163,7 @@ void GeometryShader::setShaderParameters(ID3D11DeviceContext* deviceContext, con
 void GeometryShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {
 	// Set the sampler state in the pixel shader.
-	deviceContext->PSSetSamplers(0, 1, &sampleState);
+	deviceContext->PSSetSamplers(0, 1, &sampleState_);
 
 	// Base render function.
 	BaseShader::render(deviceContext, indexCount);

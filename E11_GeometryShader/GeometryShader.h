@@ -26,8 +26,8 @@ private:
 	void initShader(WCHAR* vsFilename, WCHAR* gsFilename, WCHAR* psFilename);
 
 private:
-	ID3D11Buffer* matrixBuffer;
-	ID3D11SamplerState* sampleState;
+	ID3D11Buffer* matrixBuffer_;
+	ID3D11SamplerState* sampleState_;
 };
 
 #endif
