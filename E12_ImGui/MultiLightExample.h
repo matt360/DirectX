@@ -16,12 +16,13 @@ public:
 	void gui(Camera* camera);
 	void resetExample(Camera* camera);
 
+private:
 	// shader handler
 	MultiLightShader* shader;
 
 	vector<Light*> lights_;
 	vector<XMFLOAT4*> light_colours_;
 	vector<XMFLOAT4*> light_positions_;
-	//SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;
+	// TODO delete if not used SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;
 };
 

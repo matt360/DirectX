@@ -16,6 +16,7 @@ public:
 	void gui(Camera* camera);
 	void resetExample(Camera* camera);
 
+private:
 	// shader handler
 	GeometryShader* shader;
 };
