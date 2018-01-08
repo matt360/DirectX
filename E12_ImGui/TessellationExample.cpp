@@ -2,15 +2,15 @@
 
 TessellationExample::TessellationExample()
 {
-	shader = nullptr;
+	shader_ = nullptr;
 }
 
 TessellationExample::~TessellationExample()
 {
-	if (shader)
+	if (shader_)
 	{
-		delete shader;
-		shader = 0;
+		delete shader_;
+		shader_ = 0;
 	}
 }
 
@@ -22,7 +22,7 @@ void TessellationExample::init(D3D * renderer, HWND hwnd)
 
 void TessellationExample::initShader(D3D * renderer, HWND hwnd)
 {
-	shader = new TessellationShader(renderer->getDevice(), hwnd);
+	shader_ = new TessellationShader(renderer->getDevice(), hwnd);
 }
 
 void TessellationExample::initVariables()
@@ -69,11 +69,11 @@ void TessellationExample::render(D3D * renderer, Camera * camera, TextureManager
 	mesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
 	
 	// Set shader parameters (matrices and texture)
-	shader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
+	shader_->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix,
 		textureMgr->getTexture("brick"), camera);
 
 	// Render object (combination of mesh geometry and shader process
-	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	shader_->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
 
 // Tessellation Example GUI window

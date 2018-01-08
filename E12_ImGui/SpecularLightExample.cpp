@@ -3,21 +3,21 @@
 SpecularLightExample::SpecularLightExample()
 {
 
-	shader = nullptr;
+	shader_ = nullptr;
 }
 
 SpecularLightExample::~SpecularLightExample()
 {
-	if (shader)
+	if (shader_)
 	{
-		delete shader;
-		shader = 0;
+		delete shader_;
+		shader_ = 0;
 	}
 
-	if (light)
+	if (light_)
 	{
-		delete light;
-		light = 0;
+		delete light_;
+		light_ = 0;
 	}
 }
 
@@ -31,7 +31,7 @@ void SpecularLightExample::init(D3D* renderer, HWND hwnd)
 // create shader handlers
 void SpecularLightExample::initShader(D3D* renderer, HWND hwnd)
 {
-	shader = new SpecularLightShader(renderer->getDevice(), hwnd);
+	shader_ = new SpecularLightShader(renderer->getDevice(), hwnd);
 }
 
 void SpecularLightExample::initVariables()
@@ -47,12 +47,12 @@ void SpecularLightExample::initVariables()
 void SpecularLightExample::initLight()
 {
 	// specular light example
-	light = new Light;
-	light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
-	light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light->setDirection(0.5, -0.5f, 0.0f);
-	light->setSpecularPower(16.f);
-	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light_ = new Light;
+	light_->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
+	light_->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light_->setDirection(0.5, -0.5f, 0.0f);
+	light_->setSpecularPower(16.f);
+	light_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void SpecularLightExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
@@ -88,9 +88,9 @@ void SpecularLightExample::render(D3D* renderer, Camera* camera, TextureManager*
 	// Send geometry data (from mesh)
 	mesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 	// Set shader parameters (matrices and texture)
-	shader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light, camera);
+	shader_->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light_, camera);
 	// Render object (combination of mesh geometry and shader process
-	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	shader_->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
 
 // Specular Light Example GUI window

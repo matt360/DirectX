@@ -2,15 +2,15 @@
 
 TerrainExample::TerrainExample()
 {
-	shader = nullptr;
+	shader_ = nullptr;
 }
 
 TerrainExample::~TerrainExample()
 {
-	if (shader)
+	if (shader_)
 	{
-		delete shader;
-		shader = 0;
+		delete shader_;
+		shader_ = 0;
 	}
 
 	if (light)
@@ -31,7 +31,7 @@ void TerrainExample::init(D3D* renderer, HWND hwnd)
 // create shader handlers
 void TerrainExample::initShader(D3D* renderer, HWND hwnd)
 {
-	shader = new TerrainShader(renderer->getDevice(), hwnd);
+	shader_ = new TerrainShader(renderer->getDevice(), hwnd);
 }
 
 void TerrainExample::initVariables()
@@ -90,10 +90,10 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 
 	// Set shader parameters (matrices and texture)
 	//terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
-	shader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), light, over_time, height, frequency);
+	shader_->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), light, over_time, height, frequency);
 
 	// Render object (combination of mesh geometry and shader process
-	shader->render(renderer->getDeviceContext(), mesh->getIndexCount()); // output data from the shader programme
+	shader_->render(renderer->getDeviceContext(), mesh->getIndexCount()); // output data from the shader programme
 }
 
 // Terrain Example GUI window

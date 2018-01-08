@@ -44,12 +44,12 @@ private:
 
 	// EXAMPLES
 	SpecularLightExample* specularLightExample_;
-	TessellationExample* tessellationExample;
-	TerrainExample* terrainExample;
-	MultiLightExample* multiLightExample;
-	GeometryExample* geometryExample;
-	Example* example;
-	EXAMPLE_CHOICE example_choice;
+	TessellationExample* tessellationExample_;
+	TerrainExample* terrainExample_;
+	MultiLightExample* multiLightExample_;
+	GeometryExample* geometryExample_;
+	Example* example_;
+	EXAMPLE_CHOICE example_choice_;
 
 	// FUNCTIONS
 	void setActiveExample(bool& activeEg, bool& inactiveEg1, bool& inactiveEg2, bool& inactiveEg3, bool& inactiveEg4);

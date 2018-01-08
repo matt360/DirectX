@@ -18,6 +18,6 @@ public:
 
 private:
 	// shader handler
-	TessellationShader* shader;
+	TessellationShader* shader_;
 };
 

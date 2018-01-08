@@ -2,15 +2,15 @@
 
 MultiLightExample::MultiLightExample()
 {
-	shader = nullptr;
+	shader_ = nullptr;
 }
 
 MultiLightExample::~MultiLightExample()
 {
-	if (shader)
+	if (shader_)
 	{
-		delete shader;
-		shader = 0;
+		delete shader_;
+		shader_ = 0;
 	}
 
 	if (mesh)
@@ -47,7 +47,7 @@ void MultiLightExample::init(D3D* renderer, HWND hwnd)
 
 void MultiLightExample::initShader(D3D* renderer, HWND hwnd)
 {
-	shader = new MultiLightShader(renderer->getDevice(), hwnd);
+	shader_ = new MultiLightShader(renderer->getDevice(), hwnd);
 }
 
 void MultiLightExample::initVariables()
@@ -59,20 +59,20 @@ void MultiLightExample::initVariables()
 	d3d11_primitive_topology_trianglelist = true;
 	d3d11_primitive_topology_pointlist = false;
 
-	lights_.reserve(shader->number_of_lights_);
-	for (int i = 0; i < shader->number_of_lights_; ++i)
+	lights_.reserve(shader_->number_of_lights_);
+	for (int i = 0; i < shader_->number_of_lights_; ++i)
 	{
 		lights_.push_back(new Light);
 	}
 
-	light_positions_.reserve(shader->number_of_lights_);
-	for (int i = 0; i < shader->number_of_lights_; ++i)
+	light_positions_.reserve(shader_->number_of_lights_);
+	for (int i = 0; i < shader_->number_of_lights_; ++i)
 	{
 		light_positions_.push_back(new XMFLOAT4);
 	}
 
-	light_colours_.reserve(shader->number_of_lights_);
-	for (int i = 0; i < shader->number_of_lights_; ++i)
+	light_colours_.reserve(shader_->number_of_lights_);
+	for (int i = 0; i < shader_->number_of_lights_; ++i)
 	{
 		light_colours_.push_back(new XMFLOAT4);
 	}
@@ -81,7 +81,7 @@ void MultiLightExample::initVariables()
 void MultiLightExample::initLight()
 {
 	// multi light example lights' colours
-	for (int i = 0; i < shader->number_of_lights_; i += 4)
+	for (int i = 0; i < shader_->number_of_lights_; i += 4)
 	{
 		light_colours_.at(i    )->operator=(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
 		light_colours_.at(i + 1)->operator=(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -90,7 +90,7 @@ void MultiLightExample::initLight()
 	}
 
 	// multi light example lights' positions
-	for (int i = 0; i < shader->number_of_lights_; i += 4)
+	for (int i = 0; i < shader_->number_of_lights_; i += 4)
 	{
 		float temp_pos = (float)i * 2.0f;
 		light_positions_.at(i    )->operator=(XMFLOAT4(-3.0f, 0.1f, temp_pos +  3.0f, 1.0f));
@@ -142,7 +142,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 
 	// Set shader parameters (matrices and texture)
 	//multiLightShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light, camera);
-	shader->setShaderParameters
+	shader_->setShaderParameters
 	(
 		renderer->getDeviceContext(),
 		worldMatrix,
@@ -154,7 +154,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 	);
 
 	// Render object (combination of mesh geometry and shader process
-	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	shader_->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
 
 // Multi Light Example GUI window

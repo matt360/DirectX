@@ -18,7 +18,7 @@ public:
 
 private:
 	// shader handler
-	MultiLightShader* shader;
+	MultiLightShader* shader_;
 
 	vector<Light*> lights_;
 	vector<XMFLOAT4*> light_colours_;

@@ -2,15 +2,15 @@
 
 GeometryExample::GeometryExample()
 {
-	shader = nullptr;
+	shader_ = nullptr;
 }
 
 GeometryExample::~GeometryExample()
 {
-	if (shader)
+	if (shader_)
 	{
-		delete shader;
-		shader = 0;
+		delete shader_;
+		shader_ = 0;
 	}
 
 	if (mesh)
@@ -28,7 +28,7 @@ void GeometryExample::init(D3D * renderer, HWND hwnd)
 
 void GeometryExample::initShader(D3D * renderer, HWND hwnd)
 {
-	shader = new GeometryShader(renderer->getDevice(), hwnd);
+	shader_ = new GeometryShader(renderer->getDevice(), hwnd);
 }
 
 void GeometryExample::initVariables()
@@ -84,13 +84,13 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 	mesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 
 	// Set shader parameters (matrices and texture)
-	shader->setShaderParameters(renderer->getDeviceContext(),
+	shader_->setShaderParameters(renderer->getDeviceContext(),
 		worldMatrix, viewMatrix, projectionMatrix,
 		textureMgr->getTexture("checkerboard"),
 		textureMgr->getTexture("bunny"));
 
 	// Render object (combination of mesh geometry and shader process
-	shader->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	shader_->render(renderer->getDeviceContext(), mesh->getIndexCount());
 }
 
 // Geometry Example GUI window

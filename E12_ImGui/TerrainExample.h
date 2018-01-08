@@ -18,7 +18,7 @@ public:
 
 private:
 	// shader handler
-	TerrainShader* shader;
+	TerrainShader* shader_;
 	// light
 	Light* light;
 };

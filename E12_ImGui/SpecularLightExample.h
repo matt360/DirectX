@@ -18,8 +18,8 @@ public:
 	
 private:
 	// shader handler
-	SpecularLightShader* shader;
+	SpecularLightShader* shader_;
 	// light
-	Light* light;
+	Light* light_;
 };
 

@@ -18,6 +18,6 @@ public:
 
 private:
 	// shader handler
-	GeometryShader* shader;
+	GeometryShader* shader_;
 };
 
