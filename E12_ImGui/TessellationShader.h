@@ -1,7 +1,6 @@
 // Light shader.h
 // Basic single light shader setup
-#ifndef _TESSELLATIONSHADER_H_
-#define _TESSELLATIONSHADER_H_
+#pragma once
 
 #include "../DXFramework/BaseShader.h"
 #include "../DXFramework/Camera.h"
@@ -45,12 +44,8 @@ private:
 	void initShader(WCHAR* vsFilename, WCHAR* hsFilename, WCHAR* dsFilename, WCHAR* psFilename);
 
 private:
-	ID3D11Buffer* matrixBuffer;
-	ID3D11Buffer* tessellationBuffer;
-	ID3D11Buffer* cameraBuffer;
-
-	ID3D11SamplerState* sampleState;
-
+	ID3D11Buffer* matrixBuffer_;
+	ID3D11SamplerState* sampleState_;
+	ID3D11Buffer* tessellationBuffer_;
+	ID3D11Buffer* cameraBuffer_;
 };
-
-#endif
