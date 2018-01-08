@@ -96,9 +96,9 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 void GeometryExample::gui(Camera * camera)
 {
 	// render only if the example is active
-	if (example)
+	if (example_)
 	{
-		ImGui::Begin("Geometry Shader Example", &example);
+		ImGui::Begin("Geometry Shader Example", &example_);
 		if (ImGui::Button("Reset Example"))
 		{
 			resetExample(camera);

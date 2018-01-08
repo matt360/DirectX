@@ -160,9 +160,9 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 void MultiLightExample::gui(Camera* camera)
 {
 	// render only if the example is active
-	if (example)
+	if (example_)
 	{
-		ImGui::Begin("Multi Light Example", &example);
+		ImGui::Begin("Multi Light Example", &example_);
 		if (ImGui::Button("Reset Example"))
 		{
 			resetExample(camera);

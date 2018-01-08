@@ -79,9 +79,9 @@ void TessellationExample::render(D3D * renderer, Camera * camera, TextureManager
 void TessellationExample::gui(Camera * camera)
 {
 	// render only if the example is active
-	if (example)
+	if (example_)
 	{
-		ImGui::Begin("Tessellation", &example);
+		ImGui::Begin("Tessellation", &example_);
 		if (ImGui::Button("Reset Example"))
 		{
 			resetExample(camera);

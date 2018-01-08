@@ -99,9 +99,9 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 void TerrainExample::gui(Camera* camera)
 {
 	// render only if the example is active
-	if (example)
+	if (example_)
 	{
-		ImGui::Begin("Terrain", &example);
+		ImGui::Begin("Terrain", &example_);
 		if (ImGui::Button("Reset Example"))
 		{
 			resetExample(camera);

@@ -97,9 +97,9 @@ void SpecularLightExample::render(D3D* renderer, Camera* camera, TextureManager*
 void SpecularLightExample::gui(Camera* camera)
 {
 	// render only if the example is active
-	if (example)
+	if (example_)
 	{
-		ImGui::Begin("Specular Light", &example);
+		ImGui::Begin("Specular Light", &example_);
 
 		if (ImGui::Button("Reset Example"))
 		{

@@ -40,7 +40,7 @@ public:
 	//inline void setWireframe(bool status) { wireframe_ = status; }
 	//inline bool getWireframe() { return wireframe_; }
 	// toggle example on/off
-	bool example;
+	bool example_;
 	//inline void setExample(bool status) { example = status; }
 	//inline bool getExample() { return example; }
 	// toggle geometry meshes on/off
