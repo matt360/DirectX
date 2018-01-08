@@ -48,9 +48,9 @@ private:
 
 
 private:
-	ID3D11Buffer* m_matrixBuffer;
-	ID3D11SamplerState* m_sampleState;
-	ID3D11Buffer* m_cameraBuffer;
-	ID3D11Buffer* m_lightColorBuffer;
-	ID3D11Buffer* m_lightPositionBuffer;
+	ID3D11Buffer* matrixBuffer_;
+	ID3D11SamplerState* sampleState_;
+	ID3D11Buffer* cameraBuffer_;
+	ID3D11Buffer* lightColorBuffer_;
+	ID3D11Buffer* lightPositionBuffer_;
 };
