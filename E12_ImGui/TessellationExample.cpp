@@ -27,7 +27,6 @@ void TessellationExample::initShader(D3D * renderer, HWND hwnd)
 
 void TessellationExample::initVariables()
 {
-	MESH_CHOICE mesh_choice = MESH_CHOICE::TERRAIN;
 	over_time = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
@@ -106,7 +105,7 @@ void TessellationExample::gui(Camera * camera)
 
 void TessellationExample::resetExample(Camera * camera)
 {
-	mesh_choice = MESH_CHOICE::TERRAIN;
+	mesh_choice_ = MESH_CHOICE::TERRAIN;
 	// set tessellation camera
 	camera->setPosition(0.0f, 4.75f, -10.0f);
 	camera->setRotation(0.0f, 30.0f, 0.0f);

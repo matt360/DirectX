@@ -36,7 +36,6 @@ void TerrainExample::initShader(D3D* renderer, HWND hwnd)
 
 void TerrainExample::initVariables()
 {
-	MESH_CHOICE mesh_choice = MESH_CHOICE::TERRAIN;
 	over_time = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
@@ -126,7 +125,7 @@ void TerrainExample::gui(Camera* camera)
 
 void TerrainExample::resetExample(Camera * camera)
 {
-	mesh_choice = MESH_CHOICE::TERRAIN;
+	mesh_choice_ = MESH_CHOICE::TERRAIN;
 	// set terrain camera
 	camera->setPosition(0.0f, 2.0f, -10.0f);
 	camera->setRotation(0.0f, -200.0f, 0.0f);
