@@ -37,7 +37,7 @@ void SpecularLightExample::initShader(D3D* renderer, HWND hwnd)
 void SpecularLightExample::initVariables()
 {
 	mesh_choice_ = MESH_CHOICE::SPHERE;
-	over_time = 0.0f;
+	over_time_ = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist = true;
@@ -78,7 +78,7 @@ void SpecularLightExample::render(D3D* renderer, Camera* camera, TextureManager*
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// wireframe mode
-	renderer->setWireframeMode(wireframe);
+	renderer->setWireframeMode(wireframe_);
 
 	// Set primitive topology
 	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
@@ -105,7 +105,7 @@ void SpecularLightExample::gui(Camera* camera)
 		{
 			resetExample(camera);
 		}
-		ImGui::Checkbox("Wireframe", &wireframe);
+		ImGui::Checkbox("Wireframe", &wireframe_);
 		// scale
 		ImGui::SliderFloat3("Scale", (float*)&scale, -25.0f, 25.0f);
 		// reset scale
@@ -127,7 +127,7 @@ void SpecularLightExample::resetExample(Camera * camera)
 	// reset scale
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// reset wireframe
-	wireframe = false;
+	wireframe_ = false;
 	// reset geometry shader primitive topology
 	d3d11_primitive_topology_trianglelist = true;
 	d3d11_primitive_topology_pointlist = false;

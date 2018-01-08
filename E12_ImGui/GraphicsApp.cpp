@@ -130,8 +130,8 @@ bool GraphicsApp::frame()
 	}
 
 	// calculate new y position of light_terrain
-	terrainExample_->over_time += XM_PIDIV2 * timer->getTime();
-	terrainExample_->over_time = fmodf(terrainExample_->over_time, XM_2PI);
+	terrainExample_->over_time_ += XM_PIDIV2 * timer->getTime();
+	terrainExample_->over_time_ = fmodf(terrainExample_->over_time_, XM_2PI);
 
 	// Render the graphics.
 	result = render();

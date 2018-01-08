@@ -33,7 +33,7 @@ void GeometryExample::initShader(D3D * renderer, HWND hwnd)
 
 void GeometryExample::initVariables()
 {
-	over_time = 0.0f;
+	over_time_ = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist = true;
@@ -63,7 +63,7 @@ void GeometryExample::render(D3D * renderer, Camera * camera, TextureManager * t
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// wireframe mode
-	renderer->setWireframeMode(wireframe);
+	renderer->setWireframeMode(wireframe_);
 
 	/*
 	// ONE TRIANGLE - D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
@@ -103,7 +103,7 @@ void GeometryExample::gui(Camera * camera)
 		{
 			resetExample(camera);
 		}
-		ImGui::Checkbox("Wireframe", &wireframe);
+		ImGui::Checkbox("Wireframe", &wireframe_);
 		ImGui::SliderFloat3("Scale", (float*)&scale, -10.0f, 10.0f);
 		if (ImGui::Button("Reset Scale")) scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist))
@@ -144,7 +144,7 @@ void GeometryExample::resetExample(Camera* camera)
 	// reset geometry shader scale
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// reset geometry shader wireframe mode
-	wireframe = false;
+	wireframe_ = false;
 	// reset geometry shader primitive topology
 	d3d11_primitive_topology_trianglelist = true;
 	d3d11_primitive_topology_pointlist = false;

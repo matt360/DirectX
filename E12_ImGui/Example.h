@@ -33,12 +33,12 @@ public:
 	//inline BaseMesh* getMesh() { return mesh; }
 	//inline BaseMesh& getAddress() { return *mesh; }
 	// used for moving vertices over time
-	float over_time;
-	//inline float getOverTime() { return over_time; }
+	float over_time_;
+	//inline float getOverTime() { return over_time_; }
 	// toggle wireframe mode on/off
-	bool wireframe;
-	//inline void setWireframe(bool status) { wireframe = status; }
-	//inline bool getWireframe() { return wireframe; }
+	bool wireframe_;
+	//inline void setWireframe(bool status) { wireframe_ = status; }
+	//inline bool getWireframe() { return wireframe_; }
 	// toggle example on/off
 	bool example;
 	//inline void setExample(bool status) { example = status; }

@@ -52,7 +52,7 @@ void MultiLightExample::initShader(D3D* renderer, HWND hwnd)
 
 void MultiLightExample::initVariables()
 {
-	over_time = 0.0f;
+	over_time_ = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist = true;
@@ -129,7 +129,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 	worldMatrix *= matrixScaling;
 
 	// wireframe mode
-	renderer->setWireframeMode(wireframe);
+	renderer->setWireframeMode(wireframe_);
 
 	// Set primitive topology
 	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
@@ -167,7 +167,7 @@ void MultiLightExample::gui(Camera* camera)
 		{
 			resetExample(camera);
 		}
-		ImGui::Checkbox("Wireframe", &wireframe);
+		ImGui::Checkbox("Wireframe", &wireframe_);
 		// change lights' colour
 		ImGui::ColorEdit4("Light 0 Col",  (float*)light_colours_.at(0));
 		ImGui::ColorEdit4("Light 1 Col",  (float*)light_colours_.at(1));
@@ -262,7 +262,7 @@ void MultiLightExample::resetExample(Camera* camera)
 	// render only sphere mesh
 	set_mesh_choice(MESH_CHOICE::PLANE);
 	// reset wireframe
-	wireframe = false;
+	wireframe_ = false;
 	// reset geometry shader primitive topology
 	d3d11_primitive_topology_trianglelist = true;
 	d3d11_primitive_topology_pointlist = false;

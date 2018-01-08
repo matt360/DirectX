@@ -27,7 +27,7 @@ void TessellationExample::initShader(D3D * renderer, HWND hwnd)
 
 void TessellationExample::initVariables()
 {
-	over_time = 0.0f;
+	over_time_ = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist = true;
@@ -57,7 +57,7 @@ void TessellationExample::render(D3D * renderer, Camera * camera, TextureManager
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// wireframe mode
-	renderer->setWireframeMode(wireframe);
+	renderer->setWireframeMode(wireframe_);
 
 	// Set primitive topology
 	/*D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
@@ -87,7 +87,7 @@ void TessellationExample::gui(Camera * camera)
 			resetExample(camera);
 		}
 		// wireframe
-		ImGui::Checkbox("Wireframe", &wireframe);
+		ImGui::Checkbox("Wireframe", &wireframe_);
 		// scale
 		ImGui::SliderFloat("Scale X", (float*)&scale.x, -15.0f, 15.0f);
 		ImGui::SliderFloat("Scale Z", (float*)&scale.z, -15.0f, 15.0f);
@@ -112,7 +112,7 @@ void TessellationExample::resetExample(Camera * camera)
 	// reset terrain scale
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// reset wireframe
-	wireframe = false;
+	wireframe_ = false;
 	// reset geometry shader primitive topology
 	d3d11_primitive_topology_trianglelist = true;
 	d3d11_primitive_topology_pointlist = false;

@@ -36,7 +36,7 @@ void TerrainExample::initShader(D3D* renderer, HWND hwnd)
 
 void TerrainExample::initVariables()
 {
-	over_time = 0.0f;
+	over_time_ = 0.0f;
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist = true;
@@ -76,20 +76,20 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 	float frequency = 1.0f;
 
 	// wireframe mode
-	renderer->setWireframeMode(wireframe);
+	renderer->setWireframeMode(wireframe_);
 
 	// Set primitive topology
 	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
 	if (d3d11_primitive_topology_trianglelist) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 
-	light->setPosition(0.0f, sinf(over_time * 3.0f), 0.0f);
+	light->setPosition(0.0f, sinf(over_time_ * 3.0f), 0.0f);
 	// Send geometry data (from mesh)
 	mesh->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 
 	// Set shader parameters (matrices and texture)
 	//terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
-	shader_->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), light, over_time, height, frequency);
+	shader_->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), light, over_time_, height, frequency);
 
 	// Render object (combination of mesh geometry and shader process
 	shader_->render(renderer->getDeviceContext(), mesh->getIndexCount()); // output data from the shader programme
@@ -107,7 +107,7 @@ void TerrainExample::gui(Camera* camera)
 			resetExample(camera);
 		}
 		// wireframe
-		ImGui::Checkbox("Wireframe", &wireframe);
+		ImGui::Checkbox("Wireframe", &wireframe_);
 		// scale
 		ImGui::SliderFloat("Scale X", (float*)&scale.x, -15.0f, 15.0f);
 		ImGui::SliderFloat("Scale Y", (float*)&scale.y, -15.0f, 15.0f);
@@ -132,7 +132,7 @@ void TerrainExample::resetExample(Camera * camera)
 	// reset terrain scale
 	scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// reset terrain wireframe mode
-	wireframe = false;
+	wireframe_ = false;
 	// reset geometry shader primitive topology
 	d3d11_primitive_topology_trianglelist = true;
 	d3d11_primitive_topology_pointlist = false;
