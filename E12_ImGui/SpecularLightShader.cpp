@@ -11,17 +11,17 @@ SpecularLightShader::SpecularLightShader(ID3D11Device* device, HWND hwnd) : Base
 SpecularLightShader::~SpecularLightShader()
 {
 	// Release the sampler state.
-	if (sampleState)
+	if (sampleState_)
 	{
-		sampleState->Release();
-		sampleState = 0;
+		sampleState_->Release();
+		sampleState_ = 0;
 	}
 
 	// Release the matrix constant buffer.
-	if (matrixBuffer)
+	if (matrixBuffer_)
 	{
-		matrixBuffer->Release();
-		matrixBuffer = 0;
+		matrixBuffer_->Release();
+		matrixBuffer_ = 0;
 	}
 
 	// Release the layout.
@@ -32,16 +32,16 @@ SpecularLightShader::~SpecularLightShader()
 	}
 
 	// Release the light constant buffer.
-	if (lightBuffer)
+	if (lightBuffer_)
 	{
-		lightBuffer->Release();
-		lightBuffer = 0;
+		lightBuffer_->Release();
+		lightBuffer_ = 0;
 	}
 
-	if (cameraBuffer)
+	if (cameraBuffer_)
 	{
-		cameraBuffer->Release();
-		cameraBuffer = 0;
+		cameraBuffer_->Release();
+		cameraBuffer_ = 0;
 	}
 	//Release base shader components
 	BaseShader::~BaseShader();
@@ -69,7 +69,7 @@ void SpecularLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	matrixBufferDesc.StructureByteStride = 0;
 
 	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
-	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer);
+	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer_);
 
 	// Create a texture sampler state description.
 	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -87,7 +87,7 @@ void SpecularLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
 	// Create the texture sampler state.
-	renderer->CreateSamplerState(&samplerDesc, &sampleState);
+	renderer->CreateSamplerState(&samplerDesc, &sampleState_);
 
 	// Setup light buffer
 	// Setup the description of the light dynamic constant buffer that is in the pixel shader.
@@ -100,7 +100,7 @@ void SpecularLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	lightBufferDesc.StructureByteStride = 0;
 
 	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
-	renderer->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer);
+	renderer->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer_);
 
 	// Camera buffer
 	cameraBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
@@ -110,7 +110,7 @@ void SpecularLightShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	cameraBufferDesc.MiscFlags = 0;
 	cameraBufferDesc.StructureByteStride = 0;
 
-	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
+	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer_);
 }
 
 void SpecularLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, Camera* camera)
@@ -129,7 +129,7 @@ void SpecularLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext
 	tproj = XMMatrixTranspose(projectionMatrix);
 
 	// Lock the constant buffer so it can be written to.
-	result = deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	result = deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
@@ -140,17 +140,17 @@ void SpecularLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext
 	dataPtr->projection = tproj;
 
 	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer, 0);
+	deviceContext->Unmap(matrixBuffer_, 0);
 
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 
 	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 
 	//Additional
 	// Send light data to pixel shader
-	deviceContext->Map(lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	deviceContext->Map(lightBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	lightPtr = (LightBufferType*)mappedResource.pData;
 	lightPtr->ambient = light->getAmbientColour();
 	lightPtr->diffuse = light->getDiffuseColour();
@@ -159,18 +159,18 @@ void SpecularLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext
 	lightPtr->specular = light->getSpecularColour();
 	
 	//lightPtr->padding = 0.0f;
-	deviceContext->Unmap(lightBuffer, 0);
+	deviceContext->Unmap(lightBuffer_, 0);
 	bufferNumber = 0;
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
+	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
 
 	// Camera
-	deviceContext->Map(cameraBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	deviceContext->Map(cameraBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	cameraPtr = (CameraBufferType*)mappedResource.pData;
 	cameraPtr->cameraPosition = camera->getPosition();
 	cameraPtr->padding = 0.0f;
-	deviceContext->Unmap(cameraBuffer, 0);
+	deviceContext->Unmap(cameraBuffer_, 0);
 	bufferNumber = 1;
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &cameraBuffer);
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &cameraBuffer_);
 
 	// Set shader texture resource in the pixel shader.
 	deviceContext->PSSetShaderResources(0, 1, &texture);
@@ -192,7 +192,7 @@ void SpecularLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext
 	tproj = XMMatrixTranspose(projectionMatrix);
 
 	// Lock the constant buffer so it can be written to.
-	result = deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	result = deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
@@ -203,17 +203,17 @@ void SpecularLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext
 	dataPtr->projection = tproj;
 
 	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer, 0);
+	deviceContext->Unmap(matrixBuffer_, 0);
 
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 
 	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 
 	//Additional
 	// Send light data to pixel shader
-	deviceContext->Map(lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	deviceContext->Map(lightBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	lightPtr = (LightBufferType*)mappedResource.pData;
 	lightPtr->ambient = light->getAmbientColour();
 	lightPtr->diffuse = light->getDiffuseColour();
@@ -221,9 +221,9 @@ void SpecularLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext
 	lightPtr->specularPower = light->getSpecularPower();
 	lightPtr->specular = light->getSpecularColour();
 	//lightPtr->padding = 0.0f;
-	deviceContext->Unmap(lightBuffer, 0);
+	deviceContext->Unmap(lightBuffer_, 0);
 	bufferNumber = 0;
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
+	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
 
 	// Set shader texture resource in the pixel shader.
 	deviceContext->PSSetShaderResources(0, 1, &texture);
@@ -232,7 +232,7 @@ void SpecularLightShader::setShaderParameters(ID3D11DeviceContext* deviceContext
 void SpecularLightShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {
 	// Set the sampler state in the pixel shader.
-	deviceContext->PSSetSamplers(0, 1, &sampleState);
+	deviceContext->PSSetSamplers(0, 1, &sampleState_);
 
 	// Base render function.
 	BaseShader::render(deviceContext, indexCount);
