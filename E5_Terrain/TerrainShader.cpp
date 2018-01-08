@@ -20,10 +20,10 @@ TerrainShader::~TerrainShader()
 	}
 
 	// Release the matrix constant buffer.
-	if (matrixBuffer)
+	if (matrixBuffer_)
 	{
-		matrixBuffer->Release();
-		matrixBuffer = 0;
+		matrixBuffer_->Release();
+		matrixBuffer_ = 0;
 	}
 
 	// Release the layout.
@@ -108,7 +108,7 @@ void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
                            // resource       resouce  a pointer to a pointer to the appropriate resource
 	                       // description,   creation 
 	                       //                method,
-	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer);
+	renderer->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer_);
 
 	// Create a texture sampler state description.
 	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -178,7 +178,7 @@ void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, cons
 	tproj = XMMatrixTranspose(projectionMatrix);
 
 	// Lock the constant buffer so it can be written to.
-	result = deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	result = deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
@@ -189,13 +189,13 @@ void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, cons
 	dataPtr->projection = tproj;
 
 	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer, 0);
+	deviceContext->Unmap(matrixBuffer_, 0);
 
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 
 	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 
 	// Additional //
 	// Camera
@@ -245,7 +245,7 @@ void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, cons
 	tproj = XMMatrixTranspose(projectionMatrix);
 
 	// Lock the constant buffer so it can be written to.
-	result = deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	result = deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
@@ -256,13 +256,13 @@ void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, cons
 	dataPtr->projection = tproj;
 
 	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer, 0);
+	deviceContext->Unmap(matrixBuffer_, 0);
 
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 
 	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 
 	//Additional
 	// Send light data to pixel shader
@@ -300,7 +300,7 @@ void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, cons
 	tproj = XMMatrixTranspose(projectionMatrix);
 
 	// Lock the constant buffer so it can be written to.
-	deviceContext->Map(matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
@@ -309,11 +309,11 @@ void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, cons
 	dataPtr->view = tview;
 	dataPtr->projection = tproj;
 	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer, 0);
+	deviceContext->Unmap(matrixBuffer_, 0);
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 
 	// Time
 	// Send time data to vertex shader
