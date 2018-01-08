@@ -289,11 +289,14 @@ void GraphicsApp::chooseExample(bool& activeEg, bool& inactiveEg1, bool& inactiv
 
 void GraphicsApp::renderExample(const EXAMPLE_CHOICE ex_choice, Example* eg, Camera* camera)
 {
-	// set choice
+	// set the example choice
 	example_choice = ex_choice;
+
+	// set the proper example active
 	chooseExample(eg->example, tessellationExample->example, terrainExample->example,
 		multiLightExample->example, geometryExample->example);
 
+	// reset the example to the initial state
 	eg->resetExample(camera);
 }
 
