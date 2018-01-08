@@ -25,6 +25,7 @@ public:
 	virtual void render(D3D* renderer, Camera* camera, TextureManager* textureMgr) = 0;
 	// Mesh choice
 	MESH_CHOICE mesh_choice;
+	inline MESH_CHOICE& getMeshChoice() { return mesh_choice; }
 	// Mesh
 	BaseMesh* mesh;
 	inline void setMesh(BaseMesh* set_mesh) { mesh = set_mesh; }

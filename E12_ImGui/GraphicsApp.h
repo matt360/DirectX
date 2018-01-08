@@ -52,9 +52,8 @@ private:
 	EXAMPLE_CHOICE example_choice;
 
 	// FUNCTIONS
-	void chooseExample();
 	void setActiveExample(bool& activeEg, bool& inactiveEg1, bool& inactiveEg2, bool& inactiveEg3, bool& inactiveEg4);
-	//void renderExample(EXAMPLE_CHOICE eg);
+	void chooseExample(EXAMPLE_CHOICE eg);
 	BaseMesh* chooseMesh(const MESH_CHOICE& mesh_choice);
 	float clamp(float n, float lower, float upper);
 };
