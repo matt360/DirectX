@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Examples">
       <UniqueIdentifier>{ecb50c36-6b28-45e8-ad68-65fe388b806c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Terrain Tessellation">
+      <UniqueIdentifier>{c6a7ef7d-802f-4fcc-b4c8-0c146368854a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -81,6 +84,12 @@
     <ClCompile Include="Example.cpp">
       <Filter>Source Files\Examples</Filter>
     </ClCompile>
+    <ClCompile Include="TerrainTessellationExample.cpp">
+      <Filter>Source Files\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainTessellationShader.cpp">
+      <Filter>Source Files\Shader Handlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsApp.h">
@@ -117,6 +126,12 @@
       <Filter>Header Files\Examples</Filter>
     </ClInclude>
     <ClInclude Include="GeometryExample.h">
+      <Filter>Header Files\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainTessellationShader.h">
+      <Filter>Header Files\Shader Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainTessellationExample.h">
       <Filter>Header Files\Examples</Filter>
     </ClInclude>
   </ItemGroup>
@@ -159,6 +174,18 @@
     </FxCompile>
     <FxCompile Include="shaders\geometry_vs.hlsl">
       <Filter>Resource Files\Geometry</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_tessellation_ds.hlsl">
+      <Filter>Resource Files\Terrain Tessellation</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_tessellation_hs.hlsl">
+      <Filter>Resource Files\Terrain Tessellation</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_tessellation_ps.hlsl">
+      <Filter>Resource Files\Terrain Tessellation</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_tessellation_vs.hlsl">
+      <Filter>Resource Files\Terrain Tessellation</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

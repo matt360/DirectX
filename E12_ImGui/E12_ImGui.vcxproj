@@ -165,6 +165,8 @@
     <ClCompile Include="MultiLightShader.cpp" />
     <ClCompile Include="TerrainExample.cpp" />
     <ClCompile Include="TerrainShader.cpp" />
+    <ClCompile Include="TerrainTessellationExample.cpp" />
+    <ClCompile Include="TerrainTessellationShader.cpp" />
     <ClCompile Include="TessellationExample.cpp" />
     <ClCompile Include="TessellationShader.cpp" />
   </ItemGroup>
@@ -179,6 +181,8 @@
     <ClInclude Include="MultiLightShader.h" />
     <ClInclude Include="TerrainExample.h" />
     <ClInclude Include="TerrainShader.h" />
+    <ClInclude Include="TerrainTessellationExample.h" />
+    <ClInclude Include="TerrainTessellationShader.h" />
     <ClInclude Include="TessellationExample.h" />
     <ClInclude Include="TessellationShader.h" />
   </ItemGroup>
@@ -230,6 +234,22 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_tessellation_ds.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Domain</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_tessellation_hs.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Hull</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_tessellation_ps.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="shaders\terrain_tessellation_vs.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="shaders\terrain_vs.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
