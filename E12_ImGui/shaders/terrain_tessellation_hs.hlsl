@@ -13,6 +13,7 @@ struct VertexOut // VS_CONTROL_POINT_OUTPUT
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
+    float3 position3D : TEXCOORD1;
 };
 
 // Output control point
@@ -22,6 +23,7 @@ struct HullOut
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
+    float3 position3D : TEXCOORD1;
 };
 
 // Output patch constant data.
@@ -38,14 +40,14 @@ struct PatchTess // HS_CONSTANT_DATA_OUTPUT
 #define NUM_CONTROL_POINTS 3
 
 // Patch Constant Function
-PatchTess CalcHSPatchConstants(
+PatchTess ConstantHS(
 	InputPatch<VertexOut, NUM_CONTROL_POINTS> inputPatch,
 	uint patchId : SV_PrimitiveID)
 {
 	PatchTess output;
     float tessellationAmount;
 
-    float3 distance = (float3) inputPatch[patchId].position - cameraPosition;
+    float3 distance = inputPatch[patchId].position.xyz - cameraPosition.xyz;
 
     if (length(distance) > 8.0f)
         tessellationAmount = 4.0f;
@@ -59,17 +61,11 @@ PatchTess CalcHSPatchConstants(
     output.edges[0] = tessellationAmount;
     output.edges[1] = tessellationAmount;
     output.edges[2] = tessellationAmount;
-	// Insert code to compute Output here
-    //output.EdgeTessFactor[0] =
-	//output.EdgeTessFactor[1] =
-	//output.EdgeTessFactor[2] =
 
     // 2. One interior tessellation factor indicates how much to tessellate the triangle patch.
     // Set the tessellation factor for tessallating inside the triangle.
 	// Uniformly tessellate the patch 'tessellationAmount' times.
-
     output.inside = tessellationAmount;
-	//output.InsideTessFactor = 15; // e.g. could calculate dynamic tessellation factors instead
 
     return output;
 }
@@ -78,7 +74,7 @@ PatchTess CalcHSPatchConstants(
 [partitioning("fractional_even")]
 [outputtopology("triangle_cw")]
 [outputcontrolpoints(3)]
-[patchconstantfunc("CalcHSPatchConstants")]
+[patchconstantfunc("ConstantHS")]
 HullOut main(
 	InputPatch<VertexOut, NUM_CONTROL_POINTS> patch,
 	uint pointId : SV_OutputControlPointID,
@@ -88,7 +84,7 @@ HullOut main(
 	
     // Set the position for this control point as the output position.
     output.position = patch[pointId].position;
-
+    output.position3D = patch[pointId].position3D;
     // Set the input tex as the output tex.
     output.tex = patch[pointId].tex;
 

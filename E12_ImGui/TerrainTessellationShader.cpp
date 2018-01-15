@@ -171,18 +171,14 @@ void TerrainTessellationShader::setShaderParameters(
 
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
-
 	// Copy the matrices into the constant buffer.
 	dataPtr->world = tworld;// worldMatrix;
 	dataPtr->view = tview;
 	dataPtr->projection = tproj;
-
 	// Unlock the constant buffer.
 	deviceContext->Unmap(matrixBuffer_, 0);
-
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
-
 	// Now set the constant buffer in the vertex shader with the updated values.
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 
@@ -377,30 +373,11 @@ void TerrainTessellationShader::setShaderParameters(
 	XMMATRIX tworld, tview, tproj;
 
 	// Transpose the matrices to prepare them for the shader.
-	tworld = XMMatrixTranspose(worldMatrix);
-	tview = XMMatrixTranspose(viewMatrix);
-	tproj = XMMatrixTranspose(projectionMatrix);
-	// Lock the constant buffer so it can be written to.
-	deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	// Get a pointer to the data in the constant buffer.
-	dataPtr = (MatrixBufferType*)mappedResource.pData;
-	// Copy the matrices into the constant buffer.
-	dataPtr->world = tworld;// worldMatrix;
-	dataPtr->view = tview;
-	dataPtr->projection = tproj;
-	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer_, 0);
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 0;
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
-
-	// Transpose the matrices to prepare them for the shader.
 	//tworld = XMMatrixTranspose(worldMatrix);
 	//tview = XMMatrixTranspose(viewMatrix);
 	//tproj = XMMatrixTranspose(projectionMatrix);
 	//// Lock the constant buffer so it can be written to.
-	//result = deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	//deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	//// Get a pointer to the data in the constant buffer.
 	//dataPtr = (MatrixBufferType*)mappedResource.pData;
 	//// Copy the matrices into the constant buffer.
@@ -412,7 +389,26 @@ void TerrainTessellationShader::setShaderParameters(
 	//// Set the position of the constant buffer in the vertex shader.
 	//bufferNumber = 0;
 	//// Now set the constant buffer in the vertex shader with the updated values.
-	//deviceContext->DSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
+	//deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
+
+	// Transpose the matrices to prepare them for the shader.
+	tworld = XMMatrixTranspose(worldMatrix);
+	tview = XMMatrixTranspose(viewMatrix);
+	tproj = XMMatrixTranspose(projectionMatrix);
+	// Lock the constant buffer so it can be written to.
+	result = deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	// Get a pointer to the data in the constant buffer.
+	dataPtr = (MatrixBufferType*)mappedResource.pData;
+	// Copy the matrices into the constant buffer.
+	dataPtr->world = tworld;// worldMatrix;
+	dataPtr->view = tview;
+	dataPtr->projection = tproj;
+	// Unlock the constant buffer.
+	deviceContext->Unmap(matrixBuffer_, 0);
+	// Set the position of the constant buffer in the vertex shader.
+	bufferNumber = 0;
+	// Now set the constant buffer in the vertex shader with the updated values.
+	deviceContext->DSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 
 	// TIME
 	// Send time data to vertex shader
@@ -427,9 +423,9 @@ void TerrainTessellationShader::setShaderParameters(
 	// Unlock the constant buffer.
 	deviceContext->Unmap(timeBuffer_, 0);
 	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 0;
+	bufferNumber = 1;
 	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &timeBuffer_);
+	deviceContext->DSSetConstantBuffers(bufferNumber, 1, &timeBuffer_);
 
 	// CAMERA
 	// Lock the constant buffer so it can be written to.

@@ -89,7 +89,16 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 
 	// Set shader parameters (matrices and texture)
 	//terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
-	shader_->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("height"), light, over_time_, height, frequency);
+	shader_->setShaderParameters(
+		renderer->getDeviceContext(), 
+		worldMatrix, 
+		viewMatrix, 
+		projectionMatrix, 
+		textureMgr->getTexture("height"), 
+		light, 
+		over_time_, 
+		height, 
+		frequency);
 
 	// Render object (combination of mesh geometry and shader process
 	shader_->render(renderer->getDeviceContext(), mesh_->getIndexCount()); // output data from the shader programme

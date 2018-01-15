@@ -14,19 +14,19 @@
 // HLSL program files are composed of global variables, type defines, vertex shaders, pixel shaders, and geometry shaders. 
 
 // TEXTURES
-Texture2D tex0 : register(t0);
+//Texture2D tex0 : register(t0);
 
 // SAMPLE STATES
-SamplerState Sampler0 : register(s0);
+//SamplerState Sampler0 : register(s0);
 
 // Global
-cbuffer TimeBuffer : register(cb1)
-{
-    float time;
-    float height;
-    float frequency;
-    float padding;
-};
+//cbuffer TimeBuffer : register(cb1)
+//{
+//    float time;
+//    float height;
+//    float frequency;
+//    float padding;
+//};
 
 // TYPEDEFS
 struct VertexIn
@@ -42,6 +42,7 @@ struct VertexOut
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
+    float3 position3D : TEXCOORD1;
 };
 
 VertexOut main(VertexIn input)
@@ -52,10 +53,10 @@ VertexOut main(VertexIn input)
     //float4 grayScale = (0.0f, 0.0f, 0.0f, 1.0f);
 	
 	// Change the position vector to be 4 units for proper matrix calculations.
-    input.position.w = 1.0f;
+   // input.position.w = 1.0f;
 
-    // Sample the pixel color from the texture using the sampler at this texture coordinate location.
-    float4 textureColor = tex0.SampleLevel(Sampler0, input.tex, 0);
+    //// Sample the pixel color from the texture using the sampler at this texture coordinate location.
+    //float4 textureColor = tex0.SampleLevel(Sampler0, input.tex, 0);
     // textureColor.w = 1.0f;
 
     // offset position based on sine wave
@@ -71,14 +72,14 @@ VertexOut main(VertexIn input)
     // input.normal.y = abs(cos(input.position.y + time));
     // input.normal.z = abs(cos(input.position.y + time));
 
-    for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
-    {
-        if (textureColor.r > i)
-        {
-            input.position.y -= i * 0.5f;
-            input.normal.y -= abs(0.9 * 15.0f);
-        }
-    }
+    //for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
+    //{
+    //    if (textureColor.r > i)
+    //    {
+    //        input.position.y -= i * 0.5f;
+    //        input.normal.y -= abs(0.9 * 15.0f);
+    //    }
+    //}
 
 	// if (all(textureColor.rgb >= 1.0) && any(textureColor.rgb <= 0.7))
     // if (any(textureColor.rgb >= 1.0) && any(textureColor.rgb <= 0.7))
@@ -92,6 +93,8 @@ VertexOut main(VertexIn input)
     //output.position = mul(output.position, viewMatrix);
     //output.position = mul(output.position, projectionMatrix);
     output.position = input.position;
+
+    output.position3D = input.position3D;
 	// Store the texture coordinates for the pixel shader.
     output.tex = input.tex;
 

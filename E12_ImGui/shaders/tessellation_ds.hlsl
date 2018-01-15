@@ -38,7 +38,7 @@ struct DomainOut
 
 // triangle
 [domain("tri")]
-DomainOut main(PatchTess input, float3 uvwCoord : SV_DomainLocation, const OutputPatch<HullOut, 4> patch)
+DomainOut main(PatchTess input, float3 uvwCoord : SV_DomainLocation, const OutputPatch<HullOut, 3> patch)
 {
     float3 vertexPosition;
     DomainOut output;
