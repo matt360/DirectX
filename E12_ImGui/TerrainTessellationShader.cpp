@@ -1,15 +1,15 @@
 // texture shader.cpp
-#include "TerrainShader.h"
+#include "TerrainTessellationShader.h"
 
 // When resources are being created and interfaced with,
 // the device interface is used.
-TerrainShader::TerrainShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
+TerrainTessellationShader::TerrainTessellationShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
 {
 	// compiled shader object
-	initShader(L"terrain_vs.cso", L"terrain_hs.cso", L"terrain_ds.cso", L"terrain_ps.cso");
+	initShader(L"terrain_tessellation_vs.cso", L"terrain_tessellation_hs.cso", L"terrain_tessellation_ds.cso", L"terrain_tessellation_ps.cso");
 }
 
-TerrainShader::~TerrainShader()
+TerrainTessellationShader::~TerrainTessellationShader()
 {
 	// Release the sampler state.
 	if (sampleState_)
@@ -55,7 +55,7 @@ TerrainShader::~TerrainShader()
 }
 
 
-void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
+void TerrainTessellationShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 {
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	D3D11_SAMPLER_DESC samplerDesc;
@@ -134,7 +134,7 @@ void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	renderer->CreateBuffer(&timeBufferDesc, NULL, &timeBuffer_);
 }
 
-void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* hsFilename, WCHAR* dsFilename, WCHAR* psFilename)
+void TerrainTessellationShader::initShader(WCHAR* vsFilename, WCHAR* hsFilename, WCHAR* dsFilename, WCHAR* psFilename)
 {
 	// InitShader must be overwritten and it will load both vertex and pixel shaders + setup buffers
 	initShader(vsFilename, psFilename);
@@ -144,7 +144,7 @@ void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* hsFilename, WCHAR* dsFi
 	loadDomainShader(dsFilename);
 }
 
-void TerrainShader::setShaderParameters(
+void TerrainTessellationShader::setShaderParameters(
 	ID3D11DeviceContext* deviceContext, 
 	const XMMATRIX &worldMatrix, 
 	const XMMATRIX &viewMatrix, 
@@ -218,7 +218,7 @@ void TerrainShader::setShaderParameters(
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
-void TerrainShader::setShaderParameters(
+void TerrainTessellationShader::setShaderParameters(
 	ID3D11DeviceContext* deviceContext, 
 	const XMMATRIX &worldMatrix, 
 	const XMMATRIX &viewMatrix, 
@@ -278,7 +278,7 @@ void TerrainShader::setShaderParameters(
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
-void TerrainShader::setShaderParameters(
+void TerrainTessellationShader::setShaderParameters(
 	ID3D11DeviceContext* deviceContext, 
 	const XMMATRIX &worldMatrix, 
 	const XMMATRIX &viewMatrix, 
@@ -355,7 +355,7 @@ void TerrainShader::setShaderParameters(
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
-void TerrainShader::setShaderParameters(
+void TerrainTessellationShader::setShaderParameters(
 	ID3D11DeviceContext* deviceContext, 
 	const XMMATRIX& worldMatrix, 
 	const XMMATRIX& viewMatrix, 
@@ -465,7 +465,7 @@ void TerrainShader::setShaderParameters(
 	deviceContext->VSSetShaderResources(0, 1, &texture);
 }
 
-void TerrainShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
+void TerrainTessellationShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {
 	// Set the sampler state in the pixel shader.
 	deviceContext->PSSetSamplers(0, 1, &sampleState_);

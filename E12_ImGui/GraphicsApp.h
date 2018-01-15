@@ -5,11 +5,13 @@
 #include "SpecularLightExample.h"
 #include "TerrainExample.h"
 #include "TessellationExample.h"
+#include "TerrainTessellationExample.h"
 
 enum class EXAMPLE_CHOICE {
 	SPECULAR_LIGHT,
 	TESSELLATION,
 	TERRAIN,
+	TERRAIN_TESSELLATION,
 	MULTILIGHT,
 	GEOMETRY
 };
@@ -46,13 +48,14 @@ private:
 	SpecularLightExample* specularLightExample_;
 	TessellationExample* tessellationExample_;
 	TerrainExample* terrainExample_;
+	TerrainTessellationExample* terrainTessellationExample_;
 	MultiLightExample* multiLightExample_;
 	GeometryExample* geometryExample_;
 	Example* example_;
 	EXAMPLE_CHOICE example_choice_;
 
 	// FUNCTIONS
-	void setActiveExample(bool& activeEg, bool& inactiveEg1, bool& inactiveEg2, bool& inactiveEg3, bool& inactiveEg4);
+	void setActiveExample(bool& activeEg, bool& inactiveEg1, bool& inactiveEg2, bool& inactiveEg3, bool& inactiveEg4, bool& inactiveEg5);
 	void chooseExample(EXAMPLE_CHOICE eg);
 	BaseMesh* chooseMesh(const MESH_CHOICE& mesh_choice);
 	float clamp(float n, float lower, float upper);

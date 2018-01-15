@@ -1,11 +1,11 @@
-#include "TerrainExample.h"
+#include "TerrainTessellationExample.h"
 
-TerrainExample::TerrainExample()
+TerrainTessellationExample::TerrainTessellationExample()
 {
 	shader_ = nullptr;
 }
 
-TerrainExample::~TerrainExample()
+TerrainTessellationExample::~TerrainTessellationExample()
 {
 	if (shader_)
 	{
@@ -20,7 +20,7 @@ TerrainExample::~TerrainExample()
 	}
 }
 
-void TerrainExample::init(D3D* renderer, HWND hwnd)
+void TerrainTessellationExample::init(D3D* renderer, HWND hwnd)
 {
 	initShader(renderer, hwnd);
 	initVariables();
@@ -29,12 +29,12 @@ void TerrainExample::init(D3D* renderer, HWND hwnd)
 }
 
 // create shader handlers
-void TerrainExample::initShader(D3D* renderer, HWND hwnd)
+void TerrainTessellationExample::initShader(D3D* renderer, HWND hwnd)
 {
-	shader_ = new TerrainShader(renderer->getDevice(), hwnd);
+	shader_ = new TerrainTessellationShader(renderer->getDevice(), hwnd);
 }
 
-void TerrainExample::initVariables()
+void TerrainTessellationExample::initVariables()
 {
 	over_time_ = 0.0f;
 	scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
@@ -43,7 +43,7 @@ void TerrainExample::initVariables()
 	d3d11_primitive_topology_pointlist_ = false;
 }
 
-void TerrainExample::initLight()
+void TerrainTessellationExample::initLight()
 {
 	// specular light example
 	light = new Light;
@@ -55,7 +55,7 @@ void TerrainExample::initLight()
 	light->setPosition(0.0f, 0.1f, 0.0f);
 }
 
-void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
+void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
@@ -110,7 +110,7 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 }
 
 // Terrain Example GUI window
-void TerrainExample::gui(Camera* camera)
+void TerrainTessellationExample::gui(Camera* camera)
 {
 	// render only if the example is active
 	if (example_)
@@ -137,7 +137,7 @@ void TerrainExample::gui(Camera* camera)
 	}
 }
 
-void TerrainExample::resetExample(Camera * camera)
+void TerrainTessellationExample::resetExample(Camera * camera)
 {
 	mesh_choice_ = MESH_CHOICE::TERRAIN;
 	// set terrain camera
