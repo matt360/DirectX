@@ -89,18 +89,19 @@ DomainOut main(
     uvwCoord.x * patch[0].position3D +
     uvwCoord.y * patch[1].position3D +
     uvwCoord.z * patch[2].position3D;
+
      // Sample the pixel color from the texture using the sampler at this texture coordinate location.
     float4 textureColor = tex0.SampleLevel(Sampler0, texPosition, 0);
 
-    // VERTEX CODE
-    for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
-    {
-        if (textureColor.r > i)
-        {
-            input.position.y -= i * 0.5f;
-            input.normal.y -= abs(0.9 * 15.0f);
-        }
-    }
+    // Sample height map
+    //for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
+    //{
+    //    if (textureColor.r > i)
+    //    {
+    //        vertexPosition.y -= i * 0.5f;
+    //        normalPosition.y -= abs(0.9 * 15.0f);
+    //    }
+    //}
 
     // Calculate the position of the vertex against the world, view, and projection matrices.
     output.position = mul(float4(vertexPosition, 1.0f), worldMatrix);
@@ -114,47 +115,4 @@ DomainOut main(
     output.tex = patch[0].tex;
 
 	return output;
-}
-
-[domain("quad")]
-DomainOut main(
-	HS_CONSTANT_DATA_OUTPUT input,
-	float2 domain : SV_DomainLocation,
-	const OutputPatch<HS_CONTROL_POINT_OUTPUT, NUM_CONTROL_POINTS> patch)
-{
-    DomainOut output;
-
-    output.worldpos = lerp(lerp(patch[0].worldpos, patch[1].worldpos, domain.x), lerp(patch[2].worldpos, patch[3].worldpos, domain.x), domain.y);
-	
-    float h;
-    if (input.skirt < 5)
-    {
-        if (input.skirt > 0 && domain.y == 1)
-        {
-            h = heightmap.SampleLevel(hmsampler, output.worldpos / width, 0.0f).x;
-            output.worldpos.z = h * scale;
-        }
-    }
-    else
-    {
-        h = heightmap.SampleLevel(hmsampler, output.worldpos / width, 0.0f).x;
-        output.worldpos.z = h * scale;
-    }
-	
-    float3 norm = estimateNormal(output.worldpos / width);
-    output.worldpos += norm * 0.5f * (2.0f * displacementmap.SampleLevel(displacementsampler, output.worldpos / 32, 0.0f).w - 1.0f);
-
-	// generate coordinates transformed into view/projection space.
-    output.pos = float4(output.worldpos, 1.0f);
-    output.pos = mul(output.pos, viewproj);
-
-	[unroll]
-    for (int i = 0; i < 4; ++i)
-    {
-		// generate projective tex-coords to project shadow map onto scene.
-        output.shadowpos[i] = float4(output.worldpos, 1.0f);
-
-        output.shadowpos[i] = mul(output.shadowpos[i], shadowtexmatrices[i]);
-    }
-    return output;
 }

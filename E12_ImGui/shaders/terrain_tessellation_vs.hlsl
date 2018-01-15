@@ -97,6 +97,7 @@ VertexOut main(VertexIn input)
     output.position3D = input.position3D;
 	// Store the texture coordinates for the pixel shader.
     output.tex = input.tex;
+    //output.tex = float4(1.0, 0.0, 0.0, 1.0);
 
 	// Store normals for the pixel shader
     //output.normal = mul(input.normal, (float3x3) worldMatrix);
