@@ -46,7 +46,10 @@ DomainOut main(PatchTess input, float3 uvwCoord : SV_DomainLocation, const Outpu
     // Determine the position of the new vertex.
 	// Invert the y and Z components of uvwCoord as these coords are generated in UV space and therefore y is positive downward.
 	// Alternatively you can set the output topology of the hull shader to cw instead of ccw (or vice versa).
-	vertexPosition = uvwCoord.x * patch[0].position + uvwCoord.y * patch[1].position + uvwCoord.z * patch[2].position;
+	vertexPosition = 
+    uvwCoord.x * patch[0].position + 
+    uvwCoord.y * patch[1].position + 
+    uvwCoord.z * patch[2].position;
     
     // Calculate the position of the new vertex against the world, view, and projection matrices.
     output.position = mul(float4(vertexPosition, 1.0f), worldMatrix);

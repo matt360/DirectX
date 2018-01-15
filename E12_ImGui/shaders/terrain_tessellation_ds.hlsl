@@ -94,14 +94,14 @@ DomainOut main(
     float4 textureColor = tex0.SampleLevel(Sampler0, texPosition, 0);
 
     // Sample height map
-    //for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
-    //{
-    //    if (textureColor.r > i)
-    //    {
-    //        vertexPosition.y -= i * 0.5f;
-    //        normalPosition.y -= abs(0.9 * 15.0f);
-    //    }
-    //}
+    for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
+    {
+        if (textureColor.r > i)
+        {
+            vertexPosition.y -= i * 0.5f;
+            normalPosition.y -= abs(0.9 * 15.0f);
+        }
+    }
 
     // Calculate the position of the vertex against the world, view, and projection matrices.
     output.position = mul(float4(vertexPosition, 1.0f), worldMatrix);
@@ -113,6 +113,8 @@ DomainOut main(
     output.normal = normalize(output.normal); // (float3x3) 
 
     output.tex = patch[0].tex;
+
+    output.position3D = mul(vertexPosition, worldMatrix);
 
 	return output;
 }
