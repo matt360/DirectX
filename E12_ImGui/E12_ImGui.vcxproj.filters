@@ -160,5 +160,11 @@
     <FxCompile Include="shaders\geometry_vs.hlsl">
       <Filter>Resource Files\Geometry</Filter>
     </FxCompile>
+    <FxCompile Include="terrain_hs.hlsl">
+      <Filter>Resource Files\Terrain</Filter>
+    </FxCompile>
+    <FxCompile Include="terrain_ds.hlsl">
+      <Filter>Resource Files\Terrain</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
