@@ -31,6 +31,7 @@ void main(
 	inout TriangleStream<OutputType> triStream
 )
 {
+    OutputType output;
     //input[0].position.w = 1.0f;
 
    /* v1 = input[0].position.xyz - 1
@@ -53,6 +54,8 @@ void main(
 
         output.normal = mul(input[i].normal, (float3x3) worldMatrix);
         output.normal = normalize(output.normal);
+
+        output.position3D = input[i].position3D;
         // add the triangle to the rendering list
         triStream.Append(output);
     }

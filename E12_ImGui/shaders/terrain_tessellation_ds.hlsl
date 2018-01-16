@@ -6,12 +6,12 @@ Texture2D tex0 : register(t0);
 SamplerState Sampler0 : register(s0);
 
 // Globals
-cbuffer MatrixBuffer : register(cb0)
-{
-    matrix worldMatrix;
-    matrix viewMatrix;
-    matrix projectionMatrix;
-};
+//cbuffer MatrixBuffer : register(cb0)
+//{
+//    matrix worldMatrix;
+//    matrix viewMatrix;
+//    matrix projectionMatrix;
+//};
 
 cbuffer TimeBuffer : register(cb1)
 {
@@ -31,7 +31,7 @@ struct HullOut
 
 struct DomainOut
 {
-    float4 position : SV_POSITION;
+    float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
     float3 position3D : TEXCOORD1;
@@ -101,17 +101,16 @@ DomainOut main(
     // cross product
 
     // Calculate the position of the vertex against the world, view, and projection matrices.
-    output.position = mul(float4(vertexPosition, 1.0f), worldMatrix);
-    output.position = mul(output.position, viewMatrix);
-    output.position = mul(output.position, projectionMatrix);
+    output.position = float4(vertexPosition, 1.0f);
+    
 
     // Store normals for the pixel shader
-    output.normal = mul(float4(normalPosition, 1.0f), worldMatrix);
-    output.normal = normalize(output.normal); // (float3x3) 
+    output.normal = normalPosition;
+    //output.normal = normalize(output.normal); // (float3x3) 
 
     output.tex = texPosition;
 
-    output.position3D = mul(vertexPosition, (float3x3) worldMatrix);
+    output.position3D = vertexPosition;
 
 	return output;
 }
