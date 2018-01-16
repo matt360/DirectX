@@ -73,6 +73,15 @@ OutputType main(InputType input)
     float4 textureColor = tex0.SampleLevel(Sampler0, input.tex, 0);
     // textureColor.w = 1.0f;
 
+    for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
+    {
+        if (textureColor.r > i)
+        {
+            input.position.y -= i * 0.5f;
+            input.normal.y -= abs(0.9 * 15.0f);
+        }
+    }
+
     // offset position based on sine wave
     // input.position.x += (heightWave * sin((input.position.y + time) * frequency));
     // input.position.y += (heightWave * sin((input.position.x + time) * frequency));
@@ -85,15 +94,6 @@ OutputType main(InputType input)
     // input.normal.x = 1 - cos(input.position.x + time);
     // input.normal.y = abs(cos(input.position.y + time));
     // input.normal.z = abs(cos(input.position.y + time));
-
-    for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
-    {
-        if (textureColor.r > i)
-        {
-            input.position.y -= i * 0.5f;
-            input.normal.y -= abs(0.9 * 15.0f);
-        }
-    }
 
 	// if (all(textureColor.rgb >= 1.0) && any(textureColor.rgb <= 0.7))
     // if (any(textureColor.rgb >= 1.0) && any(textureColor.rgb <= 0.7))

@@ -49,11 +49,14 @@ float4 main(PixelInputType input) : SV_TARGET
     float4 shiftCol;
     float4 shiftCol1;
     float4 shiftCol2;
+	float4 color;
+
 	float3 lightDir;
 	float lightIntensity;
-	float4 color;
     float attenuation;
+
     float slope;
+    float blendAmount;
 	
 	// Sample the pixel color from the texture using the sampler at this texture coordinate location.
     textureCol1 = tex1.SampleLevel(SampleType, input.tex, 0);
@@ -84,31 +87,39 @@ float4 main(PixelInputType input) : SV_TARGET
 		// Saturate the ambient and diffuse color.
 		color = saturate(color);
 	}
-	
-	// Multiply the texture pixel and the input color to get the textured result.
 
+	// Multiply the texture pixel and the input color to get the textured result.
     switch ((int) choice)
     {
+        // texture 1 with lighting
         case 0:
+            color = color * textureCol1;
+            break;
+        // texture 2 with lighting
+        case 1:
+            color = color * textureCol2;
+            break;
+
+        case 2:
             color = color * lerp(textureCol1, textureCol2, frequency);
             break;
 
-        case 1:
+        case 3:
             // invert colors on texture1
             color = 1 - color * textureCol1;
             break;
 
-        case 2:
+        case 4:
             // invert colors on texture2
             color = 1 - color * textureCol2;
             break;
 
-        case 3:
+        case 5:
             // invert colors on blended texture1 and texture2
             color = 1 - color * lerp(textureCol1, textureCol2, frequency);
             break;
 
-        case 4:
+        case 6:
             // shift colours on texture 1
             shiftCol.x = textureCol1.z;
             shiftCol.y = textureCol1.y;
@@ -117,7 +128,7 @@ float4 main(PixelInputType input) : SV_TARGET
             color = color * shiftCol;
             break;
 
-        case 5:
+        case 7:
             // shift colours on texture 2
             shiftCol.x = textureCol2.z;
             shiftCol.y = textureCol2.y;
@@ -126,7 +137,7 @@ float4 main(PixelInputType input) : SV_TARGET
             color = color * shiftCol;
             break;
 
-        case 6:
+        case 8:
             // shift colours on blended texture 1 and texture 2
             shiftCol1.x = textureCol1.z;
             shiftCol1.y = textureCol1.y;
@@ -139,6 +150,27 @@ float4 main(PixelInputType input) : SV_TARGET
             shiftCol2.w = 1.0f;
 
             color = color * lerp(shiftCol1, shiftCol2, frequency);
+            break;
+
+        case 9:
+            slope = 1.0f - input.normal.y;
+
+            if (slope < 0.2)
+            {
+                blendAmount = slope / 0.2f;
+                color = lerp(textureCol1, textureCol1, blendAmount);
+            }
+	
+            if ((slope < 0.7) && (slope >= 0.2f))
+            {
+                blendAmount = (slope - 0.2f) * (1.0f / (0.7f - 0.2f));
+                blendAmount = lerp(textureCol1, textureCol2, blendAmount);
+            }
+
+            if (slope >= 0.7)
+            {
+                blendAmount = textureCol1;
+            }
             break;
     }
 	

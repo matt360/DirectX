@@ -79,6 +79,9 @@ void GraphicsApp::loadTextures()
 	textureMgr->loadTexture("bunny", L"../res/bunny.png");
 	textureMgr->loadTexture("height", L"../res/height.png");
 	textureMgr->loadTexture("checkerboard", L"../res/checkerboard.png");
+	textureMgr->loadTexture("grass", L"../res/grass.dds");
+	textureMgr->loadTexture("rock", L"../res/rock.dds");
+	textureMgr->loadTexture("slope", L"../res/slope.dds");
 }
 
 // Create mesh objects

@@ -22,7 +22,7 @@ private:
 	// light
 	Light* light;
 
-	string height_texture, mapping_texture;
+	string height_texture, mapping_texture_1, mapping_texture_2;
 
 	float frequency, choice;
 };

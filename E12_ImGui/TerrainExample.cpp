@@ -42,7 +42,8 @@ void TerrainExample::initVariables()
 	d3d11_primitive_topology_trianglelist_ = true;
 	d3d11_primitive_topology_pointlist_ = false;
 	height_texture = "height";
-	mapping_texture = "bunny";
+	mapping_texture_1 = "bunny";
+	mapping_texture_2 = "brick";
 	frequency = 0.5f;
 	choice = 0.0f;
 }
@@ -98,8 +99,8 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 		viewMatrix, 
 		projectionMatrix, 
 		textureMgr->getTexture(height_texture),
-		textureMgr->getTexture(mapping_texture),
-		textureMgr->getTexture("bunny"),
+		textureMgr->getTexture(mapping_texture_1),
+		textureMgr->getTexture(mapping_texture_2),
 		light, 
 		over_time_, 
 		height, 
@@ -139,19 +140,28 @@ void TerrainExample::gui(Camera* camera)
 		if (ImGui::Button("Height Tex: bunny")) height_texture = "bunny";
 		if (ImGui::Button("Height Tex: height")) height_texture = "height";
 		if (ImGui::Button("Height Tex: checkerboard")) height_texture = "checkerboard";
-		// set uv mapping texture
-		if (ImGui::Button("Map Tex: brick")) mapping_texture = "brick";
-		if (ImGui::Button("Map Tex: bunny")) mapping_texture = "bunny";
-		if (ImGui::Button("Map Tex: height")) mapping_texture = "height";
-		if (ImGui::Button("Map Tex: checkerboard")) mapping_texture = "checkerboard";
-		ImGui::SliderFloat("Blen Tex:", (float*)&frequency, 0.0f, 1.0f);
-		if (ImGui::Button("Lerp Textures")) choice = 0.0f;
-		if (ImGui::Button("Invert Tex 1")) choice = 1.0f;
-		if (ImGui::Button("Invert Tex 2")) choice = 2.0f;
-		if (ImGui::Button("Invert Lerp Tex")) choice = 3.0f;
-		if (ImGui::Button("Shift Col Tex 1")) choice = 4.0f;
-		if (ImGui::Button("Shift Col Tex 2")) choice = 5.0f;
-		if (ImGui::Button("Shift Col Lerp")) choice = 6.0f;
+		// set mapping texture 1
+		if (ImGui::Button("Map Tex1: brick")) mapping_texture_1 = "brick";
+		if (ImGui::Button("Map Tex1: bunny")) mapping_texture_1 = "bunny";
+		if (ImGui::Button("Map Tex1: height")) mapping_texture_1 = "height";
+		if (ImGui::Button("Map Tex1: checkerboard")) mapping_texture_1 = "checkerboard";
+		// set mapping texture 2
+		if (ImGui::Button("Map Tex2: brick")) mapping_texture_2 = "brick";
+		if (ImGui::Button("Map Tex2: bunny")) mapping_texture_2 = "bunny";
+		if (ImGui::Button("Map Tex2: height")) mapping_texture_2 = "height";
+		if (ImGui::Button("Map Tex2: checkerboard")) mapping_texture_2 = "checkerboard";
+		// Blend
+		ImGui::SliderFloat("Blend", (float*)&frequency, 0.0f, 1.0f);
+		// choose different texture effects
+		if (ImGui::Button("Tex1"))            choice = 0.0f;
+		if (ImGui::Button("Tex2"))            choice = 1.0f;
+		if (ImGui::Button("Lerp Textures"))   choice = 2.0f;
+		if (ImGui::Button("Invert Tex 1"))    choice = 3.0f;
+		if (ImGui::Button("Invert Tex 2"))    choice = 4.0f;
+		if (ImGui::Button("Invert Lerp Tex")) choice = 5.0f;
+		if (ImGui::Button("Shift Col Tex 1")) choice = 6.0f;
+		if (ImGui::Button("Shift Col Tex 2")) choice = 7.0f;
+		if (ImGui::Button("Shift Col Lerp"))  choice = 8.0f;
 		ImGui::End();
 	}
 }
