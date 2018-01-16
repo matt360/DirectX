@@ -41,6 +41,7 @@ void TerrainExample::initVariables()
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist_ = true;
 	d3d11_primitive_topology_pointlist_ = false;
+	texture = "height";
 }
 
 void TerrainExample::initLight()
@@ -94,7 +95,7 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 		worldMatrix, 
 		viewMatrix, 
 		projectionMatrix, 
-		textureMgr->getTexture("height"), 
+		textureMgr->getTexture(texture), 
 		light, 
 		over_time_, 
 		height, 
@@ -128,6 +129,10 @@ void TerrainExample::gui(Camera* camera)
 			d3d11_primitive_topology_pointlist_ = false;
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist_))
 			d3d11_primitive_topology_trianglelist_ = false;
+		if (ImGui::Button("Tex: brick")) texture = "brick";
+		if (ImGui::Button("Tex: bunny")) texture = "bunny";
+		if (ImGui::Button("Tex: height"))texture = "height";
+		if (ImGui::Button("Tex: checkerboard"))texture = "checkerboard";
 		ImGui::End();
 	}
 }

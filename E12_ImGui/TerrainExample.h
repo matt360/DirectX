@@ -21,5 +21,7 @@ private:
 	TerrainShader* shader_;
 	// light
 	Light* light;
+
+	string texture;
 };
 
