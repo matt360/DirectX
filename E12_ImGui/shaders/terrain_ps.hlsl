@@ -154,7 +154,7 @@ float4 main(PixelInputType input) : SV_TARGET
 
             color = color * lerp(shiftCol1, shiftCol2, frequency);
             break;
-
+		// TODO delete if not working
         case 9:
             //slope = 1.0f - input.normal.y;
 
