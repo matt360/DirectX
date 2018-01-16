@@ -145,11 +145,17 @@ void TerrainExample::gui(Camera* camera)
 		if (ImGui::Button("Map Tex1: bunny")) mapping_texture_1 = "bunny";
 		if (ImGui::Button("Map Tex1: height")) mapping_texture_1 = "height";
 		if (ImGui::Button("Map Tex1: checkerboard")) mapping_texture_1 = "checkerboard";
+		if (ImGui::Button("Map Tex1: grass")) mapping_texture_1 = "grass";
+		if (ImGui::Button("Map Tex1: rock")) mapping_texture_1 = "rock";
+		if (ImGui::Button("Map Tex1: slope")) mapping_texture_1 = "slope";
 		// set mapping texture 2
 		if (ImGui::Button("Map Tex2: brick")) mapping_texture_2 = "brick";
 		if (ImGui::Button("Map Tex2: bunny")) mapping_texture_2 = "bunny";
 		if (ImGui::Button("Map Tex2: height")) mapping_texture_2 = "height";
 		if (ImGui::Button("Map Tex2: checkerboard")) mapping_texture_2 = "checkerboard";
+		if (ImGui::Button("Map Tex2: grass")) mapping_texture_2 = "grass";
+		if (ImGui::Button("Map Tex2: rock")) mapping_texture_2 = "rock";
+		if (ImGui::Button("Map Tex2: slope")) mapping_texture_2 = "slope";
 		// Blend
 		ImGui::SliderFloat("Blend", (float*)&frequency, 0.0f, 1.0f);
 		// choose different texture effects

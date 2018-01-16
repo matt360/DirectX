@@ -158,7 +158,7 @@ float4 main(PixelInputType input) : SV_TARGET
             if (slope < 0.2)
             {
                 blendAmount = slope / 0.2f;
-                color = lerp(textureCol1, textureCol1, blendAmount);
+                color = lerp(textureCol1, textureCol2, blendAmount);
             }
 	
             if ((slope < 0.7) && (slope >= 0.2f))
@@ -169,7 +169,7 @@ float4 main(PixelInputType input) : SV_TARGET
 
             if (slope >= 0.7)
             {
-                blendAmount = textureCol1;
+                blendAmount = textureCol2;
             }
             break;
     }
