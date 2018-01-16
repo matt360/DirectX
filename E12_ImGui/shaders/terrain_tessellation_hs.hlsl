@@ -13,7 +13,7 @@ struct VertexOut // VS_CONTROL_POINT_OUTPUT
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
-    float3 position3D : TEXCOORD1;
+    //float3 position3D : TEXCOORD1;
 };
 
 // Output control point
@@ -23,7 +23,7 @@ struct HullOut
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
-    float3 position3D : TEXCOORD1;
+    //float3 position3D : TEXCOORD1;
 };
 
 // Output patch constant data.
@@ -53,7 +53,7 @@ PatchTess ConstantHS(
         tessellationAmount = 4.0f;
     else
         tessellationAmount = 64.0f / length(distance);
-
+    // default amount
     // Tessellating a triangle patch also consists of two parts:
 	// 1. Three edge tessellation factors control how much to tessellate along each edge.
     // Set the tessellation factors for the three edges of the triangle.
@@ -84,7 +84,7 @@ HullOut main(
 	
     // Set the position for this control point as the output position.
     output.position = patch[pointId].position;
-    output.position3D = patch[pointId].position3D;
+    //output.position3D = patch[pointId].position3D;
     // Set the input tex as the output tex.
     output.tex = patch[pointId].tex;
 

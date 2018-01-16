@@ -34,7 +34,7 @@ struct VertexIn
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
-    float3 position3D : TEXCOORD1;
+    //float3 position3D : TEXCOORD1;
 };
 
 struct VertexOut
@@ -42,7 +42,7 @@ struct VertexOut
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
-    float3 position3D : TEXCOORD1;
+    //float3 position3D : TEXCOORD1;
 };
 
 VertexOut main(VertexIn input)
@@ -94,7 +94,7 @@ VertexOut main(VertexIn input)
     //output.position = mul(output.position, projectionMatrix);
     output.position = input.position;
 
-    output.position3D = input.position3D;
+   // output.position3D = input.position3D;
 	// Store the texture coordinates for the pixel shader.
     output.tex = input.tex;
     //output.tex = float4(1.0, 0.0, 0.0, 1.0);

@@ -28,7 +28,7 @@ struct HullOut
     float4 position : POSITION; // SV - system value
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
-    float3 position3D : TEXCOORD1;
+    //float3 position3D : TEXCOORD1;
 };
 
 struct DomainOut
@@ -85,10 +85,8 @@ DomainOut main(
     uvwCoord.y * patch[1].normal +
     uvwCoord.z * patch[2].normal;
     // position3D
-    vertex3DPosition =
-    uvwCoord.x * patch[0].position3D +
-    uvwCoord.y * patch[1].position3D +
-    uvwCoord.z * patch[2].position3D;
+    //vertex3DPosition = mul(vertexPosition, (float3) worldMatrix);
+ 
 
      // Sample the pixel color from the texture using the sampler at this texture coordinate location.
     float4 textureColor = tex0.SampleLevel(Sampler0, texPosition, 0);
@@ -99,9 +97,11 @@ DomainOut main(
         if (textureColor.r > i)
         {
             vertexPosition.y -= i * 0.5f;
-            normalPosition.y -= abs(0.9 * 15.0f);
+            normalPosition.y -= abs(0.9 * 15.0f); // normal mapping
         }
     }
+
+    // cross product
 
     // Calculate the position of the vertex against the world, view, and projection matrices.
     output.position = mul(float4(vertexPosition, 1.0f), worldMatrix);
@@ -109,12 +109,12 @@ DomainOut main(
     output.position = mul(output.position, projectionMatrix);
 
     // Store normals for the pixel shader
-    output.normal = mul(float4(vertexPosition, 1.0f), worldMatrix);
+    output.normal = mul(float4(normalPosition, 1.0f), worldMatrix);
     output.normal = normalize(output.normal); // (float3x3) 
 
-    output.tex = patch[0].tex;
+    output.tex = texPosition;
 
-    output.position3D = mul(vertexPosition, worldMatrix);
+    output.position3D = mul(vertexPosition, (float3x3) worldMatrix);
 
 	return output;
 }
