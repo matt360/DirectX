@@ -83,20 +83,20 @@ struct OutputType
                                                     //  < Data type > 
                                                     // -Any data type 
                                                     // -In most casesa a struct defining data for the next shader
-void main(point InputType input[3], inout TriangleStream<OutputType> triStream)
+void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
 {
     OutputType output;
 
     // Change the position vector to be 4 units for proper matrix calculations.
     input[0].position.w = 1.0f;
 
-    v1 = input[0].position.xyz - 1
+   /* v1 = input[0].position.xyz - 1
 
     v2  = input[0].position.xyz - 2
 
     cross(v1, v2);
 
-    output.normal = cross(v1, v2);
+    output.normal = cross(v1, v2);*/
 
     for (int i = 0; i < 4; i++)
     {
