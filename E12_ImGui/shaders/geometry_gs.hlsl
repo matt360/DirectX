@@ -89,14 +89,6 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
     // Change the position vector to be 4 units for proper matrix calculations.
     input[0].position.w = 1.0f;
 
-   /* v1 = input[0].position.xyz - 1
-
-    v2  = input[0].position.xyz - 2
-
-    cross(v1, v2);
-
-    output.normal = cross(v1, v2);*/
-
     for (int i = 0; i < 4; i++)
     {
         float3 vposition = g_positions[i];
