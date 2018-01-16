@@ -22,6 +22,6 @@ private:
 	// light
 	Light* light;
 
-	string texture;
+	string height_texture, mapping_texture;
 };
 

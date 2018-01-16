@@ -41,7 +41,8 @@ void TerrainExample::initVariables()
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist_ = true;
 	d3d11_primitive_topology_pointlist_ = false;
-	texture = "height";
+	height_texture = "height";
+	mapping_texture = "bunny";
 }
 
 void TerrainExample::initLight()
@@ -95,8 +96,8 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 		worldMatrix, 
 		viewMatrix, 
 		projectionMatrix, 
-		textureMgr->getTexture("height"),
-		textureMgr->getTexture("bunny"),
+		textureMgr->getTexture(height_texture),
+		textureMgr->getTexture(mapping_texture),
 		light, 
 		over_time_, 
 		height, 
@@ -130,10 +131,16 @@ void TerrainExample::gui(Camera* camera)
 			d3d11_primitive_topology_pointlist_ = false;
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist_))
 			d3d11_primitive_topology_trianglelist_ = false;
-		if (ImGui::Button("Tex: brick")) texture = "brick";
-		if (ImGui::Button("Tex: bunny")) texture = "bunny";
-		if (ImGui::Button("Tex: height"))texture = "height";
-		if (ImGui::Button("Tex: checkerboard"))texture = "checkerboard";
+		// set height map texture
+		if (ImGui::Button("Height Tex: brick")) height_texture = "brick";
+		if (ImGui::Button("Height Tex: bunny")) height_texture = "bunny";
+		if (ImGui::Button("Height Tex: height")) height_texture = "height";
+		if (ImGui::Button("Height Tex: checkerboard")) height_texture = "checkerboard";
+		// set uv mapping texture
+		if (ImGui::Button("Map Tex: brick")) mapping_texture = "brick";
+		if (ImGui::Button("Map Tex: bunny")) mapping_texture = "bunny";
+		if (ImGui::Button("Map Tex: height")) mapping_texture = "height";
+		if (ImGui::Button("Map Tex: checkerboard")) mapping_texture = "checkerboard";
 		ImGui::End();
 	}
 }

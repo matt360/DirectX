@@ -356,9 +356,9 @@ void TerrainShader::setShaderParameters(
 	const XMMATRIX& worldMatrix,
 	const XMMATRIX& viewMatrix,
 	const XMMATRIX& projectionMatrix,
-	ID3D11ShaderResourceView* height_map_texture,
-	ID3D11ShaderResourceView * uv_map_texture,
-	Light * light, 
+	ID3D11ShaderResourceView* height_texture,
+	ID3D11ShaderResourceView* mapping_texture,
+	Light* light, 
 	float time, 
 	float height, 
 	float frequency)
@@ -425,8 +425,8 @@ void TerrainShader::setShaderParameters(
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
 
 	// Set shader texture resource in the pixel and vertex shader.
-	deviceContext->VSSetShaderResources(0, 1, &height_map_texture);
-	deviceContext->PSSetShaderResources(0, 1, &uv_map_texture);
+	deviceContext->VSSetShaderResources(0, 1, &height_texture);
+	deviceContext->PSSetShaderResources(0, 1, &mapping_texture);
 }
 
 void TerrainShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
