@@ -6,7 +6,7 @@
 TerrainTessellationShader::TerrainTessellationShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
 {
 	// compiled shader object
-	initShader(L"terrain_tessellation_vs.cso", L"terrain_tessellation_hs.cso", L"terrain_tessellation_ds.cso", L"terrain_tessellation_ps.cso");
+	initShader(L"terrain_tessellation_vs.cso", L"terrain_tessellation_hs.cso", L"terrain_tessellation_ds.cso", L"terrain_tessellation_gs.cso", L"terrain_tessellation_ps.cso");
 }
 
 TerrainTessellationShader::~TerrainTessellationShader()
@@ -134,7 +134,7 @@ void TerrainTessellationShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	renderer->CreateBuffer(&timeBufferDesc, NULL, &timeBuffer_);
 }
 
-void TerrainTessellationShader::initShader(WCHAR* vsFilename, WCHAR* hsFilename, WCHAR* dsFilename, WCHAR* psFilename)
+void TerrainTessellationShader::initShader(WCHAR* vsFilename, WCHAR* hsFilename, WCHAR* dsFilename, WCHAR* gsFilename, WCHAR* psFilename)
 {
 	// InitShader must be overwritten and it will load both vertex and pixel shaders + setup buffers
 	initShader(vsFilename, psFilename);
@@ -142,6 +142,7 @@ void TerrainTessellationShader::initShader(WCHAR* vsFilename, WCHAR* hsFilename,
 	// Load other required shaders.
 	loadHullShader(hsFilename);
 	loadDomainShader(dsFilename);
+	loadGeometryShader(gsFilename);
 }
 
 void TerrainTessellationShader::setShaderParameters(
