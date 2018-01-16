@@ -9,6 +9,7 @@
 // Textures
 Texture2D tex1 : register(t0);
 Texture2D tex2 : register(t1);
+Texture2D height_tex : register(t2);
 
 // Sample states
 SamplerState SampleType : register(s0);
@@ -46,6 +47,7 @@ float4 main(PixelInputType input) : SV_TARGET
 {
 	float4 textureCol1;
     float4 textureCol2;
+    float4 heightCol;
     float4 shiftCol;
     float4 shiftCol1;
     float4 shiftCol2;
@@ -61,6 +63,7 @@ float4 main(PixelInputType input) : SV_TARGET
 	// Sample the pixel color from the texture using the sampler at this texture coordinate location.
     textureCol1 = tex1.SampleLevel(SampleType, input.tex, 0);
     textureCol2 = tex2.SampleLevel(SampleType, input.tex, 0);
+    heightCol = height_tex.SampleLevel(SampleType, input.tex, 0);
 	
 	// Set the default output color to the ambient light value for all pixels.
 	color = ambientColor;
@@ -153,23 +156,35 @@ float4 main(PixelInputType input) : SV_TARGET
             break;
 
         case 9:
-            slope = 1.0f - input.normal.y;
+            //slope = 1.0f - input.normal.y;
 
-            if (slope < 0.2)
-            {
-                blendAmount = slope / 0.2f;
-                color = lerp(textureCol1, textureCol2, blendAmount);
-            }
+            //if (slope < 0.2)
+            //{
+            //    blendAmount = slope / 0.2f;
+            //    color = lerp(textureCol1, textureCol2, blendAmount);
+            //}
 	
-            if ((slope < 0.7) && (slope >= 0.2f))
-            {
-                blendAmount = (slope - 0.2f) * (1.0f / (0.7f - 0.2f));
-                blendAmount = lerp(textureCol1, textureCol2, blendAmount);
-            }
+            //if ((slope < 0.7) && (slope >= 0.2f))
+            //{
+            //    blendAmount = (slope - 0.2f) * (1.0f / (0.7f - 0.2f));
+            //    blendAmount = lerp(textureCol2, heightCol, blendAmount);
+            //}
 
-            if (slope >= 0.7)
+            //if (slope >= 0.7)
+            //{
+            //    blendAmount = heightCol;
+            //}
+            for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
             {
-                blendAmount = textureCol2;
+                if (input.position.y < 0.2)
+                {
+                    color = color * textureCol1;
+                }
+                else
+                {
+                    color = color * textureCol2;
+                }
+
             }
             break;
     }

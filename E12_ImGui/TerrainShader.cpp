@@ -56,7 +56,6 @@ TerrainShader::~TerrainShader()
 	BaseShader::~BaseShader();
 }
 
-
 void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 {
 	D3D11_BUFFER_DESC matrixBufferDesc;
@@ -517,6 +516,7 @@ void TerrainShader::setShaderParameters(
 	deviceContext->VSSetShaderResources(0, 1, &height_texture);
 	deviceContext->PSSetShaderResources(0, 1, &mapping_texture_1);
 	deviceContext->PSSetShaderResources(1, 1, &mapping_texture_2);
+	deviceContext->PSSetShaderResources(2, 1, &height_texture);
 }
 
 void TerrainShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
