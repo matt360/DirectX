@@ -1,9 +1,17 @@
 // GEOMETRY SHADER
 
+// Globals
+cbuffer MatrixBuffer : register(cb0)
+{
+    matrix worldMatrix;
+    matrix viewMatrix;
+    matrix projectionMatrix;
+};
+
 // Output control point
 struct InputType
 {
-    float4 position : SV_POSITION;
+    float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
     float3 position3D : TEXCOORD1;
@@ -19,8 +27,8 @@ struct OutputType
 
 [maxvertexcount(3)]
 void main(
-	point InputType input[1],
-	inout TriangleStream<OutputType> output
+	triangle InputType input[3],
+	inout TriangleStream<OutputType> triStream
 )
 {
     //input[0].position.w = 1.0f;
@@ -33,10 +41,22 @@ void main(
 
     output.normal = cross(v1, v2);*/
 
-	//for (uint i = 0; i < 3; i++)
-	//{
-  //      OutputType element;
-		//element.position = input[i];
-		//output.Append(element);
-	//}
+	for (uint i = 0; i < 3; i++)
+	{
+        // place the point in the world
+        float4 vposition = mul(input[i].position, worldMatrix);
+        output.position = mul(vposition, viewMatrix);
+        output.position = mul(output.position, projectionMatrix);
+
+        float2 uv_position = input[i].tex;
+        output.tex = uv_position;
+
+        output.normal = mul(input[i].normal, (float3x3) worldMatrix);
+        output.normal = normalize(output.normal);
+        // add the triangle to the rendering list
+        triStream.Append(output);
+    }
+    triStream.RestartStrip();
 }
+
+ 

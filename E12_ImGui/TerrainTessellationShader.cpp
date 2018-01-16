@@ -315,6 +315,7 @@ void TerrainTessellationShader::setShaderParameters(
 	bufferNumber = 0;
 	// Now set the constant buffer in the vertex shader with the updated values.
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
+	deviceContext->GSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 
 	// Time
 	// Send time data to vertex shader
