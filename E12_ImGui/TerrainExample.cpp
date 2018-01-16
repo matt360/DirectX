@@ -102,7 +102,8 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 		light, 
 		over_time_, 
 		height, 
-		frequency);
+		frequency, 
+		0);
 
 	// Render object (combination of mesh geometry and shader process
 	shader_->render(renderer->getDeviceContext(), mesh_->getIndexCount()); // output data from the shader programme

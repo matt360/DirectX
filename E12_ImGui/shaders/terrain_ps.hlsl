@@ -24,6 +24,14 @@ cbuffer LightBuffer : register(cb0)
     float3 lightPosition;
 };
 
+cbuffer TimeBuffer : register(cb0)
+{
+    float time;
+    float height;
+    float frequency;
+    float choice;
+};
+
 // Typedefs
 struct PixelInputType
 {
@@ -75,16 +83,26 @@ float4 main(PixelInputType input) : SV_TARGET
 	}
 	
 	// Multiply the texture pixel and the input color to get the textured result.
-    
-    color = color * lerp(textureCol1, textureCol2, 0.5);
+
+    switch (choice)
+    {
+        case 0:
+            color = color * lerp(textureCol1, textureCol2, 0.5);
+            break;
+
+        case 1:
+            color =  1 - color * textureCol1;
+            break;
+    }
 	
+    return color;
 	//// Add the specular component last to the output color.
 	//color = saturate(color + specular);
 	
 	//return color;
 
     // invert colors on texture1
-	return 1 - color;
+	//return 1 - color;
 
 	// invert colors on texture2
 	//return 1 - textureCol2;

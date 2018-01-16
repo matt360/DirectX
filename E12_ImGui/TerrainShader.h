@@ -38,12 +38,6 @@ private:
 		float choice;
 	};
 
-	struct ChoiceBufferType
-	{
-		float choice;
-		XMFLOAT3 padding;
-	};
-
 public:
 	// When resources are being created and interfaced with,
 	// the 'device' interface is used.
@@ -99,7 +93,8 @@ public:
 		Light* light,
 		float time,
 		float height,
-		float frequency);
+		float frequency,
+		float choice_number);
 	void render(ID3D11DeviceContext* deviceContext, int vertexCount);
 
 private:
@@ -112,5 +107,4 @@ private:
 	ID3D11Buffer* lightBuffer_;
 	ID3D11Buffer* timeBuffer_;
 	ID3D11Buffer* cameraBuffer_;
-	ID3D11Buffer* choiceBuffer_;
 };

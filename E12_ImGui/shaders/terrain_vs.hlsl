@@ -40,7 +40,7 @@ cbuffer TimeBuffer : register(cb1)
     float time;
     float height;
     float frequency;
-    float padding;
+    float choice;
 };
 
 // TYPEDEFS
