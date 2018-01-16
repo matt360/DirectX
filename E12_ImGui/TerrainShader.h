@@ -35,7 +35,13 @@ private:
 		float time;
 		float height;
 		float frequency;
-		float padding;
+		float choice;
+	};
+
+	struct ChoiceBufferType
+	{
+		float choice;
+		XMFLOAT3 padding;
 	};
 
 public:
@@ -82,6 +88,18 @@ public:
 		float time,
 		float height,
 		float frequency);
+	void setShaderParameters(
+		ID3D11DeviceContext* deviceContext,
+		const XMMATRIX &world,
+		const XMMATRIX &view,
+		const XMMATRIX &projection,
+		ID3D11ShaderResourceView* height_texture,
+		ID3D11ShaderResourceView* mapping_texture_1,
+		ID3D11ShaderResourceView* mapping_texture_2,
+		Light* light,
+		float time,
+		float height,
+		float frequency);
 	void render(ID3D11DeviceContext* deviceContext, int vertexCount);
 
 private:
@@ -94,4 +112,5 @@ private:
 	ID3D11Buffer* lightBuffer_;
 	ID3D11Buffer* timeBuffer_;
 	ID3D11Buffer* cameraBuffer_;
+	ID3D11Buffer* choiceBuffer_;
 };

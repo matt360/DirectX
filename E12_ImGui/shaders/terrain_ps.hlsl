@@ -7,7 +7,8 @@
 // Pixel shaders must be efficiently written due to the number of times they will be called by the GPU.
 
 // Textures
-Texture2D shaderTexture : register(t0);
+Texture2D tex1 : register(t0);
+Texture2D tex2 : register(t1);
 
 // Sample states
 SamplerState SampleType : register(s0);
@@ -35,7 +36,8 @@ struct PixelInputType
 // PIXEL SHADER
 float4 main(PixelInputType input) : SV_TARGET
 {
-	float4 textureColor;
+	float4 textureCol1;
+    float4 textureCol2;
 	float3 lightDir;
 	float lightIntensity;
 	float4 color;
@@ -43,7 +45,8 @@ float4 main(PixelInputType input) : SV_TARGET
     float slope;
 	
 	// Sample the pixel color from the texture using the sampler at this texture coordinate location.
-	textureColor = shaderTexture.SampleLevel(SampleType, input.tex, 0);
+    textureCol1 = tex1.SampleLevel(SampleType, input.tex, 0);
+    textureCol2 = tex2.SampleLevel(SampleType, input.tex, 0);
 	
 	// Set the default output color to the ambient light value for all pixels.
 	color = ambientColor;
@@ -72,11 +75,30 @@ float4 main(PixelInputType input) : SV_TARGET
 	}
 	
 	// Multiply the texture pixel and the input color to get the textured result.
-	color = color * textureColor;
+    
+    color = color * lerp(textureCol1, textureCol2, 0.5);
 	
 	//// Add the specular component last to the output color.
 	//color = saturate(color + specular);
 	
-	return color;
-    //return float4(1.0, 0.0, 0.0, 1.0);
+	//return color;
+
+    // invert colors on texture1
+	return 1 - color;
+
+	// invert colors on texture2
+	//return 1 - textureCol2;
+
+	// blend texture1 and texture 1
+    //return lerp(textureCol1, textureCol2, 0.5);
+
+	// color shifting
+	//float4 finalCol;
+	//finalCol.x = textureCol1.z;
+	//finalCol.y = textureCol1.y;
+	//finalCol.z = textureCol1.x;
+	//finalCol.w = 1.0f ;
+    //return textureColor1;
+
+    //return textureColor1;
 }

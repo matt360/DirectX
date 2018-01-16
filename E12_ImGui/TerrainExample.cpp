@@ -98,6 +98,7 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 		projectionMatrix, 
 		textureMgr->getTexture(height_texture),
 		textureMgr->getTexture(mapping_texture),
+		textureMgr->getTexture("bunny"),
 		light, 
 		over_time_, 
 		height, 

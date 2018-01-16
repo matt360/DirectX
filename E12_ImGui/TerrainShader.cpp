@@ -51,6 +51,12 @@ TerrainShader::~TerrainShader()
 		timeBuffer_->Release();
 		timeBuffer_ = 0;
 	}
+
+	if (choiceBuffer_)
+	{
+		choiceBuffer_->Release();
+		choiceBuffer_ = 0;
+	}
 	//Release base shader components
 	BaseShader::~BaseShader();
 }
@@ -65,6 +71,8 @@ void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	D3D11_BUFFER_DESC timeBufferDesc;
 	// Camera
 	D3D11_BUFFER_DESC cameraBufferDesc;
+	// Choice
+	D3D11_BUFFER_DESC choiceBufferDesc;
 
 	// Load (+ compile) shader files
 	loadVertexShader(vsFilename);
@@ -124,7 +132,6 @@ void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	samplerDesc.BorderColor[3] = 0;
 	samplerDesc.MinLOD = 0;
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
 	// Create the texture sampler state.
 	renderer->CreateSamplerState(&samplerDesc, &sampleState_);
 
@@ -137,7 +144,6 @@ void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	lightBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	lightBufferDesc.MiscFlags = 0;
 	lightBufferDesc.StructureByteStride = 0;
-
 	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
 	renderer->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer_);
 
@@ -148,8 +154,7 @@ void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	cameraBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	cameraBufferDesc.MiscFlags = 0;
 	cameraBufferDesc.StructureByteStride = 0;
-
-//	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
+	renderer->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer_);
 
 	// Time buffer
 	timeBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
@@ -158,8 +163,16 @@ void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	timeBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	timeBufferDesc.MiscFlags = 0;
 	timeBufferDesc.StructureByteStride = 0;
-
 	renderer->CreateBuffer(&timeBufferDesc, NULL, &timeBuffer_);
+
+	// Choice buffer
+	choiceBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	choiceBufferDesc.ByteWidth = sizeof(TimeBufferType);
+	choiceBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	choiceBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	choiceBufferDesc.MiscFlags = 0;
+	choiceBufferDesc.StructureByteStride = 0;
+	renderer->CreateBuffer(&choiceBufferDesc, NULL, &choiceBuffer_);
 }
 
 void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, Camera* camera)
@@ -427,6 +440,97 @@ void TerrainShader::setShaderParameters(
 	// Set shader texture resource in the pixel and vertex shader.
 	deviceContext->VSSetShaderResources(0, 1, &height_texture);
 	deviceContext->PSSetShaderResources(0, 1, &mapping_texture);
+}
+
+void TerrainShader::setShaderParameters(
+	ID3D11DeviceContext * deviceContext, 
+	const XMMATRIX & worldMatrix,
+	const XMMATRIX & viewMatrix,
+	const XMMATRIX & projectionMatrix,
+	ID3D11ShaderResourceView * height_texture, 
+	ID3D11ShaderResourceView * mapping_texture_1, 
+	ID3D11ShaderResourceView * mapping_texture_2, 
+	Light * light, 
+	float time, 
+	float height, 
+	float frequency)
+{
+	HRESULT result;
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	MatrixBufferType* dataPtr;
+	TimeBufferType* timePtr;
+	LightBufferType* lightPtr;
+	ChoiceBufferType* choicePtr;
+	unsigned int bufferNumber;
+	XMMATRIX tworld, tview, tproj;
+
+
+	// Transpose the matrices to prepare them for the shader.
+	tworld = XMMatrixTranspose(worldMatrix);
+	tview = XMMatrixTranspose(viewMatrix);
+	tproj = XMMatrixTranspose(projectionMatrix);
+
+	// Lock the constant buffer so it can be written to.
+	deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+
+	// Get a pointer to the data in the constant buffer.
+	dataPtr = (MatrixBufferType*)mappedResource.pData;
+	// Copy the matrices into the constant buffer.
+	dataPtr->world = tworld;// worldMatrix;
+	dataPtr->view = tview;
+	dataPtr->projection = tproj;
+	// Unlock the constant buffer.
+	deviceContext->Unmap(matrixBuffer_, 0);
+	// Set the position of the constant buffer in the vertex shader.
+	bufferNumber = 0;
+	// Now set the constant buffer in the vertex shader with the updated values.
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
+
+	// Time
+	// Send time data to vertex shader
+	deviceContext->Map(timeBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	// Get a pointer to the data in the constant buffer.
+	timePtr = (TimeBufferType*)mappedResource.pData;
+	// Copy the time balue into the constant buffer.
+	timePtr->time = time;
+	timePtr->height = height;
+	timePtr->frequency = frequency;
+	timePtr->padding = 0.0f;
+	// Unlock the constant buffer.
+	deviceContext->Unmap(timeBuffer_, 0);
+	// Set the position of the constant buffer in the vertex shader.
+	bufferNumber = 1;
+	// Now set the constant buffer in the vertex shader with the updated values.
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &timeBuffer_);
+
+	//Additional
+	// Send light data to pixel shader
+	deviceContext->Map(lightBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	lightPtr = (LightBufferType*)mappedResource.pData;
+	lightPtr->ambient = light->getAmbientColour();
+	lightPtr->diffuse = light->getDiffuseColour();
+	lightPtr->direction = light->getDirection();
+	lightPtr->specularPower = light->getSpecularPower();
+	lightPtr->specular = light->getSpecularColour();
+	//lightPtr->padding = 0.0f;
+	deviceContext->Unmap(lightBuffer_, 0);
+	bufferNumber = 0;
+	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
+
+	// Send light data to pixel shader
+	deviceContext->Map(choiceBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	choicePtr = (ChoiceBufferType*)mappedResource.pData;
+	choicePtr->choice = choice_number;
+	choicePtr->padding = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	//lightPtr->padding = 0.0f;
+	deviceContext->Unmap(choiceBuffer_, 0);
+	bufferNumber = 1;
+	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &choiceBuffer_);
+
+	// Set shader texture resource in the pixel and vertex shader.
+	deviceContext->VSSetShaderResources(0, 1, &height_texture);
+	deviceContext->PSSetShaderResources(0, 1, &mapping_texture_1);
+	deviceContext->PSSetShaderResources(1, 1, &mapping_texture_2);
 }
 
 void TerrainShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
