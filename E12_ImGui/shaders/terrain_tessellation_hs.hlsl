@@ -49,24 +49,24 @@ PatchTess ConstantHS(
 
     float3 distance = inputPatch[patchId].position.xyz - cameraPosition.xyz;
 
-    if (length(distance) > 8.0f)
-        tessellationAmount = 4.0f;
-    else
-        tessellationAmount = 64.0f / length(distance);
+    //if (length(distance) < 8.0f)
+    //    tessellationAmount = 4.0f;
+    //else
+    tessellationAmount = 64.0f / length(distance);
     // default amount
 
     // Tessellating a triangle patch also consists of two parts:
 	// 1. Three edge tessellation factors control how much to tessellate along each edge.
     // Set the tessellation factors for the three edges of the triangle.
 	// Uniformly tessellate the patch 'tessellationAmount' times.
-    output.edges[0] = 4.0f;
-    output.edges[1] = 4.0f;
-    output.edges[2] = 4.0f;
+    output.edges[0] = tessellationAmount;
+    output.edges[1] = tessellationAmount;
+    output.edges[2] = tessellationAmount;
 
     // 2. One interior tessellation factor indicates how much to tessellate the triangle patch.
     // Set the tessellation factor for tessallating inside the triangle.
 	// Uniformly tessellate the patch 'tessellationAmount' times.
-    output.inside = 4.0f;
+    output.inside = tessellationAmount;
 
     return output;
 }
