@@ -94,18 +94,22 @@ float4 main(PixelInputType input) : SV_TARGET
             break;
 
         case 1:
+            // invert colors on texture1
             color = 1 - color * textureCol1;
             break;
 
         case 2:
+            // invert colors on texture2
             color = 1 - color * textureCol2;
             break;
 
         case 3:
+            // invert colors on blended texture1 and texture2
             color = 1 - color * lerp(textureCol1, textureCol2, frequency);
             break;
 
         case 4:
+            // shift colours on texture 1
             shiftCol.x = textureCol1.z;
             shiftCol.y = textureCol1.y;
             shiftCol.z = textureCol1.x;
@@ -114,6 +118,7 @@ float4 main(PixelInputType input) : SV_TARGET
             break;
 
         case 5:
+            // shift colours on texture 2
             shiftCol.x = textureCol2.z;
             shiftCol.y = textureCol2.y;
             shiftCol.z = textureCol2.x;
@@ -122,6 +127,7 @@ float4 main(PixelInputType input) : SV_TARGET
             break;
 
         case 6:
+            // shift colours on blended texture 1 and texture 2
             shiftCol1.x = textureCol1.z;
             shiftCol1.y = textureCol1.y;
             shiftCol1.z = textureCol1.x;
@@ -137,27 +143,7 @@ float4 main(PixelInputType input) : SV_TARGET
     }
 	
     return color;
+
 	//// Add the specular component last to the output color.
 	//color = saturate(color + specular);
-	
-	//return color;
-
-    // invert colors on texture1
-	//return 1 - color;
-
-	// invert colors on texture2
-	//return 1 - textureCol2;
-
-	// blend texture1 and texture 1
-    //return lerp(textureCol1, textureCol2, 0.5);
-
-	// color shifting
-	//float4 finalCol;
-	//finalCol.x = textureCol1.z;
-	//finalCol.y = textureCol1.y;
-	//finalCol.z = textureCol1.x;
-	//finalCol.w = 1.0f ;
-    //return textureColor1;
-
-    //return textureColor1;
 }
