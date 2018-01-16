@@ -187,5 +187,8 @@
     <FxCompile Include="shaders\terrain_tessellation_vs.hlsl">
       <Filter>Resource Files\Terrain Tessellation</Filter>
     </FxCompile>
+    <FxCompile Include="shaders\terrain_tessellation_gs.hlsl">
+      <Filter>Resource Files\Terrain Tessellation</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -24,16 +24,13 @@ cbuffer TimeBuffer : register(cb1)
 // Output control point
 struct HullOut
 {
-    //float3 vPosition : WORLDPOS;
-    float4 position : POSITION; // SV - system value
+    float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
-    //float3 position3D : TEXCOORD1;
 };
 
 struct DomainOut
 {
-	//float4 vPosition  : SV_POSITION;
     float4 position : SV_POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
