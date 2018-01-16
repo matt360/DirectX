@@ -46,9 +46,9 @@ float4 main(PixelInputType input) : SV_TARGET
 {
 	float4 textureCol1;
     float4 textureCol2;
-    float4 invertedCol;
-    float4 invertedCol1;
-    float4 invertedCol2;
+    float4 shiftCol;
+    float4 shiftCol1;
+    float4 shiftCol2;
 	float3 lightDir;
 	float lightIntensity;
 	float4 color;
@@ -87,7 +87,7 @@ float4 main(PixelInputType input) : SV_TARGET
 	
 	// Multiply the texture pixel and the input color to get the textured result.
 
-    switch (choice)
+    switch ((int) choice)
     {
         case 0:
             color = color * lerp(textureCol1, textureCol2, frequency);
@@ -106,33 +106,33 @@ float4 main(PixelInputType input) : SV_TARGET
             break;
 
         case 4:
-            invertedCol.x = textureCol1.z;
-            invertedCol.y = textureCol1.y;
-            invertedCol.z = textureCol1.x;
-            invertedCol.w = 1.0f;
-            color = color * invertedCol;
+            shiftCol.x = textureCol1.z;
+            shiftCol.y = textureCol1.y;
+            shiftCol.z = textureCol1.x;
+            shiftCol.w = 1.0f;
+            color = color * shiftCol;
             break;
 
         case 5:
-            invertedCol.x = textureCol2.z;
-            invertedCol.y = textureCol2.y;
-            invertedCol.z = textureCol2.x;
-            invertedCol.w = 1.0f;
-            color = color * invertedCol;
+            shiftCol.x = textureCol2.z;
+            shiftCol.y = textureCol2.y;
+            shiftCol.z = textureCol2.x;
+            shiftCol.w = 1.0f;
+            color = color * shiftCol;
             break;
 
         case 6:
-            invertedCol1.x = textureCol1.z;
-            invertedCol1.y = textureCol1.y;
-            invertedCol1.z = textureCol1.x;
-            invertedCol1.w = 1.0f;
+            shiftCol1.x = textureCol1.z;
+            shiftCol1.y = textureCol1.y;
+            shiftCol1.z = textureCol1.x;
+            shiftCol1.w = 1.0f;
 
-            invertedCol2.x = textureCol2.z;
-            invertedCol2.y = textureCol2.y;
-            invertedCol2.z = textureCol2.x;
-            invertedCol2.w = 1.0f;
+            shiftCol2.x = textureCol2.z;
+            shiftCol2.y = textureCol2.y;
+            shiftCol2.z = textureCol2.x;
+            shiftCol2.w = 1.0f;
 
-            color = color * lerp(textureCol1, textureCol2, frequency);
+            color = color * lerp(shiftCol1, shiftCol2, frequency);
             break;
     }
 	

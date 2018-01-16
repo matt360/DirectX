@@ -145,13 +145,13 @@ void TerrainExample::gui(Camera* camera)
 		if (ImGui::Button("Map Tex: height")) mapping_texture = "height";
 		if (ImGui::Button("Map Tex: checkerboard")) mapping_texture = "checkerboard";
 		ImGui::SliderFloat("Blen Tex:", (float*)&frequency, 0.0f, 1.0f);
-		if (ImGui::Button("Tex choice 0")) choice = 0.0f;
-		if (ImGui::Button("Tex choice 1")) choice = 1.0f;
-		if (ImGui::Button("Tex choice 2")) choice = 2.0f;
-		if (ImGui::Button("Tex choice 3")) choice = 3.0f;
-		if (ImGui::Button("Tex choice 4")) choice = 4.0f;
-		if (ImGui::Button("Tex choice 5")) choice = 5.0f;
-		if (ImGui::Button("Tex choice 6")) choice = 6.0f;
+		if (ImGui::Button("Lerp Textures")) choice = 0.0f;
+		if (ImGui::Button("Invert Tex 1")) choice = 1.0f;
+		if (ImGui::Button("Invert Tex 2")) choice = 2.0f;
+		if (ImGui::Button("Invert Lerp Tex")) choice = 3.0f;
+		if (ImGui::Button("Shift Col Tex 1")) choice = 4.0f;
+		if (ImGui::Button("Shift Col Tex 2")) choice = 5.0f;
+		if (ImGui::Button("Shift Col Lerp")) choice = 6.0f;
 		ImGui::End();
 	}
 }
