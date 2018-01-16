@@ -23,5 +23,7 @@ private:
 	Light* light;
 
 	string height_texture, mapping_texture;
+
+	float frequency, choice;
 };
 

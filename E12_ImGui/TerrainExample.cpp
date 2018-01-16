@@ -43,6 +43,8 @@ void TerrainExample::initVariables()
 	d3d11_primitive_topology_pointlist_ = false;
 	height_texture = "height";
 	mapping_texture = "bunny";
+	frequency = 0.5f;
+	choice = 0.0f;
 }
 
 void TerrainExample::initLight()
@@ -75,7 +77,6 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 
 	// wave's:
 	float height = 1.0f;
-	float frequency = 1.0f;
 
 	// wireframe mode
 	renderer->setWireframeMode(wireframe_);
@@ -103,7 +104,7 @@ void TerrainExample::render(D3D* renderer, Camera* camera, TextureManager* textu
 		over_time_, 
 		height, 
 		frequency, 
-		0);
+		choice);
 
 	// Render object (combination of mesh geometry and shader process
 	shader_->render(renderer->getDeviceContext(), mesh_->getIndexCount()); // output data from the shader programme
@@ -143,6 +144,14 @@ void TerrainExample::gui(Camera* camera)
 		if (ImGui::Button("Map Tex: bunny")) mapping_texture = "bunny";
 		if (ImGui::Button("Map Tex: height")) mapping_texture = "height";
 		if (ImGui::Button("Map Tex: checkerboard")) mapping_texture = "checkerboard";
+		ImGui::SliderFloat("Blen Tex:", (float*)&frequency, 0.0f, 1.0f);
+		if (ImGui::Button("Tex choice 0")) choice = 0.0f;
+		if (ImGui::Button("Tex choice 1")) choice = 1.0f;
+		if (ImGui::Button("Tex choice 2")) choice = 2.0f;
+		if (ImGui::Button("Tex choice 3")) choice = 3.0f;
+		if (ImGui::Button("Tex choice 4")) choice = 4.0f;
+		if (ImGui::Button("Tex choice 5")) choice = 5.0f;
+		if (ImGui::Button("Tex choice 6")) choice = 6.0f;
 		ImGui::End();
 	}
 }

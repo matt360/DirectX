@@ -46,6 +46,9 @@ float4 main(PixelInputType input) : SV_TARGET
 {
 	float4 textureCol1;
     float4 textureCol2;
+    float4 invertedCol;
+    float4 invertedCol1;
+    float4 invertedCol2;
 	float3 lightDir;
 	float lightIntensity;
 	float4 color;
@@ -87,11 +90,49 @@ float4 main(PixelInputType input) : SV_TARGET
     switch (choice)
     {
         case 0:
-            color = color * lerp(textureCol1, textureCol2, 0.5);
+            color = color * lerp(textureCol1, textureCol2, frequency);
             break;
 
         case 1:
-            color =  1 - color * textureCol1;
+            color = 1 - color * textureCol1;
+            break;
+
+        case 2:
+            color = 1 - color * textureCol2;
+            break;
+
+        case 3:
+            color = 1 - color * lerp(textureCol1, textureCol2, frequency);
+            break;
+
+        case 4:
+            invertedCol.x = textureCol1.z;
+            invertedCol.y = textureCol1.y;
+            invertedCol.z = textureCol1.x;
+            invertedCol.w = 1.0f;
+            color = color * invertedCol;
+            break;
+
+        case 5:
+            invertedCol.x = textureCol2.z;
+            invertedCol.y = textureCol2.y;
+            invertedCol.z = textureCol2.x;
+            invertedCol.w = 1.0f;
+            color = color * invertedCol;
+            break;
+
+        case 6:
+            invertedCol1.x = textureCol1.z;
+            invertedCol1.y = textureCol1.y;
+            invertedCol1.z = textureCol1.x;
+            invertedCol1.w = 1.0f;
+
+            invertedCol2.x = textureCol2.z;
+            invertedCol2.y = textureCol2.y;
+            invertedCol2.z = textureCol2.x;
+            invertedCol2.w = 1.0f;
+
+            color = color * lerp(textureCol1, textureCol2, frequency);
             break;
     }
 	
