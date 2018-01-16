@@ -5,14 +5,6 @@ Texture2D tex0 : register(t0);
 // SAMPLE STATES
 SamplerState Sampler0 : register(s0);
 
-// Globals
-//cbuffer MatrixBuffer : register(cb0)
-//{
-//    matrix worldMatrix;
-//    matrix viewMatrix;
-//    matrix projectionMatrix;
-//};
-
 cbuffer TimeBuffer : register(cb1)
 {
     float time;
@@ -60,9 +52,6 @@ DomainOut main(
     float3 normalPosition;
     float3 vertex3DPosition;
 
-	//output.position = float4(
-	//	patch[0].vPosition*domain.x+patch[1].vPosition*domain.y+patch[2].vPosition*domain.z,1);
-
     // Determine the position of the new vertex.
 	// Invert the Y and Z components of uvwCoord as these coords are generated in UV space and therefore Y is positive downward.
 	// Alternatively you can set the output topology of the hull shader to cw instead of ccw (or vice versa).
@@ -81,10 +70,7 @@ DomainOut main(
     uvwCoord.x * patch[0].normal +
     uvwCoord.y * patch[1].normal +
     uvwCoord.z * patch[2].normal;
-    // position3D
-    //vertex3DPosition = mul(vertexPosition, (float3) worldMatrix);
  
-
      // Sample the pixel color from the texture using the sampler at this texture coordinate location.
     float4 textureColor = tex0.SampleLevel(Sampler0, texPosition, 0);
 
@@ -103,10 +89,8 @@ DomainOut main(
     // Calculate the position of the vertex against the world, view, and projection matrices.
     output.position = float4(vertexPosition, 1.0f);
     
-
     // Store normals for the pixel shader
     output.normal = normalPosition;
-    //output.normal = normalize(output.normal); // (float3x3) 
 
     output.tex = texPosition;
 

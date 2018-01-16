@@ -7,34 +7,27 @@ cbuffer CameraBuffer : register(cb0)
 };
 
 // Input control point
-struct VertexOut // VS_CONTROL_POINT_OUTPUT
+struct VertexOut
 {
-	//float3 vPosition : WORLDPOS;
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
-    //float3 position3D : TEXCOORD1;
 };
 
 // Output control point
 struct HullOut
 {
-	//float3 vPosition : WORLDPOS; 
     float4 position : POSITION;
     float2 tex : TEXCOORD0;
     float3 normal : NORMAL;
-    //float3 position3D : TEXCOORD1;
 };
 
 // Output patch constant data.
 // Triangle
 struct PatchTess // HS_CONSTANT_DATA_OUTPUT
 {
-	//float EdgeTessFactor[3]			: SV_TessFactor; // e.g. would be [4] for a quad domain
-	//float InsideTessFactor			: SV_InsideTessFactor; // e.g. would be Inside[2] for a quad domain
-	// TODO: change/add other stuff
-    float edges[3] : SV_TessFactor;
-    float inside : SV_InsideTessFactor;
+    float edges[3] : SV_TessFactor;     //float EdgeTessFactor[3] : SV_TessFactor; // e.g. would be [4] for a quad domain
+    float inside : SV_InsideTessFactor; //float InsideTessFactor : SV_InsideTessFactor; // e.g. would be Inside[2] for a quad domain
 };
 
 #define NUM_CONTROL_POINTS 3

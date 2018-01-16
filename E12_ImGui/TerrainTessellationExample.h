@@ -20,6 +20,6 @@ private:
 	// shader handler
 	TerrainTessellationShader* shader_;
 	// light
-	Light* light;
+	Light* light_;
 };
 

@@ -13,10 +13,10 @@ TerrainTessellationExample::~TerrainTessellationExample()
 		shader_ = 0;
 	}
 
-	if (light)
+	if (light_)
 	{
-		delete light;
-		light = 0;
+		delete light_;
+		light_ = 0;
 	}
 }
 
@@ -46,13 +46,13 @@ void TerrainTessellationExample::initVariables()
 void TerrainTessellationExample::initLight()
 {
 	// specular light example
-	light = new Light;
-	light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
-	light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light->setDirection(0.0, 0.0f, 0.0f);
-	light->setSpecularPower(16.f);
-	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light->setPosition(0.0f, 0.1f, 0.0f);
+	light_ = new Light;
+	light_->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
+	light_->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light_->setDirection(0.0, 0.0f, 0.0f);
+	light_->setSpecularPower(16.f);
+	light_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light_->setPosition(0.0f, 0.0f, 0.0f);
 }
 
 void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
@@ -83,7 +83,7 @@ void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureMa
 	if (d3d11_primitive_topology_trianglelist_) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST;
 	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST;
 
-	light->setPosition(0.0f, sinf(over_time_ * 3.0f), 0.0f);
+	light_->setPosition(0.0f, sinf(over_time_ * 3.0f), 0.0f);
 	// Send geometry data (from mesh)
 	mesh_->sendData(
 		renderer->getDeviceContext(), 
@@ -97,7 +97,7 @@ void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureMa
 		viewMatrix, 
 		projectionMatrix, 
 		textureMgr->getTexture("height"), 
-		light, 
+		light_, 
 		camera,
 		over_time_, 
 		height, 

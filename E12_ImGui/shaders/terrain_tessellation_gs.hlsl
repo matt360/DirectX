@@ -55,6 +55,11 @@ void main(
         output.normal = mul(input[i].normal, (float3x3) worldMatrix);
         output.normal = normalize(output.normal);
 
+        float3 v1 = input[0].position.xyz - input[1].position.xyz;
+        float3 v2 = input[0].position.xyz - input[2].position.xyz;
+       
+        output.normal = cross(v1, v2);
+
         output.position3D = input[i].position3D;
         // add the triangle to the rendering list
         triStream.Append(output);

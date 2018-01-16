@@ -444,6 +444,7 @@ void TerrainTessellationShader::setShaderParameters(
 	bufferNumber = 0;
 	// Now set the constant buffer in the hull shader with the updated values.
 	deviceContext->HSSetConstantBuffers(bufferNumber, 1, &cameraBuffer_);
+	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &cameraBuffer_);
 
 	// LIGHT
 	// Send light data to pixel shader
@@ -454,7 +455,8 @@ void TerrainTessellationShader::setShaderParameters(
 	lightPtr->direction = light->getDirection();
 	lightPtr->specularPower = light->getSpecularPower();
 	lightPtr->specular = light->getSpecularColour();
-	//lightPtr->padding = 0.0f;
+	lightPtr->position = light->getPosition();
+	lightPtr->padding = 0.0f;
 	deviceContext->Unmap(lightBuffer_, 0);
 	bufferNumber = 0;
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
