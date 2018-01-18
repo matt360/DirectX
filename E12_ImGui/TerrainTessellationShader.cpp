@@ -150,7 +150,9 @@ void TerrainTessellationShader::setShaderParameters(
 	const XMMATRIX& worldMatrix, 
 	const XMMATRIX& viewMatrix, 
 	const XMMATRIX& projectionMatrix,
-	ID3D11ShaderResourceView* texture, 
+	ID3D11ShaderResourceView* height_texture,
+	ID3D11ShaderResourceView * mapping_texture_1,
+	ID3D11ShaderResourceView * mapping_texture_2,
 	Light* light, 
 	Camera* camera, 
 	float time, 
@@ -234,11 +236,9 @@ void TerrainTessellationShader::setShaderParameters(
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
 
 	// Set shader texture resource in the pixel and vertex shader.
-	deviceContext->DSSetShaderResources(0, 1, &texture);
-	deviceContext->PSSetShaderResources(0, 1, &texture);
-	/*deviceContext->PSSetShaderResources(0, 1, &mapping_texture_1);
+	deviceContext->DSSetShaderResources(0, 1, &height_texture);
+	deviceContext->PSSetShaderResources(0, 1, &mapping_texture_1);
 	deviceContext->PSSetShaderResources(1, 1, &mapping_texture_2);
-	deviceContext->PSSetShaderResources(2, 1, &height_texture);*/
 }
 
 void TerrainTessellationShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
