@@ -32,21 +32,9 @@ void main(
 )
 {
     OutputType output;
-    //input[0].position.w = 1.0f;
-
-   /* v1 = input[0].position.xyz - 1
-
-    v2  = input[0].position.xyz - 2
-
-    cross(v1, v2);
-
-    output.normal = cross(v1, v2);*/
 
 	for (uint i = 0; i < 3; i++)
 	{
-        // place the point in the world
-       
-
         float2 uv_position = input[i].tex;
         output.tex = uv_position;
 
@@ -61,7 +49,7 @@ void main(
 		// normal per face
         output.position = input[i].position + float4(100.0f * output.normal, 0.0f);
 
-		// 
+		// place the point in the world
         float4 vposition = mul(output.position, worldMatrix);
         output.position = mul(vposition, viewMatrix);
         output.position = mul(output.position, projectionMatrix);
