@@ -20,10 +20,10 @@ private:
 	// shader handler
 	TerrainShader* shader_;
 	// light
-	Light* light;
+	Light* light_;
 
-	string height_texture, mapping_texture_1, mapping_texture_2;
+	string height_texture_, mapping_texture_1_, mapping_texture_2_;
 
-	float frequency, choice;
+	float frequency_, choice_;
 };
 

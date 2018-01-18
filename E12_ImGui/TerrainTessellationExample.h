@@ -21,5 +21,8 @@ private:
 	TerrainTessellationShader* shader_;
 	// light
 	Light* light_;
+
+	float frequency_, choice_;
+	string height_texture_, mapping_texture_1_, mapping_texture_2_;
 };
 

@@ -41,6 +41,11 @@ void TerrainTessellationExample::initVariables()
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist_ = true;
 	d3d11_primitive_topology_pointlist_ = false;
+
+	frequency_ = 0.5f;
+	height_texture_ = "height";
+	mapping_texture_1_ = "bunny";
+	mapping_texture_2_ = "brick";
 }
 
 void TerrainTessellationExample::initLight()
@@ -96,12 +101,15 @@ void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureMa
 		worldMatrix, 
 		viewMatrix, 
 		projectionMatrix, 
-		textureMgr->getTexture("height"), 
+		textureMgr->getTexture(height_texture_),
+		textureMgr->getTexture(mapping_texture_1_),
+		textureMgr->getTexture(mapping_texture_2_),
 		light_, 
 		camera,
 		over_time_, 
 		height, 
-		frequency);
+		frequency,
+		choice_);
 
 	// Render object (combination of mesh geometry and shader process
 	shader_->render(
@@ -133,6 +141,39 @@ void TerrainTessellationExample::gui(Camera* camera)
 			d3d11_primitive_topology_pointlist_ = false;
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist_))
 			d3d11_primitive_topology_trianglelist_ = false;
+		// set height map texture
+		if (ImGui::Button("Height Tex: brick")) height_texture_ = "brick";
+		if (ImGui::Button("Height Tex: bunny")) height_texture_ = "bunny";
+		if (ImGui::Button("Height Tex: height")) height_texture_ = "height";
+		if (ImGui::Button("Height Tex: checkerboard")) height_texture_ = "checkerboard";
+		// set mapping texture 1
+		if (ImGui::Button("Map Tex1: brick")) mapping_texture_1_ = "brick";
+		if (ImGui::Button("Map Tex1: bunny")) mapping_texture_1_ = "bunny";
+		if (ImGui::Button("Map Tex1: height")) mapping_texture_1_ = "height";
+		if (ImGui::Button("Map Tex1: checkerboard")) mapping_texture_1_ = "checkerboard";
+		if (ImGui::Button("Map Tex1: grass")) mapping_texture_1_ = "grass";
+		if (ImGui::Button("Map Tex1: rock")) mapping_texture_1_ = "rock";
+		if (ImGui::Button("Map Tex1: slope")) mapping_texture_1_ = "slope";
+		// set mapping texture 2
+		if (ImGui::Button("Map Tex2: brick")) mapping_texture_2_ = "brick";
+		if (ImGui::Button("Map Tex2: bunny")) mapping_texture_2_ = "bunny";
+		if (ImGui::Button("Map Tex2: height")) mapping_texture_2_ = "height";
+		if (ImGui::Button("Map Tex2: checkerboard")) mapping_texture_2_ = "checkerboard";
+		if (ImGui::Button("Map Tex2: grass")) mapping_texture_2_ = "grass";
+		if (ImGui::Button("Map Tex2: rock")) mapping_texture_2_ = "rock";
+		if (ImGui::Button("Map Tex2: slope")) mapping_texture_2_ = "slope";
+		// Blend
+		ImGui::SliderFloat("Blend", (float*)&frequency_, 0.0f, 1.0f);
+		// choose different texture effects
+		if (ImGui::Button("Tex1"))            choice_ = 0.0f;
+		if (ImGui::Button("Tex2"))            choice_ = 1.0f;
+		if (ImGui::Button("Lerp Textures"))   choice_ = 2.0f;
+		if (ImGui::Button("Invert Tex 1"))    choice_ = 3.0f;
+		if (ImGui::Button("Invert Tex 2"))    choice_ = 4.0f;
+		if (ImGui::Button("Invert Lerp Tex")) choice_ = 5.0f;
+		if (ImGui::Button("Shift Col Tex 1")) choice_ = 6.0f;
+		if (ImGui::Button("Shift Col Tex 2")) choice_ = 7.0f;
+		if (ImGui::Button("Shift Col Lerp"))  choice_ = 8.0f;
 		ImGui::End();
 	}
 }

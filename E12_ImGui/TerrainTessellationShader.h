@@ -27,7 +27,7 @@ private:
 	struct CameraBufferType
 	{
 		XMFLOAT3 cameraPosition;
-		float padding;
+		float choice;
 	};
 
 	struct TimeBufferType
@@ -58,7 +58,8 @@ public:
 		Camera* camera,
 		float time,
 		float height,
-		float frequency);
+		float frequency,
+		float choice);
 	void render(ID3D11DeviceContext* deviceContext, int vertexCount);
 
 private:

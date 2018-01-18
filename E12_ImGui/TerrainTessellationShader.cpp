@@ -157,7 +157,8 @@ void TerrainTessellationShader::setShaderParameters(
 	Camera* camera, 
 	float time, 
 	float height, 
-	float frequency)
+	float frequency,
+	float choice)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -211,7 +212,7 @@ void TerrainTessellationShader::setShaderParameters(
 	cameraPtr = (CameraBufferType*)mappedResource.pData;
 	// Copy the matrices into the constant buffer.
 	cameraPtr->cameraPosition = camera->getPosition();
-	cameraPtr->padding = 0.0f;
+	cameraPtr->choice = choice;
 	// Unlock the constant buffer.
 	deviceContext->Unmap(cameraBuffer_, 0);
 	// Set the position of the constant buffer in the vertex shader.
