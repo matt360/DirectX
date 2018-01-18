@@ -3,7 +3,7 @@
 cbuffer CameraBuffer : register(cb0)
 {
     float3 cameraPosition;
-    float padding;
+    float distance;
 };
 
 // Input control point
@@ -44,10 +44,10 @@ PatchTess ConstantHS(
 
     // prevent from tessellating all the time; tessellate only when the distance is smaller than 8.0f, i.e.
     // increase the level of detail only when the distance is smaller than 8.0f
-    if (length(distance) < 8.0f)
-        tessellationAmount = 4.0f;
-    else
-        tessellationAmount = 64.0f / length(distance);
+    //if (length(distance) < 6.0f)
+    //    tessellationAmount = 4.0f;
+    //else
+    tessellationAmount = 64.0f / length(distance);
     // default amount
 
     // Tessellating a triangle patch also consists of two parts:

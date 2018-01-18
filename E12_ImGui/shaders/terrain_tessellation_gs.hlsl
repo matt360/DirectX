@@ -61,6 +61,7 @@ void main(
         output.normal = cross(v1.xyz, v2.xyz);
 
         output.position3D = input[i].position3D;
+
         // add the triangle to the rendering list
         triStream.Append(output);
     }
