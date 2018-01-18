@@ -52,7 +52,7 @@ void TerrainTessellationExample::initLight()
 	light_->setDirection(0.0, 0.0f, 0.0f);
 	light_->setSpecularPower(16.f);
 	light_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light_->setPosition(0.0f, 0.0f, 0.0f);
+	light_->setPosition(-23.0f, 0.0f, 0.0f);
 }
 
 void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
