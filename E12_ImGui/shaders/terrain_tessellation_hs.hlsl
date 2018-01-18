@@ -42,8 +42,6 @@ PatchTess ConstantHS(
 
     float3 distance = inputPatch[patchId].position.xyz - cameraPosition.xyz;
 
-    // prevent from tessellating all the time; tessellate only when the distance is smaller than 8.0f, i.e.
-    // increase the level of detail only when the distance is smaller than 8.0f
     //if (length(distance) < 6.0f)
     //    tessellationAmount = 4.0f;
     //else
