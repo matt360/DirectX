@@ -168,7 +168,6 @@ void TerrainExample::gui(Camera* camera)
 		if (ImGui::Button("Shift Col Tex 1")) choice_ = 6.0f;
 		if (ImGui::Button("Shift Col Tex 2")) choice_ = 7.0f;
 		if (ImGui::Button("Shift Col Lerp"))  choice_ = 8.0f;
-		if (ImGui::Button("Slope"))           choice_ = 9.0f;
 		ImGui::End();
 	}
 }

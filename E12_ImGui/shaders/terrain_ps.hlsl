@@ -25,7 +25,7 @@ cbuffer LightBuffer : register(cb0)
     float3 lightPosition;
 };
 
-cbuffer TimeBuffer : register(cb0)
+cbuffer TimeBuffer : register(cb1)
 {
     float time;
     float height;
@@ -153,39 +153,6 @@ float4 main(PixelInputType input) : SV_TARGET
             shiftCol2.w = 1.0f;
 
             color = color * lerp(shiftCol1, shiftCol2, frequency);
-            break;
-		// TODO delete if not working
-        case 9:
-            //slope = 1.0f - input.normal.y;
-
-            //if (slope < 0.2)
-            //{
-            //    blendAmount = slope / 0.2f;
-            //    color = lerp(textureCol1, textureCol2, blendAmount);
-            //}
-	
-            //if ((slope < 0.7) && (slope >= 0.2f))
-            //{
-            //    blendAmount = (slope - 0.2f) * (1.0f / (0.7f - 0.2f));
-            //    blendAmount = lerp(textureCol2, heightCol, blendAmount);
-            //}
-
-            //if (slope >= 0.7)
-            //{
-            //    blendAmount = heightCol;
-            //}
-            for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
-            {
-                if (input.position.y < 0.2)
-                {
-                    color = color * textureCol1;
-                }
-                else
-                {
-                    color = color * textureCol2;
-                }
-
-            }
             break;
     }
 	

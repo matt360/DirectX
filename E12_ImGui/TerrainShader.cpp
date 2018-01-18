@@ -160,282 +160,6 @@ void TerrainShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	renderer->CreateBuffer(&timeBufferDesc, NULL, &timeBuffer_);
 }
 
-void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light, Camera* camera)
-{
-	HRESULT result;
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	MatrixBufferType* dataPtr;
-	LightBufferType* lightPtr;
-	CameraBufferType* cameraPtr;
-	unsigned int bufferNumber;
-	XMMATRIX tworld, tview, tproj;
-
-	// Transpose the matrices to prepare them for the shader.
-	tworld = XMMatrixTranspose(worldMatrix);
-	tview = XMMatrixTranspose(viewMatrix);
-	tproj = XMMatrixTranspose(projectionMatrix);
-
-	// Lock the constant buffer so it can be written to.
-	result = deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-
-	// Get a pointer to the data in the constant buffer.
-	dataPtr = (MatrixBufferType*)mappedResource.pData;
-
-	// Copy the matrices into the constant buffer.
-	dataPtr->world = tworld;// worldMatrix;
-	dataPtr->view = tview;
-	dataPtr->projection = tproj;
-
-	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer_, 0);
-
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 0;
-
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
-
-	// Additional //
-	// Camera
-	result = deviceContext->Map(cameraBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	cameraPtr = (CameraBufferType*)mappedResource.pData;
-	cameraPtr->cameraPosition = camera->getPosition();
-	cameraPtr->padding = 0.0f;
-	deviceContext->Unmap(cameraBuffer_, 0);
-	bufferNumber = 1;
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &cameraBuffer_);
-
-	// Send light data to pixel shader
-	result = deviceContext->Map(lightBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	lightPtr = (LightBufferType*)mappedResource.pData;
-	lightPtr->ambient = light->getAmbientColour();
-	lightPtr->diffuse = light->getDiffuseColour();
-	lightPtr->direction = light->getDirection();
-	lightPtr->specularPower = light->getSpecularPower();
-	lightPtr->specular = light->getSpecularColour();
-	lightPtr->position = light->getPosition();
-	lightPtr->padding = 0.0f;
-	
-	//lightPtr->padding = 0.0f;
-	deviceContext->Unmap(lightBuffer_, 0);
-	bufferNumber = 0;
-	//deviceContext->VSSetConstantBuffers(bufferNumber, 1, &lightBuffer);
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
-
-	// Set shader texture resource in the pixel shader.
-	deviceContext->PSSetShaderResources(0, 1, &texture);
-	deviceContext->VSSetShaderResources(0, 1, &texture);
-}
-
-void TerrainShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light)
-{
-	HRESULT result;
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	MatrixBufferType* dataPtr;
-	LightBufferType* lightPtr;
-	unsigned int bufferNumber;
-	XMMATRIX tworld, tview, tproj;
-
-
-	// Transpose the matrices to prepare them for the shader.
-	tworld = XMMatrixTranspose(worldMatrix);
-	tview = XMMatrixTranspose(viewMatrix);
-	tproj = XMMatrixTranspose(projectionMatrix);
-
-	// Lock the constant buffer so it can be written to.
-	result = deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-
-	// Get a pointer to the data in the constant buffer.
-	dataPtr = (MatrixBufferType*)mappedResource.pData;
-
-	// Copy the matrices into the constant buffer.
-	dataPtr->world = tworld;// worldMatrix;
-	dataPtr->view = tview;
-	dataPtr->projection = tproj;
-
-	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer_, 0);
-
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 0;
-
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
-
-	//Additional
-	// Send light data to pixel shader
-	deviceContext->Map(lightBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	lightPtr = (LightBufferType*)mappedResource.pData;
-	lightPtr->ambient = light->getAmbientColour();
-	lightPtr->diffuse = light->getDiffuseColour();
-	lightPtr->direction = light->getDirection();
-	lightPtr->specularPower = light->getSpecularPower();
-	lightPtr->specular = light->getSpecularColour();
-	//lightPtr->padding = 0.0f;
-	deviceContext->Unmap(lightBuffer_, 0);
-	bufferNumber = 0;
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
-
-	// Set shader texture resource in the pixel and vertex shader.
-	deviceContext->PSSetShaderResources(0, 1, &texture);
-	deviceContext->VSSetShaderResources(0, 1, &texture);
-}
-
-void TerrainShader::setShaderParameters(
-	ID3D11DeviceContext* deviceContext, 
-	const XMMATRIX &worldMatrix, 
-	const XMMATRIX &viewMatrix, 
-	const XMMATRIX &projectionMatrix, 
-	ID3D11ShaderResourceView* texture, 
-	Light* light,
-	float time,
-	float height,
-	float frequency)
-{
-	HRESULT result;
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	MatrixBufferType* dataPtr;
-	TimeBufferType* timePtr;
-	LightBufferType* lightPtr;
-	unsigned int bufferNumber;
-	XMMATRIX tworld, tview, tproj;
-
-
-	// Transpose the matrices to prepare them for the shader.
-	tworld = XMMatrixTranspose(worldMatrix);
-	tview = XMMatrixTranspose(viewMatrix);
-	tproj = XMMatrixTranspose(projectionMatrix);
-
-	// Lock the constant buffer so it can be written to.
-	deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-
-	// Get a pointer to the data in the constant buffer.
-	dataPtr = (MatrixBufferType*)mappedResource.pData;
-	// Copy the matrices into the constant buffer.
-	dataPtr->world = tworld;// worldMatrix;
-	dataPtr->view = tview;
-	dataPtr->projection = tproj;
-	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer_, 0);
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 0;
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
-
-	// Time
-	// Send time data to vertex shader
-	deviceContext->Map(timeBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	// Get a pointer to the data in the constant buffer.
-	timePtr = (TimeBufferType*)mappedResource.pData;
-	// Copy the time balue into the constant buffer.
-	timePtr->time = time;
-	timePtr->height = height;
-	timePtr->frequency = frequency;
-	timePtr->choice = 0.0f;
-	// Unlock the constant buffer.
-	deviceContext->Unmap(timeBuffer_, 0);
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 1;
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &timeBuffer_);
-
-	//Additional
-	// Send light data to pixel shader
-	deviceContext->Map(lightBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	lightPtr = (LightBufferType*)mappedResource.pData;
-	lightPtr->ambient = light->getAmbientColour();
-	lightPtr->diffuse = light->getDiffuseColour();
-	lightPtr->direction = light->getDirection();
-	lightPtr->specularPower = light->getSpecularPower();
-	lightPtr->specular = light->getSpecularColour();
-	//lightPtr->padding = 0.0f;
-	deviceContext->Unmap(lightBuffer_, 0);
-	bufferNumber = 0;
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
-
-	// Set shader texture resource in the pixel and vertex shader.
-	deviceContext->PSSetShaderResources(0, 1, &texture);
-	deviceContext->VSSetShaderResources(0, 1, &texture);
-}
-
-void TerrainShader::setShaderParameters(
-	ID3D11DeviceContext* deviceContext, 
-	const XMMATRIX& worldMatrix,
-	const XMMATRIX& viewMatrix,
-	const XMMATRIX& projectionMatrix,
-	ID3D11ShaderResourceView* height_texture,
-	ID3D11ShaderResourceView* mapping_texture,
-	Light* light, 
-	float time, 
-	float height, 
-	float frequency)
-{
-	HRESULT result;
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	MatrixBufferType* dataPtr;
-	TimeBufferType* timePtr;
-	LightBufferType* lightPtr;
-	unsigned int bufferNumber;
-	XMMATRIX tworld, tview, tproj;
-
-
-	// Transpose the matrices to prepare them for the shader.
-	tworld = XMMatrixTranspose(worldMatrix);
-	tview = XMMatrixTranspose(viewMatrix);
-	tproj = XMMatrixTranspose(projectionMatrix);
-
-	// Lock the constant buffer so it can be written to.
-	deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-
-	// Get a pointer to the data in the constant buffer.
-	dataPtr = (MatrixBufferType*)mappedResource.pData;
-	// Copy the matrices into the constant buffer.
-	dataPtr->world = tworld;// worldMatrix;
-	dataPtr->view = tview;
-	dataPtr->projection = tproj;
-	// Unlock the constant buffer.
-	deviceContext->Unmap(matrixBuffer_, 0);
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 0;
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
-
-	// Time
-	// Send time data to vertex shader
-	deviceContext->Map(timeBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	// Get a pointer to the data in the constant buffer.
-	timePtr = (TimeBufferType*)mappedResource.pData;
-	// Copy the time balue into the constant buffer.
-	timePtr->time = time;
-	timePtr->height = height;
-	timePtr->frequency = frequency;
-	timePtr->choice = 0.0f;
-	// Unlock the constant buffer.
-	deviceContext->Unmap(timeBuffer_, 0);
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 1;
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &timeBuffer_);
-
-	//Additional
-	// Send light data to pixel shader
-	deviceContext->Map(lightBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	lightPtr = (LightBufferType*)mappedResource.pData;
-	lightPtr->ambient = light->getAmbientColour();
-	lightPtr->diffuse = light->getDiffuseColour();
-	lightPtr->direction = light->getDirection();
-	lightPtr->specularPower = light->getSpecularPower();
-	lightPtr->specular = light->getSpecularColour();
-	//lightPtr->padding = 0.0f;
-	deviceContext->Unmap(lightBuffer_, 0);
-	bufferNumber = 0;
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
-
-	// Set shader texture resource in the pixel and vertex shader.
-	deviceContext->VSSetShaderResources(0, 1, &height_texture);
-	deviceContext->PSSetShaderResources(0, 1, &mapping_texture);
-}
-
 void TerrainShader::setShaderParameters(
 	ID3D11DeviceContext * deviceContext, 
 	const XMMATRIX & worldMatrix,
@@ -458,15 +182,12 @@ void TerrainShader::setShaderParameters(
 	unsigned int bufferNumber;
 	XMMATRIX tworld, tview, tproj;
 
-
 	// Transpose the matrices to prepare them for the shader.
 	tworld = XMMatrixTranspose(worldMatrix);
 	tview = XMMatrixTranspose(viewMatrix);
 	tproj = XMMatrixTranspose(projectionMatrix);
-
 	// Lock the constant buffer so it can be written to.
 	deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-
 	// Get a pointer to the data in the constant buffer.
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
 	// Copy the matrices into the constant buffer.
@@ -475,11 +196,7 @@ void TerrainShader::setShaderParameters(
 	dataPtr->projection = tproj;
 	// Unlock the constant buffer.
 	deviceContext->Unmap(matrixBuffer_, 0);
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 0;
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
-
+	
 	// Time
 	// Send time data to vertex shader
 	deviceContext->Map(timeBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
@@ -492,13 +209,8 @@ void TerrainShader::setShaderParameters(
 	timePtr->choice = choice_number;
 	// Unlock the constant buffer.
 	deviceContext->Unmap(timeBuffer_, 0);
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 1;
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &timeBuffer_);
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &timeBuffer_);
-
-	//Additional
+	
+	// Light
 	// Send light data to pixel shader
 	deviceContext->Map(lightBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	lightPtr = (LightBufferType*)mappedResource.pData;
@@ -509,8 +221,16 @@ void TerrainShader::setShaderParameters(
 	lightPtr->specular = light->getSpecularColour();
 	//lightPtr->padding = 0.0f;
 	deviceContext->Unmap(lightBuffer_, 0);
+
+	// Set the position of the constant buffer in the vertex shader with the updated values.
 	bufferNumber = 0;
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
+	deviceContext->VSSetConstantBuffers(0, 1, &matrixBuffer_);
+	deviceContext->VSSetConstantBuffers(1, 1, &timeBuffer_);
+
+	// Set the position of the constant buffer in the pixel shader with the updated values.
+	bufferNumber = 0;
+	deviceContext->PSSetConstantBuffers(0, 1, &lightBuffer_);
+	deviceContext->PSSetConstantBuffers(1, 1, &timeBuffer_);
 
 	// Set shader texture resource in the pixel and vertex shader.
 	deviceContext->VSSetShaderResources(0, 1, &height_texture);

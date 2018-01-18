@@ -47,42 +47,6 @@ public:
 	// When the pipeline or a resource is being manipulated,
 	// the 'device context' is used.
 	void setShaderParameters(
-		ID3D11DeviceContext* deviceContext, 
-		const XMMATRIX& worldMatrix, 
-		const XMMATRIX& viewMatrix, 
-		const XMMATRIX& projectionMatrix, 
-		ID3D11ShaderResourceView* texture, 
-		Light* light, 
-		Camera* camera);
-	void setShaderParameters(
-		ID3D11DeviceContext* deviceContext, 
-		const XMMATRIX &world, 
-		const XMMATRIX &view, 
-		const XMMATRIX &projection, 
-		ID3D11ShaderResourceView* texture, 
-		Light* light);
-	void setShaderParameters(
-		ID3D11DeviceContext* deviceContext, 
-		const XMMATRIX &world, 
-		const XMMATRIX &view, 
-		const XMMATRIX &projection, 
-		ID3D11ShaderResourceView* texture, 
-		Light* light, 
-		float time, 
-		float height, 
-		float frequency);
-	void setShaderParameters(
-		ID3D11DeviceContext* deviceContext,
-		const XMMATRIX &world,
-		const XMMATRIX &view,
-		const XMMATRIX &projection,
-		ID3D11ShaderResourceView* height_texture,
-		ID3D11ShaderResourceView* mapping_texture,
-		Light* light,
-		float time,
-		float height,
-		float frequency);
-	void setShaderParameters(
 		ID3D11DeviceContext* deviceContext,
 		const XMMATRIX &world,
 		const XMMATRIX &view,
