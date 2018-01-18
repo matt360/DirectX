@@ -64,7 +64,7 @@ void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureMa
 	projectionMatrix = renderer->getProjectionMatrix();
 	// translation and rotation
 	worldMatrix = renderer->getWorldMatrix();
-	XMMATRIX matrixTranslation = XMMatrixTranslation(-20.0f, 0.0, 0.0f);
+	XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
 	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(180.0f));
 	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
 	// scaling

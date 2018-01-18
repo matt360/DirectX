@@ -375,25 +375,6 @@ void TerrainTessellationShader::setShaderParameters(
 	XMMATRIX tworld, tview, tproj;
 
 	// Transpose the matrices to prepare them for the shader.
-	//tworld = XMMatrixTranspose(worldMatrix);
-	//tview = XMMatrixTranspose(viewMatrix);
-	//tproj = XMMatrixTranspose(projectionMatrix);
-	//// Lock the constant buffer so it can be written to.
-	//deviceContext->Map(matrixBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	//// Get a pointer to the data in the constant buffer.
-	//dataPtr = (MatrixBufferType*)mappedResource.pData;
-	//// Copy the matrices into the constant buffer.
-	//dataPtr->world = tworld;// worldMatrix;
-	//dataPtr->view = tview;
-	//dataPtr->projection = tproj;
-	//// Unlock the constant buffer.
-	//deviceContext->Unmap(matrixBuffer_, 0);
-	//// Set the position of the constant buffer in the vertex shader.
-	//bufferNumber = 0;
-	//// Now set the constant buffer in the vertex shader with the updated values.
-	//deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
-
-	// Transpose the matrices to prepare them for the shader.
 	tworld = XMMatrixTranspose(worldMatrix);
 	tview = XMMatrixTranspose(viewMatrix);
 	tproj = XMMatrixTranspose(projectionMatrix);
@@ -410,7 +391,6 @@ void TerrainTessellationShader::setShaderParameters(
 	// Set the position of the constant buffer in the vertex shader.
 	bufferNumber = 0;
 	// Now set the constant buffer in the vertex shader with the updated values.
-	//deviceContext->DSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 	deviceContext->GSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 
 	// TIME
@@ -462,8 +442,11 @@ void TerrainTessellationShader::setShaderParameters(
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
 
 	// Set shader texture resource in the pixel and vertex shader.
-	deviceContext->PSSetShaderResources(0, 1, &texture);
 	deviceContext->DSSetShaderResources(0, 1, &texture);
+	deviceContext->PSSetShaderResources(0, 1, &texture);
+	/*deviceContext->PSSetShaderResources(0, 1, &mapping_texture_1);
+	deviceContext->PSSetShaderResources(1, 1, &mapping_texture_2);
+	deviceContext->PSSetShaderResources(2, 1, &height_texture);*/
 }
 
 void TerrainTessellationShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
