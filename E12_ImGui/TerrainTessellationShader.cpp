@@ -222,10 +222,9 @@ void TerrainTessellationShader::setShaderParameters(
 	// SETE CONSTANT BUFFERS
 	// Set Hull Constant Buffers
 	deviceContext->HSSetConstantBuffers(0, 1, &cameraBuffer_);
-	// Set the constant buffer in the DOMAIN shader with the updated values.
-	deviceContext->DSSetConstantBuffers(0, 1, &timeBuffer_);
 	// Set the constant buffer in the GEOMETRY shader with the updated values.
 	deviceContext->GSSetConstantBuffers(0, 1, &matrixBuffer_);
+	deviceContext->GSSetConstantBuffers(1, 1, &timeBuffer_);
 	// Set Pixel Constant Buffers
 	deviceContext->PSSetConstantBuffers(0, 1, &lightBuffer_);
 	deviceContext->PSSetConstantBuffers(1, 1, &cameraBuffer_);

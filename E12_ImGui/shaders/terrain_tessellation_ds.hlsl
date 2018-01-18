@@ -8,15 +8,6 @@ Texture2D tex0 : register(t0);
 // SAMPLE STATES
 SamplerState Sampler0 : register(s0);
 
-// TODO delete if not used
-cbuffer TimeBuffer : register(cb0)
-{
-    float time;
-    float height;
-    float frequency;
-    float padding;
-};
-
 // Output control point
 struct HullOut
 {

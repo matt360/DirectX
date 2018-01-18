@@ -8,6 +8,13 @@ cbuffer MatrixBuffer : register(cb0)
     matrix projectionMatrix;
 };
 
+cbuffer TimeBuffer : register(cb1)
+{
+    float time;
+    float height;
+    float frequency;
+    float padding;
+};
 // Output control point
 struct InputType
 {
@@ -47,7 +54,7 @@ void main(
         output.normal = normalize(cross(v1.xyz, v2.xyz));
 
 		// normal per face
-        output.position = input[i].position + float4(100.0f * output.normal, 0.0f);
+        output.position = input[i].position + float4(time * output.normal, 0.0f);
 
 		// place the point in the world
         float4 vposition = mul(output.position, worldMatrix);

@@ -45,6 +45,8 @@ void TerrainTessellationExample::initVariables()
 	mapping_texture_2_ = "brick";
 
 	new_light_pos_ = XMFLOAT3(0.0f, 0.0f, 0.0f);
+
+	explode_ = false;
 }
 
 void TerrainTessellationExample::initLight()
@@ -56,7 +58,7 @@ void TerrainTessellationExample::initLight()
 	light_->setDirection(0.0, 0.0f, 0.0f);
 	light_->setSpecularPower(16.f);
 	light_->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light_->setPosition(-23.0f, 0.0f, 0.0f);
+	light_->setPosition(-3.0f, 0.0f, 0.0f);
 }
 
 void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
@@ -77,6 +79,9 @@ void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureMa
 
 	// wave's:
 	float height = 1.0f;
+
+	// time for explosion
+	if (explode_) time_ += 1.0f;
 
 	// wireframe mode
 	renderer->setWireframeMode(wireframe_);
@@ -99,7 +104,7 @@ void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureMa
 		textureMgr->getTexture(mapping_texture_2_),
 		light_, 
 		camera,
-		over_time_, 
+		time_,
 		height, 
 		frequency_,
 		choice_);
@@ -125,6 +130,8 @@ void TerrainTessellationExample::gui(Camera* camera)
 		if (ImGui::Button("Reset Example")) { resetExample(camera); }
 		// wireframe
 		ImGui::Checkbox("Wireframe", &wireframe_);
+		if (ImGui::Checkbox("Explode", &explode_)) { time_ = 0; }
+		ImGui::SliderFloat("Explode Rate: ", (float*)&time_, 0.0f, 200.0f);
 		// scale_
 		ImGui::SliderFloat("Scale X", (float*)&scale_.x, -15.0f, 15.0f);
 		ImGui::SliderFloat("Scale Y", (float*)&scale_.y, -15.0f, 15.0f);
