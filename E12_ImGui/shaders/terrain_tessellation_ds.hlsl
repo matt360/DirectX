@@ -1,10 +1,14 @@
 // DOMAIN SHADER
+// The domain shader is called for every vertex created by the tessellator.
+// It is like the vertex shader after tessellation.
+
 // TEXTURES
 Texture2D tex0 : register(t0);
 
 // SAMPLE STATES
 SamplerState Sampler0 : register(s0);
 
+// TODO delete if not used
 cbuffer TimeBuffer : register(cb1)
 {
     float time;
@@ -44,7 +48,7 @@ struct PatchTess // HS_CONSTANT_DATA_OUTPUT
 DomainOut main(
 	PatchTess input, // HS_CONSTANT_DATA_OUTPUT
 	float3 uvwCoord : SV_DomainLocation,
-	const OutputPatch<HullOut, NUM_CONTROL_POINTS> patch)
+	const OutputPatch<HullOut, NUM_CONTROL_POINTS> tri)
 {
     DomainOut output;
     float3 vertexPosition;
@@ -57,19 +61,19 @@ DomainOut main(
 	// Alternatively you can set the output topology of the hull shader to cw instead of ccw (or vice versa).
     // position
     vertexPosition = 
-    uvwCoord.x * patch[0].position + 
-    uvwCoord.y * patch[1].position + 
-    uvwCoord.z * patch[2].position;
+    uvwCoord.x * tri[0].position + 
+    uvwCoord.y * tri[1].position + 
+    uvwCoord.z * tri[2].position;
     // tex 
     texPosition =
-    uvwCoord.x * patch[0].tex +
-    uvwCoord.y * patch[1].tex +
-    uvwCoord.z * patch[2].tex;
+    uvwCoord.x * tri[0].tex +
+    uvwCoord.y * tri[1].tex +
+    uvwCoord.z * tri[2].tex;
     // normal
     normalPosition = 
-    uvwCoord.x * patch[0].normal +
-    uvwCoord.y * patch[1].normal +
-    uvwCoord.z * patch[2].normal;
+    uvwCoord.x * tri[0].normal +
+    uvwCoord.y * tri[1].normal +
+    uvwCoord.z * tri[2].normal;
  
      // Sample the pixel color from the texture using the sampler at this texture coordinate location.
     float4 textureColor = tex0.SampleLevel(Sampler0, texPosition, 0);

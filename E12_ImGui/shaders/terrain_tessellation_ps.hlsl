@@ -27,6 +27,14 @@ cbuffer LightBuffer : register(cb0)
 cbuffer CameraBuffer : register(cb1)
 {
     float3 cameraPosition;
+    float padding;
+};
+
+cbuffer TimeBuffer : register(cb2)
+{
+    float time;
+    float height;
+    float frequency;
     float choice;
 };
 

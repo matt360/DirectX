@@ -27,7 +27,7 @@ private:
 	struct CameraBufferType
 	{
 		XMFLOAT3 cameraPosition;
-		float choice;
+		float padding;
 	};
 
 	struct TimeBufferType
@@ -35,7 +35,7 @@ private:
 		float time;
 		float height;
 		float frequency;
-		float padding;
+		float choice;
 	};
 
 public:

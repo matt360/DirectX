@@ -54,11 +54,11 @@ TerrainTessellationShader::~TerrainTessellationShader()
 	BaseShader::~BaseShader();
 }
 
-
 void TerrainTessellationShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 {
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	D3D11_SAMPLER_DESC samplerDesc;
+	// Light
 	D3D11_BUFFER_DESC lightBufferDesc;
 	// Time
 	D3D11_BUFFER_DESC timeBufferDesc;
@@ -109,7 +109,6 @@ void TerrainTessellationShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	lightBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	lightBufferDesc.MiscFlags = 0;
 	lightBufferDesc.StructureByteStride = 0;
-
 	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
 	renderer->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer_);
 
@@ -130,7 +129,7 @@ void TerrainTessellationShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 	timeBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	timeBufferDesc.MiscFlags = 0;
 	timeBufferDesc.StructureByteStride = 0;
-
+	// Create the constant buffer pointer so we can access the domain shader constant buffer from within this class.
 	renderer->CreateBuffer(&timeBufferDesc, NULL, &timeBuffer_);
 }
 
@@ -183,10 +182,6 @@ void TerrainTessellationShader::setShaderParameters(
 	dataPtr->projection = tproj;
 	// Unlock the constant buffer.
 	deviceContext->Unmap(matrixBuffer_, 0);
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 0;
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->GSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
 
 	// TIME
 	// Send time data to vertex shader
@@ -197,13 +192,9 @@ void TerrainTessellationShader::setShaderParameters(
 	timePtr->time = time;
 	timePtr->height = height;
 	timePtr->frequency = frequency;
-	timePtr->padding = 0.0f;
+	timePtr->choice = choice;
 	// Unlock the constant buffer.
 	deviceContext->Unmap(timeBuffer_, 0);
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 1;
-	// Now set the constant buffer in the vertex shader with the updated values.
-	deviceContext->DSSetConstantBuffers(bufferNumber, 1, &timeBuffer_);
 
 	// CAMERA
 	// Lock the constant buffer so it can be written to.
@@ -212,15 +203,10 @@ void TerrainTessellationShader::setShaderParameters(
 	cameraPtr = (CameraBufferType*)mappedResource.pData;
 	// Copy the matrices into the constant buffer.
 	cameraPtr->cameraPosition = camera->getPosition();
-	cameraPtr->choice = choice;
+	cameraPtr->padding = 0.0f;
 	// Unlock the constant buffer.
 	deviceContext->Unmap(cameraBuffer_, 0);
-	// Set the position of the constant buffer in the vertex shader.
-	bufferNumber = 0;
-	// Now set the constant buffer in the hull shader with the updated values.
-	deviceContext->HSSetConstantBuffers(bufferNumber, 1, &cameraBuffer_);
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &cameraBuffer_);
-
+	
 	// LIGHT
 	// Send light data to pixel shader
 	deviceContext->Map(lightBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
@@ -233,11 +219,27 @@ void TerrainTessellationShader::setShaderParameters(
 	lightPtr->position = light->getPosition();
 	lightPtr->padding = 0.0f;
 	deviceContext->Unmap(lightBuffer_, 0);
+
+	// SETE CONSTANT BUFFERS
+	// Set Hull Constant Buffers
+	bufferNumber = 0;
+	deviceContext->HSSetConstantBuffers(bufferNumber, 1, &cameraBuffer_);
+	// Set the constant buffer in the DOMAIN shader with the updated values.
+	bufferNumber = 0;
+	deviceContext->DSSetConstantBuffers(bufferNumber, 1, &timeBuffer_);
+	// Set the constant buffer in the GEOMETRY shader with the updated values.
+	bufferNumber = 0;
+	deviceContext->GSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
+	// Set Pixel Constant Buffers
 	bufferNumber = 0;
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
+	deviceContext->PSSetConstantBuffers(bufferNumber + 1, 1, &cameraBuffer_);
+	deviceContext->PSSetConstantBuffers(bufferNumber + 2, 1, &timeBuffer_);
 
-	// Set shader texture resource in the pixel and vertex shader.
+	// Set shader resources
+	// Domain shader resource
 	deviceContext->DSSetShaderResources(0, 1, &height_texture);
+	// Pixel shader resource
 	deviceContext->PSSetShaderResources(0, 1, &mapping_texture_1);
 	deviceContext->PSSetShaderResources(1, 1, &mapping_texture_2);
 }
