@@ -45,9 +45,7 @@ void main(
 	for (uint i = 0; i < 3; i++)
 	{
         // place the point in the world
-        float4 vposition = mul(input[i].position, worldMatrix);
-        output.position = mul(vposition, viewMatrix);
-        output.position = mul(output.position, projectionMatrix);
+       
 
         float2 uv_position = input[i].tex;
         output.tex = uv_position;
@@ -57,8 +55,16 @@ void main(
 
         float3 v1 = input[0].position.xyz - input[1].position.xyz;
         float3 v2 = input[0].position.xyz - input[2].position.xyz;
-       
-        output.normal = cross(v1.xyz, v2.xyz);
+      
+        output.normal = normalize(cross(v1.xyz, v2.xyz));
+
+		// normal per face
+        output.position = input[i].position + float4(100.0f * output.normal, 0.0f);
+
+		// 
+        float4 vposition = mul(output.position, worldMatrix);
+        output.position = mul(vposition, viewMatrix);
+        output.position = mul(output.position, projectionMatrix);
 
         output.position3D = input[i].position3D;
 

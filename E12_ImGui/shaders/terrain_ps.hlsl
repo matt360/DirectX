@@ -68,7 +68,7 @@ float4 main(PixelInputType input) : SV_TARGET
 	// Set the default output color to the ambient light value for all pixels.
 	color = ambientColor;
 
-    lightDir = -(lightPosition - input.position3D);
+    lightDir = lightDirection;
 
     float distance = length(lightDir);
 
@@ -157,6 +157,12 @@ float4 main(PixelInputType input) : SV_TARGET
     }
 	
     return color;
+
+
+	// calcute new position of the pixel
+
+    //input.tex += pixelOffset;
+    //textureColour = sceneTexture.Samp[length(SampleType(sampler0, input.tex);
 
 	//// Add the specular component last to the output color.
 	//color = saturate(color + specular);
