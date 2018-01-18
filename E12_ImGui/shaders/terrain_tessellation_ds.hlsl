@@ -9,7 +9,7 @@ Texture2D tex0 : register(t0);
 SamplerState Sampler0 : register(s0);
 
 // TODO delete if not used
-cbuffer TimeBuffer : register(cb1)
+cbuffer TimeBuffer : register(cb0)
 {
     float time;
     float height;

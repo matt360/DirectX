@@ -165,7 +165,6 @@ void TerrainTessellationShader::setShaderParameters(
 	LightBufferType* lightPtr;
 	CameraBufferType* cameraPtr;
 	TimeBufferType* timePtr;
-	unsigned int bufferNumber;
 	XMMATRIX tworld, tview, tproj;
 
 	// Transpose the matrices to prepare them for the shader.
@@ -222,19 +221,15 @@ void TerrainTessellationShader::setShaderParameters(
 
 	// SETE CONSTANT BUFFERS
 	// Set Hull Constant Buffers
-	bufferNumber = 0;
-	deviceContext->HSSetConstantBuffers(bufferNumber, 1, &cameraBuffer_);
+	deviceContext->HSSetConstantBuffers(0, 1, &cameraBuffer_);
 	// Set the constant buffer in the DOMAIN shader with the updated values.
-	bufferNumber = 0;
-	deviceContext->DSSetConstantBuffers(bufferNumber, 1, &timeBuffer_);
+	deviceContext->DSSetConstantBuffers(0, 1, &timeBuffer_);
 	// Set the constant buffer in the GEOMETRY shader with the updated values.
-	bufferNumber = 0;
-	deviceContext->GSSetConstantBuffers(bufferNumber, 1, &matrixBuffer_);
+	deviceContext->GSSetConstantBuffers(0, 1, &matrixBuffer_);
 	// Set Pixel Constant Buffers
-	bufferNumber = 0;
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &lightBuffer_);
-	deviceContext->PSSetConstantBuffers(bufferNumber + 1, 1, &cameraBuffer_);
-	deviceContext->PSSetConstantBuffers(bufferNumber + 2, 1, &timeBuffer_);
+	deviceContext->PSSetConstantBuffers(0, 1, &lightBuffer_);
+	deviceContext->PSSetConstantBuffers(1, 1, &cameraBuffer_);
+	deviceContext->PSSetConstantBuffers(2, 1, &timeBuffer_);
 
 	// Set shader resources
 	// Domain shader resource

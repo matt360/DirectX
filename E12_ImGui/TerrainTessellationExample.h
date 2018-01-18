@@ -24,5 +24,6 @@ private:
 
 	float frequency_, choice_;
 	string height_texture_, mapping_texture_1_, mapping_texture_2_;
+	XMFLOAT3 new_light_pos_;
 };
 

@@ -157,6 +157,7 @@ void TerrainExample::gui(Camera* camera)
 		if (ImGui::Button("Map Tex2: rock")) mapping_texture_2_ = "rock";
 		if (ImGui::Button("Map Tex2: slope")) mapping_texture_2_ = "slope";
 		// Blend
+		ImGui::Text("TEX ATTRIBUTES");
 		ImGui::SliderFloat("Blend", (float*)&frequency_, 0.0f, 1.0f);
 		// choose different texture effects
 		if (ImGui::Button("Tex1"))            choice_ = 0.0f;

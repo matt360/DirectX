@@ -223,12 +223,10 @@ void TerrainShader::setShaderParameters(
 	deviceContext->Unmap(lightBuffer_, 0);
 
 	// Set the position of the constant buffer in the vertex shader with the updated values.
-	bufferNumber = 0;
 	deviceContext->VSSetConstantBuffers(0, 1, &matrixBuffer_);
 	deviceContext->VSSetConstantBuffers(1, 1, &timeBuffer_);
 
 	// Set the position of the constant buffer in the pixel shader with the updated values.
-	bufferNumber = 0;
 	deviceContext->PSSetConstantBuffers(0, 1, &lightBuffer_);
 	deviceContext->PSSetConstantBuffers(1, 1, &timeBuffer_);
 

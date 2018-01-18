@@ -38,14 +38,13 @@ void TerrainTessellationExample::initVariables()
 {
 	over_time_ = 0.0f;
 	scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
-	// geomatry shader topology handler (set to triangle list by default)
-	d3d11_primitive_topology_trianglelist_ = true;
-	d3d11_primitive_topology_pointlist_ = false;
 
 	frequency_ = 0.5f;
 	height_texture_ = "height";
 	mapping_texture_1_ = "bunny";
 	mapping_texture_2_ = "brick";
+
+	new_light_pos_ = XMFLOAT3(0.0f, 0.0f, 0.0f);
 }
 
 void TerrainTessellationExample::initLight()
@@ -78,17 +77,11 @@ void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureMa
 
 	// wave's:
 	float height = 1.0f;
-	float frequency = 1.0f;
 
 	// wireframe mode
 	renderer->setWireframeMode(wireframe_);
 
-	// Set primitive topology
-	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
-	if (d3d11_primitive_topology_trianglelist_) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST;
-	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST;
-
-	light_->setPosition(0.0f, sinf(over_time_ * 3.0f), 0.0f);
+	//light_->setPosition(0.0f, sinf(over_time_ * 3.0f), 0.0f);
 	// Send geometry data (from mesh)
 	mesh_->sendData(
 		renderer->getDeviceContext(), 
@@ -108,7 +101,7 @@ void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureMa
 		camera,
 		over_time_, 
 		height, 
-		frequency,
+		frequency_,
 		choice_);
 
 	// Render object (combination of mesh geometry and shader process
@@ -124,10 +117,12 @@ void TerrainTessellationExample::gui(Camera* camera)
 	if (example_)
 	{
 		ImGui::Begin("Terrain", &example_);
-		if (ImGui::Button("Reset Example"))
-		{
-			resetExample(camera);
-		}
+		// Set light's position
+		ImGui::Text("Light Pos: x: %.2f y: %.2f z: %.2f", light_->getPosition().x, light_->getPosition().y, light_->getPosition().z);
+		ImGui::SliderFloat3("New Light Pos: x: %.2f y: %.2f z: %.2f", (float*)&new_light_pos_, -50.0f, 50.0f);
+		light_->setPosition(new_light_pos_.x, new_light_pos_.y, new_light_pos_.z);
+		// Reset example
+		if (ImGui::Button("Reset Example")) { resetExample(camera); }
 		// wireframe
 		ImGui::Checkbox("Wireframe", &wireframe_);
 		// scale_
@@ -136,11 +131,6 @@ void TerrainTessellationExample::gui(Camera* camera)
 		ImGui::SliderFloat("Scale Z", (float*)&scale_.z, -15.0f, 15.0f);
 		// reset scale_
 		if (ImGui::Button("Reset Scale")) scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
-		// toggle topology
-		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist_))
-			d3d11_primitive_topology_pointlist_ = false;
-		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist_))
-			d3d11_primitive_topology_trianglelist_ = false;
 		// set height map texture
 		if (ImGui::Button("Height Tex: brick")) height_texture_ = "brick";
 		if (ImGui::Button("Height Tex: bunny")) height_texture_ = "bunny";
@@ -162,6 +152,7 @@ void TerrainTessellationExample::gui(Camera* camera)
 		if (ImGui::Button("Map Tex2: grass")) mapping_texture_2_ = "grass";
 		if (ImGui::Button("Map Tex2: rock")) mapping_texture_2_ = "rock";
 		if (ImGui::Button("Map Tex2: slope")) mapping_texture_2_ = "slope";
+		ImGui::Text("TEX ATTRIBUTES");
 		// Blend
 		ImGui::SliderFloat("Blend", (float*)&frequency_, 0.0f, 1.0f);
 		// choose different texture effects
