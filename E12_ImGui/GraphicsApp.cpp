@@ -140,7 +140,7 @@ bool GraphicsApp::frame()
 		return false;
 	}
 
-	// calculate new y position of light_terrain
+	// calculate over_time_ variable for changes over time in the examples
 	example_->over_time_ += XM_PIDIV2 * timer->getTime();
 	example_->over_time_ = fmodf(example_->over_time_, XM_2PI);
 
