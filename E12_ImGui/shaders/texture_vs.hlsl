@@ -21,7 +21,6 @@ struct OutputType
 	float3 normal : NORMAL; // NORMAL - Semantic that is used when defining a normal vector
 };
 
-
 OutputType main(InputType input)
 {
 	OutputType output;
