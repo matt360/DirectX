@@ -74,6 +74,7 @@ void RenderToTextureExample::initShader(D3D * renderer, HWND hwnd, int screenWid
 
 void RenderToTextureExample::initVariables()
 {
+	texture = "grass";
 }
 
 void RenderToTextureExample::initLight()
@@ -85,7 +86,6 @@ void RenderToTextureExample::initLight()
 	light->setSpecularPower(16.f);
 	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
 	light->setPosition(0.0f, 0.1f, 0.0f);
-	light_y = 0.0f;
 }
 
 void RenderToTextureExample::renderToTexture(D3D* renderer, Camera* camera, TextureManager* textureMgr)
@@ -133,7 +133,7 @@ void RenderToTextureExample::renderToTexture(D3D* renderer, Camera* camera, Text
 	(
 		renderer->getDeviceContext(),
 		worldMatrix, viewMatrix, projectionMatrix,
-		textureMgr->getTexture("default"),
+		textureMgr->getTexture(texture),
 		light,
 		over_time_
 	);
@@ -184,7 +184,7 @@ void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureM
 	(
 		renderer->getDeviceContext(), 
 		worldMatrix, viewMatrix, projectionMatrix, 
-		textureMgr->getTexture("default"), 
+		textureMgr->getTexture(texture),
 		light, 
 		over_time_
 	);
@@ -273,6 +273,14 @@ void RenderToTextureExample::gui(Camera * camera)
 		{
 			set_mesh_choice(MESH_CHOICE::PLANE);
 		}
+
+		if (ImGui::Button("Tex: brick")) texture = "brick";
+		if (ImGui::Button("Tex: bunny")) texture = "bunny";
+		if (ImGui::Button("Tex: height")) texture = "height";
+		if (ImGui::Button("Tex: checkerboard")) texture = "checkerboard";
+		if (ImGui::Button("Tex: grass")) texture = "grass";
+		if (ImGui::Button("Tex: rock")) texture = "rock";
+		if (ImGui::Button("Tex: slope")) texture = "slope";
 
 		ImGui::End();
 	}

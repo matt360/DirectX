@@ -34,5 +34,5 @@ private:
 	RenderTexture* renderTexture;
 	OrthoMesh* orthoMesh;
 
-	float light_y;
+	string texture;
 };
