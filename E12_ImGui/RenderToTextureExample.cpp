@@ -102,8 +102,25 @@ void RenderToTextureExample::renderToTexture(D3D* renderer, Camera* camera, Text
 	camera->update();
 
 	// Get the world, view, and projection matrices from the camera and d3d objects.
+	//worldMatrix = renderer->getWorldMatrix();
+	//viewMatrix = camera->getViewMatrix();
+	//projectionMatrix = renderer->getProjectionMatrix();
+	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	// WORLD MATRIX
 	worldMatrix = renderer->getWorldMatrix();
+	XMMATRIX matrix1Translation = DirectX::XMMatrixTranslation(2.0f, 0.0f, 0.0f);
+	//XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(light_y);
+	XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(0.0f);
+	// orbit
+	//worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
+	// translate and rotate
+	worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
+	// scaling
+	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(scale_.x, scale_.y, scale_.z);
+	worldMatrix *= matrix1Scaling;
+	// VIEW MATRIX
 	viewMatrix = camera->getViewMatrix();
+	// PROJECTION MATRIX
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// Set primitive topology
@@ -136,8 +153,25 @@ void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureM
 	camera->update();
 
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	worldMatrix = renderer->getWorldMatrix();
+	/*worldMatrix = renderer->getWorldMatrix();
 	viewMatrix = camera->getViewMatrix();
+	projectionMatrix = renderer->getProjectionMatrix();*/
+	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	// WORLD MATRIX
+	worldMatrix = renderer->getWorldMatrix();
+	XMMATRIX matrix1Translation = DirectX::XMMatrixTranslation(2.0f, 0.0f, 0.0f);
+	//XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(light_y);
+	XMMATRIX matrix1Rotation = DirectX::XMMatrixRotationZ(0.0f);
+	// orbit
+	//worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
+	// translate and rotate
+	worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
+	// scaling
+	XMMATRIX matrix1Scaling = DirectX::XMMatrixScaling(scale_.x, scale_.y, scale_.z);
+	worldMatrix *= matrix1Scaling;
+	// VIEW MATRIX
+	viewMatrix = camera->getViewMatrix();
+	// PROJECTION MATRIX
 	projectionMatrix = renderer->getProjectionMatrix();
 
 	// wireframe mode
@@ -165,7 +199,25 @@ void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureM
 	// Render to ortho mesh
 	// Turn off the Z buffer to begin all 2D rendering. //////////////////////////
 	renderer->setZBuffer(false);
+
+	// Prevent the window from scaling and translating ///////////////////////////
 	// ortho matrix for 2D rendering
+	worldMatrix = renderer->getWorldMatrix();
+	matrix1Translation = DirectX::XMMatrixTranslation(0.0f, 0.0f, 0.0f);
+	matrix1Rotation = DirectX::XMMatrixRotationZ(0.0f);
+	// orbit
+	//worldMatrix = XMMatrixMultiply(matrix1Translation, matrix1Rotation);
+	// translate and rotate
+	worldMatrix = XMMatrixMultiply(matrix1Rotation, matrix1Translation);
+	// scaling
+	matrix1Scaling = DirectX::XMMatrixScaling(1.0f, 1.0f, 1.0f);
+	worldMatrix *= matrix1Scaling;
+	// VIEW MATRIX
+	viewMatrix = camera->getViewMatrix();
+	// PROJECTION MATRIX
+	projectionMatrix = renderer->getProjectionMatrix();
+	///////////////////////////////////////////////////////////////////////////////
+
 	orthoMatrix = renderer->getOrthoMatrix();
 	orthoViewMatrix = camera->getOrthoViewMatrix();
 
