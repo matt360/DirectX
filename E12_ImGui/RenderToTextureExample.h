@@ -11,8 +11,8 @@ class RenderToTextureExample : public Example
 public:
 	RenderToTextureExample();
 	~RenderToTextureExample();
-	void init(D3D* renderer, HWND hwnd);
-	void initShader(D3D* renderer, HWND hwnd);
+	void init(D3D* renderer, HWND hwnd, int screenWidth, int screenHeight);
+	void initShader(D3D* renderer, HWND hwnd, int screenWidth, int screenHeight);
 	void initVariables();
 	void initLight();
 	void renderToTexture(D3D* renderer, Camera* camera, TextureManager* textureMgr);

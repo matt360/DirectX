@@ -124,7 +124,7 @@ void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int scre
 	terrainTessellationExample_->init(renderer, hwnd);
 	multiLightExample_->init(renderer, hwnd);
 	geometryExample_->init(renderer, hwnd);
-	renderToTextureExample_->init(renderer, hwnd);
+	renderToTextureExample_->init(renderer, hwnd, screenWidth, screenHeight);
 
 	// set default example to render
 	chooseExample(EXAMPLE_CHOICE::SPECULAR_LIGHT);

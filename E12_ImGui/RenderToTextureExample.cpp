@@ -46,14 +46,14 @@ RenderToTextureExample::~RenderToTextureExample()
 	}
 }
 
-void RenderToTextureExample::init(D3D * renderer, HWND hwnd)
+void RenderToTextureExample::init(D3D * renderer, HWND hwnd, int screenWidth, int screenHeight)
 {
-	initShader(renderer, hwnd);
+	initShader(renderer, hwnd, screenWidth, screenHeight);
 	initVariables();
 	initLight();
 }
 
-void RenderToTextureExample::initShader(D3D * renderer, HWND hwnd)
+void RenderToTextureExample::initShader(D3D * renderer, HWND hwnd, int screenWidth, int screenHeight)
 {
 	lightShader = new LightShader(renderer->getDevice(), hwnd);
 
@@ -64,7 +64,7 @@ void RenderToTextureExample::initShader(D3D * renderer, HWND hwnd)
 
 	// RenderTexture, OrthoMesh and shader set for different renderTarget
 	//renderTexture = new RenderTexture(renderer->getDevice(), screenWidth, screenHeight, SCREEN_NEAR, SCREEN_DEPTH);
-	renderTexture = new RenderTexture(renderer->getDevice(), 800, 600, 0.1f, 200.0f);
+	renderTexture = new RenderTexture(renderer->getDevice(), screenWidth, screenHeight, 0.1f, 200.0f);
 
 	// ortho size and position set based on window size
 	// 200x200 pixels (standard would be matching window size for fullscreen mesh
