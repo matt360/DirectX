@@ -14,7 +14,8 @@ enum class EXAMPLE_CHOICE {
 	TERRAIN,
 	TERRAIN_TESSELLATION,
 	MULTILIGHT,
-	GEOMETRY
+	GEOMETRY,
+	RENDER_TO_TEXTURE
 };
 
 class GraphicsApp : public BaseApplication
@@ -57,7 +58,7 @@ private:
 	EXAMPLE_CHOICE example_choice_;
 
 	// FUNCTIONS
-	void setActiveExample(bool& activeEg, bool& inactiveEg1, bool& inactiveEg2, bool& inactiveEg3, bool& inactiveEg4, bool& inactiveEg5);
+	void setActiveExample(bool& activeEg, bool& inactiveEg1, bool& inactiveEg2, bool& inactiveEg3, bool& inactiveEg4, bool& inactiveEg5, bool& inactiveEg6);
 	void chooseExample(EXAMPLE_CHOICE eg);
 	BaseMesh* chooseMesh(const MESH_CHOICE& mesh_choice);
 	float clamp(float n, float lower, float upper);

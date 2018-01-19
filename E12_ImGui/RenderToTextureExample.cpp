@@ -114,7 +114,7 @@ void RenderToTextureExample::renderToTexture(D3D* renderer, Camera* camera, Text
 		worldMatrix, viewMatrix, projectionMatrix,
 		textureMgr->getTexture("default"),
 		light,
-		1.0f
+		over_time_
 	);
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), mesh_->getIndexCount());
@@ -147,7 +147,7 @@ void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureM
 		worldMatrix, viewMatrix, projectionMatrix, 
 		textureMgr->getTexture("default"), 
 		light, 
-		1.0f
+		over_time_
 	);
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), mesh_->getIndexCount());

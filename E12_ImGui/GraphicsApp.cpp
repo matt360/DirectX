@@ -141,8 +141,8 @@ bool GraphicsApp::frame()
 	}
 
 	// calculate new y position of light_terrain
-	example_->over_time_ += XM_PIDIV2 * timer->getTime();
-	example_->over_time_ = fmodf(terrainExample_->over_time_, XM_2PI);
+	renderToTextureExample_->over_time_ += XM_PIDIV2 * timer->getTime();
+	renderToTextureExample_->over_time_ = fmodf(renderToTextureExample_->over_time_, XM_2PI);
 
 	// Render the graphics.
 	result = render();
@@ -222,6 +222,11 @@ void GraphicsApp::gui()
 	{
 		chooseExample(EXAMPLE_CHOICE::GEOMETRY);
 	}
+	// CHOOSE GEOMETRY SHADER EXAMPLE 
+	else if (ImGui::Button("Render To Texture Example"))
+	{
+		chooseExample(EXAMPLE_CHOICE::RENDER_TO_TEXTURE);
+	}
 
 	// EXAMPLES' GUI
 	specularLightExample_->gui(camera);
@@ -230,6 +235,7 @@ void GraphicsApp::gui()
 	terrainTessellationExample_->gui(camera);
 	multiLightExample_->gui(camera);
 	geometryExample_->gui(camera);
+	renderToTextureExample_->gui(camera);
 
 	// Render UI
 	ImGui::Render();
@@ -241,7 +247,8 @@ void GraphicsApp::setActiveExample(
 	bool& inactiveEg2, 
 	bool& inactiveEg3, 
 	bool& inactiveEg4, 
-	bool& inactiveEg5)
+	bool& inactiveEg5,
+	bool& inactiveEg6)
 {
 	activeEg = !activeEg;
 	inactiveEg1 = false;
@@ -249,6 +256,7 @@ void GraphicsApp::setActiveExample(
 	inactiveEg3 = false;
 	inactiveEg4 = false;
 	inactiveEg5 = false;
+	inactiveEg6 = false;
 }
 
 void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
@@ -256,10 +264,10 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 	switch (eg)
 	{
 	case EXAMPLE_CHOICE::SPECULAR_LIGHT:
-		example_ = renderToTextureExample_;
+		example_ = specularLightExample_;
 		example_choice_ = EXAMPLE_CHOICE::SPECULAR_LIGHT;
 		setActiveExample(specularLightExample_->example_, tessellationExample_->example_, terrainExample_->example_,
-			multiLightExample_->example_, geometryExample_->example_, terrainTessellationExample_->example_);
+			multiLightExample_->example_, geometryExample_->example_, terrainTessellationExample_->example_, renderToTextureExample_->example_);
 
 		specularLightExample_->resetExample(camera);
 		break;
@@ -268,7 +276,7 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 		example_ = tessellationExample_;
 		example_choice_ = EXAMPLE_CHOICE::TESSELLATION;
 		setActiveExample(tessellationExample_->example_, specularLightExample_->example_, terrainExample_->example_,
-			multiLightExample_->example_, geometryExample_->example_, terrainTessellationExample_->example_);
+			multiLightExample_->example_, geometryExample_->example_, terrainTessellationExample_->example_, renderToTextureExample_->example_);
 
 		tessellationExample_->resetExample(camera);
 		break;
@@ -278,7 +286,7 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 		// set choice
 		example_choice_ = EXAMPLE_CHOICE::TERRAIN;
 		setActiveExample(terrainExample_->example_, specularLightExample_->example_, tessellationExample_->example_,
-			multiLightExample_->example_, geometryExample_->example_, terrainTessellationExample_->example_);
+			multiLightExample_->example_, geometryExample_->example_, terrainTessellationExample_->example_, renderToTextureExample_->example_);
 
 		terrainExample_->resetExample(camera);
 		break;
@@ -288,7 +296,7 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 		// set choice
 		example_choice_ = EXAMPLE_CHOICE::TERRAIN;
 		setActiveExample(terrainTessellationExample_->example_, specularLightExample_->example_, tessellationExample_->example_,
-			multiLightExample_->example_, geometryExample_->example_, terrainExample_->example_);
+			multiLightExample_->example_, geometryExample_->example_, terrainExample_->example_, renderToTextureExample_->example_);
 
 		terrainTessellationExample_->resetExample(camera);
 		break;
@@ -298,7 +306,7 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 		// set choice
 		example_choice_ = EXAMPLE_CHOICE::MULTILIGHT;
 		setActiveExample(multiLightExample_->example_, specularLightExample_->example_, tessellationExample_->example_,
-			terrainExample_->example_, geometryExample_->example_, terrainTessellationExample_->example_);
+			terrainExample_->example_, geometryExample_->example_, terrainTessellationExample_->example_, renderToTextureExample_->example_);
 
 		multiLightExample_->resetExample(camera);
 		break;
@@ -308,7 +316,17 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 		// set choice
 		example_choice_ = EXAMPLE_CHOICE::GEOMETRY;
 		setActiveExample(geometryExample_->example_, specularLightExample_->example_, tessellationExample_->example_,
-			terrainExample_->example_, multiLightExample_->example_, terrainTessellationExample_->example_);
+			terrainExample_->example_, multiLightExample_->example_, terrainTessellationExample_->example_, renderToTextureExample_->example_);
+
+		geometryExample_->resetExample(camera);
+		break;
+
+	case EXAMPLE_CHOICE::RENDER_TO_TEXTURE:
+		example_ = renderToTextureExample_;
+		// set choice
+		example_choice_ = EXAMPLE_CHOICE::GEOMETRY;
+		setActiveExample(renderToTextureExample_->example_, specularLightExample_->example_, tessellationExample_->example_,
+			terrainExample_->example_, multiLightExample_->example_, terrainTessellationExample_->example_, geometryExample_->example_);
 
 		geometryExample_->resetExample(camera);
 		break;
@@ -317,7 +335,7 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 		example_ = specularLightExample_;
 		example_choice_ = EXAMPLE_CHOICE::SPECULAR_LIGHT;
 		setActiveExample(specularLightExample_->example_, tessellationExample_->example_, terrainExample_->example_,
-			multiLightExample_->example_, geometryExample_->example_, terrainTessellationExample_->example_);
+			multiLightExample_->example_, geometryExample_->example_, terrainTessellationExample_->example_, renderToTextureExample_->example_);
 
 		specularLightExample_->resetExample(camera);
 		break;
