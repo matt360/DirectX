@@ -1,19 +1,17 @@
 // Application.h
-#ifndef _APP1_H
-#define _APP1_H
+#pragma once
 
 // Includes
-#include "../DXFramework/DXF.h"
-#include "ColourShader.h"
+#include "Example.h"
 #include "LightShader.h"
 #include "TextureShader.h"
 
-class App1 : public BaseApplication
+class RenderToTextureExample : public Example
 {
 public:
 
-	App1();
-	~App1();
+	RenderToTextureExample();
+	~RenderToTextureExample();
 	void init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input* in);
 
 	bool frame();
@@ -28,23 +26,14 @@ protected:
 	void RenderScene(float time);
 
 private:
-	TriangleMesh* triangleMesh;
-	SphereMesh* sphereMesh;
-	CubeMesh* cubeMesh;
-	QuadMesh* quadMesh;
-	PlaneMesh* planeMesh;
 	// Shader handler
-	ColourShader* colourShader;
 	LightShader* lightShader;
 	TextureShader* textureShader;
 	
 	Light* light;
 
 	RenderTexture* renderTexture;
-
 	OrthoMesh* orthoMesh;
 
 	float light_y;
 };
-
-#endif

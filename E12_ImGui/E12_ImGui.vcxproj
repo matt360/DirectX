@@ -158,7 +158,9 @@
     <ClCompile Include="GeometryExample.cpp" />
     <ClCompile Include="GeometryShader.cpp" />
     <ClCompile Include="GraphicsApp.cpp" />
+    <ClCompile Include="LightShader.cpp" />
     <ClCompile Include="MultiLightExample.cpp" />
+    <ClCompile Include="RenderToTextureExample.cpp" />
     <ClCompile Include="SpecularLightExample.cpp" />
     <ClCompile Include="SpecularLightShader.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -169,13 +171,16 @@
     <ClCompile Include="TerrainTessellationShader.cpp" />
     <ClCompile Include="TessellationExample.cpp" />
     <ClCompile Include="TessellationShader.cpp" />
+    <ClCompile Include="TextureShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Example.h" />
     <ClInclude Include="GeometryExample.h" />
     <ClInclude Include="GeometryShader.h" />
     <ClInclude Include="GraphicsApp.h" />
+    <ClInclude Include="LightShader.h" />
     <ClInclude Include="MultiLightExample.h" />
+    <ClInclude Include="RenderToTextureExample.h" />
     <ClInclude Include="SpecularLightExample.h" />
     <ClInclude Include="SpecularLightShader.h" />
     <ClInclude Include="MultiLightShader.h" />
@@ -185,6 +190,7 @@
     <ClInclude Include="TerrainTessellationShader.h" />
     <ClInclude Include="TessellationExample.h" />
     <ClInclude Include="TessellationShader.h" />
+    <ClInclude Include="TextureShader.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\geometry_gs.hlsl">
@@ -205,6 +211,8 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
     </FxCompile>
+    <FxCompile Include="shaders\light_ps.hlsl" />
+    <FxCompile Include="shaders\light_vs.hlsl" />
     <FxCompile Include="shaders\spec_light_ps.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
@@ -289,6 +297,8 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
     </FxCompile>
+    <FxCompile Include="shaders\texture_ps.hlsl" />
+    <FxCompile Include="shaders\texture_vs.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

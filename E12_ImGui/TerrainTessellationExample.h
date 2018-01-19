@@ -17,8 +17,14 @@ public:
 	void resetExample(Camera* camera);
 
 private:
+	void renderToTexture(D3D* renderer, Camera* camera, TextureManager* textureMgr);
+	void renderScene(D3D* renderer, Camera* camera, TextureManager* textureMgr);
 	// shader handler
 	TerrainTessellationShader* shader_;
+	// render to texture
+	RenderTexture* renderTexture;
+	OrthoMesh* orthoMesh;
+
 	// light
 	Light* light_;
 

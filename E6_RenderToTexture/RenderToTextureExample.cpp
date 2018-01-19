@@ -1,8 +1,8 @@
 // Lab1.cpp
 // Lab 1 example, simple coloured triangle mesh
-#include "App1.h"
+#include "RenderToTextureExample.h"
 
-App1::App1()
+RenderToTextureExample::RenderToTextureExample()
 {
 	//BaseApplication::BaseApplication();
 	triangleMesh = nullptr;
@@ -11,7 +11,6 @@ App1::App1()
 	quadMesh = nullptr;
 	planeMesh = nullptr;
 
-	colourShader = nullptr;
 	lightShader = nullptr;
 	textureShader = nullptr;
 
@@ -21,7 +20,7 @@ App1::App1()
 	orthoMesh = nullptr;
 }
 
-void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
+void RenderToTextureExample::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
 {
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in);
@@ -57,7 +56,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	orthoMesh = new OrthoMesh(renderer->getDevice(), renderer->getDeviceContext(), 200, 150, -412, 225);
 }
 
-void App1::initLight()
+void RenderToTextureExample::initLight()
 {
 	light = new Light;
 	light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
@@ -69,7 +68,7 @@ void App1::initLight()
 	light_y = 0.0f;
 }
 
-void App1::RenderToTexture(float time)
+void RenderToTextureExample::RenderToTexture(float time)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
@@ -104,7 +103,7 @@ void App1::RenderToTexture(float time)
 	renderer->setBackBufferRenderTarget();
 }
 
-void App1::RenderScene(float time)
+void RenderToTextureExample::RenderScene(float time)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoViewMatrix, orthoMatrix;
 
@@ -156,7 +155,7 @@ void App1::RenderScene(float time)
 	renderer->endScene();
 }
 
-App1::~App1()
+RenderToTextureExample::~RenderToTextureExample()
 {
 	// Run base application deconstructor
 	BaseApplication::~BaseApplication();
@@ -192,12 +191,6 @@ App1::~App1()
 		planeMesh = 0;
 	}
 
-	if (colourShader)
-	{
-		delete colourShader;
-		colourShader = 0;
-	}
-
 	if (lightShader)
 	{
 		delete lightShader;
@@ -230,7 +223,7 @@ App1::~App1()
 }
 
 
-bool App1::frame()
+bool RenderToTextureExample::frame()
 {
 	bool result;
 
@@ -262,7 +255,7 @@ bool App1::frame()
 	return true;
 }
 
-bool App1::render()
+bool RenderToTextureExample::render()
 {
 	// render it normally to the texture...
 	RenderToTexture(light_y);
@@ -272,7 +265,7 @@ bool App1::render()
 	return true;
 }
 
-void App1::gui()
+void RenderToTextureExample::gui()
 {
 	// Force turn off on Geometry shader
 	renderer->getDeviceContext()->GSSetShader(NULL, NULL, 0);

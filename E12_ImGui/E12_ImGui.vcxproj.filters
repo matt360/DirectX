@@ -43,6 +43,9 @@
     <Filter Include="Resource Files\Terrain Tessellation">
       <UniqueIdentifier>{c6a7ef7d-802f-4fcc-b4c8-0c146368854a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\RenderToTexture">
+      <UniqueIdentifier>{f480f7ef-f3c1-4c46-81e6-d2313208a5f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -90,6 +93,15 @@
     <ClCompile Include="TerrainTessellationShader.cpp">
       <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
+    <ClCompile Include="LightShader.cpp">
+      <Filter>Source Files\Shader Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderToTextureExample.cpp">
+      <Filter>Source Files\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureShader.cpp">
+      <Filter>Source Files\Shader Handlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsApp.h">
@@ -132,6 +144,15 @@
       <Filter>Header Files\Shader Handlers</Filter>
     </ClInclude>
     <ClInclude Include="TerrainTessellationExample.h">
+      <Filter>Header Files\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureShader.h">
+      <Filter>Header Files\Shader Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="LightShader.h">
+      <Filter>Header Files\Shader Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderToTextureExample.h">
       <Filter>Header Files\Examples</Filter>
     </ClInclude>
   </ItemGroup>
@@ -189,6 +210,18 @@
     </FxCompile>
     <FxCompile Include="shaders\terrain_tessellation_gs.hlsl">
       <Filter>Resource Files\Terrain Tessellation</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\light_ps.hlsl">
+      <Filter>Resource Files\RenderToTexture</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\light_vs.hlsl">
+      <Filter>Resource Files\RenderToTexture</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\texture_ps.hlsl">
+      <Filter>Resource Files\RenderToTexture</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\texture_vs.hlsl">
+      <Filter>Resource Files\RenderToTexture</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

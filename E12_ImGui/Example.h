@@ -4,6 +4,8 @@
 #include "../DXFramework/BaseShader.h"
 #include "../DXFramework/Camera.h"
 #include "../DXFramework/TextureManager.h"
+#include "../DXFramework/RenderTexture.h"
+#include "../DXFramework/OrthoMesh.h"
 
 // current example mesh choice 
 enum class MESH_CHOICE { 
