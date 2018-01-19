@@ -1,6 +1,4 @@
-// Texture pixel/fragment shader
-// Basic fragment shader for rendering textured geometry
-
+// PIXEL SHADER
 
 Texture2D texture0 : register(t0);
 Texture2D texture1 : register(t1);

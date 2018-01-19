@@ -1,21 +1,5 @@
-// Light vertex shader
-// Standard issue vertex shader, apply matrices, pass info to pixel shader
+// VERTEX SHADER 
 
-// Vertex buffer 
-// Each of the triangles in the sphere model has three points to it, we call each point a vertex. So for us to render the sphere model we need to put all the vertices that form the sphere into a special 
-// data array that we call a vertex buffer. Once all the points of the sphere model are in the vertex buffer we can then send the vertex buffer to the GPU so that it can render the model.
-
-// The vertex shader program will be called by the GPU for each vertex it needs to process.
-// For example a 5,000 polygon model will run your vertex shader program 15,000 times each frame just to draw that single model.
-// So if you lock your graphics program to 60 fps it will call your vertex shader 900,000 times a second to draw just 5,000 triangles. As you can tell writing efficient vertex shaders is important.
-
-// HLSL is the language we use in DirectX 11 to code these small vertex and pixel shader programs. 
-// The syntax is pretty much identical to the C language with some pre-defined types. 
-// HLSL program files are composed of global variables, type defines, vertex shaders, pixel shaders, and geometry shaders. 
-
-/////////////
-// GLOBALS //
-/////////////
 // Global
 cbuffer MatrixBuffer : register(cb0)
 {
@@ -23,13 +7,6 @@ cbuffer MatrixBuffer : register(cb0)
     matrix viewMatrix;
     matrix projectionMatrix;
 };
-
-// Global
-//cbuffer CameraBuffer : register(cb1)
-//{
-//	float3 cameraPosition;
-//	float paddingCamera;
-//};
 
 // Global
 cbuffer TimeBuffer : register(cb1)
@@ -40,9 +17,6 @@ cbuffer TimeBuffer : register(cb1)
     float padding;
 };
 
-//////////////
-// TYPEDEFS //
-//////////////
 struct VertexInputType
 {
     float4 position : POSITION;

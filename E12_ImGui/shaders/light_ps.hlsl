@@ -1,24 +1,9 @@
-// Light pixel shader
-// Calculate diffuse lighting for a single directional light (also texturing)
+// PIXEL SHADER 
 
-// Pixel shaders are small programs that are written for doing the coloring of the polygons that we draw. 
-// They are run by the GPU for every visible pixel that will be drawn to the screen.
-// Coloring, texturing, lighting, and most other effects you plan to do to your polygon faces are handled by the pixel shader program.
-// Pixel shaders must be efficiently written due to the number of times they will be called by the GPU.
-
-//////////////
-// TEXTURES //
-//////////////
 Texture2D shaderTexture : register(t0);
 
-///////////////////
-// SAMPLE STATES //
-///////////////////
 SamplerState SampleType : register(s0);
 
-//////////////////////
-// CONSTANT BUFFERS //
-//////////////////////
 cbuffer LightBuffer : register(cb0)
 {
     float4 ambientColor;
@@ -29,9 +14,6 @@ cbuffer LightBuffer : register(cb0)
     float3 lightPosition;
 };
 
-//////////////
-// TYPEDEFS //
-//////////////
 struct PixelInputType
 {
     float4 position : SV_POSITION;
@@ -40,9 +22,6 @@ struct PixelInputType
 	float3 position3D : TEXCOORD1;
 };
 
-////////////////////////////////////////////////////////////////////////////////
-// Pixel Shader
-////////////////////////////////////////////////////////////////////////////////
 float4 main(PixelInputType input) : SV_TARGET
 {
 	float4 textureColor;

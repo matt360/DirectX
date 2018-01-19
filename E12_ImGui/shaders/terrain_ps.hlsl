@@ -1,11 +1,5 @@
 // PIXEL SHADER
 
-// TODO delete
-// Pixel shaders are small programs that are written for doing the coloring of the polygons that we draw. 
-// They are run by the GPU for every visible pixel that will be drawn to the screen.
-// Coloring, texturing, lighting, and most other effects you plan to do to your polygon faces are handled by the pixel shader program.
-// Pixel shaders must be efficiently written due to the number of times they will be called by the GPU.
-
 // Textures
 Texture2D tex1 : register(t0);
 Texture2D tex2 : register(t1);
@@ -157,13 +151,4 @@ float4 main(PixelInputType input) : SV_TARGET
     }
 	
     return color;
-
-
-	// calcute new position of the pixel
-
-    //input.tex += pixelOffset;
-    //textureColour = sceneTexture.Samp[length(SampleType(sampler0, input.tex);
-
-	//// Add the specular component last to the output color.
-	//color = saturate(color + specular);
 }
