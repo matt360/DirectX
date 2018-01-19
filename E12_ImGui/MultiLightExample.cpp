@@ -147,7 +147,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 		worldMatrix,
 		viewMatrix,
 		projectionMatrix,
-		textureMgr->getTexture("checkerboard"), // for the default textrue pass an empty string as a name
+		textureMgr->getTexture("brick"), // for the default textrue pass an empty string as a name
 		light_colours_,
 		light_positions_
 	);
