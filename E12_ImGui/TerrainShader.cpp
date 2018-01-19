@@ -224,7 +224,6 @@ void TerrainShader::setShaderParameters(
 
 	// Set the position of the constant buffer in the vertex shader with the updated values.
 	deviceContext->VSSetConstantBuffers(0, 1, &matrixBuffer_);
-	deviceContext->VSSetConstantBuffers(1, 1, &timeBuffer_);
 
 	// Set the position of the constant buffer in the pixel shader with the updated values.
 	deviceContext->PSSetConstantBuffers(0, 1, &lightBuffer_);

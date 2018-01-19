@@ -14,15 +14,6 @@ cbuffer MatrixBuffer : register(cb0)
     matrix projectionMatrix;
 };
 
-// Global
-cbuffer TimeBuffer : register(cb1)
-{
-    float time;
-    float height;
-    float frequency;
-    float choice;
-};
-
 // TYPEDEFS
 struct InputType
 {
@@ -43,7 +34,6 @@ OutputType main(InputType input)
 {
     // return output;
     OutputType output;
-    float heightWave = height;
  
 	// Change the position vector to be 4 units for proper matrix calculations.
     input.position.w = 1.0f;

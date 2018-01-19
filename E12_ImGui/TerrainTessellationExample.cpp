@@ -131,7 +131,7 @@ void TerrainTessellationExample::gui(Camera* camera)
 		// wireframe
 		ImGui::Checkbox("Wireframe", &wireframe_);
 		if (ImGui::Checkbox("Explode", &explode_)) { time_ = 0; }
-		ImGui::SliderFloat("Explode Rate: ", (float*)&time_, 0.0f, 200.0f);
+		ImGui::SliderFloat("Explode Rate: ", (float*)&time_, 0.0f, 1000.0f);
 		// scale_
 		ImGui::SliderFloat("Scale X", (float*)&scale_.x, -15.0f, 15.0f);
 		ImGui::SliderFloat("Scale Y", (float*)&scale_.y, -15.0f, 15.0f);
@@ -143,6 +143,9 @@ void TerrainTessellationExample::gui(Camera* camera)
 		if (ImGui::Button("Height Tex: bunny")) height_texture_ = "bunny";
 		if (ImGui::Button("Height Tex: height")) height_texture_ = "height";
 		if (ImGui::Button("Height Tex: checkerboard")) height_texture_ = "checkerboard";
+		if (ImGui::Button("Height Tex: grass")) height_texture_ = "grass";
+		if (ImGui::Button("Height Tex: rock")) height_texture_ = "rock";
+		if (ImGui::Button("Height Tex: slope")) height_texture_ = "slope";
 		// set mapping texture 1
 		if (ImGui::Button("Map Tex1: brick")) mapping_texture_1_ = "brick";
 		if (ImGui::Button("Map Tex1: bunny")) mapping_texture_1_ = "bunny";

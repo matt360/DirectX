@@ -281,7 +281,7 @@ void RenderToTextureExample::gui(Camera * camera)
 void RenderToTextureExample::resetExample(Camera * camera)
 {
 	// set cube mesh
-	set_mesh_choice(MESH_CHOICE::CUBE);
+	set_mesh_choice(MESH_CHOICE::SPHERE);
 	// reset geometry shader scale_
 	scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	// reset geometry shader wireframe mode
@@ -290,7 +290,6 @@ void RenderToTextureExample::resetExample(Camera * camera)
 	d3d11_primitive_topology_trianglelist_ = true;
 	d3d11_primitive_topology_pointlist_ = false;
 	// set the camera
-	camera->setPosition(13.0f, 4.0f, -22.0f);
-	camera->setRotation(0.0f, -30.0f, 7.0f);
+	camera->resetCamera();
 }
 
