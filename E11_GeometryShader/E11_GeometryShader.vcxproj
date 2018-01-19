@@ -14,6 +14,7 @@
     <ProjectGuid>{8553CDFB-FC2F-43E9-BC77-A2822C254D7B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>E11_GeometryShader</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

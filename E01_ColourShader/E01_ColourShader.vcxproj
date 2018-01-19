@@ -14,6 +14,7 @@
     <ProjectGuid>{7169974C-40D1-4884-8E97-4A9D907BD9E7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>E01_ColourShader</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

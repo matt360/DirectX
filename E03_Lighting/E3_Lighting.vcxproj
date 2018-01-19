@@ -14,6 +14,7 @@
     <ProjectGuid>{96F6C004-93E7-4496-9BB5-6CF49951F377}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>E3_Lighting</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

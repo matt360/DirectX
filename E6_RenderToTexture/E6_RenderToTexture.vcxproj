@@ -14,6 +14,7 @@
     <ProjectGuid>{B3140C45-7E85-4AA5-82DE-035C9B95EEEF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>E6_RenderToTexture</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

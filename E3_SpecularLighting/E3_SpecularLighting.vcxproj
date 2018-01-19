@@ -14,6 +14,7 @@
     <ProjectGuid>{8004C911-D61F-4DD7-A3AE-5BC0D09CEDD1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>E3_SpecularLighting</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
