@@ -1,6 +1,7 @@
 #pragma once
 #include "Example.h"
 #include "TerrainTessellationShader.h"
+#include "TextureShader.h"
 
 class TerrainTessellationExample : public Example
 {
@@ -21,6 +22,7 @@ private:
 	void renderScene(D3D* renderer, Camera* camera, TextureManager* textureMgr);
 	// shader handler
 	TerrainTessellationShader* shader_;
+	TextureShader* textureShader_;
 	// render to texture
 	RenderTexture* renderTexture;
 	OrthoMesh* orthoMesh;
