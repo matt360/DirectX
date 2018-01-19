@@ -55,9 +55,9 @@ void RenderToTextureExample::init(D3D * renderer, HWND hwnd, int screenWidth, in
 
 void RenderToTextureExample::initShader(D3D * renderer, HWND hwnd, int screenWidth, int screenHeight)
 {
-	lightShader = new LightShader(renderer->getDevice(), hwnd);
+	lightShader = new RTTLightShader(renderer->getDevice(), hwnd);
 
-	textureShader = new TextureShader(renderer->getDevice(), hwnd);
+	textureShader = new RTTTextureShader(renderer->getDevice(), hwnd);
 
 	// Create light source (for normal scene rendering)
 	initLight();
@@ -101,10 +101,6 @@ void RenderToTextureExample::renderToTexture(D3D* renderer, Camera* camera, Text
 	// Generate the view matrix based on the camera's position.
 	camera->update();
 
-	// Get the world, view, and projection matrices from the camera and d3d objects.
-	//worldMatrix = renderer->getWorldMatrix();
-	//viewMatrix = camera->getViewMatrix();
-	//projectionMatrix = renderer->getProjectionMatrix();
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	// WORLD MATRIX
 	worldMatrix = renderer->getWorldMatrix();
@@ -122,6 +118,9 @@ void RenderToTextureExample::renderToTexture(D3D* renderer, Camera* camera, Text
 	viewMatrix = camera->getViewMatrix();
 	// PROJECTION MATRIX
 	projectionMatrix = renderer->getProjectionMatrix();
+
+	// wireframe mode
+	renderer->setWireframeMode(wireframe_);
 
 	// Set primitive topology
 	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
@@ -152,10 +151,6 @@ void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureM
 	// Generate the view matrix based on the camera's position.
 	camera->update();
 
-	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	/*worldMatrix = renderer->getWorldMatrix();
-	viewMatrix = camera->getViewMatrix();
-	projectionMatrix = renderer->getProjectionMatrix();*/
 	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	// WORLD MATRIX
 	worldMatrix = renderer->getWorldMatrix();

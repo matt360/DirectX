@@ -1,6 +1,5 @@
 // texture shader.h
-#ifndef _TEXTURESHADER_H_
-#define _TEXTURESHADER_H_
+#pragma once
 
 #include "../DXFramework/BaseShader.h"
 
@@ -8,13 +7,13 @@ using namespace std;
 using namespace DirectX;
 
 
-class TextureShader : public BaseShader
+class RTTTextureShader : public BaseShader
 {
 
 public:
 
-	TextureShader(ID3D11Device* device, HWND hwnd);
-	~TextureShader();
+	RTTTextureShader(ID3D11Device* device, HWND hwnd);
+	~RTTTextureShader();
 
 	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &world, const XMMATRIX &view, const XMMATRIX &projection, ID3D11ShaderResourceView* texture);
 	void setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &world, const XMMATRIX &view, const XMMATRIX &projection, ID3D11ShaderResourceView* texture_1, ID3D11ShaderResourceView* texture_2);
@@ -27,5 +26,3 @@ private:
 	ID3D11Buffer* matrixBuffer;
 	ID3D11SamplerState* sampleState;
 };
-
-#endif

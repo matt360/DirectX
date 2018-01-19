@@ -2,13 +2,13 @@
 #include "textureshader.h"
 
 
-TextureShader::TextureShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
+RTTTextureShader::RTTTextureShader(ID3D11Device* device, HWND hwnd) : BaseShader(device, hwnd)
 {
 	initShader(L"texture_vs.cso", L"texture_ps.cso");
 }
 
 
-TextureShader::~TextureShader()
+RTTTextureShader::~RTTTextureShader()
 {
 	// Release the sampler state.
 	if (sampleState)
@@ -36,7 +36,7 @@ TextureShader::~TextureShader()
 }
 
 
-void TextureShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
+void RTTTextureShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 {
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	D3D11_SAMPLER_DESC samplerDesc;
@@ -76,7 +76,7 @@ void TextureShader::initShader(WCHAR* vsFilename, WCHAR* psFilename)
 }
 
 
-void TextureShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture)
+void RTTTextureShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -113,7 +113,7 @@ void TextureShader::setShaderParameters(ID3D11DeviceContext* deviceContext, cons
 	deviceContext->PSSetShaderResources(0, 1, &texture);
 }
 
-void TextureShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture_1, ID3D11ShaderResourceView* texture_2)
+void RTTTextureShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture_1, ID3D11ShaderResourceView* texture_2)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -152,7 +152,7 @@ void TextureShader::setShaderParameters(ID3D11DeviceContext* deviceContext, cons
 	deviceContext->PSSetShaderResources(1, 1, &texture_2);
 }
 
-void TextureShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
+void RTTTextureShader::render(ID3D11DeviceContext* deviceContext, int indexCount)
 {
 	// Set the sampler state in the pixel shader.
 	deviceContext->PSSetSamplers(0, 1, &sampleState);

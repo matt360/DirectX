@@ -1,7 +1,6 @@
 // Light shader.h
 // Basic single light shader setup
-#ifndef _LIGHTSHADER_H_
-#define _LIGHTSHADER_H_
+#pragma once
 
 #include "../DXFramework/BaseShader.h"
 #include "../DXFramework/Light.h"
@@ -11,7 +10,7 @@ using namespace std;
 using namespace DirectX;
 
 
-class LightShader : public BaseShader
+class RTTLightShader : public BaseShader
 {
 private:
 	struct LightBufferType
@@ -42,8 +41,8 @@ private:
 public:
 	// When resources are being created and interfaced with,
 	// the 'device' interface is used.
-	LightShader(ID3D11Device* device, HWND hwnd);
-	~LightShader();
+	RTTLightShader(ID3D11Device* device, HWND hwnd);
+	~RTTLightShader();
 
 	// When the pipeline or a resource is being manipulated,
 	// the 'device context' is used.
@@ -64,5 +63,3 @@ private:
 	ID3D11Buffer* timeBuffer;
 	ID3D11Buffer* cameraBuffer;
 };
-
-#endif

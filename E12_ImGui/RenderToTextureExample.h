@@ -26,8 +26,8 @@ protected:
 	void RenderScene(float time);
 private:
 	// Shader handler
-	LightShader* lightShader;
-	TextureShader* textureShader;
+	RTTLightShader* lightShader;
+	RTTTextureShader* textureShader;
 	
 	Light* light;
 
