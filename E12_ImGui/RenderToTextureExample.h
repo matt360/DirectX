@@ -3,8 +3,8 @@
 
 // Includes
 #include "Example.h"
-#include "LightShader.h"
-#include "TextureShader.h"
+#include "RTTLightShader.h"
+#include "RTTTextureShader.h"
 
 class RenderToTextureExample : public Example
 {

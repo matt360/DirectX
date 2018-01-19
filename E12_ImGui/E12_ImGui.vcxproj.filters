@@ -93,13 +93,13 @@
     <ClCompile Include="TerrainTessellationShader.cpp">
       <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="LightShader.cpp">
-      <Filter>Source Files\Shader Handlers</Filter>
-    </ClCompile>
     <ClCompile Include="RenderToTextureExample.cpp">
       <Filter>Source Files\Examples</Filter>
     </ClCompile>
-    <ClCompile Include="TextureShader.cpp">
+    <ClCompile Include="RTTLightShader.cpp">
+      <Filter>Source Files\Shader Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="RTTTextureShader.cpp">
       <Filter>Source Files\Shader Handlers</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,14 +146,14 @@
     <ClInclude Include="TerrainTessellationExample.h">
       <Filter>Header Files\Examples</Filter>
     </ClInclude>
-    <ClInclude Include="TextureShader.h">
-      <Filter>Header Files\Shader Handlers</Filter>
-    </ClInclude>
-    <ClInclude Include="LightShader.h">
-      <Filter>Header Files\Shader Handlers</Filter>
-    </ClInclude>
     <ClInclude Include="RenderToTextureExample.h">
       <Filter>Header Files\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="RTTLightShader.h">
+      <Filter>Header Files\Shader Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="RTTTextureShader.h">
+      <Filter>Header Files\Shader Handlers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

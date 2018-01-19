@@ -158,7 +158,7 @@
     <ClCompile Include="GeometryExample.cpp" />
     <ClCompile Include="GeometryShader.cpp" />
     <ClCompile Include="GraphicsApp.cpp" />
-    <ClCompile Include="LightShader.cpp" />
+    <ClCompile Include="RTTLightShader.cpp" />
     <ClCompile Include="MultiLightExample.cpp" />
     <ClCompile Include="RenderToTextureExample.cpp" />
     <ClCompile Include="SpecularLightExample.cpp" />
@@ -171,14 +171,14 @@
     <ClCompile Include="TerrainTessellationShader.cpp" />
     <ClCompile Include="TessellationExample.cpp" />
     <ClCompile Include="TessellationShader.cpp" />
-    <ClCompile Include="TextureShader.cpp" />
+    <ClCompile Include="RTTTextureShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Example.h" />
     <ClInclude Include="GeometryExample.h" />
     <ClInclude Include="GeometryShader.h" />
     <ClInclude Include="GraphicsApp.h" />
-    <ClInclude Include="LightShader.h" />
+    <ClInclude Include="RTTLightShader.h" />
     <ClInclude Include="MultiLightExample.h" />
     <ClInclude Include="RenderToTextureExample.h" />
     <ClInclude Include="SpecularLightExample.h" />
@@ -190,7 +190,7 @@
     <ClInclude Include="TerrainTessellationShader.h" />
     <ClInclude Include="TessellationExample.h" />
     <ClInclude Include="TessellationShader.h" />
-    <ClInclude Include="TextureShader.h" />
+    <ClInclude Include="RTTTextureShader.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\geometry_gs.hlsl">
