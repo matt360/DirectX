@@ -13,123 +13,6 @@ RenderToTextureExample::RenderToTextureExample()
 	orthoMesh = nullptr;
 }
 
-void RenderToTextureExample::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
-{
-	lightShader = new LightShader(renderer->getDevice(), hwnd);
-
-	textureShader = new TextureShader(renderer->getDevice(), hwnd);
-
-	// Create light source (for normal scene rendering)
-	initLight();
-
-	// RenderTexture, OrthoMesh and shader set for different renderTarget
-	renderTexture = new RenderTexture(renderer->getDevice(), screenWidth, screenHeight, SCREEN_NEAR, SCREEN_DEPTH);
-
-	// ortho size and position set based on window size
-	// 200x200 pixels (standard would be matching window size for fullscreen mesh
-	// Position default at 0x0 centre window, to offset change values (pixel)
-	orthoMesh = new OrthoMesh(renderer->getDevice(), renderer->getDeviceContext(), 200, 150, -412, 225);
-}
-
-void RenderToTextureExample::initLight()
-{
-	light = new Light;
-	light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
-	light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light->setDirection(0.0, 0.0f, 0.0f);
-	light->setSpecularPower(16.f);
-	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light->setPosition(0.0f, 0.1f, 0.0f);
-	light_y = 0.0f;
-}
-
-void RenderToTextureExample::RenderToTexture(float time)
-{
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-
-	// Set the render target to be the render to texture.
-	renderTexture->setRenderTarget(renderer->getDeviceContext());
-
-	// Clear the render to texture.
-	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 1.0f, 1.0f);
-
-	// Generate the view matrix based on the camera's position.
-	camera->update();
-
-	// Get the world, view, and projection matrices from the camera and d3d objects.
-	worldMatrix = renderer->getWorldMatrix();
-	viewMatrix = camera->getViewMatrix();
-	projectionMatrix = renderer->getProjectionMatrix();
-
-	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	cubeMesh->sendData(renderer->getDeviceContext());
-	lightShader->setShaderParameters
-	(
-		renderer->getDeviceContext(), 
-		worldMatrix, viewMatrix, projectionMatrix, 
-		textureMgr->getTexture("default"), 
-		light, 
-		time
-	);
-	// Render object (combination of mesh geometry and shader process
-	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-
-	// Reset the render target back to the original back buffer and not the render to texture anymore.
-	renderer->setBackBufferRenderTarget();
-}
-
-void RenderToTextureExample::RenderScene(float time)
-{
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoViewMatrix, orthoMatrix;
-
-	// Clear the scene. (default blue colour)
-	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-
-	// Generate the view matrix based on the camera's position.
-	camera->update();
-
-	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	worldMatrix = renderer->getWorldMatrix();
-	viewMatrix = camera->getViewMatrix();
-	projectionMatrix = renderer->getProjectionMatrix();
-
-	// Send geometry data (from mesh)
-	cubeMesh->sendData(renderer->getDeviceContext());
-	// Set shader parameters (matrices and texture)
-	lightShader->setShaderParameters
-	(
-		renderer->getDeviceContext(), 
-		worldMatrix, viewMatrix, projectionMatrix, 
-		textureMgr->getTexture("default"), 
-		light, 
-		time
-	);
-	// Render object (combination of mesh geometry and shader process
-	lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-
-
-	// Render to ortho mesh
-	// Turn off the Z buffer to begin all 2D rendering. //////////////////////////
-	renderer->setZBuffer(false);
-	// ortho matrix for 2D rendering
-	orthoMatrix = renderer->getOrthoMatrix();
-	orthoViewMatrix = camera->getOrthoViewMatrix();
-
-	orthoMesh->sendData(renderer->getDeviceContext());
-	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, orthoViewMatrix, orthoMatrix,
-		renderTexture->getShaderResourceView()
-	);
-	textureShader->render(renderer->getDeviceContext(), orthoMesh->getIndexCount());
-	// Enable Z buffering after rendering //////////////////////////////////////////
-	renderer->setZBuffer(true);
-
-	// Render GUI
-	gui();
-
-	// Present the rendered scene to the screen.
-	renderer->endScene();
-}
-
 RenderToTextureExample::~RenderToTextureExample()
 {
 	if (lightShader)
@@ -163,25 +46,150 @@ RenderToTextureExample::~RenderToTextureExample()
 	}
 }
 
-bool RenderToTextureExample::render()
+void RenderToTextureExample::init(D3D * renderer, HWND hwnd)
+{
+	initShader(renderer, hwnd);
+	initVariables();
+	initLight();
+}
+
+void RenderToTextureExample::initShader(D3D * renderer, HWND hwnd)
+{
+	lightShader = new LightShader(renderer->getDevice(), hwnd);
+
+	textureShader = new TextureShader(renderer->getDevice(), hwnd);
+
+	// Create light source (for normal scene rendering)
+	initLight();
+
+	// RenderTexture, OrthoMesh and shader set for different renderTarget
+	//renderTexture = new RenderTexture(renderer->getDevice(), screenWidth, screenHeight, SCREEN_NEAR, SCREEN_DEPTH);
+	renderTexture = new RenderTexture(renderer->getDevice(), 800, 600, 0.1f, 200.0f);
+
+	// ortho size and position set based on window size
+	// 200x200 pixels (standard would be matching window size for fullscreen mesh
+	// Position default at 0x0 centre window, to offset change values (pixel)
+	orthoMesh = new OrthoMesh(renderer->getDevice(), renderer->getDeviceContext(), 200, 150, -412, 225);
+}
+
+void RenderToTextureExample::initVariables()
+{
+}
+
+void RenderToTextureExample::initLight()
+{
+	light = new Light;
+	light->setAmbientColour(0.5f, 0.5f, 0.5f, 1.0f);
+	light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light->setDirection(0.0, 0.0f, 0.0f);
+	light->setSpecularPower(16.f);
+	light->setSpecularColour(1.0f, 1.0f, 1.0f, 1.0f);
+	light->setPosition(0.0f, 0.1f, 0.0f);
+	light_y = 0.0f;
+}
+
+void RenderToTextureExample::renderToTexture(D3D* renderer, Camera* camera, TextureManager* textureMgr)
+{
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+
+	// Set the render target to be the render to texture.
+	renderTexture->setRenderTarget(renderer->getDeviceContext());
+
+	// Clear the render to texture.
+	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 1.0f, 1.0f);
+
+	// Generate the view matrix based on the camera's position.
+	camera->update();
+
+	// Get the world, view, and projection matrices from the camera and d3d objects.
+	worldMatrix = renderer->getWorldMatrix();
+	viewMatrix = camera->getViewMatrix();
+	projectionMatrix = renderer->getProjectionMatrix();
+
+	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
+	mesh_->sendData(renderer->getDeviceContext());
+	lightShader->setShaderParameters
+	(
+		renderer->getDeviceContext(),
+		worldMatrix, viewMatrix, projectionMatrix,
+		textureMgr->getTexture("default"),
+		light,
+		1.0f
+	);
+	// Render object (combination of mesh geometry and shader process
+	lightShader->render(renderer->getDeviceContext(), mesh_->getIndexCount());
+
+	// Reset the render target back to the original back buffer and not the render to texture anymore.
+	renderer->setBackBufferRenderTarget();
+}
+
+void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureManager* textureMgr)
+{
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoViewMatrix, orthoMatrix;
+
+	// Clear the scene. (default blue colour)
+	//renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
+
+	// Generate the view matrix based on the camera's position.
+	camera->update();
+
+	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
+	worldMatrix = renderer->getWorldMatrix();
+	viewMatrix = camera->getViewMatrix();
+	projectionMatrix = renderer->getProjectionMatrix();
+
+	// Send geometry data (from mesh)
+	mesh_->sendData(renderer->getDeviceContext());
+	// Set shader parameters (matrices and texture)
+	lightShader->setShaderParameters
+	(
+		renderer->getDeviceContext(), 
+		worldMatrix, viewMatrix, projectionMatrix, 
+		textureMgr->getTexture("default"), 
+		light, 
+		1.0f
+	);
+	// Render object (combination of mesh geometry and shader process
+	lightShader->render(renderer->getDeviceContext(), mesh_->getIndexCount());
+
+
+	// Render to ortho mesh
+	// Turn off the Z buffer to begin all 2D rendering. //////////////////////////
+	renderer->setZBuffer(false);
+	// ortho matrix for 2D rendering
+	orthoMatrix = renderer->getOrthoMatrix();
+	orthoViewMatrix = camera->getOrthoViewMatrix();
+
+	orthoMesh->sendData(renderer->getDeviceContext());
+	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, orthoViewMatrix, orthoMatrix,
+		renderTexture->getShaderResourceView()
+	);
+	textureShader->render(renderer->getDeviceContext(), orthoMesh->getIndexCount());
+	// Enable Z buffering after rendering //////////////////////////////////////////
+	renderer->setZBuffer(true);
+
+	// Render GUI
+	gui();
+
+	// Present the rendered scene to the screen.
+	renderer->endScene();
+}
+
+bool RenderToTextureExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
 {
 	// render it normally to the texture...
-	RenderToTexture(light_y);
+	renderToTexture(renderer, camera, textureMgr);
 	// ...then render it again to the back buffer
-	RenderScene(light_y);
+	renderScene(renderer, camera, textureMgr);
 
 	return true;
 }
 
-void RenderToTextureExample::gui()
+void RenderToTextureExample::gui(Camera * camera)
 {
-	// Force turn off on Geometry shader
-	renderer->getDeviceContext()->GSSetShader(NULL, NULL, 0);
+}
 
-	// Build UI
-	ImGui::Text("FPS: %.2f", timer->getFPS());
-
-	// Render UI
-	ImGui::Render();
+void RenderToTextureExample::resetExample(Camera * camera)
+{
 }
 

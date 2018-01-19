@@ -12,9 +12,15 @@ public:
 
 	RenderToTextureExample();
 	~RenderToTextureExample();
-	void init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input* in);
-
-	bool frame();
+	void init(D3D* renderer, HWND hwnd);
+	void initShader(D3D* renderer, HWND hwnd);
+	void initVariables();
+	//void initLight();
+	void renderToTexture(D3D* renderer, Camera* camera, TextureManager* textureMgr);
+	void renderScene(D3D* renderer, Camera* camera, TextureManager* textureMgr);
+	void render(D3D* renderer, Camera* camera, TextureManager* textureMgr);
+	void gui(Camera* camera);
+	void resetExample(Camera* camera);
 
 protected:
 	bool render();

@@ -25,7 +25,6 @@ void TerrainTessellationExample::init(D3D* renderer, HWND hwnd)
 	initShader(renderer, hwnd);
 	initVariables();
 	initLight();
-	
 }
 
 // create shader handlers
