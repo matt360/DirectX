@@ -23,6 +23,7 @@ private:
 	vector<Light*> lights_;
 	vector<XMFLOAT4*> light_colours_;
 	vector<XMFLOAT4*> light_positions_;
+	string texture;
 	// TODO delete if not used SphereMesh *lightSphere0_, *lightSphere1_, *lightSphere2_, *lightSphere3_;
 };
 

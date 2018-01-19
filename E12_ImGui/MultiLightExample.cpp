@@ -75,6 +75,8 @@ void MultiLightExample::initVariables()
 	{
 		light_colours_.push_back(new XMFLOAT4);
 	}
+
+	texture = "brick";
 }
 
 void MultiLightExample::initLight()
@@ -147,7 +149,7 @@ void MultiLightExample::render(D3D* renderer, Camera* camera, TextureManager* te
 		worldMatrix,
 		viewMatrix,
 		projectionMatrix,
-		textureMgr->getTexture("brick"), // for the default textrue pass an empty string as a name
+		textureMgr->getTexture(texture), // for the default textrue pass an empty string as a name
 		light_colours_,
 		light_positions_
 	);
@@ -246,6 +248,13 @@ void MultiLightExample::gui(Camera* camera)
 
 			set_mesh_choice(MESH_CHOICE::PLANE);
 		}
+		if (ImGui::Button("Tex: brick")) texture = "brick";
+		if (ImGui::Button("Tex: bunny")) texture = "bunny";
+		if (ImGui::Button("Tex: height")) texture = "height";
+		if (ImGui::Button("Tex: checkerboard")) texture = "checkerboard";
+		if (ImGui::Button("Tex: grass")) texture = "grass";
+		if (ImGui::Button("Tex: rock")) texture = "rock";
+		if (ImGui::Button("Tex: slope")) texture = "slope";
 		ImGui::End();
 	}
 }
