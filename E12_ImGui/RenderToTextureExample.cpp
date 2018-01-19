@@ -168,25 +168,60 @@ void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureM
 	// Enable Z buffering after rendering //////////////////////////////////////////
 	renderer->setZBuffer(true);
 
-	// Render GUI
-	gui();
-
 	// Present the rendered scene to the screen.
 	renderer->endScene();
 }
 
-bool RenderToTextureExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
+void RenderToTextureExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
 {
 	// render it normally to the texture...
 	renderToTexture(renderer, camera, textureMgr);
 	// ...then render it again to the back buffer
 	renderScene(renderer, camera, textureMgr);
-
-	return true;
 }
 
 void RenderToTextureExample::gui(Camera * camera)
 {
+	// render only if the example is active
+	if (example_)
+	{
+		ImGui::Begin("Geometry Shader Example", &example_);
+		if (ImGui::Button("Reset Example"))
+		{
+			resetExample(camera);
+		}
+		ImGui::Checkbox("Wireframe", &wireframe_);
+		ImGui::SliderFloat3("Scale", (float*)&scale_, -10.0f, 10.0f);
+		if (ImGui::Button("Reset Scale")) scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
+		if (ImGui::Checkbox("Primitive Topology Trianglelist", &d3d11_primitive_topology_trianglelist_))
+			d3d11_primitive_topology_pointlist_ = false;
+		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist_))
+			d3d11_primitive_topology_trianglelist_ = false;
+
+		// what mesh to render
+		if (ImGui::Checkbox("Triangle Mesh", &triangle_mesh_))
+		{
+			set_mesh_choice(MESH_CHOICE::TRIANGLE);
+		}
+		if (ImGui::Checkbox("Sphere Mesh", &sphere_mesh_))
+		{
+			set_mesh_choice(MESH_CHOICE::SPHERE);
+		}
+		if (ImGui::Checkbox("Cube Mesh", &cube_mesh_))
+		{
+			set_mesh_choice(MESH_CHOICE::CUBE);
+		}
+		if (ImGui::Checkbox("Quad Mesh", &quad_mesh_))
+		{
+			set_mesh_choice(MESH_CHOICE::QUAD);
+		}
+		if (ImGui::Checkbox("Plane Mesh", &plane_mesh_))
+		{
+			set_mesh_choice(MESH_CHOICE::PLANE);
+		}
+
+		ImGui::End();
+	}
 }
 
 void RenderToTextureExample::resetExample(Camera * camera)

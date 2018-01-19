@@ -9,13 +9,12 @@
 class RenderToTextureExample : public Example
 {
 public:
-
 	RenderToTextureExample();
 	~RenderToTextureExample();
 	void init(D3D* renderer, HWND hwnd);
 	void initShader(D3D* renderer, HWND hwnd);
 	void initVariables();
-	//void initLight();
+	void initLight();
 	void renderToTexture(D3D* renderer, Camera* camera, TextureManager* textureMgr);
 	void renderScene(D3D* renderer, Camera* camera, TextureManager* textureMgr);
 	void render(D3D* renderer, Camera* camera, TextureManager* textureMgr);
@@ -23,14 +22,8 @@ public:
 	void resetExample(Camera* camera);
 
 protected:
-	bool render();
-	void gui();
-
-	void initLight();
-
 	void RenderToTexture(float time);
 	void RenderScene(float time);
-
 private:
 	// Shader handler
 	LightShader* lightShader;
