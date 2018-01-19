@@ -42,6 +42,8 @@ void SpecularLightExample::initVariables()
 	// geomatry shader topology handler (set to triangle list by default)
 	d3d11_primitive_topology_trianglelist_ = true;
 	d3d11_primitive_topology_pointlist_ = false;
+
+	texture = "grass";
 }
 
 void SpecularLightExample::initLight()
@@ -88,7 +90,7 @@ void SpecularLightExample::render(D3D* renderer, Camera* camera, TextureManager*
 	// Send geometry data (from mesh)
 	mesh_->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 	// Set shader parameters (matrices and texture)
-	shader_->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), light_, camera);
+	shader_->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture(texture), light_, camera);
 	// Render object (combination of mesh geometry and shader process
 	shader_->render(renderer->getDeviceContext(), mesh_->getIndexCount());
 }
@@ -115,6 +117,13 @@ void SpecularLightExample::gui(Camera* camera)
 			d3d11_primitive_topology_pointlist_ = false;
 		if (ImGui::Checkbox("Primitive Topology Pointlist", &d3d11_primitive_topology_pointlist_))
 			d3d11_primitive_topology_trianglelist_ = false;
+		if (ImGui::Button("Tex: brick")) texture = "brick";
+		if (ImGui::Button("Tex: bunny")) texture = "bunny";
+		if (ImGui::Button("Tex: height")) texture = "height";
+		if (ImGui::Button("Tex: checkerboard")) texture = "checkerboard";
+		if (ImGui::Button("Tex: grass")) texture = "grass";
+		if (ImGui::Button("Tex: rock")) texture = "rock";
+		if (ImGui::Button("Tex: slope")) texture = "slope";
 
 		ImGui::End();
 	}

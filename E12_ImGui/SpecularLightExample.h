@@ -21,5 +21,7 @@ private:
 	SpecularLightShader* shader_;
 	// light
 	Light* light_;
+
+	string texture;
 };
 
