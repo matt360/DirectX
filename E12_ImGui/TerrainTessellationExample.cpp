@@ -25,19 +25,13 @@ void TerrainTessellationExample::init(D3D* renderer, HWND hwnd)
 	initShader(renderer, hwnd);
 	initVariables();
 	initLight();
+	
 }
 
 // create shader handlers
 void TerrainTessellationExample::initShader(D3D* renderer, HWND hwnd)
 {
 	shader_ = new TerrainTessellationShader(renderer->getDevice(), hwnd);
-	// RenderTexture, OrthoMesh and shader set for different renderTarget
-	renderTexture = new RenderTexture(renderer->getDevice(), 800, 600, 0.1f, 200.0f);
-	textureShader_ = new TextureShader(renderer->getDevice(), hwnd);
-	// ortho size and position set based on window size
-	// 200x200 pixels (standard would be matching window size for fullscreen mesh
-	// Position default at 0x0 centre window, to offset change values (pixel)
-	orthoMesh = new OrthoMesh(renderer->getDevice(), renderer->getDeviceContext(), 200, 150, -412, 225);
 }
 
 void TerrainTessellationExample::initVariables()
@@ -67,273 +61,39 @@ void TerrainTessellationExample::initLight()
 	light_->setPosition(-3.0f, 0.0f, 0.0f);
 }
 
-//void TerrainTessellationExample::renderToTexture(D3D * renderer, Camera * camera, TextureManager * textureMgr)
-//{
-//	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-//
-//	// wave's:
-//	float height = 1.0f;
-//
-//	// time for explosion
-//	if (explode_) time_ += 1.0f;
-//
-//	// wireframe mode
-//	renderer->setWireframeMode(wireframe_);
-//
-//	// Set the render target to be the render to texture.
-//	renderTexture->setRenderTarget(renderer->getDeviceContext());
-//
-//	// Clear the render to texture.
-//	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 1.0f, 1.0f);
-//
-//	// Generate the view matrix based on the camera's position.
-//	camera->update();
-//
-//	// Get the world, view, and projection matrices from the camera and d3d objects.
-//	/*worldMatrix = renderer->getWorldMatrix();
-//	viewMatrix = camera->getViewMatrix();
-//	projectionMatrix = renderer->getProjectionMatrix();*/
-//	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-//	//viewMatrix = camera->getViewMatrix();
-//	//projectionMatrix = renderer->getProjectionMatrix();
-//	//// translation and rotation
-//	//worldMatrix = renderer->getWorldMatrix();
-//	//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-//	//XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(180.0f));
-//	//worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
-//	//// scaling
-//	//XMMATRIX matrixScaling = XMMatrixScaling(scale_.x, scale_.y, scale_.z);
-//	//worldMatrix *= matrixScaling;
-//
-//	mesh_->sendData(
-//		renderer->getDeviceContext(),
-//		D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-//	// Set shader parameters (matrices and texture)
-//	shader_->setShaderParameters(
-//		renderer->getDeviceContext(),
-//		worldMatrix,
-//		viewMatrix,
-//		projectionMatrix,
-//		textureMgr->getTexture(height_texture_),
-//		textureMgr->getTexture(mapping_texture_1_),
-//		textureMgr->getTexture(mapping_texture_2_),
-//		light_,
-//		camera,
-//		time_,
-//		height,
-//		frequency_,
-//		choice_);
-//
-//	// Render object (combination of mesh geometry and shader process
-//	shader_->render(
-//		renderer->getDeviceContext(),
-//		mesh_->getIndexCount()); // output data from the shader programme
-//
-//	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-//	//cubeMesh->sendData(renderer->getDeviceContext());
-//	//lightShader->setShaderParameters
-//	//(
-//	//	renderer->getDeviceContext(),
-//	//	worldMatrix, viewMatrix, projectionMatrix,
-//	//	textureMgr->getTexture("default"),
-//	//	light,
-//	//	time
-//	//);
-//	//// Render object (combination of mesh geometry and shader process
-//	//lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-//
-//	// Reset the render target back to the original back buffer and not the render to texture anymore.
-//	renderer->setBackBufferRenderTarget();
-//}
-
-//void TerrainTessellationExample::renderScene(D3D * renderer, Camera * camera, TextureManager * textureMgr)
-//{
-//	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoViewMatrix, orthoMatrix;
-//
-//	// Generate the view matrix based on the camera's position.
-//	camera->update();
-//
-//	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-//	worldMatrix = renderer->getWorldMatrix();
-//	viewMatrix = camera->getViewMatrix();
-//	projectionMatrix = renderer->getProjectionMatrix();
-//
-//	//// Send geometry data (from mesh)
-//	//cubeMesh->sendData(renderer->getDeviceContext());
-//	//// Set shader parameters (matrices and texture)
-//	//lightShader->setShaderParameters
-//	//(
-//	//	renderer->getDeviceContext(),
-//	//	worldMatrix, viewMatrix, projectionMatrix,
-//	//	textureMgr->getTexture("default"),
-//	//	light,
-//	//	time
-//	//);
-//	//// Render object (combination of mesh geometry and shader process
-//	//lightShader->render(renderer->getDeviceContext(), cubeMesh->getIndexCount());
-//
-//	mesh_->sendData(
-//		renderer->getDeviceContext(),
-//		D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-//	// Set shader parameters (matrices and texture)
-//	shader_->setShaderParameters(
-//		renderer->getDeviceContext(),
-//		worldMatrix,
-//		viewMatrix,
-//		projectionMatrix,
-//		textureMgr->getTexture(height_texture_),
-//		textureMgr->getTexture(mapping_texture_1_),
-//		textureMgr->getTexture(mapping_texture_2_),
-//		light_,
-//		camera,
-//		time_,
-//		10.,
-//		frequency_,
-//		choice_);
-//
-//	// Render object (combination of mesh geometry and shader process
-//	shader_->render(
-//		renderer->getDeviceContext(),
-//		mesh_->getIndexCount()); // output data from the shader programme
-//
-//
-//	// Render to ortho mesh
-//	// Turn off the Z buffer to begin all 2D rendering. //////////////////////////
-//	renderer->setZBuffer(false);
-//	// ortho matrix for 2D rendering
-//	orthoMatrix = renderer->getOrthoMatrix();
-//	orthoViewMatrix = camera->getOrthoViewMatrix();
-//
-//	//orthoMesh->sendData(renderer->getDeviceContext());
-//	//textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, orthoViewMatrix, orthoMatrix,
-//	//	renderTexture->getShaderResourceView()
-//	//);
-//	//textureShader->render(renderer->getDeviceContext(), orthoMesh->getIndexCount());
-//
-//	orthoMesh->sendData(
-//		renderer->getDeviceContext(),
-//		D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-//	// Set shader parameters (matrices and texture)
-//	shader_->setShaderParameters(
-//		renderer->getDeviceContext(),
-//		worldMatrix,
-//		viewMatrix,
-//		projectionMatrix,
-//		textureMgr->getTexture(height_texture_),
-//		textureMgr->getTexture(mapping_texture_1_),
-//		textureMgr->getTexture(mapping_texture_2_),
-//		light_,
-//		camera,
-//		time_,
-//		10.,
-//		frequency_,
-//		choice_);
-//
-//	// Render object (combination of mesh geometry and shader process
-//	shader_->render(
-//		renderer->getDeviceContext(),
-//		orthoMesh->getIndexCount()); // output data from the shader programme
-//
-//	// Enable Z buffering after rendering //////////////////////////////////////////
-//	renderer->setZBuffer(true);
-//}
-//
-//void RenderToTextureExample::renderToTexture(D3D* renderer, Camera* camera, TextureManager* textureMgr)
-//{
-//	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-//
-//	// Set the render target to be the render to texture.
-//	renderTexture->setRenderTarget(renderer->getDeviceContext());
-//
-//	// Clear the render to texture.
-//	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 1.0f, 1.0f);
-//
-//	// Generate the view matrix based on the camera's position.
-//	camera->update();
-//
-//	// Get the world, view, and projection matrices from the camera and d3d objects.
-//	worldMatrix = renderer->getWorldMatrix();
-//	viewMatrix = camera->getViewMatrix();
-//	projectionMatrix = renderer->getProjectionMatrix();
-//
-//	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-//	mesh_->sendData(renderer->getDeviceContext());
-//	lightShader->setShaderParameters
-//	(
-//		renderer->getDeviceContext(),
-//		worldMatrix, viewMatrix, projectionMatrix,
-//		textureMgr->getTexture("default"),
-//		light,
-//		1.0f
-//	);
-//	// Render object (combination of mesh geometry and shader process
-//	lightShader->render(renderer->getDeviceContext(), mesh_->getIndexCount());
-//
-//	// Reset the render target back to the original back buffer and not the render to texture anymore.
-//	renderer->setBackBufferRenderTarget();
-//}
-
-void TerrainTessellationExample::renderToTexture(D3D* renderer, Camera* camera, TextureManager* textureMgr)
+void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
-	// Set the render target to be the render to texture.
-	renderTexture->setRenderTarget(renderer->getDeviceContext());
-
-	// Clear the render to texture.
-	renderTexture->clearRenderTarget(renderer->getDeviceContext(), 0.0f, 1.0f, 1.0f, 1.0f);
-
-	// Generate the view matrix based on the camera's position.
-	camera->update();
-
-	// Get the world, view, and projection matrices from the camera and d3d objects.
-	worldMatrix = renderer->getWorldMatrix();
+	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
 	viewMatrix = camera->getViewMatrix();
 	projectionMatrix = renderer->getProjectionMatrix();
+	// translation and rotation
+	worldMatrix = renderer->getWorldMatrix();
+	XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
+	XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(180.0f));
+	worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
+	// scaling
+	XMMATRIX matrixScaling = XMMatrixScaling(scale_.x, scale_.y, scale_.z);
+	worldMatrix *= matrixScaling;
 
-	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	mesh_->sendData(renderer->getDeviceContext());
-	shader_->setShaderParameters(
-		renderer->getDeviceContext(),
-		worldMatrix,
-		viewMatrix,
-		projectionMatrix,
-		textureMgr->getTexture(height_texture_),
-		textureMgr->getTexture(mapping_texture_1_),
-		textureMgr->getTexture(mapping_texture_2_),
-		light_,
-		camera,
-		time_,
-		1.0f,
-		frequency_,
-		choice_);
-	// Render object (combination of mesh geometry and shader process
-	shader_->render(renderer->getDeviceContext(), mesh_->getIndexCount());
+	// wave's:
+	float height = 1.0f;
 
-	// Reset the render target back to the original back buffer and not the render to texture anymore.
-	renderer->setBackBufferRenderTarget();
-}
+	// time for explosion
+	if (explode_) time_ += 1.0f;
 
-void TerrainTessellationExample::renderScene(D3D* renderer, Camera* camera, TextureManager* textureMgr)
-{
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoViewMatrix, orthoMatrix;
-
+	// wireframe mode
 	renderer->setWireframeMode(wireframe_);
 
-	// Clear the scene. (default blue colour)
-	//renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-
-	// Generate the view matrix based on the camera's position.
-	camera->update();
-
-	// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	worldMatrix = renderer->getWorldMatrix();
-	viewMatrix = camera->getViewMatrix();
-	projectionMatrix = renderer->getProjectionMatrix();
-
+	//light_->setPosition(0.0f, sinf(over_time_ * 3.0f), 0.0f);
 	// Send geometry data (from mesh)
-	mesh_->sendData(renderer->getDeviceContext());
+	mesh_->sendData(
+		renderer->getDeviceContext(), 
+		D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
+
 	// Set shader parameters (matrices and texture)
+	//terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
 	shader_->setShaderParameters(
 		renderer->getDeviceContext(), 
 		worldMatrix, 
@@ -345,87 +105,14 @@ void TerrainTessellationExample::renderScene(D3D* renderer, Camera* camera, Text
 		light_, 
 		camera,
 		time_,
-		1.0f, 
+		height, 
 		frequency_,
 		choice_);
+
 	// Render object (combination of mesh geometry and shader process
-	shader_->render(renderer->getDeviceContext(), mesh_->getIndexCount());
-
-
-	// Render to ortho mesh
-	// Turn off the Z buffer to begin all 2D rendering. //////////////////////////
-	renderer->setZBuffer(false);
-	// ortho matrix for 2D rendering
-	orthoMatrix = renderer->getOrthoMatrix();
-	orthoViewMatrix = camera->getOrthoViewMatrix();
-
-	orthoMesh->sendData(renderer->getDeviceContext());
-	textureShader_->setShaderParameters(renderer->getDeviceContext(), worldMatrix, orthoViewMatrix, orthoMatrix,
-		renderTexture->getShaderResourceView()
-	);
-	textureShader_->render(renderer->getDeviceContext(), orthoMesh->getIndexCount());
-	// Enable Z buffering after rendering //////////////////////////////////////////
-	renderer->setZBuffer(true);
-
-	// Present the rendered scene to the screen.
-	//renderer->endScene();
-}
-void TerrainTessellationExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
-{
-	// render it normally to the texture...
-	renderToTexture(renderer, camera, textureMgr);
-	// ...then render it again to the back buffer
-	renderScene(renderer, camera, textureMgr);
-	//XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-
-	//// Get the world, view, projection, and ortho matrices from the camera and Direct3D objects.
-	//viewMatrix = camera->getViewMatrix();
-	//projectionMatrix = renderer->getProjectionMatrix();
-	//// translation and rotation
-	//worldMatrix = renderer->getWorldMatrix();
-	//XMMATRIX matrixTranslation = XMMatrixTranslation(0.0f, 0.0, 0.0f);
-	//XMMATRIX matrixRotation = XMMatrixRotationX(XMConvertToRadians(180.0f));
-	//worldMatrix = XMMatrixMultiply(matrixRotation, matrixTranslation);
-	//// scaling
-	//XMMATRIX matrixScaling = XMMatrixScaling(scale_.x, scale_.y, scale_.z);
-	//worldMatrix *= matrixScaling;
-
-	//// wave's:
-	//float height = 1.0f;
-
-	//// time for explosion
-	//if (explode_) time_ += 1.0f;
-
-	//// wireframe mode
-	//renderer->setWireframeMode(wireframe_);
-
-	////light_->setPosition(0.0f, sinf(over_time_ * 3.0f), 0.0f);
-	//// Send geometry data (from mesh)
-	//mesh_->sendData(
-	//	renderer->getDeviceContext(), 
-	//	D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST);
-
-	//// Set shader parameters (matrices and texture)
-	////terrainShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture("default"), m_Light);
-	//shader_->setShaderParameters(
-	//	renderer->getDeviceContext(), 
-	//	worldMatrix, 
-	//	viewMatrix, 
-	//	projectionMatrix, 
-	//	textureMgr->getTexture(height_texture_),
-	//	textureMgr->getTexture(mapping_texture_1_),
-	//	textureMgr->getTexture(mapping_texture_2_),
-	//	light_, 
-	//	camera,
-	//	time_,
-	//	height, 
-	//	frequency_,
-	//	choice_);
-
-	//// Render object (combination of mesh geometry and shader process
-	//shader_->render(
-	//	renderer->getDeviceContext(), 
-	//	mesh_->getIndexCount()); // output data from the shader programme
+	shader_->render(
+		renderer->getDeviceContext(), 
+		mesh_->getIndexCount()); // output data from the shader programme
 }
 
 // Terrain Example GUI window

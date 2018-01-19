@@ -1,8 +1,6 @@
 #pragma once
 #include "Example.h"
 #include "TerrainTessellationShader.h"
-#include "TextureShader.h"
-#include "TerrainShader.h"
 
 class TerrainTessellationExample : public Example
 {
@@ -19,15 +17,8 @@ public:
 	void resetExample(Camera* camera);
 
 private:
-	void renderToTexture(D3D* renderer, Camera* camera, TextureManager* textureMgr);
-	void renderScene(D3D* renderer, Camera* camera, TextureManager* textureMgr);
 	// shader handler
 	TerrainTessellationShader* shader_;
-	TerrainShader* textureShader_;
-	// render to texture
-	RenderTexture* renderTexture;
-	OrthoMesh* orthoMesh;
-
 	// light
 	Light* light_;
 
