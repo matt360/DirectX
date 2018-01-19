@@ -169,7 +169,7 @@ void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureM
 	renderer->setZBuffer(true);
 
 	// Present the rendered scene to the screen.
-	renderer->endScene();
+	//renderer->endScene();
 }
 
 void RenderToTextureExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)

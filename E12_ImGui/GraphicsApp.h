@@ -6,6 +6,7 @@
 #include "TerrainExample.h"
 #include "TessellationExample.h"
 #include "TerrainTessellationExample.h"
+#include "RenderToTextureExample.h"
 
 enum class EXAMPLE_CHOICE {
 	SPECULAR_LIGHT,
@@ -51,6 +52,7 @@ private:
 	TerrainTessellationExample* terrainTessellationExample_;
 	MultiLightExample* multiLightExample_;
 	GeometryExample* geometryExample_;
+	RenderToTextureExample* renderToTextureExample_;
 	Example* example_;
 	EXAMPLE_CHOICE example_choice_;
 
