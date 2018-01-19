@@ -106,8 +106,13 @@ void RenderToTextureExample::renderToTexture(D3D* renderer, Camera* camera, Text
 	viewMatrix = camera->getViewMatrix();
 	projectionMatrix = renderer->getProjectionMatrix();
 
+	// Set primitive topology
+	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
+	if (d3d11_primitive_topology_trianglelist_) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
+
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	mesh_->sendData(renderer->getDeviceContext());
+	mesh_->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 	lightShader->setShaderParameters
 	(
 		renderer->getDeviceContext(),
@@ -127,9 +132,6 @@ void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureM
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoViewMatrix, orthoMatrix;
 
-	// Clear the scene. (default blue colour)
-	//renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-
 	// Generate the view matrix based on the camera's position.
 	camera->update();
 
@@ -138,8 +140,16 @@ void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureM
 	viewMatrix = camera->getViewMatrix();
 	projectionMatrix = renderer->getProjectionMatrix();
 
+	// wireframe mode
+	renderer->setWireframeMode(wireframe_);
+
+	// Set primitive topology
+	D3D_PRIMITIVE_TOPOLOGY d3d11_primitive_topology;
+	if (d3d11_primitive_topology_trianglelist_) d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	else d3d11_primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
+
 	// Send geometry data (from mesh)
-	mesh_->sendData(renderer->getDeviceContext());
+	mesh_->sendData(renderer->getDeviceContext(), d3d11_primitive_topology);
 	// Set shader parameters (matrices and texture)
 	lightShader->setShaderParameters
 	(
@@ -152,7 +162,6 @@ void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureM
 	// Render object (combination of mesh geometry and shader process
 	lightShader->render(renderer->getDeviceContext(), mesh_->getIndexCount());
 
-
 	// Render to ortho mesh
 	// Turn off the Z buffer to begin all 2D rendering. //////////////////////////
 	renderer->setZBuffer(false);
@@ -160,16 +169,14 @@ void RenderToTextureExample::renderScene(D3D* renderer, Camera* camera, TextureM
 	orthoMatrix = renderer->getOrthoMatrix();
 	orthoViewMatrix = camera->getOrthoViewMatrix();
 
-	orthoMesh->sendData(renderer->getDeviceContext());
+	// Set primitive topology
+	orthoMesh->sendData(renderer->getDeviceContext(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	textureShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, orthoViewMatrix, orthoMatrix,
 		renderTexture->getShaderResourceView()
 	);
 	textureShader->render(renderer->getDeviceContext(), orthoMesh->getIndexCount());
 	// Enable Z buffering after rendering //////////////////////////////////////////
 	renderer->setZBuffer(true);
-
-	// Present the rendered scene to the screen.
-	//renderer->endScene();
 }
 
 void RenderToTextureExample::render(D3D* renderer, Camera* camera, TextureManager* textureMgr)
@@ -226,5 +233,17 @@ void RenderToTextureExample::gui(Camera * camera)
 
 void RenderToTextureExample::resetExample(Camera * camera)
 {
+	// set cube mesh
+	set_mesh_choice(MESH_CHOICE::CUBE);
+	// reset geometry shader scale_
+	scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	// reset geometry shader wireframe mode
+	wireframe_ = false;
+	// reset geometry shader primitive topology
+	d3d11_primitive_topology_trianglelist_ = true;
+	d3d11_primitive_topology_pointlist_ = false;
+	// set the camera
+	camera->setPosition(13.0f, 4.0f, -22.0f);
+	camera->setRotation(0.0f, -30.0f, 7.0f);
 }
 

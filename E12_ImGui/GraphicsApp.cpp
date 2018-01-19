@@ -328,7 +328,7 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 		setActiveExample(renderToTextureExample_->example_, specularLightExample_->example_, tessellationExample_->example_,
 			terrainExample_->example_, multiLightExample_->example_, terrainTessellationExample_->example_, geometryExample_->example_);
 
-		geometryExample_->resetExample(camera);
+		renderToTextureExample_->resetExample(camera);
 		break;
 
 	default:
