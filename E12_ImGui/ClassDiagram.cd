@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Example" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAQAAAAAABIARJAAAACEAAEIEAAIAFQAAAQAAA=</HashCode>
+      <FileName>Example.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeometryExample" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AATAAABAAAAAAAAAACgAAAAAAAAAAAIAAAIAAAAQAAA=</HashCode>
+      <FileName>GeometryExample.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MultiLightExample" Collapsed="true">
+    <Position X="9" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AALAAABAIAAAAAIAACoAAAAAAAAAAAIAAAIAAAAQAAA=</HashCode>
+      <FileName>MultiLightExample.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RenderToTextureExample" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AADAIAhAAkAIAAAAACAAAAIAgAIAAIIAAAIAAAAQAQA=</HashCode>
+      <FileName>RenderToTextureExample.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpecularLightExample" Collapsed="true">
+    <Position X="2" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AADAAABAAAAAAAAAACgAAABAAAIAAAIAAAIAAAAQABA=</HashCode>
+      <FileName>SpecularLightExample.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TerrainExample" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AADAABRAAAAIAAAAACkAAAEAAAIAAAIAAAMAAAAQAAA=</HashCode>
+      <FileName>TerrainExample.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TerrainTessellationExample" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AADAAARIAAAIAAAAAi0AAAEAAAIAAAIAAAIAAAAwAAA=</HashCode>
+      <FileName>TerrainTessellationExample.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TessellationExample" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACACABAAAAAAAAAACgAAAAAAAAAAAIAAAIAAgAQAAA=</HashCode>
+      <FileName>TessellationExample.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeometryShader" Collapsed="true">
+    <Position X="5.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AECgAAQAAAIAAAAAAAAAAAAAAAAAAAAAIAAAAAAQAAA=</HashCode>
+      <FileName>GeometryShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RTTLightShader" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIGgACQACAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAQAAA=</HashCode>
+      <FileName>RTTLightShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpecularLightShader" Collapsed="true">
+    <Position X="9" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AECgAAQACAAAAAAAEAAAAAAAAAAABAAAAAAAAAgQAAA=</HashCode>
+      <FileName>SpecularLightShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MultiLightShader" Collapsed="true">
+    <Position X="9" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGCgAAQAAIAAAAABAAAAIAAAAAAABAAAAAAAQAAQAAA=</HashCode>
+      <FileName>MultiLightShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TerrainShader" Collapsed="true">
+    <Position X="7.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AECgAAQACAAAAAAAAAAAAAAAAAAIFAAAACAAAAAQAAA=</HashCode>
+      <FileName>TerrainShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TerrainTessellationShader" Collapsed="true">
+    <Position X="7.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AECgAAYACAAAAAAAAAAAAAAAAAAABEAAACAAAAAQAAA=</HashCode>
+      <FileName>TerrainTessellationShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TessellationShader" Collapsed="true">
+    <Position X="7.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AECgAAQAAAAIAAAACAAEAAAAAAAABAAAAAAAAAAQAAA=</HashCode>
+      <FileName>TessellationShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RTTTextureShader" Collapsed="true">
+    <Position X="5.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AICgAAQgAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>RTTTextureShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphicsApp" Collapsed="true">
+    <Position X="7.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAABABBAQAYRCEAAAAAQgAAAAAAICArAAESAYYAA=</HashCode>
+      <FileName>GraphicsApp.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="MESH_CHOICE" Collapsed="true">
+    <Position X="7.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAABEAQAACAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Example.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EXAMPLE_CHOICE" Collapsed="true">
+    <Position X="5.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAYEAAAAAAAgAAAACACAQAAAAAA=</HashCode>
+      <FileName>GraphicsApp.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
