@@ -167,40 +167,39 @@ void MultiLightExample::gui(Camera* camera)
 			resetExample(camera);
 		}
 		ImGui::Checkbox("Wireframe", &wireframe_);
-		// change lights' colour
-		ImGui::ColorEdit4("Light 0 Col",  (float*)light_colours_.at(0));
-		ImGui::ColorEdit4("Light 1 Col",  (float*)light_colours_.at(1));
-		ImGui::ColorEdit4("Light 2 Col",  (float*)light_colours_.at(2));
-		ImGui::ColorEdit4("Light 3 Col",  (float*)light_colours_.at(3));
-		ImGui::ColorEdit4("Light 4 Col",  (float*)light_colours_.at(4));
-		ImGui::ColorEdit4("Light 5 Col",  (float*)light_colours_.at(5));
-		ImGui::ColorEdit4("Light 6 Col",  (float*)light_colours_.at(6));
-		ImGui::ColorEdit4("Light 7 Col",  (float*)light_colours_.at(7));
-		ImGui::ColorEdit4("Light 8 Col",  (float*)light_colours_.at(8));
-		ImGui::ColorEdit4("Light 9 Col",  (float*)light_colours_.at(9));
-		ImGui::ColorEdit4("Light 10 Col", (float*)light_colours_.at(10));
-		ImGui::ColorEdit4("Light 11 Col", (float*)light_colours_.at(11));
-		ImGui::ColorEdit4("Light 12 Col", (float*)light_colours_.at(12));
-		ImGui::ColorEdit4("Light 13 Col", (float*)light_colours_.at(13));
-		ImGui::ColorEdit4("Light 14 Col", (float*)light_colours_.at(14));
-		ImGui::ColorEdit4("Light 15 Col", (float*)light_colours_.at(15));
-		// change lights' position
+		// change lights' colours and positions
 		float pos_clamp = 40.0f;
+		ImGui::ColorEdit4("Light 0 Col",  (float*)light_colours_.at(0));
 		ImGui::SliderFloat3("Light 0 Pos",  (float*)light_positions_.at(0),  -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 1 Col",  (float*)light_colours_.at(1));
 		ImGui::SliderFloat3("Light 1 Pos",  (float*)light_positions_.at(1),  -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 2 Col",  (float*)light_colours_.at(2));
 		ImGui::SliderFloat3("Light 2 Pos",  (float*)light_positions_.at(2),  -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 3 Col",  (float*)light_colours_.at(3));
 		ImGui::SliderFloat3("Light 3 Pos",  (float*)light_positions_.at(3),  -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 4 Col",  (float*)light_colours_.at(4));
 		ImGui::SliderFloat3("Light 4 Pos",  (float*)light_positions_.at(4),  -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 5 Col",  (float*)light_colours_.at(5));
 		ImGui::SliderFloat3("Light 5 Pos",  (float*)light_positions_.at(5),  -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 6 Col",  (float*)light_colours_.at(6));
 		ImGui::SliderFloat3("Light 6 Pos",  (float*)light_positions_.at(6),  -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 7 Col",  (float*)light_colours_.at(7));
 		ImGui::SliderFloat3("Light 7 Pos",  (float*)light_positions_.at(7),  -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 8 Col",  (float*)light_colours_.at(8));
 		ImGui::SliderFloat3("Light 8 Pos",  (float*)light_positions_.at(8),  -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 9 Col",  (float*)light_colours_.at(9));
 		ImGui::SliderFloat3("Light 9 Pos",  (float*)light_positions_.at(9),  -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 10 Col", (float*)light_colours_.at(10));
 		ImGui::SliderFloat3("Light 10 Pos", (float*)light_positions_.at(10), -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 11 Col", (float*)light_colours_.at(11));
 		ImGui::SliderFloat3("Light 11 Pos", (float*)light_positions_.at(11), -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 12 Col", (float*)light_colours_.at(12));
 		ImGui::SliderFloat3("Light 12 Pos", (float*)light_positions_.at(12), -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 13 Col", (float*)light_colours_.at(13));
 		ImGui::SliderFloat3("Light 13 Pos", (float*)light_positions_.at(13), -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 14 Col", (float*)light_colours_.at(14));
 		ImGui::SliderFloat3("Light 14 Pos", (float*)light_positions_.at(14), -pos_clamp, pos_clamp);
+		ImGui::ColorEdit4("Light 15 Col", (float*)light_colours_.at(15));
 		ImGui::SliderFloat3("Light 15 Pos", (float*)light_positions_.at(15), -pos_clamp, pos_clamp);
 		// scale_
 		ImGui::SliderFloat3("Scale", (float*)&scale_, -40.0f, 40.0f);
