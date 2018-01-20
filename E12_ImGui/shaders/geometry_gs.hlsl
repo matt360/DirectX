@@ -65,6 +65,8 @@ struct OutputType
 };
 
 // gs function
+// because we will be dealing with 8 vertices in the main function at the time
+// the maxvertexcount need to be set to 8
 [maxvertexcount(8)]
 // input[1] means take one point from the primitive
 
@@ -93,7 +95,7 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
     {
         float3 vposition = g_positions[i];
         // place the point in the world
-        vposition = mul(vposition, (float3x3)worldMatrix) + input[0].position;
+        vposition = mul(vposition, (float3x3) worldMatrix) + (float3) input[0].position;
         output.position = mul(float4(vposition, 1.0), viewMatrix);
         output.position = mul(output.position, projectionMatrix);
 
@@ -111,7 +113,7 @@ void main(point InputType input[1], inout TriangleStream<OutputType> triStream)
     {
         float3 vposition = g_positions[i];
         // place the point in the world
-        vposition = mul(vposition, (float3x3)worldMatrix) + input[0].position + normalize(input[0].normal) * -10.f;
+        vposition = mul(vposition, (float3x3) worldMatrix) + (float3) input[0].position + normalize(input[0].normal) * -10.f;
         output.position = mul(float4(vposition, 1.0), viewMatrix);
         output.position = mul(output.position, projectionMatrix);
 

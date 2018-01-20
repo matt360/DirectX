@@ -9,11 +9,11 @@ SamplerState SampleType;
 
 cbuffer LightColorBuffer
 {
-    float4 diffuseColor[NUM_LIGHTS];
+    float4 diffuseColour[NUM_LIGHTS];
 };
 
 // Typedefs
-struct PixelInputType
+struct InputType
 {
     float4 position : SV_POSITION;
     float2 tex : TEXCOORD0;
@@ -21,12 +21,11 @@ struct PixelInputType
     float3 lightPositions[NUM_LIGHTS] : TEXCOORD1;
 };
 
-// Pixel Shader
-float4 main(PixelInputType input) : SV_TARGET
+float4 main(InputType input) : SV_TARGET
 {
-    float4 textureColor;
+    float4 textureColour;
     float lightIntensity[NUM_LIGHTS];
-    float4 color,
+    float4 colour,
     colors[NUM_LIGHTS],
     add_colours = 0;
 
@@ -36,21 +35,21 @@ float4 main(PixelInputType input) : SV_TARGET
         lightIntensity[i] = saturate(dot(input.normal, input.lightPositions[i]));
     }
 
-	// Determine the diffuse color amount of each of the four lights.
+	// Determine the diffuse color amount of each of the light.
     for (i = 0; i < NUM_LIGHTS; ++i)
     {
-        colors[i] =  diffuseColor[i] * lightIntensity[i];
+        colors[i] =  diffuseColour[i] * lightIntensity[i];
     }
 
 	// Sample the texture pixel at this location.
-    textureColor = shaderTexture.Sample(SampleType, input.tex);
+    textureColour = shaderTexture.Sample(SampleType, input.tex);
 
-	// Multiply the texture pixel by the combination of all four light colors to get the final result.
+	// Multiply the texture pixel by the combination of all light colors to get the final result.
     for (i = 0; i < NUM_LIGHTS; ++i)
     {
         add_colours += colors[i];
     }
-    color = saturate(add_colours) * textureColor;
+    colour = saturate(add_colours) * textureColour;
 	
-    return color;
+    return colour;
 }
