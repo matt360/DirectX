@@ -79,16 +79,11 @@ DomainOut main(
         }
     }
 
-    // cross product
-
     // Calculate the position of the vertex against the world, view, and projection matrices.
-    output.position = float4(vertexPosition, 1.0f);
-    
+    output.position = float4(vertexPosition, 1.0f); 
     // Store normals for the pixel shader
     output.normal = normalPosition;
-
     output.tex = texPosition;
-
     output.position3D = vertexPosition;
 
 	return output;
