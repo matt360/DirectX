@@ -23,6 +23,11 @@
 #include "Light.h"
 #include "RenderTexture.h"
 
+// smart pointers
+// std::unique_ptr its constructor is explicit meaning
+// you have to call the construor explicitly
+#include <memory>
+
 // imGUI includes
 //#include "imgui.h"
 //#include "imgui_impl_dx11.h"

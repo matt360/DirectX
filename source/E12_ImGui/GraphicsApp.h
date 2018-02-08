@@ -45,16 +45,33 @@ private:
 	QuadMesh *quadMesh_;
 	PlaneMesh *planeMesh_;
 	TerrainMesh *terrainMesh_;
+	// unique pointer - lives only in a certain scope
+	// safe way to construct unique pointers
+	// if the constructor happens to throw an exception
+	// there won't be a dangling pointer with no reference 
+	// and memory leak
+	// {
+	//    std::unique_ptr<PlaneMesh> up_planeMesh_ = std::make_unique<PlaneMesh>();
+	// }
+
+	// shared pointer - can hold many referenes to the memory
+	// keeps track of ref count
+	std::shared_ptr<Example> example_;
+
+	// weak pointer
+	// assign a shader pointer to a weak pointer - doens't increase the ref count
+	// use when you don't want to, e.g. take ownership of the entity
+	//std::weak_ptr<RenderToTextureExample> renderToTextureExample_ - make_;
 
 	// EXAMPLES
-	SpecularLightExample* specularLightExample_;
-	TessellationExample* tessellationExample_;
-	TerrainExample* terrainExample_;
-	TerrainTessellationExample* terrainTessellationExample_;
-	MultiLightExample* multiLightExample_;
-	GeometryExample* geometryExample_;
-	RenderToTextureExample* renderToTextureExample_;
-	Example* example_;
+	std::shared_ptr<Example> SpecularLightExample specularLightExample_;
+	std::shared_ptr<Example> TessellationExample tessellationExample_;
+	std::shared_ptr<Example> TerrainExample terrainExample_;
+	std::shared_ptr<Example> TerrainTessellationExample terrainTessellationExample_;
+	std::shared_ptr<Example> MultiLightExample multiLightExample_;
+	std::shared_ptr<Example> GeometryExample geometryExample_;
+	std::shared_ptr<Example> RenderToTextureExample renderToTextureExample_;
+	//Example* example_;
 	EXAMPLE_CHOICE example_choice_;
 
 	// FUNCTIONS
