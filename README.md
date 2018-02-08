@@ -1,4 +1,4 @@
-# DirectX - Shaders
+# DirectX
 
 Please remember to set `E12_ImGUI` as start up project (Right click `E12_ImGUI` and then click `Set as StartUp Project`
 
