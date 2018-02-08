@@ -69,6 +69,10 @@ private:
 	std::shared_ptr<SpecularLightExample> specularLightExample_;
 	std::shared_ptr<TessellationExample> tessellationExample_;
 	std::shared_ptr<TerrainExample> terrainExample_;
+	// TODO fix: 
+	// TerrainTessellationExample when smart pointers makes it:
+	// loose textures
+	// explosion rate losses its value
 	std::shared_ptr<TerrainTessellationExample> terrainTessellationExample_;
 	std::shared_ptr<MultiLightExample> multiLightExample_;
 	std::shared_ptr<GeometryExample> geometryExample_;
