@@ -3,6 +3,7 @@
 
 GraphicsApp::GraphicsApp()
 {
+	// not needed with smart pointers
 	// geometry meshes
 	/*triangleMesh_ = nullptr;
 	sphereMesh_ = nullptr;
@@ -27,6 +28,7 @@ GraphicsApp::~GraphicsApp()
 	// Run base application deconstructor
 	BaseApplication::~BaseApplication();
 	
+	// not needed with smart pointers
 	// meshes
 	/*if (triangleMesh_)
 	{
@@ -106,6 +108,7 @@ void GraphicsApp::initExamples()
 	multiLightExample_ = std::make_shared<MultiLightExample>();
 	geometryExample_ = std::make_shared<GeometryExample>();
 	renderToTextureExample_ = std::make_shared<RenderToTextureExample>();
+	// not needed with smart pointers
 	/*specularLightExample_ = new SpecularLightExample;
 	tessellationExample_ = new TessellationExample;
 	terrainExample_ = new TerrainExample;
