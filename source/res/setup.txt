@@ -1,0 +1,4 @@
+Terrain Filename: res/height.png
+Terrain Height: 257
+Terrain Width: 257
+Terrain Scaling: 12.0

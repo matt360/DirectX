@@ -1,9 +1,0 @@
-int& a; | int a; empty reference. Requires an initializer
-
-num = Foo(10); | Foo doesn't return a value. Assignment will fail.
-
-for (int i = 0; i < x i++) - lacks ; between x and i 
-
-
-
-
