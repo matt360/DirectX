@@ -56,21 +56,23 @@ private:
 
 	// shared pointer - can hold many referenes to the memory
 	// keeps track of ref count
-	std::shared_ptr<Example> example_;
+	// std::shared_ptr<Example> example_ = std::make_shared<Example>();
 
 	// weak pointer
 	// assign a shader pointer to a weak pointer - doens't increase the ref count
 	// use when you don't want to, e.g. take ownership of the entity
-	//std::weak_ptr<RenderToTextureExample> renderToTextureExample_ - make_;
+	// std::weak_ptr<RenderToTextureExample> renderToTextureExample_ - make_;
+
+	Example* example_;
 
 	// EXAMPLES
-	std::shared_ptr<Example> SpecularLightExample specularLightExample_;
-	std::shared_ptr<Example> TessellationExample tessellationExample_;
-	std::shared_ptr<Example> TerrainExample terrainExample_;
-	std::shared_ptr<Example> TerrainTessellationExample terrainTessellationExample_;
-	std::shared_ptr<Example> MultiLightExample multiLightExample_;
-	std::shared_ptr<Example> GeometryExample geometryExample_;
-	std::shared_ptr<Example> RenderToTextureExample renderToTextureExample_;
+	SpecularLightExample* specularLightExample_;
+	TessellationExample* tessellationExample_;
+	TerrainExample* terrainExample_;
+	TerrainTessellationExample* terrainTessellationExample_;
+	MultiLightExample* multiLightExample_;
+	GeometryExample* geometryExample_;
+	RenderToTextureExample* renderToTextureExample_;
 	//Example* example_;
 	EXAMPLE_CHOICE example_choice_;
 
