@@ -3,23 +3,6 @@
 
 GraphicsApp::GraphicsApp()
 {
-	// not needed with smart pointers
-	// geometry meshes
-	/*triangleMesh_ = nullptr;
-	sphereMesh_ = nullptr;
-	cubeMesh_ = nullptr;
-	quadMesh_ = nullptr;
-	planeMesh_ = nullptr;
-	terrainMesh_ = nullptr;*/
-
-	/*specularLightExample_ = nullptr;
-	tessellationExample_ = nullptr;
-	terrainExample_ = nullptr;
-	terrainTessellationExample_ = nullptr;
-	multiLightExample_ = nullptr;
-	geometryExample_ = nullptr;
-	renderToTextureExample_ = nullptr;
-	example_ = nullptr;*/
 }
 
 // Release the Direct3D objects
@@ -27,44 +10,6 @@ GraphicsApp::~GraphicsApp()
 {
 	// Run base application deconstructor
 	BaseApplication::~BaseApplication();
-	
-	// not needed with smart pointers
-	// meshes
-	/*if (triangleMesh_)
-	{
-		delete triangleMesh_;
-		triangleMesh_ = 0;
-	}
-
-	if (sphereMesh_)
-	{
-		delete sphereMesh_;
-		sphereMesh_ = 0;
-	}
-
-	if (cubeMesh_)
-	{
-		delete cubeMesh_;
-		cubeMesh_ = 0;
-	}
-
-	if (quadMesh_)
-	{
-		delete quadMesh_;
-		quadMesh_ = 0;
-	}
-
-	if (planeMesh_)
-	{
-		delete planeMesh_;
-		planeMesh_ = 0;
-	}
-
-	if (terrainMesh_)
-	{
-		delete terrainMesh_;
-		terrainMesh_ = 0;
-	}*/
 
 	// examples
 	specularLightExample_->~SpecularLightExample();
@@ -108,14 +53,6 @@ void GraphicsApp::initExamples()
 	multiLightExample_ = std::make_shared<MultiLightExample>();
 	geometryExample_ = std::make_shared<GeometryExample>();
 	renderToTextureExample_ = std::make_shared<RenderToTextureExample>();
-	// not needed with smart pointers
-	/*specularLightExample_ = new SpecularLightExample;
-	tessellationExample_ = new TessellationExample;
-	terrainExample_ = new TerrainExample;
-	terrainTessellationExample_ = new  TerrainTessellationExample;
-	multiLightExample_ = new MultiLightExample;
-	geometryExample_ = new GeometryExample;
-	renderToTextureExample_ = new RenderToTextureExample;*/
 }
 
 void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
@@ -274,6 +211,7 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 	switch (eg)
 	{
 	case EXAMPLE_CHOICE::SPECULAR_LIGHT:
+		// set choice
 		example_ = specularLightExample_;
 		example_choice_ = EXAMPLE_CHOICE::SPECULAR_LIGHT;
 		setActiveExample(specularLightExample_->example_, tessellationExample_->example_, terrainExample_->example_,
@@ -283,6 +221,7 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 		break;
 
 	case EXAMPLE_CHOICE::TESSELLATION:
+		// set choice
 		example_ = tessellationExample_;
 		example_choice_ = EXAMPLE_CHOICE::TESSELLATION;
 		setActiveExample(tessellationExample_->example_, specularLightExample_->example_, terrainExample_->example_,
@@ -343,6 +282,7 @@ void GraphicsApp::chooseExample(EXAMPLE_CHOICE eg)
 
 	default:
 		example_ = specularLightExample_;
+		// set choice
 		example_choice_ = EXAMPLE_CHOICE::SPECULAR_LIGHT;
 		setActiveExample(specularLightExample_->example_, tessellationExample_->example_, terrainExample_->example_,
 			multiLightExample_->example_, geometryExample_->example_, terrainTessellationExample_->example_, renderToTextureExample_->example_);
