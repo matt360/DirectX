@@ -11,14 +11,14 @@ GraphicsApp::GraphicsApp()
 	planeMesh_ = nullptr;
 	terrainMesh_ = nullptr;
 
-	specularLightExample_ = nullptr;
+	/*specularLightExample_ = nullptr;
 	tessellationExample_ = nullptr;
 	terrainExample_ = nullptr;
 	terrainTessellationExample_ = nullptr;
 	multiLightExample_ = nullptr;
 	geometryExample_ = nullptr;
 	renderToTextureExample_ = nullptr;
-	example_ = nullptr;
+	example_ = nullptr;*/
 }
 
 // Release the Direct3D objects
@@ -99,13 +99,13 @@ void GraphicsApp::initGeometry()
 
 void GraphicsApp::initExamples()
 {
-	specularLightExample_ = new SpecularLightExample;
+	/*specularLightExample_ = new SpecularLightExample;
 	tessellationExample_ = new TessellationExample;
 	terrainExample_ = new TerrainExample;
 	terrainTessellationExample_ = new  TerrainTessellationExample;
 	multiLightExample_ = new MultiLightExample;
 	geometryExample_ = new GeometryExample;
-	renderToTextureExample_ = new RenderToTextureExample;
+	renderToTextureExample_ = new RenderToTextureExample;*/
 }
 
 void GraphicsApp::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in)
