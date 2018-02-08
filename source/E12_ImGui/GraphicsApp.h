@@ -64,13 +64,13 @@ private:
 	//std::weak_ptr<RenderToTextureExample> renderToTextureExample_ - make_;
 
 	// EXAMPLES
-	std::shared_ptr<SpecularLightExample> specularLightExample_ = std::make_shared<SpecularLightExample>();
-	std::shared_ptr<TessellationExample> tessellationExample_ = std::make_shared<TessellationExample>();
-	std::shared_ptr<TerrainExample> terrainExample_ = std::make_shared<TerrainExample>();
-	std::shared_ptr<TerrainTessellationExample> terrainTessellationExample_ = std::make_shared<TerrainTessellationExample>();
-	std::shared_ptr<MultiLightExample> multiLightExample_ = std::make_shared<MultiLightExample>();
-	std::shared_ptr<GeometryExample> geometryExample_ = std::make_shared<GeometryExample>();
-	std::shared_ptr<RenderToTextureExample> renderToTextureExample_ = std::make_shared<RenderToTextureExample>();
+	std::shared_ptr<SpecularLightExample> specularLightExample_;
+	std::shared_ptr<TessellationExample> tessellationExample_;
+	std::shared_ptr<TerrainExample> terrainExample_;
+	std::shared_ptr<TerrainTessellationExample> terrainTessellationExample_;
+	std::shared_ptr<MultiLightExample> multiLightExample_;
+	std::shared_ptr<GeometryExample> geometryExample_;
+	std::shared_ptr<RenderToTextureExample> renderToTextureExample_;
 	//Example* example_;
 	EXAMPLE_CHOICE example_choice_;
 

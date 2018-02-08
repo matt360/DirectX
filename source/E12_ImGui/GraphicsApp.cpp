@@ -99,6 +99,13 @@ void GraphicsApp::initGeometry()
 
 void GraphicsApp::initExamples()
 {
+	specularLightExample_ = std::make_shared<SpecularLightExample>();
+	tessellationExample_ = std::make_shared<TessellationExample>();
+	terrainExample_ = std::make_shared<TerrainExample>();
+	terrainTessellationExample_ = std::make_shared<TerrainTessellationExample>();
+	multiLightExample_ = std::make_shared<MultiLightExample>();
+	geometryExample_ = std::make_shared<GeometryExample>();
+	renderToTextureExample_ = std::make_shared<RenderToTextureExample>();
 	/*specularLightExample_ = new SpecularLightExample;
 	tessellationExample_ = new TessellationExample;
 	terrainExample_ = new TerrainExample;
