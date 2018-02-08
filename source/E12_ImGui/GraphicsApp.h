@@ -39,12 +39,12 @@ private:
 	void loadTextures();
 
 	// MESHES
-	TriangleMesh *triangleMesh_;
-	SphereMesh *sphereMesh_;
-	CubeMesh *cubeMesh_;
-	QuadMesh *quadMesh_;
-	PlaneMesh *planeMesh_;
-	TerrainMesh *terrainMesh_;
+	std::shared_ptr<TriangleMesh> triangleMesh_;
+	std::shared_ptr<SphereMesh> sphereMesh_;
+	std::shared_ptr<CubeMesh> cubeMesh_;
+	std::shared_ptr<QuadMesh> quadMesh_;
+	std::shared_ptr<PlaneMesh> planeMesh_;
+	std::shared_ptr<TerrainMesh> terrainMesh_;
 	// unique pointer - lives only in a certain scope
 	// safe way to construct unique pointers
 	// if the constructor happens to throw an exception
@@ -62,6 +62,8 @@ private:
 	// assign a shader pointer to a weak pointer - doens't increase the ref count
 	// use when you don't want to, e.g. take ownership of the entity
 	//std::weak_ptr<RenderToTextureExample> renderToTextureExample_ - make_;
+
+	// Application uses smart pointers in the "shared_pointers" branch
 
 	// EXAMPLES
 	std::shared_ptr<SpecularLightExample> specularLightExample_;

@@ -4,12 +4,12 @@
 GraphicsApp::GraphicsApp()
 {
 	// geometry meshes
-	triangleMesh_ = nullptr;
+	/*triangleMesh_ = nullptr;
 	sphereMesh_ = nullptr;
 	cubeMesh_ = nullptr;
 	quadMesh_ = nullptr;
 	planeMesh_ = nullptr;
-	terrainMesh_ = nullptr;
+	terrainMesh_ = nullptr;*/
 
 	/*specularLightExample_ = nullptr;
 	tessellationExample_ = nullptr;
@@ -28,7 +28,7 @@ GraphicsApp::~GraphicsApp()
 	BaseApplication::~BaseApplication();
 	
 	// meshes
-	if (triangleMesh_)
+	/*if (triangleMesh_)
 	{
 		delete triangleMesh_;
 		triangleMesh_ = 0;
@@ -62,7 +62,7 @@ GraphicsApp::~GraphicsApp()
 	{
 		delete terrainMesh_;
 		terrainMesh_ = 0;
-	}
+	}*/
 
 	// examples
 	specularLightExample_->~SpecularLightExample();
@@ -89,12 +89,12 @@ void GraphicsApp::loadTextures()
 // Create mesh objects
 void GraphicsApp::initGeometry()
 {
-	triangleMesh_ = new TriangleMesh(renderer->getDevice(), renderer->getDeviceContext());
-	sphereMesh_ = new SphereMesh(renderer->getDevice(), renderer->getDeviceContext());
-	cubeMesh_ = new CubeMesh(renderer->getDevice(), renderer->getDeviceContext());
-	quadMesh_ = new QuadMesh(renderer->getDevice(), renderer->getDeviceContext());
-	planeMesh_ = new PlaneMesh(renderer->getDevice(), renderer->getDeviceContext());
-	terrainMesh_ = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
+	triangleMesh_ = std::make_shared<TriangleMesh>(renderer->getDevice(), renderer->getDeviceContext());
+	sphereMesh_ = std::make_shared<SphereMesh>(renderer->getDevice(), renderer->getDeviceContext());
+	cubeMesh_ = std::make_shared<CubeMesh>(renderer->getDevice(), renderer->getDeviceContext());
+	quadMesh_ = std::make_shared<QuadMesh>(renderer->getDevice(), renderer->getDeviceContext());
+	planeMesh_ = std::make_shared<PlaneMesh>(renderer->getDevice(), renderer->getDeviceContext());
+	terrainMesh_ = std::make_shared<TerrainMesh>(renderer->getDevice(), renderer->getDeviceContext(), 100, 200);
 }
 
 void GraphicsApp::initExamples()
@@ -354,31 +354,31 @@ BaseMesh* GraphicsApp::chooseMesh(const MESH_CHOICE& mesh_choice)
 	switch (mesh_choice)
 	{
 	case MESH_CHOICE::TRIANGLE:
-		return triangleMesh_;
+		return triangleMesh_.get();
 		break;
 
 	case MESH_CHOICE::SPHERE:
-		return sphereMesh_;
+		return sphereMesh_.get();
 		break;
 
 	case MESH_CHOICE::CUBE:
-		return cubeMesh_;
+		return cubeMesh_.get();
 		break;
 
 	case MESH_CHOICE::QUAD:
-		return quadMesh_;
+		return quadMesh_.get();
 		break;
 
 	case MESH_CHOICE::PLANE:
-		return planeMesh_;
+		return planeMesh_.get();
 		break;
 
 	case MESH_CHOICE::TERRAIN:
-		return terrainMesh_;
+		return terrainMesh_.get();
 		break;
 
 	default:
-		return triangleMesh_;
+		return triangleMesh_.get();
 		break;
 	}
 }
