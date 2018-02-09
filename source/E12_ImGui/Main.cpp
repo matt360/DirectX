@@ -1,24 +1,9 @@
 // Main.cpp
 
-/*
-Ideally the coursework
-should demonstrate the use of all shader stages:
-- Vertex
-- Pixel
-- Tessellation (including Hull and Domain)
-- Geometry
-The coursework should also demonstrate key graphical techniques such as:
-- Vertex manipulation
-- Post processing
-- Lighting and shadows
-- Tessellation
-- Geometry manipulation and/or generation
-*/
-
 #include "../DXFramework/System.h"
 #include "GraphicsApp.h"
 
-// main function in an entry point
+// main function in an entry point, an entry point for our application
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, int iCmdshow)
 {
 	BaseApplication* app = new GraphicsApp();
@@ -34,5 +19,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 	delete m_System;
 	m_System = 0;
 
-	return 0;
+	// if the main function doesn't return anything it will be assumed that it returned zero
+	// return 0
 }
