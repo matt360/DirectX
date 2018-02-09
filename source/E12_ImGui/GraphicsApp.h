@@ -1,5 +1,6 @@
 // hash # is a preprocessor statement - happens before the actual compilation happens
 // include mean find a file, take all of the contents of that file and and paste in the current file
+// header files don't get compiled, just cpp files.
 
 #pragma once
 #include "../DXFramework/DXF.h"

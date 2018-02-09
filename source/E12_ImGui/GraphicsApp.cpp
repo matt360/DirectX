@@ -1,4 +1,7 @@
 // GraphicsApp.cpp
+// only cpp files get compiled
+// header files get included into a cpp file via a preprocessor statement called 'include'
+// and that's when they get compiled
 #include "GraphicsApp.h"
 
 GraphicsApp::GraphicsApp()
