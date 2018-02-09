@@ -18,6 +18,7 @@ The coursework should also demonstrate key graphical techniques such as:
 #include "../DXFramework/System.h"
 #include "GraphicsApp.h"
 
+// main function in an entry point
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, int iCmdshow)
 {
 	BaseApplication* app = new GraphicsApp();

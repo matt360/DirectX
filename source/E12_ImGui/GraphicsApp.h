@@ -1,3 +1,6 @@
+// hash # is a preprocessor statement - happens before the actual compilation happens
+// include mean find the file named like "this" and paste it here
+
 #pragma once
 #include "../DXFramework/DXF.h"
 #include "GeometryExample.h"
