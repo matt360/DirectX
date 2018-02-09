@@ -2,6 +2,17 @@
 // only cpp files get compiled
 // header files get included into a cpp file via a preprocessor statement called 'include'
 // and that's when they get compiled
+// cpp files get compiled individually
+// every cpp file will get compiled into something called an object file
+// the VS extencion for that is .obj
+// once we have all those .obj files, which are the result of compiling the cpp files,
+// the linker takes all the .obj files and stiches them together into one .exe file
+
+// CTRL + F7 - build an individual file
+
+// The way erro window works is it looks through the output window and looks for the work 'error'
+// when it finds it it outputs it to the error window
+// Not too good. Output window has a lot more debug information.
 #include "GraphicsApp.h"
 
 GraphicsApp::GraphicsApp()
