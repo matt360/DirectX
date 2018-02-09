@@ -13,6 +13,9 @@
 // The way erro window works is it looks through the output window and looks for the work 'error'
 // when it finds it it outputs it to the error window
 // Not too good. Output window has a lot more debug information.
+
+// when you hit compile on the single file, the liner doesn't get called at all
+ 
 #include "GraphicsApp.h"
 
 GraphicsApp::GraphicsApp()
