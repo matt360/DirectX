@@ -5,7 +5,10 @@
 // 	compiler needs to pre-process out code (any pre-process statement get evaluated). 
 // 	Turing text (parsing, tokeninzing) into a forat that the complier can actually reson with. 
 // 	This resulst in a syntax tree being created (Represenation of our code as an abstract syntax tree)
-// The compilers job at the end of the data is to convert our code into either: constant data or intrusctions.
+// The compilers job at the end of the data is to convert our code into either: constant data or instructions.
+// Once the compiler has created this abstract syntax tree it can begin actaully generating code: 
+// the actual machine code that our CPU will execute. 
+// There's going to be various other data: like a place to store all our constant. 
 // - Linking
 
 
